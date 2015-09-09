@@ -1,0 +1,101 @@
+#20150528 czl 教师表增加昵称字段
+alter table teacher add column nickname varchar(64);
+update teacher set nickname=name where ifnull(nickname,'')='';
+
+#20150528 czl 机构表增加机构归属地区
+alter table organization_sources add column city_id int comment '机构归属地区';
+
+
+drop table if exists audio_set;
+
+/*==============================================================*/
+/* Table: audio_set                                             */
+/*==============================================================*/
+create table audio_set
+(
+   id                   varchar(64) not null,
+   name                 varchar(64) comment '习题集名称',
+   price                int comment '价格',
+   teacher_id           varchar(64) comment '教师ID',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   primary key (id)
+);
+
+alter table audio_set comment '习题集';
+
+drop table if exists audio_set_detail;
+
+/*==============================================================*/
+/* Table: audio_set_detail                                      */
+/*==============================================================*/
+create table audio_set_detail
+(
+   id                   bigint not null auto_increment,
+   set_id               varchar(64),
+   audio_id             varchar(64) comment '音频ID',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   order_no             int comment '序号',
+   primary key (id)
+);
+
+DROP TABLE IF EXISTS `explanation`;
+CREATE TABLE `explanation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `img_id` varchar(100) NOT NULL COMMENT '图片url',
+  `question_real_id1` bigint(20) DEFAULT NULL COMMENT '识别后对应的问题Id1',
+  `question_real_id2` bigint(20) DEFAULT NULL COMMENT '识别后对应的问题Id2',
+  `question_real_id3` bigint(20) DEFAULT NULL COMMENT '识别后对应的问题Id3',
+  `audio_create_time` datetime DEFAULT NULL COMMENT '音频创建时间',
+  `live_img_create_time` timestamp NULL DEFAULT NULL COMMENT 'liveaaImage的创建时间',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `teacher_id` varchar(50) NOT NULL COMMENT '名师汇老师id',
+  `status` int(11) DEFAULT NULL COMMENT '状态 1未录制 2已经录制',
+  `audio_whiteboard_id` varchar(50) DEFAULT NULL COMMENT '音频白版id',
+  `deal_status` int(11) NOT NULL COMMENT '处理状态，1正常，2删除，3识别错误，4拉取试题失败',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_uq_imgid` (`img_id`) USING HASH
+) ENGINE=InnoDB AUTO_INCREMENT=605 DEFAULT CHARSET=utf8 COMMENT='拍题录讲解\r\n';
+
+DROP TABLE IF EXISTS `recom_teacher_order`;
+CREATE TABLE `recom_teacher_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `teacher_id` varchar(50) DEFAULT NULL COMMENT '教师id',
+  `order_id` int(11) DEFAULT NULL COMMENT '位置id，数字越大越靠前',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
+  `operator` varchar(100) DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='推荐咨询师顺序oder关系表';
+
+
+
+alter table audio_set_detail comment '习题集明细';
+
+alter table audio_set_detail add column question_id bigint;
+alter table audio_set_detail add column latex text;
+alter table audio_set_detail add column audio_type int;
+
+#20150608 czl 增加银行卡用户名
+alter table teacher add column bank_user_name varchar(64);
+
+#20150610 czl 增加教师留言表
+CREATE TABLE `teacher_message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `student_id` varchar(50) DEFAULT NULL COMMENT '留言学生ID',
+  `teacher_id` varchar(50) DEFAULT NULL COMMENT '教师ID',
+  `content` varchar(256) DEFAULT NULL COMMENT '留言信息',
+  `type` int(5) DEFAULT NULL COMMENT '1. 表示学生留言，2. 表示教师留言',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=859 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='教师首页学生留言信息表';
+
+
+#20150610 冯斌 增加抢答表定向请求老师
+alter table feud_quest add column source_teacher varchar(64);
+
+#20150615 czl 增加习题集状态
+alter table audio_set add column status tinyint default 1;

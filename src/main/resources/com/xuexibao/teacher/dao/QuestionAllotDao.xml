@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.QuestionAllotDao">
+	<select id="queryExpiredId" resultType="QuestionAllot" parameterType="map">
+		<![CDATA[
+		     select id,question_id,org_id from question_allot where allot_time < date_sub(now(), interval #{day} day) limit #{limit}
+		]]>
+	</select>
+	
+	<update id="deleteQuestionAllotById" parameterType="long">
+		delete from question_allot where id = #{value}
+	</update>
+	
+	<update id="releaseQuestionAllotByRealId" parameterType="long">
+		update  question a
+		set a.allot_status=0,a.update_time=now()
+		where a.real_id=#{value}
+	</update>
+</mapper> 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.TeacherReportDao">
+	<select id="loadTeacherReport" resultType="TeacherReport" parameterType="String">
+		<![CDATA[
+			select *
+			from teacher_report 
+			where id=#{value}
+		 ]]>
+	</select>
+
+	<select id="listTeacherReport" resultType="TeacherReport" parameterType="map">
+		<![CDATA[
+			select *
+			from teacher_report 
+			where id <#{lastId}
+			order by id desc 
+			limit #{pageSize}
+		]]>
+	</select>
+
+	<insert id="addTeacherReport" useGeneratedKeys="true" keyProperty="id"  parameterType="TeacherReport">
+		insert into
+		teacher_report(
+			msg_id,
+			msg_type,
+			teacher_id,
+			create_time,
+			update_time,
+			report_type,
+			content
+		)
+		values(
+					#{msgId},
+					#{msgType},
+					#{teacherId},
+					#{createTime},
+					#{updateTime},
+					#{reportType},
+					#{content}
+		)
+	</insert>
+
+	<delete id="deleteTeacherReport" parameterType="String">
+		<![CDATA[
+			delete 
+			from teacher_report 
+			where id=#{value}
+		]]>
+	</delete>
+ 
+</mapper> 

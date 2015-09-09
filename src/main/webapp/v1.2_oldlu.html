@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	<title>教师端1.2版本相关接口——老陆</title>
+	<body>
+		<br>基础接口<br>
+		1、[api/user/login]获取token
+		<form id="1" action="api/user/login" method="post">
+			phoneNumber:<input type="text" name="phoneNumber" value="18758031357" />
+			password：<input type="text" name="password" value="123456" />
+			deviceId：<input type="text" name="deviceId" value="RAgP1i7r+jLQxFd+VmL/5NBNznPtmW/6YxoTQ4QOZvNptzTbxbAz1zE5jUemdXKRYD9SK7tFlmwV45EdVbeYlD8Lt85Xr74b220z6klJFm2RjjZTr121xJeoUrUDV9FRhcTfhabbMndrBCIEo7NYTJ7K/9MoiimxbMgIUTHOVEqygNDKH7QxAW5BNCSYj8Utcilgd2Qeulx/sGMSfLcrdqdlAg2Y19f3h/QPRVNu5pGitagstapOnn6S+NCPV17WTGIfU1UKhL+n+60zSs/SxVNHrj/wbw+kO2HnN5RKGuJTHkPCGmN9aqX1i1EVm0KobQw4zJSo4w8VbPOyQhcCPQ==" />
+			deviceType：<input type="text" name="deviceType" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		<br><br>升星模块<br>
+		1、[api/rattingapply/addRattingApply]升星申请
+		<form id="1" action="api/rattingapply/addRattingApply" method="post">
+			Token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF363BD8079CA08F73BA9D43EAB2A01C329AE3112CA23CD9923302D44D1857F3BE10EFD64CA079B16FFDD90F02C3D55719E" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		2、[api/rattingapply/listRattingApply]升星记录
+		<form id="1" action="api/rattingapply/listRattingApply" method="post">
+			Token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF363BD8079CA08F73BA9D43EAB2A01C329AE3112CA23CD9923302D44D1857F3BE10EFD64CA079B16FFDD90F02C3D55719E" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		3、[api/rattingapply/getRattingInfo]获取升星主页信息
+		<form id="1" action="api/rattingapply/getRattingInfo" method="post">
+			Token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF363BD8079CA08F73BA9D43EAB2A01C329AE3112CA23CD9923302D44D1857F3BE10EFD64CA079B16FFDD90F02C3D55719E" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		<br><br>学生端接口<br>
+		 1、[api/student/queryAudioSetBySortType]宝典习题排序接口[1:销量从高到低,2:星级从高到低,3:价格从高到低,4:价格从低到高]
+		<form id="1" action="api/student/queryAudioSetBySortType" method="post">
+			studentId：<input type="text" name="studentId" value="" /><br>
+			type：<input type="text" name="type" value="1" /><br>
+			pageno：<input type="text" name="pageno" value="1" /><br>
+			count：<input type="text" name="count" value="20" /><br>
+			subjectIds(选填)：<input type="text" name="subjectIds" value="1,2" />【1:数学,2:语文,3:英语,4:政治,5:历史,6:地理,7:物理,8:化学,9:生物,空：全部】<br>
+			gradeIds(选填)：<input type="text" name="gradeIds" value="1,2" />【1:一年级,2:二年级,3:三年级,4:四年级,5:五年级,6:六年级,7:初一,8:初二,9:初三,10:高一,11:高二,12:高三,空：全部】<br>
+			<input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+		
+		 2、[api/learnTalk/queryIsHudong]互动接口性能优化
+		<form id="1" action="api/learnTalk/queryIsHudong" method="post">
+			userId：<input type="text" name="userId" value="55616574745138382cd73636" /><br>
+			questionIds：<input type="text" name="questionIds" value="57574441,1033821,25342220,16725939,57574441,5776194,787036,83649472,81832170,45073779" /><br>
+			<input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+	</body>
+</html>
+

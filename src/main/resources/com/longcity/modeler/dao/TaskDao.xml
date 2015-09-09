@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.modeler.dao.Task" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="Task"  >
+    insert into task (id, user_id, title, 
+      url, price, shot_fee, 
+      img_url, self_buy_off, shot_desc, 
+      gender, shape, height_min, 
+      height_max, areaId, modeler_level, 
+      self_buy_rate, number, shot_area_id, 
+      status,create_time,update_time)
+    values (#{id}, #{userId}, #{title}, 
+      #{url}, #{price}, #{shotFee}, 
+      #{imgUrl}, #{selfBuyOff}, #{shotDesc}, 
+      #{gender}, #{shape}, #{heightMin}, 
+      #{heightMax}, #{areaid}, #{modelerLevel}, 
+      #{selfBuyRate}, #{number}, #{shotAreaId}, 
+      #{status},now(),now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="Task" >
+    update task
+    set user_id = #{userId},
+      title = #{title},
+      url = #{url},
+      price = #{price},
+      shot_fee = #{shotFee},
+      img_url = #{imgUrl},
+      self_buy_off = #{selfBuyOff},
+      shot_desc = #{shotDesc},
+      gender = #{gender},
+      shape = #{shape},
+      height_min = #{heightMin},
+      height_max = #{heightMax},
+      areaId = #{areaid},
+      modeler_level = #{modelerLevel},
+      self_buy_rate = #{selfBuyRate},
+      number = #{number},
+      shot_area_id = #{shotAreaId},
+      status = #{status}
+    where id = #{id}
+  </update>
+  
+  <update id="updateStatus" >
+    update task
+    set  status = #{param2}
+    where id = #{param1}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultType="Task" parameterType="java.lang.Integer" >
+    select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
+    gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
+    shot_area_id, status
+    from task
+    where id = #{id}
+  </select>
+</mapper>

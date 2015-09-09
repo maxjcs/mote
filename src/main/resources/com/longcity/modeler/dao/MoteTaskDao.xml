@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.modeler.dao.MoteTask" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mote_task
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="MoteTask" >
+    insert into mote_task (id, user_id, task_id, 
+      create_time, update_time, order_no, 
+      express_company_id, express_no, self_buy_fee, 
+      status)
+    values (#{id}, #{userId}, #{taskId}, 
+      now(), now(), #{orderNo}, 
+      #{expressCompanyId}, #{expressNo}, #{selfBuyFee}, 
+      #{status})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="MoteTask" >
+    update mote_task
+    set user_id = #{userId},
+      task_id = #{taskId},
+      update_time = now(),
+      order_no = #{orderNo},
+      express_company_id = #{expressCompanyId},
+      express_no = #{expressNo},
+      self_buy_fee = #{selfBuyFee},
+      status = #{status}
+    where id = #{id}
+  </update>
+  
+  <update id="addOrderNo" >
+    update mote_task
+    set 
+      update_time = now(),
+      order_no = #{orderNo},
+      status = 2
+    where id = #{moteTaskId}
+  </update>
+  
+    <update id="updateStatus" >
+    update mote_task
+    set 
+      update_time = now(),
+      status = #{param2}
+    where id = #{param1}
+  </update>
+  
+  
+  <update id="selfBuy" >
+    update mote_task
+    set  
+     self_buy_fee = #{fee},
+     status = 4
+    where id = #{moteTaskId}
+  </update>
+  
+  <update id="returnItem" >
+    update mote_task
+    set  
+     express_company_id = #{expressCompanyId},
+     express_no = #{expressNo},
+     self_buy_fee = #{fee}
+     status = 5
+    where id = #{moteTaskId}
+  </update>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultType="MoteTask" parameterType="java.lang.Integer" >
+    select id, user_id, task_id, create_time, update_time, order_no, express_company_id, 
+    express_no, self_buy_fee, status
+    from mote_task
+    where id = #{id}
+  </select>
+</mapper>

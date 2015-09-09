@@ -1,0 +1,61 @@
+drop procedure if exists cal_teacher_followed_distribute;
+create procedure cal_teacher_followed_distribute()
+begin
+	declare count_all int default 0; 
+	declare count_0 int default 0;
+	declare count_1_5 int default 0;
+	declare count_6_10 int default 0;
+	declare count_11_20 int default 0;
+	declare count_21_ int default 0;
+	select count(*) into count_all from teacher ; 
+	
+	select count(*) into count_1_5
+	from (
+		select teacher_id,count(*) count 
+		from teacher_followed 
+		group by teacher_id
+		having count(*)>=1 and count(*)<=5
+	) a;
+	
+	select count(*) into count_6_10
+	from (
+		select teacher_id,count(*) count 
+		from teacher_followed 
+		group by teacher_id
+		having count(*)>=6 and count(*)<=10
+	) a;
+	
+	select count(*) into count_11_20
+	from (
+		select teacher_id,count(*) count 
+		from teacher_followed 
+		group by teacher_id
+		having count(*)>=11 and count(*)<=20
+	) a;
+
+	select count(*) into count_21_
+	from (
+		select teacher_id,count(*) count 
+		from teacher_followed 
+		group by teacher_id
+		having count(*)>=21 
+	) a;
+
+	set count_0=count_all-count_1_5-count_6_10-count_11_20-count_21_;
+
+	select '教师总数',count_all '学生关注量','关注占比'
+	union 
+	select '关注数0',count_0,format(count_0/count_all*100,4)
+	union 
+	select '关注数1-5',count_1_5,format(count_1_5/count_all*100,4)
+	union 
+	select '关注数6-10',count_6_10,format(count_6_10/count_all*100,4)
+	union 
+	select '关注数11-20',count_11_20,format(count_11_20/count_all*100,4)
+	union 
+	select '关注数21+',count_21_,format(count_21_/count_all*100,4);
+end;
+
+call cal_teacher_followed_distribute;
+
+ 

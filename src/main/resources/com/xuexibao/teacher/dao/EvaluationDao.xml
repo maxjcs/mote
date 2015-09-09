@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.EvaluationDao">
+	<select id="allEvaluation" resultType="Evaluation" >
+		<![CDATA[
+			select id,level,name,description,point,teacher_identify
+			from evaluation 
+		]]>
+	</select>
+
+	<update id="updateEvaluation" parameterType="Evaluation">
+		update evaluation 
+		set  
+			  <if test="#{level}!=null and #{level}!='' ">
+                	level=#{level},
+              </if>
+			  <if test="#{name}!=null and #{name}!='' ">
+                	name=#{name},
+              </if>
+			  <if test="#{description}!=null and #{description}!='' ">
+                	description=#{description},
+              </if>
+			  <if test="#{point}!=null and #{point}!='' ">
+                	point=#{point},
+              </if>
+              1=1
+		where id=#{id}
+	</update>
+</mapper> 

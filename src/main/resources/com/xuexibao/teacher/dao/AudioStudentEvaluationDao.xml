@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.AudioStudentEvaluationDao">
+	<insert id="insert" parameterType="AudioStudentEvaluation">
+		insert into
+		audio_student_evaluation(
+		    id,
+		    teacher_id,
+			audio_id,
+			user_id,
+			evaluation,
+			content,
+			point,
+			remain_point,
+			create_time
+		)
+		values(
+				#{id},
+				#{teacherId},
+				#{audioId},
+				#{userId},
+				#{evaluation},
+				#{content},
+				#{point},
+				#{remainPoint},
+				now()
+		)
+	</insert>
+	
+	<select id="getPointByAudioId" resultType="java.lang.Integer">
+		select sum(point) from audio_student_evaluation where audio_id=#{value} limit 1
+	</select>
+	
+   <select id="queryByUserIdAudioId" resultType="AudioStudentEvaluation">
+		select * from audio_student_evaluation where user_id=#{param1} and audio_id=#{param2} limit 1
+	</select>
+</mapper> 

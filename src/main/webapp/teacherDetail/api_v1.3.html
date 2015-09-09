@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教师个人主页联调接口说明（教师端v1.3）</title>
+    <style>
+        body { font-size: 14px; font-family: Microsoft YaHei, Arial, Verdana, Helvetica, sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+        h2 { margin-top: 40px; }
+        p { margin: 10px 0; }
+        code { white-space: pre; color: #777; }
+        .red { color: red; }
+    </style>
+</head>
+<body>
+<h1>教师主页联调接口说明（教师端v1.3）</h1>
+<h5>Created by Feil.Wang on 2015/7/9.</h5>
+
+<h2>一、教师主页URL</h2>
+<ol>
+    <li>
+        <h3><span class="red">【NEW】</span>教师主页URL传参规则：</h3>
+
+        <p>URL：http://<span class="red">{{url}}</span>/teacherDetail/teacherCode.html?teacherId=<span class="red">{{teacherId}}</span>&version=<span
+                class="red">1.3</span></p>
+
+        <p>说明：version表示H5页面版本号，<span class="red">version等于1.3</span>时，表示教师端v1.3浏览界面，<span class="red">不传version参数</span>则表示第三方（WEB分享）界面。
+        </p>
+
+        <p>187环境测试URL: <a
+                href="http://192.168.1.187:8080/teacher/teacherDetail/teacherCode.html?teacherId=28dfe9a6-1133-4a6e-850b-77b89a62277d&version=1.3"
+                target="_blank">http://192.168.1.187:8080/teacher/teacherDetail/teacherCode.html?teacherId=28dfe9a6-1133-4a6e-850b-77b89a62277d&version=1.3</a>
+        </p>
+    </li>
+</ol>
+
+<h2>二、HTML提供给APP的接口</h2>
+<ol>
+    <li>
+        <h3><span class="red">【NEW】</span>刷新留言：jsInvoke ("refreshMessage")</h3>
+
+        <p>说明：删除留言后或者返回到教师个人主页时可调用此方法刷新主页的留言列表</p>
+    </li>
+</ol>
+<h2>三、APP提供给HTML的接口</h2>
+<ol>
+    <li>
+        <h3>点击二维码：window.external.goToQRCodeView()</h3>
+
+        <p>说明：页面点击二维码图标跳转到二维码界面的方法</p>
+    </li>
+    <li>
+        <h3>跳转至习题详情：window.external.workbookDetail(id)</h3>
+
+        <p>说明：点击习题集标题跳转至习题详情，参数为习题集id</p>
+    </li>
+    <li>
+        <h3><span class="red">【NEW】</span>跳转至习题集列表页：window.external.workbookList()</h3>
+
+        <p>说明：点击习题集模块中的“查看全部习题集>>”跳转至习题集列表页</p>
+    </li>
+    <li>
+        <h3><span class="red">【NEW】</span>跳转至留言列表页：window.external.goMessageList()</h3>
+
+        <p>说明：点击页面底部“查看全部留言>>”跳转至留言列表页</p>
+    </li>
+    <li>
+
+        <h3><span class="red">【NEW】</span>删除留言：window.external.deleteMessage(id)</h3>
+
+        <p>说明：参数id为该条留言的id</p>
+    </li>
+    <li>
+        <h3><span class="red">【NEW】</span>跳转到指定留言的详情页：window.external.goMessageDetail(id)</h3>
+
+        <p>说明：点击单条留言，跳转到这条留言的详情页，参数id为该条留言的id</p>
+    </li>
+</ol>
+</body>
+</html>

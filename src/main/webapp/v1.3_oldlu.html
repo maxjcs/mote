@@ -1,0 +1,351 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<title>教师端1.3版本相关接口——老陆</title>
+<body>
+	<font color="red"> 有问题联系老陆</font><br>
+	<br>基础接口
+	<br> 1、[api/user/login]获取token
+	<form id="1" action="api/user/login" method="post">
+		phoneNumber:<input type="text" name="phoneNumber" value="18758031357" />
+		password：<input type="text" name="password" value="123456" />
+		deviceId：<input type="text" name="deviceId"
+			value="RAgP1i7r+jLQxFd+VmL/5NBNznPtmW/6YxoTQ4QOZvNptzTbxbAz1zE5jUemdXKRYD9SK7tFlmwV45EdVbeYlD8Lt85Xr74b220z6klJFm2RjjZTr121xJeoUrUDV9FRhcTfhabbMndrBCIEo7NYTJ7K/9MoiimxbMgIUTHOVEqygNDKH7QxAW5BNCSYj8Utcilgd2Qeulx/sGMSfLcrdqdlAg2Y19f3h/QPRVNu5pGitagstapOnn6S+NCPV17WTGIfU1UKhL+n+60zSs/SxVNHrj/wbw+kO2HnN5RKGuJTHkPCGmN9aqX1i1EVm0KobQw4zJSo4w8VbPOyQhcCPQ==" />
+		deviceType：<input type="text" name="deviceType" value="1" /> <input
+			type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	<br>每日任务
+	<br> 1、[/api/task/getRecordedList]已录制音频列表
+	 <form id="1" action="api/task/getRecordedList" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			pageNo：<input type="text" name="pageNo"  value="1" /> 
+			version：<input type="text" name="version" value="v1.3" />
+		<input type="submit" name="submit" value="提交" /><br />
+	</form>
+	 
+	<br>
+	<br>习题集接口
+	<br> 1、[api/audioset/addAudioSet]新增习题集
+	<form id="1" action="api/audioset/addAudioSet" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		<br>audioset：
+		<textarea name="audioset" cols=60 rows=5>{"description":"本习题集主要用于提升英语听说读写能力","gradeIds":"1,2,3","name":"英语习题集","price":4,"audioIds":["1e4eec74-1341-4617-81d1-0fee023715d8","978c2dd4-7c49-4864-9d9c-5632408250eb","e5a9f78c-0ffa-430f-bcb5-6a2df98328ca","c9486cc8-51c1-4086-9d1d-91f931d41634"]}</textarea>
+		<input type="submit" name="submit" value="提交" /><br />
+	</form>
+
+	2、[api/audioset/updateAudioSetDescription]修改习题集名称
+	<form id="1" action="api/audioset/updateAudioSetDescription"
+		method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		setId：<input type="text" name="setId" value="31885dee-3080-4857-b2a2-616fef49103f" /> description：<input
+			type="text" name="description" value="本习题集非常好，购买即提升" /> <input
+			type="submit" name="submit" value="提交" /><br />
+	</form>
+
+
+	3、[api/audioset/loadAudioSet]获取某习题详情
+	<font color="red">返回值增加goodTag，表示音频是否很棒（是否好评价）</font>
+	<form id="1" action="api/audioset/loadAudioSet" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		setId：<input type="text" name="setId"
+			value="38516515-8b6d-4ab1-8bec-ebe9044e7a91" /> <input type="submit"
+			name="submit" value="提交" /><br />
+	</form>
+
+	4、[api/audioset/listAudio]筛选音频信息[1:任务 3：抢答 2:自拍]
+	<font color="red">返回值增加goodTag，表示音频是否很棒（是否好评价）</font>
+	<form id="1" action="api/audioset/listAudio" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		filterDay：<input type="text" name="filterDay" value="" />
+		audioSource：<input type="text" name="audioSource" value="1" />
+		pageNo：<input type="text" name="pageNo" value="0" /> <input
+			type="submit" name="submit" value="提交" /><br />
+	</form>
+
+	5、[api/audioset/setTopAudioSet]置顶习题集
+	<form id="1" action="api/audioset/setTopAudioSet" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		setIds：<input type="text" name="setIds"
+			value="f5865e05-c697-4f56-8466-cca56a6171c4,c67ed2a2-62d6-4464-bddd-58d0c96195d6" />
+		<input type="submit" name="submit" value="提交" /><br />
+	</form>
+
+	6、[api/audioset/listAudioSet]获取我的习题列表（分页,页号从0开始）<font color="red">增加topTag自定标记，orderNo置顶排序 [好中差数量]positiveCount,moderateCount,negativeCount</font>
+	<form id="1" action="api/audioset/listAudioSet" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		pageNo：<input type="text" name="pageNo" value="0" /> <input
+			type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	7、[api/audioset/getAudioSetEvaluateList]习题集评价详情列表<font color="red"></font>
+	<form id="1" action="api/audioset/getAudioSetEvaluateList" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		setId：<input type="text" name="setId" value="38516515-8b6d-4ab1-8bec-ebe9044e7a91" /> 
+		evaluteType：<input type="text" name="evaluteType" value="0" /> [0:全部 1：好品 2：中品 3:差品]
+		pageNo：<input type="text" name="pageNo" value="1" /> 
+		<input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	8、[api/audioset/updateAudioSetGrade]更改习题集年级
+	<form id="1" action="api/audioset/updateAudioSetGrade" method="post">
+		Token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		setId：<input type="text" name="setId" value="3cad206c-f874-4a37-89e4-c64f05bf63b0" /> 
+		gradeIds：<input type="text" name="gradeIds" value="1,2,3,4" /> <input type="submit"
+			name="submit" value="提交" /><br />
+	</form>
+
+	<br>
+	<br>学生端接口
+	<br>
+	1、[api/student/listAudioBySetId]通过习题ID获取习题下面的音频列表
+	<font color="red">返回值增加goodTag，表示音频是否很棒（是否好评价）</font>
+	<form id="1" action="api/student/listAudioBySetId" method="post">
+		id：<input type="text" name="id"
+			value="cc3923aa-0f99-42f8-871d-41b0b6570e73" /> <input type="submit"
+			name="submit" value="提交" /><br />
+	</form>
+	
+	2、[api/teacherMessage/addTeacherMessageForStudent]学生给老师留言或回复
+	<form id="1" action="api/teacherMessage/addTeacherMessageForStudent" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> 
+		studentId：<input type="text" name="studentId" value="550f94de3243e071665be10f" /> 
+		content：<input type="text" name="content" value="我要发回复" /> 
+	    replyId（选填）：<input type="text"  name="replyId" value="" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	3、[api/teacherMessage/summaryTeacherMessageForStudent]教师主页接口
+	<form id="1" action="api/teacherMessage/summaryTeacherMessageForStudent" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> 
+	     studentId：<input type="text"  name="studentId" value="53b26b23124676db4a3574e9" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	4、[api/teacherMessage/removeStudentMessage]删除消息
+	<form id="1" action="api/teacherMessage/removeStudentMessage" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	     messageId：<input type="text"  name="messageId" value="" /> 
+	     studentId：<input type="text"  name="studentId" value="53b26b23124676db4a3574e9" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	5、[api/teacherMessage/firstPageTeacherMessageForStudent]教师留言页第一页数据
+	<form id="1" action="api/teacherMessage/firstPageTeacherMessageForStudent" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> 
+		studentId：<input type="text"  name="studentId" value="53b26b23124676db4a3574e9" /> 
+		 <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	6、[api/teacherMessage/nextPageTeacherMessageForStudent]教师留言页数据翻页
+	<form id="1" action="api/teacherMessage/nextPageTeacherMessageForStudent" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> <br>
+		studentId：<input type="text"  name="studentId" value="53b26b23124676db4a3574e9" /> 
+		firstIdOfLastPage：<input type="text"  name="firstIdOfLastPage" value="1000" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	7、[api/teacherMessage/firstPageReplyMessageForStudent]回复详情页第一页数据
+	<form id="1" action="api/teacherMessage/firstPageReplyMessageForStudent" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> <br>
+		studentId：<input type="text"  name="studentId" value="53b26b23124676db4a3574e9" /> 
+		replyId：<input type="text"  name="replyId" value="930" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	8、[api/teacherMessage/nextPageReplyMessageForStudent]回复详情页数据翻页
+	<form id="1" action="api/teacherMessage/nextPageReplyMessageForStudent" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> <br>
+		studentId：<input type="text"  name="studentId" value="53b26b23124676db4a3574e9" /> 
+		firstIdOfLastPage：<input type="text"  name="firstIdOfLastPage" value="1000" />
+	    replyId：<input type="text"  name="replyId" value="930" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	 9、[api/student/getAudioMoney]音频分成
+	<form id="1" action="api/student/getAudioMoney" method="post">
+		teacherId：<input type="text" name="teacherId" value="5caf2d89-2c72-4016-824f-f7d1a0dc281e" /> <br>
+	    studentId：<input type="text"  name="studentId" value="930" />
+	    audioId：<input type="text"  name="audioId" value="ff003119-c670-4e7b-95e7-c3b2040ab1b6" />
+	    _skey：<input type="text"  name="_skey" value="bc19b384ff7e1c6b9afe650b6982986ac5455ea9f2204f1b" />
+	    
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	 10、[api/student/getAudioSetMoney]习题集分成
+	<form id="1" action="api/student/getAudioSetMoney" method="post">
+	    id：<input type="text"  name="id" value="020eb49a-ea9e-4a8d-8343-4a01b2f85617" />
+	    _skey：<input type="text"  name="_skey" value="bc19b384ff7e1c6b9afe650b6982986ac5455ea9f2204f1b" />
+	    
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	 11、[api/student/queryAudioSetByAudioIds]通过音频ID返回音频对应的习题集ID和名称列表1
+	<form id="1" action="api/student/queryAudioSetByAudioIds" method="post">
+	    audioIds：<input type="text"  name="audioIds" value="37ebd7b6-0ef1-45d3-854b-60b7833dee05,15b95216-24f1-415e-8b94-8ff190eb6d48,a9b98e30-8692-4caa-a150-068dbe04f01a" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	12、[api/student/getAudioMoneyV13]音频分成
+	<form id="1" action="api/student/getAudioMoneyV13" method="post">
+		teacherId：<input type="text" name="teacherId" value="5caf2d89-2c72-4016-824f-f7d1a0dc281e" /> <br>
+	    studentId：<input type="text"  name="studentId" value="930" />
+	    audioId：<input type="text"  name="audioId" value="ff003119-c670-4e7b-95e7-c3b2040ab1b6" />
+	    _skey：<input type="text"  name="_skey" value="bc19b384ff7e1c6b9afe650b6982986ac5455ea9f2204f1b" />
+	    
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	 13、[api/student/getAudioSetMoneyV13]习题集分成
+	<form id="1" action="api/student/getAudioSetMoneyV13" method="post">
+	    id：<input type="text"  name="id" value="020eb49a-ea9e-4a8d-8343-4a01b2f85617" />
+	    _skey：<input type="text"  name="_skey" value="bc19b384ff7e1c6b9afe650b6982986ac5455ea9f2204f1b" />
+	    
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	
+	 14、[api/student/listAudioSet]通过教师ID获取习题列表
+		<form id="1" action="api/student/listAudioSet" method="post">
+			teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" />
+			studentId：<input type="text" name="studentId" value="550f94de3243e071665be10f "/>
+			pageNo：<input type="text" name="pageNo" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+	
+	<br>
+	3、<font color="red">互动详情、互动列表接口增加createTimeStr字段，根据设计格式化后的日期</font>
+	<br>
+	<br>
+	<br>教师留言接口
+	<br>
+	1、[api/teacherMessage/addTeacherMessageByTeacher]教师自己留言或回复别人
+	<form id="1" action="api/teacherMessage/addTeacherMessageByTeacher" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		content：<input type="text" name="content" value="我要发回复" /> 
+	    replyId（选填）：<input type="text"  name="replyId" value="" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	2、[api/teacherMessage/summaryTeacherMessage]教师主页接口
+	<form id="1" action="api/teacherMessage/summaryTeacherMessage" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	3、[api/teacherMessage/removeTeacherMessage]删除消息
+	<form id="1" action="api/teacherMessage/removeTeacherMessage" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	     messageId：<input type="text"  name="messageId" value="" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	4、[api/teacherMessage/firstPageMessageForTeacher]教师留言第一页数据
+	<form id="1" action="api/teacherMessage/firstPageMessageForTeacher" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	5、[api/teacherMessage/nextPageMessageForTeacher]教师留言页数据翻页
+	<form id="1" action="api/teacherMessage/nextPageMessageForTeacher" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	    firstIdOfLastPage：<input type="text"  name="firstIdOfLastPage" value="1000" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	6、[api/teacherMessage/firstPageReplyMessageForTeacher]回复详情页第一页数据
+	<form id="1" action="api/teacherMessage/firstPageReplyMessageForTeacher" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	     replyId：<input type="text"  name="replyId" value="930" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	7、[api/teacherMessage/nextPageReplyMessageForTeacher]回复详情页数据翻页
+	<form id="1" action="api/teacherMessage/nextPageReplyMessageForTeacher" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+	    firstIdOfLastPage：<input type="text"  name="firstIdOfLastPage" value="1000" />
+	    replyId：<input type="text"  name="replyId" value="930" />
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	8、[api/teacherMessage/summaryTeacherMessageForH5]H5教师主页接口
+	<form id="1" action="api/teacherMessage/summaryTeacherMessageForH5" method="post">
+		teacherId：<input type="text" name="teacherId" value="157dcab6-9395-4432-9596-d7d8f4d9c6f7" /> <br>
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	<br>问题报错
+	<br>
+	1、[api/question/errorCorrection]问题报错
+	<form id="1" action="api/question/errorCorrection" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		questionId：<input type="text" name="questionId" value="22000002" /> 
+	    reason：<input type="text" name="reason" value="语文题数学答案" /> 
+	    reasonType：<input type="text" name="reasonType" value="答案错误 "/> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	2、[api/task/getQuestDetail]题目详情 ，增加questionStatus（-1:正常 0：已报错，学习宝正在处理）
+	<form id="1" action="api/task/getQuestDetail" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		questionId：<input type="text" name="questionId" value="22000002" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	<br>奶牛模块
+	<br>
+	1、[api/user/sendOrgInvitationCode]发送机构邀请码
+	<form id="1" action="api/user/sendOrgInvitationCode" method="post">
+		token:<input type="text" name="token"
+			value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+		code：<input type="text" name="code" value="18766953395" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	
+	<br>题目纠正接口
+	<br>
+	1、[api/errorquest/getErrorQuestList]获取错题信息
+	<form id="1" action="api/errorquest/getErrorQuestList" method="post">
+		pageNo：<input type="text" name="pageNo" value="1" /> 
+		pageSize：<input type="text" name="pageSize" value="20" /> 
+		
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	2、[api/errorquest/updateQuestReadStatus]更新题目读取状态
+	<form id="1" action="api/errorquest/updateQuestReadStatus" method="post">
+		questIds：<input type="text" name="questIds" value="5124,34135" /> 
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+	
+	3、[api/errorquest/audioErrorQuests]更新题目读取状态
+	<form id="1" action="api/errorquest/audioErrorQuests" method="post">
+		<textarea name="quests" cols=60 rows=5>
+			[{"realId":22000002,"subject":"<a href=\"http://www.jyeoo.com/physics2/ques/search\" title=\"高中物理试题\">高中物理</a>","latex":"质量为0.8kg的物块静止在倾角为30\\circ 的斜面上，若用平行于斜面沿水平方向大小等于3N的力推物块，物块仍保持静止，如图所示，则物块所受到的摩擦力大小等于（　　） A．5N B．4N C．3N D．3 \\sqrt{3}N","content":"<div class=\"pt1\"><!--B1--><img alt=\"学习宝\" src=\"http://img.91xuexibao.com/physics/quiz/images/201310/72/1b172703.png\" style=\"vertical-align:middle;FLOAT:right\" /><span class=\"qseq\"></span>质量为0.8kg的物块静止在倾角为30&deg;的斜面上，若用平行于斜面沿水平方向大小等于3N的力推物块，物块仍保持静止，如图所示，则物块所受到的摩擦力大小等于（　　） <!--E1--></div><div class=\"pt2\"><!--B2--><table style=\"width:100%\" class=\"ques quesborder\"><tbody><tr><td style=\"width:23%\" class=\"selectoption\"><label class=\" s\">A．5N</label></td><td style=\"width:23%\" class=\"selectoption\"><label class=\"\">B．4N</label></td><td style=\"width:23%\" class=\"selectoption\"><label class=\"\">C．3N</label></td><td style=\"width:23%\" class=\"selectoption\"><label class=\"\">D．<span dealflag=\"1\" class=\"MathXxb\" mathtag=\"math\" style=\"whiteSpace:nowrap;wordSpacing:normal;wordWrap:normal\">3       <table cellspacing=\"-1\" cellpadding=\"-1\"><tbody><tr><td style=\"font-size: 0px\"><div hassize=\"7\"><div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730U.png') repeat-y; height: 1px;overflow: hidden\" muststretch=\"v\"></div><div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730D.png') no-repeat; height: 7px; overflow: hidden\"></div></div></td><td style=\"padding:0;padding-left: 2px; border-top: black 1px solid;line-height:normal\">3</td></tr></tbody></table>N</span></label></td></tr></tbody></table><!--E2--></div>","knowledge":"静摩擦力和最大静摩擦力,滑动摩擦力","answer":"A","solution":"<div class=\"pt6\"> <!--B6--> <em>解答：</em>解：对滑块受力分析，受推力F、重力G、支持力N和静摩擦力f， <br />将重力按照作用效果分解为沿斜面向下的分力F′=Mgsinθ=4N和垂直斜面向上的分力Mgcosθ=4 <span dealflag=\"1\" class=\"MathXxb\" mathtag=\"math\" style=\"whiteSpace:nowrap;wordSpacing:normal;wordWrap:normal\">  <table cellspacing=\"-1\" cellpadding=\"-1\">   <tbody>    <tr>     <td style=\"font-size: 0px\">      <div hassize=\"7\">       <div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730U.png') repeat-y; height: 1px;overflow: hidden\" muststretch=\"v\"></div>       <div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730D.png') no-repeat; height: 7px; overflow: hidden\"></div>      </div></td>     <td style=\"padding:0;padding-left: 2px; border-top: black 1px solid;line-height:normal\">3</td>    </tr>   </tbody>  </table></span>N； <br /> <img alt=\"学习宝\" src=\"http://img.91xuexibao.com/physics/quiz/images/201207/36/4fc186b0.png\" style=\"vertical-align:middle;FLOAT:right\" />在与斜面平行的平面内，如图，有 <br />f= <span dealflag=\"1\" class=\"MathXxb\" mathtag=\"math\" style=\"whiteSpace:nowrap;wordSpacing:normal;wordWrap:normal\">  <table cellspacing=\"-1\" cellpadding=\"-1\">   <tbody>    <tr>     <td style=\"font-size: 0px\">      <div hassize=\"7\">       <div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730U.png') repeat-y; height: 1px;overflow: hidden\" muststretch=\"v\"></div>       <div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730D.png') no-repeat; height: 7px; overflow: hidden\"></div>      </div></td>     <td style=\"padding:0;padding-left: 2px; border-top: black 1px solid;line-height:normal;padding-top:1px\"><span><span>F</span><span style=\"vertical-align:super;font-size:90%\">2</span></span>+F<span><span>′</span><span style=\"vertical-align:super;font-size:90%\">2</span></span></td>    </tr>   </tbody>  </table>=  <table cellspacing=\"-1\" cellpadding=\"-1\">   <tbody>    <tr>     <td style=\"font-size: 0px\">      <div hassize=\"7\">       <div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730U.png') repeat-y; height: 1px;overflow: hidden\" muststretch=\"v\"></div>       <div style=\"width:6px;background: url('http://img.91xuexibao.com/physics/images/part/8730D.png') no-repeat; height: 7px; overflow: hidden\"></div>      </div></td>     <td style=\"padding:0;padding-left: 2px; border-top: black 1px solid;line-height:normal;padding-top:1px\"><span><span>3</span><span style=\"vertical-align:super;font-size:90%\">2</span></span>+<span><span>4</span><span style=\"vertical-align:super;font-size:90%\">2</span></span></td>    </tr>   </tbody>  </table>N=5N</span> <br />故选A． <!--E6--></div>","learnPhase":"高中","realSubject":7,"source":"1","status":0,"auditTime":null,"reasonType":"答案错误 ","audioResult":1},{"realId":22000003,"subject":"<a href=\"http://www.jyeoo.com/physics/ques/search\" title=\"初中物理试题\">初中物理</a>","latex":"关于安全用电，下列说法正确的是（　　） A．使用三孔插座是为了节能 B．三脚插头内有一根导线与用电器的外壳相连 C．熔丝烧断一定是发生了短路 D．安全电压为220V","content":"<div class=\"pt1\"><!--B1--><span class=\"qseq\"></span>关于安全用电，下列说法正确的是（　　） <!--E1--></div><div class=\"pt2\"><!--B2--><table style=\"width:100%\" class=\"ques quesborder\"><tbody><tr><td style=\"width:98%\" class=\"selectoption\"><label class=\"\">A．使用三孔插座是为了节能</label></td></tr><tr><td style=\"width:98%\" class=\"selectoption\"><label class=\" s\">B．三脚插头内有一根导线与用电器的外壳相连</label></td></tr><tr><td style=\"width:98%\" class=\"selectoption\"><label class=\"\">C．熔丝烧断一定是发生了短路</label></td></tr><tr><td style=\"width:98%\" class=\"selectoption\"><label class=\"\">D．安全电压为220V</label></td></tr></tbody></table><!--E2--></div>","knowledge":"安全用电原则","answer":"<div class=\"pt5\"><!--B5-->三孔插座与三脚插头一般配合使用，目的是为了防止因漏电而触电；家庭电路中造成电流过大的原因可能是短路，也可能是用电器的总功率过大；对人体的安全电压是不高于36V．<!--E5--></div>","solution":"<div class=\"pt6\"> <!--B6--> <em>解答：</em>解：A、使用三孔插座的目的是为了将用电器的金属外壳接地，而不是为了节能，故说法错误； <br />B、三脚插头内有一根导线与用电器的外壳相连，在发生漏电时，可将电流导向大地，防止触电，故说法正确； <br />C、熔丝烧断可能是发生了短路，也可能是用电器的总功率过大．故说法错误； <br />D、对人体的安全电压是不高于36V，不是220V，故说法错误． <br />故选B． <!--E6--></div>","learnPhase":"初中","realSubject":7,"source":"1","status":0,"auditTime":null,"reasonType":"答案错误 ","audioResult":1}]
+		</textarea>
+	    <input type="submit" name="submit" value="提交" /><br />
+	</form>
+</body>
+</html>
+

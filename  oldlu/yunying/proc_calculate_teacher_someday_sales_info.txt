@@ -1,0 +1,88 @@
+drop view if exists v_teacher_city;
+create view v_teacher_city
+as
+select a.id teacher_id,a.city_id,a.teacher_identify,c.name city_name,a.name teacher_name,a.phone_number,a.star,a.id_number,a.bank_card,a.create_time
+from teacher a,city c
+where a.teacher_identify=1 and c.id=a.city_id
+union 
+select a.id teacher_id,b.city_id,teacher_identify,c.name city_name,a.name teacher_name,a.phone_number,a.star,a.id_number,a.bank_card,a.create_time
+from teacher a,city_school b ,city c
+where teacher_identify=2 and a.school_id=b.school_id and b.city_id=c.id;
+
+#统计某时间区间内教师的相关信息
+#czl 20150619 增加新增状态、银行卡号
+#czl 20150619 增加新增状态、银行卡号
+drop procedure if exists proc_calculate_teacher_someday_sales_info;
+create procedure proc_calculate_teacher_someday_sales_info(beginDay varchar(20),endDay varchar(20))
+begin
+		select concat(beginDay,'to',endDay) 日期区间,
+				 a.teacher_name '教师姓名',
+				 a.phone_number '教师手机号',
+				 a.id_number '身份证号',
+				 if(a.teacher_identify=1,'社会教师','大学生教师') '教师身份',
+				 a.star '星级',
+				 a.city_name '城市',
+				 b.followd_count '新增关注数',
+				 d.audio_count '新增录题数',
+				 c.count_good '新增合格音频数',
+				 e.count_bad '新增不合格音频数',
+				 f.audio_count '累计音频录制总量',
+				 g.audio_set_count '累计习题集录制总量',
+				 a.bank_card '银行卡号',
+				 case 
+				 	when a.create_time>=date(beginDay) and a.create_time<=date_add(date(endDay), interval 1 day) then '是'
+				 	else
+				 		'否'
+				 end '是否新增'
+		from v_teacher_city a
+		left join (
+			select teacher_id,count(*) followd_count 
+			from teacher_followed a
+			where a.create_time>=date(beginDay) and a.create_time<=date_add(date(endDay), interval 1 day)
+			group by teacher_id
+		)b on a.teacher_id=b.teacher_id
+		left join (
+			select b.teacher_id,count(*) count_good
+			from audio_approve a,audio_upload b
+			where a.audio_id=b.id and a.evalution=1 and a.approve_time>=date(beginDay) and a.approve_time<=date_add(date(endDay), interval 1 day)
+			group by b.teacher_id
+		)c on a.teacher_id=c.teacher_id
+		left join (
+			select teacher_id,count(*) audio_count 
+			from audio_upload a
+			where a.create_time>=date(beginDay) and a.create_time<=date_add(date(endDay), interval 1 day)
+			group by teacher_id
+		)d on a.teacher_id=d.teacher_id
+		left join (
+			select b.teacher_id,count(*) count_bad
+			from audio_approve a,audio_upload b
+			where a.audio_id=b.id and a.evalution in (2,3) and a.approve_time>=date(beginDay) and a.approve_time<=date_add(date(endDay), interval 1 day)
+			group by b.teacher_id
+		)e on a.teacher_id=e.teacher_id
+		left join (
+			select teacher_id,count(*) audio_count 
+			from audio_upload a
+			where a.create_time<=date_add(date(endDay), interval 1 day)
+			group by teacher_id
+		)f on a.teacher_id=f.teacher_id
+		left join (
+			select teacher_id,count(*) audio_set_count 
+			from audio_set a
+			where a.create_time<=date_add(date(endDay), interval 1 day)
+			group by teacher_id
+		)g on a.teacher_id=g.teacher_id;
+		#where b.followd_count is not null or d.audio_count is not null or c.count_good is not null or e.count_bad is not null;
+end;
+
+call proc_calculate_teacher_someday_sales_info('2015-05-03','2015-05-03')
+
+ 
+
+#抽取几天如5月22、6月1日两天录制的题目，给出这些题目被审核的时间（无论是审核通过还是审核不通过都算被审核）；给到的数据有三个字段，音频id，音频录制时间，音频被审核的时间（如果到现在还没被审核，该字段的值为1970-01-01）；
+select a.id '音频ID',a.create_time '音频录制时间',ifnull(b.approve_time,'1970-01-01') '音频审核时间'
+from audio_upload a
+left join audio_approve b on a.id=b.audio_id
+where date(a.create_time) in (date('2015-05-22'),date('2015-06-01'))
+order by b.approve_time desc
+ 
+

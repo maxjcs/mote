@@ -1,0 +1,38 @@
+/*! Created by Feil.Wang(wangfeilong@xuexibao.cn) on 2015.08.06 */
+body { color: #000; font-size: 14px; font-family: Arial; word-break: break-all; background: url("../../images/activity@3x.png") no-repeat; background-size: 100% auto; }
+.clearfix:after { content: ''; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { *zoom: 1; }
+.clear { clear: both; height: 0; overflow: hidden; }
+.hide { display: none; }
+.show { display: block; }
+.activity-title { position: absolute; font-size: 12px; text-align: center; color: #f27134; font-style: italic; }
+.main-container { position: absolute; left: 10px; right: 10px; bottom: 10px; }
+.form-area { height: 40px; position: relative; }
+.form-control { display: block; margin-right: 90px; height: 40px; }
+.form-control input { width: 100%; height: 100%; border: 2px solid #00c698; line-height: 36px; padding: 0 10px; }
+.form-control input.input-warning { background-color: #ffd4d4; border-color: #F27134; }
+.btn-submit { position: absolute; right: 0; top: 0; height: 40px; width: 80px; background-color: #00c698; color: #fff; font-size: 16px; }
+.record-area { position: absolute; top: 46px; left: 0; right: 0; bottom: 0; padding: 10px; background-color: #fff; }
+.rec-title { overflow: hidden; font-size: 15px; }
+.rec-title span { float: left; color: #00c698; }
+.rec-title a { float: right; color: #ff6840; }
+.record-main { position: absolute; left: 10px; top: 35px; right: 10px; bottom: 10px; }
+.record-list li { color: #00c698; overflow: hidden; padding: 8px 0; }
+.record-list li span { float: left; font-size: 12px; }
+.record-list li .date { width: 40%; }
+.record-list li .phone { width: 32%; text-align: center; }
+.record-list li .status { width: 28%; text-align: right; }
+.record-list li.waitting .status { color: #b3b3b3; }
+.masker-loading { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999; background-color: #f2f2f2; }
+.masker-loading:after { content: ''; position: absolute; width: 30px; height: 30px; left: 50%; top: 50%; background: url(../../images/loading@2x.png) no-repeat; background-size: contain; margin-left: -15px; margin-top: -15px;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: .6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    transform: rotate(360deg);
+    animation-name: spin;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.AudioUploadDao" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from audio_upload
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="AudioUpload" >
+    insert into audio_upload (id, question_id, duration, 
+      name, url, subject, 
+      status, approve_time, teacher_id, 
+      create_time, update_time, type, 
+      source,feud_type,wb_type)
+    values (#{id}, #{questionId}, #{duration}, 
+      #{name}, #{url}, #{subject}, 
+      #{status}, #{approveTime}, #{teacherId}, 
+      #{createTime}, #{updateTime}, #{type}, 
+      #{source},#{feudType},#{wbType})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="AudioUpload" >
+    update audio_upload
+    set question_id = #{questionId},
+      duration = #{duration},
+      name = #{name},
+      url = #{url},
+      subject = #{subject},
+      status = #{status},
+      approve_time = #{approveTime},
+      teacher_id = #{teacherId},
+      create_time = #{createTime},
+      update_time = #{updateTime},
+      type = #{type},
+      source = #{source},
+      feud_type = #{feudType},
+      wb_type = #{wbType}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultType="AudioUpload" parameterType="java.lang.String" >
+    select id, question_id, duration, name, url, subject, status, approve_time, teacher_id, 
+    create_time, update_time, type, source,plan_type,org_id,org_teacher_id,feud_type,wb_type
+    from audio_upload
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultType="AudioUpload" >
+    select id, question_id, duration, name, url, subject, status, approve_time, teacher_id, 
+    create_time, update_time, type, source,feud_type,wb_type
+    from audio_upload
+  </select>
+    <update id="updateAudioNameById" parameterType="map" >
+    update audio_upload
+    set 
+      name = #{name}
+    where id = #{id}
+  </update>
+  <select id="queryByTeacherId" resultType="AudioUpload" >
+    select id, question_id, duration, name, url, subject, status, approve_time, teacher_id, 
+    create_time, update_time, type, source,feud_type,wb_type
+    from audio_upload 
+    where  type=1 and source=4 and teacher_id = #{teacherId} and id >#{cuurent}
+    order by id desc
+    limit #{pageSize}
+  </select>
+  
+  <select id="queryByTeacherIdAndQuestionId" resultType="AudioUpload" >
+    select id, question_id, duration, name, url, subject, status, approve_time, teacher_id, 
+    create_time, update_time, type, source,feud_type,wb_type
+    from audio_upload 
+    where  teacher_id = #{teacherId} and question_id=#{questionRealId} and status = 1
+    limit 1
+  </select>
+  
+   <select id="queryByAudioIds" resultType="AudioUpload" parameterType="map">
+    select id, question_id, duration, name, url, subject, status, approve_time, teacher_id, 
+    create_time, update_time, type, source,feud_type,wb_type
+    from audio_upload 
+    where  id in
+    <foreach item="item" index="index" collection="audioIds" 
+             open="(" separator="," close=")">
+            #{item}
+    </foreach>
+   </select>
+  
+  
+  
+  
+</mapper>

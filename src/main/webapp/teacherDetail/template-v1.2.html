@@ -1,0 +1,85 @@
+<div ms-controller="teacherHome">
+<div ms-controller="teacherHome">
+    <div class="masker-loading" ms-class="hide:root.initialized"></div>
+    <div class="panel">
+        <div class="section teacher-hd">
+            <div class="base-info clearfix">
+                <p class="avatar">
+                    <img ms-src="{{teacherInfo.avatarUrl||root.defaultAvatarUrl}}">
+                    <span ms-if="teacherInfo.isOrg" class="icon icon-organ"></span>
+                </p>
+                <dl>
+                    <dt><span class="teacher-name">{{teacherInfo.nickname}}</span><i ms-if="!teacherInfo.isOrg"
+                                                                                     ms-class-1="icon-female:teacherInfo.gender==2"
+                                                                                     ms-class-2="icon-male:teacherInfo.gender==1"
+                                                                                     class="icon icon-sex"></i></dt>
+                    <dd>
+                        <span ms-if="!teacherInfo.isOrg">教龄<em>{{teacherInfo.courseYear}} 年</em></span>
+                        <span>级别<em>{{teacherInfo.star}} 星</em></span>
+                    </dd>
+                </dl>
+                <a class="icon icon-qcode" onclick="window.external.goToQRCodeView()"></a>
+            </div>
+            <div class="count-info clearfix">
+                <dl>
+                    <dt>{{teacherInfo.totalFollowed}}</dt>
+                    <dd>被关注</dd>
+                </dl>
+                <dl>
+                    <dt>{{teacherInfo.countAudio}}</dt>
+                    <dd>累计辅导</dd>
+                </dl>
+                <dl>
+                    <dt>{{teacherInfo.countAudioSet}}</dt>
+                    <dd>习题集</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="teacher-main">
+            <ul class="section other-info">
+                <li ms-click="showMore"><em>辅导学科：</em><span>{{teacherInfo.subjects}}</span><i
+                        class="icon icon-more"></i>
+                </li>
+                <li ms-click="showMore"><em>辅导年级：</em><span>{{teacherInfo.grades}}</span><i class="icon icon-more"></i>
+                </li>
+                <li ms-click="showMore"><em ms-text="teacherInfo.isOrg?'机构简介：':'个人简介：'"></em><span>{{teacherInfo.selfDescription}}</span><i
+                        class="icon icon-more"></i></li>
+            </ul>
+            <div class="section workbook" ms-controller="workbook" ms-if="wbList.size()>0">
+                <h2>习题集<span>（精心整理，突破重难点）</span></h2>
+                <i class="icon icon-new"></i>
+                <ul class="workbook-list">
+                    <li ms-repeat="wbList" ms-click="wbItemDetail(el.id)">
+                        <div class="wb-txt"><i class="icon icon-play"></i><span>{{el.name}}</span><i
+                                class="icon icon-arrow"></i></div>
+                        <div class="wb-right">
+                            <span class="price">￥{{el.price | centToYuan}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="section guestbook" ms-controller="guessbook">
+                <h3>留言<span><em>{{gbCount}} </em>条</span></h3>
+                <ul id="gbMsgList" class="msg-list">
+                    <li class="clearfix" ms-repeat="gbList">
+                        <p class="user-avatar">
+                            <img ms-src="{{el.imageUrl||root.defaultAvatarUrl}}">
+                        </p>
+                        <dl>
+                            <dt><span class="user-name">{{el.name}}</span><i ms-class-1="icon-female:el.gender==2"
+                                                                             ms-class-2="icon-male:el.gender==1"
+                                                                             class="icon icon-sex"></i><span
+                                    class="time">{{el.createTime | dateDiff }}</span></dt>
+                            <dd class="msg-content">
+                                {{el.content}}
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+                <div class="loading" ms-if="isLoading"></div>
+                <a ms-if="gbCount>10 && !isLastPage && !isLoading" class="loadmore-btn" ms-click="moreLeaveMsg()"><span>加载更多</span><i
+                        class="icon icon-arrow"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.modeler.dao.TradeFlowDao" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trade_flow
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="TradeFlow" >
+    insert into trade_flow (id, refer_id, type, 
+      money, create_time, user_id
+      )
+    values (#{id}, #{referId}, #{type}, 
+      #{money}, #{createTime}, #{userId}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="TradeFlow" >
+    update trade_flow
+    set refer_id = #{referId},
+      type = #{type},
+      money = #{money},
+      create_time = #{createTime},
+      user_id = #{userId}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultType="TradeFlow" parameterType="java.lang.Integer" >
+    select id, refer_id, type, money, create_time, user_id
+    from trade_flow
+    where id = #{id}
+  </select>
+</mapper>

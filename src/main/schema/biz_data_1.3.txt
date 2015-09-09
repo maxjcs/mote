@@ -1,0 +1,153 @@
+#更新线上机构老师类型
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18612023399';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13578692366';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13324306263';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13756078091';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='18943681211';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='15568802417';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='18088696057';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13578651878';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13500808652';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='18743039466';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13614306333';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='18643505553';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18988289533';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15053732105'; 
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13703338768';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13120491098';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13853275329';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13884977773';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13806332360';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18561385335';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18561323455';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15954866633';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18560276345';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15069367622';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15269391319';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18678189220';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15965541516';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15762828109';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13822011766';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13176561150';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13964401367';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15588998796';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18561739066';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18686683263';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13894856044';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18949898089';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13605608606';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15855984118';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15965331639';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13956051858';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='17701589825';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18955149208';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18686069477';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15963596011';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13589865167';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13804983523';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13954584450';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13723996052';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15621556417';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18266631382';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15929550979';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18266238688';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13176233772';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18766251153';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15064285755';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18766251165';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18561637620';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15865582691';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18040044947';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18624419668';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13863119832';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18104085365';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15166605371';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18560660374';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13032900101';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='17791240747';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18535170290';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18663927483';
+update teacher set plan_type='B' where cur_org_id>0 and phone_number='13562145115';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15966509791';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18354557758';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13280906475';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15254200610';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13210059859';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18306427087';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18045152393';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13515328565';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18846797931';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13030035190';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15063311922';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13854536446';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18888336068';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='15964461934';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='13236629755';
+update teacher set plan_type='A' where cur_org_id>0 and phone_number='18310916658';
+
+update teacher set plan_type='C' where cur_org_id>0 and ifnull(plan_type,'')='';
+
+
+
+#更新老数据的楼层
+delimiter $$ 
+drop procedure if exists proc_update_teacher_message_floor;
+create procedure proc_update_teacher_message_floor()
+begin
+	
+declare _teacher_id varchar(64);
+
+declare done int default 0;
+declare cur cursor for select distinct(teacher_id) from teacher_message where teacher_id is not null;
+declare continue handler for not found set done = 1;
+ 
+	open cur;
+		repeat 
+			fetch cur into _teacher_id;
+					begin  
+						if(done=0) then
+								update teacher_message a,(select (@rowNum :=0)) b
+								set a.floor=(@rowNum:=@rowNum+1)
+								where a.teacher_id=_teacher_id;
+						end if;
+					end ;
+			until done
+		end repeat;
+	close cur;
+
+	update teacher_message a,teacher_message b
+	set a.reply_floor=b.floor 
+	where a.reply_id=b.id;
+	
+end;
+$$
+
+call proc_update_teacher_message_floor();
+
+#更新习题集描述为空的数据
+update audio_set set description=name where ifnull(description,'')='';
+
+
+#去掉1星，2星的数据 清空缓存KEY teacher_rating_key_id:all
+truncate rating;
+insert into rating(star,name,description,points) values(0,'0星','需要+%s积分',  0);
+insert into rating(star,name,description,points) values(3,'3星','需要+%s积分',3000);
+insert into rating(star,name,description,points) values(4,'4星','需要+%s积分',5000);
+insert into rating(star,name,description,points) values(5,'5星','需要+%s积分',7000);
+
+
+truncate evaluation;
+insert into evaluation(level,name,description,point,teacher_identify) values(1,'好评','讲解售出后被评为好评',10,1);
+insert into evaluation(level,name,description,point,teacher_identify) values(2,'中评','讲解售出后被评为中评',0,1);
+insert into evaluation(level,name,description,point,teacher_identify) values(3,'差评','讲解售出后被评为差评',-30,1);
+insert into evaluation(level,name,description,point,teacher_identify) values(1,'好评','讲解售出后被评为好评',10,2);
+insert into evaluation(level,name,description,point,teacher_identify) values(2,'中评','讲解售出后被评为中评',0,2);
+insert into evaluation(level,name,description,point,teacher_identify) values(3,'差评','讲解售出后被评为差评',-30,2);
+
+truncate rating_income_config;
+insert into rating_income_config(star,teacher_identify,fee,description) values(3,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(4,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(5,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(3,2,300,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(4,2,400,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(5,2,500,'【录题任务】每录制一条音频');

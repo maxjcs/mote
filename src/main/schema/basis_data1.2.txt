@@ -1,0 +1,24 @@
+#评价定义
+truncate evaluation;
+insert into evaluation(level,name,description,point,teacher_identify) values(1,'好评','音频被审核为好评',10,1);
+insert into evaluation(level,name,description,point,teacher_identify) values(2,'中评','音频被审核为中评',0,1);
+insert into evaluation(level,name,description,point,teacher_identify) values(3,'差评','音频被审核为差评',-30,1);
+insert into evaluation(level,name,description,point,teacher_identify) values(1,'好评','音频被审核为好评',10,2);
+insert into evaluation(level,name,description,point,teacher_identify) values(2,'中评','音频被审核为中评',0,2);
+insert into evaluation(level,name,description,point,teacher_identify) values(3,'差评','音频被审核为差评',-30,2);
+
+
+
+truncate rating_income_config;
+insert into rating_income_config(star,teacher_identify,fee,description) values(0,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(1,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(2,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(3,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(4,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(5,1,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(0,2,0,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(1,2,100,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(2,2,200,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(3,2,300,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(4,2,400,'【录题任务】每录制一条音频');
+insert into rating_income_config(star,teacher_identify,fee,description) values(5,2,500,'【录题任务】每录制一条音频');

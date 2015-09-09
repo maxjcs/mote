@@ -1,0 +1,132 @@
+@charset "utf-8";
+/**
+ * Main style sheet for Xuexibao teacher App
+ * Author: Feil.Wang
+ * E-mail: wangfeilong@xuexibao.cn
+ * Date Modified: 2015.05.27
+ */
+body { background-color: #f2f2f2; color: #000; font-size: 14px; font-family: Arial; word-break: break-all; }
+.clearfix:after { content: ''; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { *zoom: 1; }
+.clear { clear: both; height: 0; overflow: hidden; }
+.hide { display: none; }
+.show { display: block; }
+.appdl-hd { position: fixed; left: 0; top: 0; width: 100%; padding: 8px 10px; background-color: #f2f2f2; z-index: 9; }
+.appdl-hd .logo { width: 45px; height: 45px; float: left; }
+.appdl-hd .logo img { width: 100%; height: 100%; vertical-align: middle; }
+.appdl-hd .app-name { float: left; margin: 16px 0 0 10px; font-size: 12px; }
+.appdl-hd .btn-dl { float: right; display: inline-block; width: 65px; height: 27px; line-height: 27px; background-color: #f96062; color: #fff; text-align: center; font-size: 12px; margin: 9px 0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; }
+.appdl-ft { position: fixed; left: 0; bottom: 0; right: 0; padding: 12px 0; background-color: #f2f2f2; }
+.appdl-ft .btn-dl { display: block; height: 36px; line-height: 36px; background-color: #0090ff; margin: 0 50px; color: #fff; text-align: center; }
+.section { background-color: #fff; }
+.teacher-hd { border-bottom: 1px solid #e6e6e6; }
+.avatar { float: left; width: 60px; height: 60px; position: relative; }
+.avatar img { width: 100%; height: 100%; vertical-align: middle; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; }
+.base-info { padding: 10px 15px; }
+.base-info dl { float: left; margin-left: 10px; }
+.base-info dd > span > i { vertical-align: middle; }
+.teacher-name { vertical-align: middle; margin-right: 5px; font-size: 16px; }
+.icon { display: inline-block; vertical-align: middle; background: url(../../images/sprite@2x.png?t=5) no-repeat; background-size: 65px auto; }
+.icon-sex { width: 16px; height: 16px; }
+.icon-male { background-position: 0 0; }
+.icon-female { background-position: -16px 0; }
+.icon-qcode { width: 27px; height: 27px; float: right; background-position: 0 -31px; margin: 16px 10px 0 0; }
+.icon-organ { width: 27px; height: 17px; background-position: -30px -41px; position: absolute; bottom: 0; right: 0; }
+.icon-teacher { float: left; width: 23px; height: 13px; background-position: 0 -74px; margin: 5px 5px 0 0; }
+.base-info dl { margin-top: 10px; }
+.base-info dd { margin-top: 10px; }
+.base-info dd span { color: #acb0af; }
+.base-info dd span + span, .other-css .base-info dd span + span { margin-left: 10px; }
+.base-info dd span > em { color: #000; margin-left: 5px; }
+.count-info { padding: 20px 0; border-top: 1px solid #f2f2f2; }
+.count-info dl { height: 16px; float: left; width: 33.333333%; text-align: center; }
+.count-info dl:first-child { border-right: 1px solid #e6e6e6; }
+.count-info dl:last-child { border-left: 1px solid #e6e6e6; }
+.count-info dl dt { font-size: 16px; margin-top: -11px; color: #00c698; }
+.count-info dl dd { color: #aeaeae; margin-top: 5px; }
+.teacher-main { padding: 10px; }
+.teacher-main .section + .section { margin-top: 10px; }
+.other-info li { position: relative; padding: 7px 15px 7px 10px; line-height: 24px; }
+.other-info li.ellipsis { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.other-info li.ellipsis:after { position: absolute; right: 10px; top: 14px; content: ''; width: 10px; height: 10px; background: url(../../images/sprite@2x.png) -15px -16px no-repeat; background-size: 65px auto; }
+.other-info li + li { border-top: 1px solid #e6e6e6; }
+.other-info li > em { color: #aeaeae; }
+.other-info li.hasmore .icon-more { display: inline-block; margin: 0 0 2px 10px; }
+.workbook { position: relative; padding: 10px; }
+.workbook > h2 { color: #777777; }
+.workbook > h2 span { color: #aeaeae; font-size: 14px; }
+.workbook-list li { position: relative; padding: 10px 0; }
+.workbook-list li { border-bottom: 1px solid #e6e6e6; }
+.workbook-list li .wb-txt { position: relative; height: 22px; line-height: 22px; }
+.workbook-list li .wb-txt .icon { position: absolute; }
+.workbook-list li .wb-txt > div { margin: 0 10px 0 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.workbook-list li .wb-info { height: 14px; color: #aeaeae; font-size: 12px; margin: 8px 0 0 20px; }
+.workbook-list li .wb-info > span { float: left; overflow: hidden; }
+.workbook-list li .wb-info > span + span { margin-left: 5px; }
+.workbook-list li .wb-info .segment { color: #e6e6e6; }
+.workbook-list li .wb-info .evaluate em { float: left; margin-right: 5px; }
+.icon-play, .icon-top { width: 15px; height: 15px; background-position: 0 -16px; left: 0; top: 3px; }
+.icon-top { background-position: -30px -58px; }
+.icon-more { display: none; width: 10px; height: 10px; background-position: -15px -16px; -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+.icon-arrow { width: 5px; height: 9px; background-position: -55px -16px; right: 0; top: 6px; }
+.icon-new { position: absolute; right: 0; top: 0; width: 25px; height: 25px; background-position: -30px -16px; }
+.btn { width: 65px; height: 22px; line-height: 22px; display: inline-block; border: 1px solid #0091ff; color: #0091ff; text-align: center; font-size: 13px; border-radius: 2px; }
+.btn.btn-disabled { border-color: #ebebeb; color: #ebebeb; }
+.follow-btn { float: right; margin: 19px 0 0 0; }
+.guestbook { padding-bottom: 10px; }
+.guestbook > h3 { height: 39px; line-height: 14px; color: #aeaeae; padding: 12px 10px; border-bottom: 1px solid #e6e6e6; }
+.guestbook > h3 a { float: right; font-size: 12px; color: #777777; }
+.guestbook > h3 a em { color: #00c698; }
+.user-avatar { position: absolute; width: 30px; height: 30px; left: 0; top: 10px; }
+.user-avatar img { width: 100%; height: 100%; vertical-align: middle; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; }
+.msg-list { padding: 0 10px; }
+.msg-list li { position: relative; padding: 10px 0 0; }
+.msg-list .icon-sex { float: left; margin-top: -1px; }
+.msg-list dl { margin-left: 40px; padding-bottom: 7px; border-bottom: 1px solid #e6e6e6; }
+.msg-list dt { font-size: 13px; height: 16px; }
+.msg-list .t-left { float: left; height: 16px; line-height: 16px; }
+.msg-list .t-right { float: right; }
+.msg-list .t-right > * { vertical-align: middle; }
+.msg-floor { color: #adadad; margin-right: 10px; line-height: 16px; }
+.msg-time { color: #adadad; font-size: 12px; text-align: right; }
+.user-name { float: left; margin-right: 5px; color: #00c698; height: 16px; line-height: 16px; max-width: 92px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-info { font-size: 12px; color: #aeaeae; margin-top: 6px; }
+.msg-info > em { color: #e6e6e6; padding: 0 8px; }
+.msg-reply { line-height: 15px; }
+.msg-reply > em { vertical-align: middle; color: #00c698; font-size: 12px; margin-left: 3px; display: inline-block; margin-bottom: 1px; }
+.segment > em { padding: 0 5px; color: #e6e6e6; }
+.btn-remove { display: inline-block; padding: 5px; margin: -5px; }
+.icon-reply { width: 14px; height: 12px; background-position: 0 -58px; margin-bottom: 2px; }
+.icon-remove { width: 15px; height: 15px; background-position: -15px -58px; }
+.msg-parent-cnt { margin: 8px 0 0; padding: 0 5px; font-size: 12px; color: #aeaeae; line-height: 22px; background-color: #fafafa; }
+.msg-parent-cnt > em { margin-right: 10px; }
+.msg-content { margin-top: 5px; line-height: 22px; }
+.no-comments { height: 150px; padding: 15px 0; }
+.no-comments .msg { width: 200px; height: 120px; margin: 0 auto; background: url(../../images/comments_error_page_img.png) center center no-repeat; background-size: 200px 120px; font-size: 12px; color: #fff; padding: 50px 30px 30px 107px; line-height: 16px; }
+.loadmore-btn { display: block; height: 40px; line-height: 40px; text-align: center; color: #aeaeae; }
+.loadmore-btn span { display: inline-block; vertical-align: middle; font-size: 14px; }
+.loadmore-btn .icon-arrow { -webkit-transform: rotate(90deg); transform: rotate(90deg); margin: 0 0 0 5px; }
+.loading { height: 30px; position: relative; }
+.masker-loading { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999; background-color: #f2f2f2; }
+.error-layer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 999; background-color: #f2f2f2; }
+.error-layer p { position: absolute; width: 100%; top: 50%; text-align: center; color: #666; background: url(../../images/anim_error.png) #f2f2f2 center top no-repeat; background-size: 90px 160px; padding-top: 170px; transform: translateY(-50%); -webkit-transform: translateY(-50%); }
+.loading:after, .masker-loading:after { content: ''; position: absolute; width: 30px; height: 30px; left: 50%; top: 50%; background: url(../../images/loading@2x.png) no-repeat; background-size: contain; margin-left: -15px; margin-top: -15px;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: .6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    transform: rotate(360deg);
+    animation-name: spin;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

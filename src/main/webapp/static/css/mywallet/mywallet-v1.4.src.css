@@ -1,0 +1,67 @@
+/*! Created by Feil.Wang(wangfeilong@xuexibao.cn) on 2015.08.06 */
+body { background-color: #f2f2f2; color: #000; font-size: 14px; font-family: Arial; word-break: break-all; }
+.clearfix:after { content: ''; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { *zoom: 1; }
+.clear { clear: both; height: 0; overflow: hidden; }
+.hide { display: none !important; }
+.show { display: block !important; }
+.wallet-hd { position: relative; text-align: center; color: #fff; height: 100px; background-color: #00c698; }
+.wallet-hd .t { font-size: 12px; padding: 22px 0 10px; }
+.wallet-hd .balance { font-size: 30px; }
+.wallet-tabs { height: 40px; background-color: #01c698; }
+.wallet-tabs a { float: left; width: 50%; height: 40px; color: #fff; text-align: center; font-size: 14px; }
+.wallet-tabs a.active { background-color: #f2f2f2; color: #00c698; }
+.wallet-tabs a span { display: block; margin-top: 5px; }
+.wallet-tabs a p { margin-top: 5px; font-size: 13px; }
+.wallet-bd { position: absolute; left: 0; right: 0; top: 145px; bottom: 0; overflow: hidden; }
+.wallet-count span { float: left; width: 50%; font-size: 15px; text-align: center; color: #00c698; height: 40px; line-height: 40px; }
+.wallet-content { position: absolute; left: 0; top: 0; right: 0; bottom: 0; -webkit-transition: all ease-in-out 0.3s; -moz-transition: all ease-in-out 0.3s; -ms-transition: all ease-in-out 0.3s; -o-transition: all ease-in-out 0.3s; transition: all ease-in-out 0.3s; }
+.wallet-content > .title { color: #c0c4ca; height: 26px; line-height: 26px; padding: 0 10px; }
+.wallet-content.tab-out-left { -webkit-transform: translateX(-100%); -moz-transform: translateX(-100%); -ms-transform: translateX(-100%); -o-transform: translateX(-100%); transform: translateX(-100%); }
+.wallet-content.tab-out-right { -webkit-transform: translateX(100%); -moz-transform: translateX(100%); -ms-transform: translateX(100%); -o-transform: translateX(100%); transform: translateX(100%); }
+.record-wrapper { position: absolute; left: 0; right: 0; top: 26px; bottom: 0; }
+.record-list { padding: 5px 10px 10px; }
+.record-list > li { background-color: #fff; }
+.record-list > li + li { margin-top: 10px; }
+.record-list li .hd { height: 36px; line-height: 36px; padding: 0 10px; position: relative; background-color: #fff; overflow: hidden; }
+.record-list > li .hd .t { font-size: 13px; height: 15px; line-height: 15px; margin-top: 11px; }
+.record-list > li .hd .t > span { color: #00c698; }
+.record-list > li .hd .switch { position: absolute; right: 10px; top: 11px; color: #00c698; height: 15px; line-height: 15px; width: 40px; }
+.record-list > li .bd { display: none; border: 1px solid #ebebeb; }
+.record-list > li.active .bd { display: block; }
+.detail-list { padding: 5px 10px 5px 20px; }
+.detail-list > li { font-size: 12px; overflow: hidden; padding: 2px 0; line-height: 18px; }
+.detail-list > li > div { float: left; }
+.detail-list > li > div em { color: #aeaeae; margin-right: 15px; }
+.detail-list > li > div span { color: #777777; }
+.detail-list > li > p { float: right; text-align: right; color: #00c698; }
+.detail-list > li > section { clear: both; color: #aeaeae; }
+.detail-list-a > li.warning span,
+.detail-list-b > li.warning em,
+.detail-list > li.warning p { color: #f86161; }
+.detail-list-a > li.info span,
+.detail-list-b > li.info em,
+.detail-list > li.info p { color: #1093fb; }
+.detail-list li.nodata { color: #aeaeae; display: none; }
+.record-list .switch:before { content: '展开'; float: left; vertical-align: middle; font-size: 13px; }
+.record-list .active .switch:before { content: '收起'; }
+.btn-fold-all { display: none; position: absolute; width: 40px; height: 40px; background-color: #00c698; color: #fff; right: 10px; bottom: 10px; font-size: 12px; -webkit-border-radius: 100%; border-radius: 100%; text-align: center; padding-top: 8px; opacity: .6; }
+.icon { display: inline-block; vertical-align: middle; background: url("../../images/mywallet@2x.png") no-repeat; background-size: 10px auto; }
+.icon-arrow { float: left; width: 10px; height: 10px; background-position: 0 0; margin: 2px 0 0 3px; }
+.active .icon-arrow { -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg); transform: rotate(180deg); }
+.loading { height: 30px; position: relative; }
+.masker-loading { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999; background-color: #f2f2f2; }
+.loading:after, .masker-loading:after { content: ''; position: absolute; width: 30px; height: 30px; left: 50%; top: 50%; background: url(../../images/loading@2x.png) no-repeat; background-size: contain; margin-left: -15px; margin-top: -15px;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: .6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    transform: rotate(360deg);
+    animation-name: spin;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+.error-layer { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 50px; z-index: 999; background-color: #f2f2f2; }
+.error-layer p { position: absolute; width: 100%; top: 50%; text-align: center; color: #666; background: url(../../images/anim_error.png) #f2f2f2 center top no-repeat; background-size: 90px 160px; padding-top: 170px; transform: translateY(-50%); -webkit-transform: translateY(-50%); }

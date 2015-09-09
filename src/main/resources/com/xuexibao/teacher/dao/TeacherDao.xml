@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.TeacherDao">
+	<insert id="addTeacher" >
+		insert into teacher(id,  phone_number, password, status, star,point,complete_new_user_task,last_device_id,last_device_type,online_status,create_time,update_time,last_task_time) 
+		values(#{id},#{phoneNumber},#{password},#{status},0,0,0,#{lastDeviceId},#{lastDeviceType},'Y',now(),now(),now())
+	</insert>
+	
+	<update id="setOnlineTeacher" >
+		update teacher set last_device_id=#{lastDeviceId},online_status='Y',last_device_type=#{lastDeviceType} where id=#{id}
+	</update>
+	
+	<update id="setOfflineTeacher" >
+		update teacher set online_status='N' where id=#{value}
+	</update>
+	
+	<update id="updateIosToken" >
+		update teacher set ios_token=#{iosToken} where id=#{id}
+	</update>
+	
+	<update id="bindBank" >
+		update teacher set bank=#{bank},bank_card=#{bankCard},bank_user_name=#{bankUserName},id_number=#{idNumber} where id=#{id}
+	</update>
+	
+	<update id="unbindBank" >
+		update teacher set bank='',bank_card='',bank_user_name='' where id=#{id}
+	</update>
+	
+	<select id="listTeacherIdByDeviceId" parameterType="String" resultType="String">
+		select id
+		from teacher 
+		where last_device_id = #{value} 
+	</select>
+	
+	<select id="getPointAndRatingByTeacherId" parameterType="String" resultType="StarPoint">
+		select star,point
+		from teacher 
+		where id = #{value} 
+	</select>
+	
+	<update id="updateLastTaskTime" >
+		update teacher set last_task_time=now() where id=#{id}
+	</update>
+	
+	<select id="getRatingAndUndoTaskDaysByTeacherId" parameterType="String" resultType="Teacher">
+		select star,ifnull(datediff(now(),last_task_time),0) undoTaskDays
+		from teacher 
+		where id = #{value} 
+	</select>
+	
+	<select id="isExistTeacher" parameterType="String" resultType="boolean">
+		select count(1) 
+		from teacher 
+		where phone_number = #{phoneNumber} limit 1
+	</select>
+	
+	<select id="getIdByPhoneNumber" parameterType="String" resultType="String">
+		select id
+		from teacher 
+		where phone_number = #{value}  limit 1
+	</select>
+	
+	<select id="loadTeacherById" parameterType="String" resultType="Teacher">
+		select id,name,nickname,phone_number,password,id_number,qq,school_id,id_card_image_url,student_card_image_url,status,province_id,city_id,weixin,subjects,grades,bank_card,bank,alipay,course_time,self_description,course_year,course_area,mingshihui,xingjihua,create_time,update_time,operater,avatar_url,gender,star,teacher_identify,point,qrcode_url,device_id,last_task_time,last_device_id,last_device_type,complete_new_user_task,online_status,
+				 cur_org_id,capacity_test_status,capacity_test_complete_time,capacity_test_give_point,capacity_test_is_joined,ios_token,bank_user_name,plan_type
+		from teacher 
+		where id = #{value} 
+	</select>
+	
+	<select id="updatePassword" parameterType="Teacher" >
+		update teacher set password =#{password} where id = #{id}
+	</select>
+	
+	<update id="updateTeacher" parameterType="Teacher">
+		update teacher 
+		set    <if test="name!=null and name!='' ">
+                	name=#{name},
+              	</if>
+              	<if test="nickname!=null and nickname!='' ">
+                	nickname=#{nickname},
+              	</if>
+              	<if test="curOrgId!=null and curOrgId>0 ">
+                	cur_org_id=#{curOrgId},
+              	</if>
+				 <if test="idNumber!=null and idNumber!='' ">
+                	id_number=#{idNumber},
+              	</if>
+				 <if test="qq!=null and qq!='' ">
+                	qq=#{qq},
+              	</if>
+				 <if test="weixin!=null and weixin!='' ">
+                	weixin=#{weixin},
+              	</if>
+				 <if test="schoolId!=null and schoolId!='' ">
+                	school_id=#{schoolId},
+              	</if>
+              	<if test="cityId!=null and cityId!='' ">
+                	city_id=#{cityId},
+              	</if>
+              	<if test="provinceId!=null and provinceId!='' ">
+                	province_id=#{provinceId},
+              	</if>
+				 <if test="idCardImageUrl!=null and idCardImageUrl!='' ">
+                	id_card_image_url=#{idCardImageUrl},
+              	</if>
+				 <if test="studentCardImageUrl!=null and studentCardImageUrl!='' ">
+                	student_card_image_url=#{studentCardImageUrl},
+              	</if>
+				 <if test="avatarUrl!=null and avatarUrl!='' ">
+                	avatar_url=#{avatarUrl},
+              	</if>
+				 <if test="gender!=null and gender!='' ">
+                	gender=#{gender},
+              	</if>
+				 <if test="selfDescription!=null and selfDescription!='' ">
+                	self_description=#{selfDescription},
+              	</if>
+				 <if test="teacherIdentify!=null and teacherIdentify!='' ">
+                	teacher_identify=#{teacherIdentify},
+              	</if>
+              	<if test="courseYear!=null  ">
+                	course_year=#{courseYear},
+              	</if>
+				 <if test="qrcodeUrl!=null and qrcodeUrl!='' ">
+                	qrcode_url=#{qrcodeUrl},
+              	</if>
+              	update_time=now()
+		where id=#{id}
+	</update>
+	
+	<update id="updateSelfDescription" parameterType="Teacher">
+		update teacher 
+		set  update_time=now(),self_description=#{selfDescription}
+		where id=#{id}
+	</update>
+	
+	<select id="queryTeacherIdByMap" parameterType="map" resultType="String">
+		select  a.id
+		from teacher a
+		<if test="gradeId!=null and gradeId!='' "> 
+			left join teacher_grade b on a.id=b.teacher_id
+		</if>
+		<if test="subjectId!=null and subjectId!='' ">
+		    left join teacher_subject c on a.id=c.teacher_id
+		</if>    
+		where 1=1 and status=1 and (a.teacher_identify=1 or (a.teacher_identify=2 and a.star>=3)) and (a.plan_type is null or a.plan_type!='A') 
+				<if test="gradeId!=null and gradeId!='' ">
+                	and b.grade_id=#{gradeId}
+              	</if>
+              	<if test="subjectId!=null and subjectId!='' ">
+                	and c.subject_id=#{subjectId}
+              	</if>
+              	<if test="cityId!=null and cityId!='' ">
+                	and a.city_id=#{cityId}
+              	</if>
+              	<if test="name!=null and name!='' ">
+                	and ( a.name LIKE CONCAT(#{name},'%')  OR a.phone_number LIKE CONCAT(#{name},'%') OR a.nickname LIKE CONCAT(#{name},'%') )
+              	</if>
+         ORDER BY a.teacher_identify asc,a.point desc,a.id desc
+         limit #{start},#{limit}
+	</select>
+	
+	<select id="queryUnFollowedTeacherIdByMap" parameterType="map" resultType="String">
+		select distinct a.id
+		from teacher a
+		<if test="sortType!=null and sortType!=-1 ">
+              left join teacher_pay_daily_rank tp on tp.teacher_id=a.id
+        </if> 
+		<if test="gradeId!=null and gradeId!='' ">
+              inner join (select * from teacher_grade b where b.grade_id=#{gradeId} ) b on a.id=b.teacher_id
+        </if>
+		<if test="subjectId!=null and subjectId!='' ">
+             inner join (select * from teacher_subject c where  c.subject_id=#{subjectId} ) c on a.id=c.teacher_id 
+        </if>
+        left join ( select * from teacher_followed tf where tf.user_id=#{studentId} ) tf  on tf.teacher_id=a.id
+		where a.star&gt;=3 and status=1  and tf.teacher_id is null and (a.plan_type is null or a.plan_type!='A')
+		<if test="sortType!=null and sortType==1 ">
+             ORDER BY case when tp.income_rank is null then 0 else tp.income_rank end desc,a.star desc, a.point desc
+        </if>
+        <if test="sortType!=null and sortType==2 ">
+              ORDER BY case when tp.message_num is null then 0 else tp.message_num end desc,a.star desc, a.point desc
+        </if>
+        <if test="sortType!=null and sortType==3 ">
+              ORDER BY case when tp.followed_num is null then 0 else tp.followed_num end desc,a.star desc, a.point desc
+        </if>
+        <if test="sortType!=null and sortType==4 ">
+              ORDER BY a.star desc, a.point desc
+        </if>
+         limit #{start},#{limit}
+	</select>
+	
+	<update id="updatePoint">
+		update teacher 
+		set  point=point+#{param2}
+		where id=#{param1} and (point+#{param2})>0
+	</update>
+	
+	<update id="updatePoint2">
+		update teacher 
+		set  point=#{param2}
+		where id=#{param1} 
+	</update>
+	
+	<update id="updateStar">
+		update teacher 
+		set  star=#{param2}
+		where id=#{param1}
+	</update>
+	
+	<update id="completeNewTask">
+		update teacher 
+		set  complete_new_user_task=1,capacity_test_complete_time=now()
+		where id=#{param1}
+	</update>
+	
+	<update id="unjoinCapacityTest">
+		update teacher 
+		set  capacity_test_is_joined=1
+		where id=#{param1}
+	</update>
+	
+	<update id="updateTeacherPlanType">
+		update teacher 
+		set  cur_org_id=#{curOrgId},plan_type=#{planType}
+		where id=#{id}
+	</update>
+	
+    <select id="getTeachersByIds" parameterType="map" resultType="Teacher">
+		select *
+		from teacher 
+		where id in 
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item}  
+		 </foreach> 
+	</select>
+	
+	<select id="getTeachersWithStarAndPointByIds" parameterType="map" resultType="TeacherStartAndPointVO">
+		select *
+		from teacher 
+		where id in 
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item}  
+		 </foreach> 
+	</select>
+	
+    <select id="getRecommTeacher" parameterType="map" resultType="RecommendTeacherOrder">
+		select *
+		from recom_teacher_order 
+		where id>#{current}
+		order by order_id asc
+		limit #{pageSize} 
+	</select>
+	
+	<select id="isExistIdNumber" parameterType="Teacher" resultType="boolean">
+		select ifnull(count(1),0) from teacher where id!=#{id}  and id_number=#{idNumber} 
+	</select>
+	
+	<select id="isExistBankCard" parameterType="Teacher" resultType="boolean">
+		select ifnull(count(1),0) from teacher where id!=#{id}  and bank_card=#{bankCard} 
+	</select>
+	
+	<select id="getTeachersForAvartImg" resultType="Teacher">
+		select * from teacher where avatar_url like 'http://xfsr.91xuexibao.com/%' limit 10
+	</select>
+	
+    <update id="updateAvartImg">
+		update teacher 
+		set  avatar_url=#{param2}
+		where id=#{param1}
+	</update>
+	
+	
+	
+</mapper> 

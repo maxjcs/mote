@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.AudioEvalApproveDao">
+	<insert id="insert" parameterType="AudioEvalApprove">
+		insert into
+		audio_eval_approve(
+		    id,
+		    audio_id,
+			good_eval_num,
+			middle_eval_num,
+			bad_eval_num,
+			total_point,
+			teacher_id,
+			question_id,
+			operator,
+			content,
+			status,
+			create_time,
+			update_time
+		)
+		values(
+				#{id},
+				#{audioId},
+				#{goodEvalNum},
+				#{middleEvalNum},
+				#{badEvalNum},
+				#{totalPoint},
+				#{teacherId},
+				#{questionId},
+				#{operator},
+				#{content},
+				#{status},
+				#{createTime},
+				now()
+		)
+	</insert>
+	
+	<select id="selectByAudioId" resultType="AudioEvalApprove"  parameterType="String">
+		select * from audio_eval_approve where audio_id=#{value} limit 1
+	</select>
+	
+	<select id="selectByAudioIds" resultType="AudioEvalApprove"  parameterType="Map">
+		select * from audio_eval_approve where audio_id
+			in 
+	    <foreach item="item" index="index" collection="audioIds" open="(" separator="," close=")">  
+	  			#{item}  
+	    </foreach>
+	</select>
+	
+	
+	
+   <select id="updateEvalAndPoint" resultType="int" parameterType="AudioEvalApprove">
+		update audio_eval_approve 
+		set 
+		 <if test="goodEvalNum!=null and goodEvalNum!=0">
+            good_eval_num = good_eval_num+1,
+        </if>
+        <if test="middleEvalNum!=null and middleEvalNum!=0">
+            middle_eval_num = middle_eval_num+1,
+        </if>
+		<if test="badEvalNum!=null and badEvalNum!=0">
+           bad_eval_num = bad_eval_num+1,
+        </if>
+		  total_point = total_point + #{totalPoint}
+		where audio_id= #{audioId}
+	</select>
+</mapper> 

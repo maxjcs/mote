@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.modeler.dao.TaskPicDao" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_pic
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="TaskPic" >
+    insert into task_pic (id, mote_task_id, img_url, 
+      sort, create_time, update_time, 
+      user_id, task_id)
+    values (#{id}, #{moteTaskId}, #{imgUrl}, 
+      #{sort}, now(), now(), 
+      #{userId}, #{taskId})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="TaskPic" >
+    update task_pic
+    set mote_task_id = #{moteTaskId},
+      img_url = #{imgUrl},
+      sort = #{sort},
+      update_time = now(),
+      user_id = #{userId},
+      task_id = #{taskId}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultType="TaskPic" parameterType="java.lang.Integer" >
+    select id, mote_task_id, img_url, sort, create_time, update_time, user_id, task_id
+    from task_pic
+    where id = #{id}
+  </select>
+  
+  <select id="queryMoteTask" resultType="TaskPic"  >
+    select id, mote_task_id, img_url, sort, create_time, update_time, user_id, task_id
+    from task_pic
+    where mote_task_id = #{param1} and user_id = #{param2}
+  </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+#最近某几天新增的教师（区分教师类型）第一次录题时间
+
+drop procedure if exists proc_calculate_teacher_someday_audio_info;
+create procedure proc_calculate_teacher_someday_audio_info(fsrq varchar(20))
+begin
+		select 
+				 a.teacher_name '教师姓名',				 
+				 if(a.teacher_identify=1,'社会教师','大学生教师') '教师身份',
+				 c.create_time '注册日期',
+				 fsrq '录制日期',
+				 b.create_time '第一次录题时间'			 
+		from v_teacher_city a
+		join (
+			select teacher_id,max(create_time) create_time
+			from audio_upload  
+			where date(create_time)=fsrq
+			group by teacher_id
+		)b on a.teacher_id=b.teacher_id
+		join teacher c on a.teacher_id=c.id
+		order by a.teacher_identify,b.create_time;
+end;
+

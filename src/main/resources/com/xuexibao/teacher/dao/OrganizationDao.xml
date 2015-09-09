@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.OrganizationDao">
+	<select id="loadOrganization" resultType="Organization" >
+		<![CDATA[
+			select id,organization_name,status,operator,create_time,update_time,teacher_id,teacher_phone_number,plan_type
+			from organization_sources 
+			where id=#{value}
+		 ]]>
+	</select>
+	
+	<select id="loadOrgByCode" resultType="Organization" >
+		<![CDATA[
+			select id,organization_name,status,operator,create_time,update_time,teacher_id,teacher_phone_number,plan_type
+			from organization_sources 
+			where teacher_phone_number=#{value} limit 1
+		 ]]>
+	</select>
+	
+	<select id="getOrgListByCityId" resultType="Organization" >
+		<![CDATA[
+			select id,organization_name,status,operator,create_time,update_time,teacher_id,teacher_phone_number,contain_teacher,city_id
+			from organization_sources 
+			where city_id=#{value}
+		 ]]>
+	</select>
+	
+	
+	<select id="isOrgTeacher" resultType="boolean" >
+		<![CDATA[
+			select count(1)
+			from organization_sources 
+			where teacher_id=#{value} limit 1
+		 ]]>
+	</select>
+	 
+</mapper> 

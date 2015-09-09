@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.AudioSetDao">
+	<select id="loadAudioSet" resultType="AudioSet" parameterType="String">
+		<![CDATA[
+			select id,name,price,teacher_id,create_time,update_time,status,description,order_no,top_tag,is_free
+			from audio_set 
+			where id=#{value}
+		 ]]>
+	</select>
+
+	<select id="listAudioSet" resultType="AudioSet">
+			select a.id,a.name,a.price,a.teacher_id,a.create_time,a.update_time,a.status,a.description,a.order_no,a.top_tag,a.is_free
+			from audio_set  a
+			where teacher_id = #{param1} and status=1
+		    order by order_no,create_time desc 
+		    limit #{param2}, #{param3}
+	</select>
+
+	<select id="countAudioSet" resultType="int" parameterType="String">
+		<![CDATA[
+			select ifnull(count(1),0)
+			from audio_set 
+			where teacher_id = #{value} and status=1
+		]]>
+	</select>
+
+	<insert id="addAudioSet" parameterType="AudioSet">
+		insert into
+		audio_set(
+			id,
+			name,
+			price,
+			teacher_id,
+			description,
+			create_time,
+			update_time
+		)
+		values(
+					#{id},
+					#{name},
+					#{price},
+					#{teacherId},
+					#{description},
+					now(),
+					now()
+		)
+	</insert>
+
+	<select id="listAudioSetDetailBySetId" resultType="AudioSetDetail" parameterType="String">
+		<![CDATA[
+			select id,set_id,audio_id,create_time,update_time,order_no,question_id,latex,audio_type
+			from audio_set_detail 
+			where set_id=#{value}
+			order by order_no 
+		]]>
+	</select>
+
+	<insert id="batchAddAudioSetDetail" parameterType="AudioSetDetail">
+		insert into
+		audio_set_detail(
+			set_id,
+			audio_id,
+			create_time,
+			update_time,
+			order_no,
+			question_id,
+			latex,
+			audio_type
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.setId},#{item.audioId},now(),now(),#{index},#{item.questionId},#{item.latex},#{item.audioType})
+    	</foreach>
+	</insert>
+	
+	<select id="listAudioSetByIds" resultType="AudioSet" parameterType="list">
+			select a.id,a.name,a.price,a.teacher_id,a.create_time,a.update_time,a.status,a.description,a.order_no,a.top_tag,a.is_free
+			from audio_set a
+			where a.id in 
+				 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+		  			#{item}  
+		 		</foreach> 
+		    <!--order by a.create_time desc -->
+	</select>
+	
+	<select id="queryAudioSetByAudioIds" resultType="AudioBelongSet" parameterType="list">
+			select audio_id,set_id,b.price,b.description,b.name,b.teacher_id
+ 			from audio_set_detail a,audio_set b
+ 			where a.set_id=b.id and a.audio_id in 
+				 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+		  			#{item}  
+		 		</foreach> 
+		 	order by a.audio_id
+	</select>
+	
+	<select id="queryAudioSetTeacherByIds" resultType="AudioSetRank" parameterType="list">
+			select a.id,a.name,a.price,a.teacher_id,a.create_time,a.update_time,a.status,a.description,a.order_no,a.top_tag,a.is_free
+					  ifnull(b.nickname,b.name) nickname,b.gender,b.avatar_url
+			from audio_set a,teacher b
+			where a.teacher_id=b.id   and a.status=1  and a.id in 
+				 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+		  			#{item}  
+		 		</foreach> 
+	</select>
+	
+	<select id="queryAudioSetBySortType" resultType="AudioSetRank" parameterType="map">
+			select a.id,a.name,a.price,a.teacher_id,a.create_time,a.update_time,a.status,a.description,a.order_no,a.top_tag,a.is_free,
+					  ifnull(b.nickname,b.name) nickname,b.gender,b.avatar_url
+			from teacher b ,audio_set a
+			 <if test="type==1">
+            		left join audio_set_rank c
+            		on a.id=c.set_id
+            </if>
+			where  a.teacher_id=b.id  and a.status=1 
+			<if test="gradeIds!=null">
+                	and exists ( 
+                		select 1 from audio_set_grade c 
+                		where c.set_id=a.id and c.grade_id in 
+                	<foreach item="item" index="index" collection="gradeIds" open="(" separator="," close=")">  
+			  			#{item}  
+					</foreach>
+					)
+            </if>    
+            <if test="subjectIds!=null"> 
+           	 	  and exists ( 
+                		select 1 from audio_set_subject d 
+                		where d.set_id=a.id and d.subject_id in 
+                	<foreach item="item" index="index" collection="subjectIds" open="(" separator="," close=")">  
+			  			#{item}  
+					</foreach>
+				)
+            </if>   	 	
+            <if test="type==1">
+                	order by c.num desc ,a.id
+            </if>
+            <if test="type==2">
+                	order by b.star desc ,a.id
+            </if>
+            <if test="type==3">
+                	order by a.price desc,a.id
+            </if>
+            <if test="type==4">
+                	order by a.price ,a.id
+            </if>  
+		    limit #{start},#{limit}
+	</select>
+	
+	<select id="listAudio" resultType="AudioUpload" parameterType="map">
+			select id,question_id,duration,name,url,subject,status,teacher_id,create_time,update_time,type,source,org_id,org_teacher_id,auto_id
+			from education_pay.audio 
+			where status!=0 and source=#{audioSource} and 
+				
+				<if test="isPlanATeacher">
+                	(teacher_id=#{teacherId} or org_teacher_id=#{teacherId}) 
+              	</if>
+              	<if test="!isPlanATeacher">
+                	(teacher_id=#{teacherId}) 
+              	</if>
+				<if test="audioSource!=null and audioSource==1 ">
+                	and org_teacher_id is null
+              	</if>
+				<if test="filterDay!=null and filterDay!='' ">
+                	and create_time&gt;date(#{filterDayBegin})
+                	and create_time&lt;date_add(date(#{filterDayEnd}), interval 1 day)
+              	</if>
+			order by create_time desc 
+			limit #{start}, #{limit}
+	</select>
+	
+	<select id="listAudioDate" resultType="String">
+			select distinct date(create_time)
+			from audio_upload 
+			where source=#{value} and teacher_id=#{teacherId}
+			order by create_time desc 
+	</select>
+	
+	<select id="updateAudioSet" >
+			update audio_set set name=#{name} where id=#{setId} and teacher_id=#{teacherId}
+	</select>
+	
+	<select id="clearTopAudioSet" >
+			update audio_set set top_tag=0,order_no=0 where teacher_id=#{teacherId} and top_tag=1
+	</select>
+	
+	<select id="setTopAudioSet" >
+			update audio_set set top_tag=1,order_no=#{orderNo} where id=#{setId} and teacher_id=#{teacherId}
+	</select>
+	
+	<select id="minOrderNo" resultType="int" >
+		select ifnull(min(order_no),0) from  audio_set where id=#{setId} and teacher_id=#{teacherId}
+	</select>
+	
+	<select id="updateAudioSetDescription">
+			update audio_set set description=#{description} where id=#{setId} and teacher_id=#{teacherId}
+	</select>
+	
+	<select id="removeAudioSet" resultType="String">
+			update audio_set set status=0 where id=#{setId} and teacher_id=#{teacherId}
+	</select>
+	
+	<insert id="addAudioSetGrade" parameterType="map">
+		insert into
+		audio_set_grade(
+			set_id,
+			grade_id
+		)
+		values
+		<foreach collection="gradeIds" item="item" index="index"
+			separator=",">
+			(#{setId},#{item})
+    	</foreach>
+	</insert>
+	
+	<insert id="addAudioSetSubject" parameterType="map">
+		insert into
+		audio_set_subject(
+			set_id,
+			subject_id
+		)
+		values
+		<foreach collection="subjectIds" item="item" index="index"
+			separator=",">
+			(#{setId},#{item})
+    	</foreach>
+	</insert>
+	
+	<select id="listAudioBelongAudioSetCount" resultType="AudioBelongAudioSetCount">
+		select a.audio_id,count(1) count 
+		from audio_set_detail a,audio_set b
+		where a.set_id=b.id and b.status=1 and 
+			a.audio_id in
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item}  
+		 </foreach> 
+		group by a.audio_id
+	</select>
+	
+	<select id="getSubjectIdsByQuesiton" resultType="int">
+		select distinct real_subject from question 
+		where 
+			real_id in
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item.questionId}  
+		 </foreach> 
+	</select>
+	
+	<select id="getSubjectIdsBySetId" resultType="String">
+			select group_concat(subject_id) subjectIds from audio_set_subject where set_id =#{value}
+	</select>
+	
+	<select id="getGradeIdsBySetId" resultType="String">
+			select group_concat(grade_id) gradeIds from audio_set_grade where set_id =#{value}
+	</select>
+	
+	<select id="getGradeIdsBySetIds" resultType="map">
+			select group_concat(grade_id) grade_ids,set_id 
+			from audio_set_grade 
+			where set_id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+				  #{item.setId}  
+				 </foreach> 
+			group by set_id
+	</select>
+	
+	<select id="deleteGradeBySetId" resultType="String">
+			delete from audio_set_grade where set_id =#{value}
+	</select>
+	
+	<update id="setAudioSetFreeStatus" >
+			update audio_set set is_free=#{isFree} where id =#{id}
+	</update>
+</mapper> 

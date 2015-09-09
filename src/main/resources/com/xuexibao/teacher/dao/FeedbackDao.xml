@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.FeedbackDao">
+	<select id="listFeedback" resultType="Feedback" parameterType="Feedback">
+		<![CDATA[
+			select id,teacher_id,content,phone_number,create_time
+			from feedback 
+			where 1=1 
+			order by feedback_id desc 
+			${pageSql}
+		]]>
+	</select>
+
+	<insert id="addFeedback" parameterType="Feedback">
+		insert into
+		feedback(
+			teacher_id,
+			content,
+			phone_number,
+			create_time
+		)
+		values(
+					#{teacherId},
+					#{content},
+					#{phoneNumber},
+					now()
+		)
+	</insert>
+</mapper> 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.CommonConfigDao">
+	<select id="allCfg" resultType="CommonConfig" >
+		<![CDATA[
+			select id,config_key 'key',config_value 'value',description,value1,value2,status
+			from common_config 
+		]]>
+	</select>
+</mapper> 

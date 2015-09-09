@@ -1,0 +1,116 @@
+POSTMAN:https://www.getpostman.com/collections/a52dd8015e2c6fa36203
+1、获取教师详情接口
+URI：/api/student/getTeacherByStudentId
+METHOD:get
+PARAMETER:
+teacherId:教师ID,必填
+studentId:学生ID,必填
+RESULT:
+{
+    "result": {
+        "cityId": 1,//城市
+        "teacherIdentify": 2,//教师身份
+        "weixin": "huaihuai1357",//微信
+        "phoneNumber": "18758031357",//手机号码
+        "gradeIds": [//辅导年级ID
+            1,
+            2,
+            3
+        ],
+        "name": "陈志良",//教师姓名
+        "avatarUrl": "http://124.207.37.218:8080/5,2a4e73b917",//头像
+        "courseYear": 10,//教龄
+        "courseTime": null,//辅导时间
+        "gender": 1,//性别
+        "isFollowed": true,//学生是否关注
+        "qq": "112729004",//QQ
+        "idNumber": "350325456325895621",//身份证号
+        "courseWares": [//课件信息
+            {
+                "id": 4,//课件ID
+                "teacherId": "4bb90b45-7b88-4b12-8d3d-9bd6982c279f",
+                "name": "微积分33",//课件名称
+                "price": 100,//课件价格
+                "introduce": "henhao,bucuo",//课件介绍
+                "status": "1",//课件状态
+                "fitSubjects": null,//课件适合科目
+                "fitGrades": null,//课件适合年纪
+                "saleNum": 0,//课件销量
+                "saleMoney": 0,//销售额
+                "star": null,//课件星级
+                "evelNum": 0,
+                "isEveled": null,
+                "imgList": null
+            }
+        ],
+        "subjectIds": [//辅导科目ID
+            1,
+            2
+        ],
+        "star": 2,//教师星级
+        "point": 2620,//教师积分
+        "schoolId": 2,//教师学校
+        "selfDescription": null//个人简介
+    },
+    "status": 0,
+    "msg": "ok"
+}
+
+2、查询教师接口
+URI：/api/student/queryTeacher
+METHOD:get
+PARAMETER:
+cityId:所属城市,选填
+gradeId:辅导年级,选填
+subjectId:辅导科目,选填
+name:教师名称,选填
+RESULT:
+{
+    "result": [
+        {
+            "totalCourse": 4,//总课件数
+            "courses": [
+                {
+                    "id": 2,
+                    "teacherId": "4bb90b45-7b88-4b12-8d3d-9bd6982c279f",
+                    "name": "课件2",
+                    "price": null,//课件单价
+                    "introduce": "2这是一个好课件",//课件说明
+                    "status": "2"//课件介绍
+                },
+                {
+                    "id": 3,
+                    "teacherId": "4bb90b45-7b88-4b12-8d3d-9bd6982c279f",
+                    "name": "课件3",
+                    "price": null,
+                    "introduce": "3这是一个好课件",
+                    "status": "2"
+                }
+            ],
+            "subjects": "1,2",//教师科目
+            "avatarUrl": "http://124.207.37.218:8080/5,2a4e73b917",//教师头像
+            "name": "陈志良",//教师名称
+            "grades": "1,2,3",//辅导年级
+            "teacherId": "4bb90b45-7b88-4b12-8d3d-9bd6982c279f"
+        }
+    ],
+    "status": 0,
+    "msg": "ok"
+}
+
+3、获取音频分成
+URI：/api/student/getAudioMoney
+METHOD:get
+PARAMETER:
+teacherId:教师ID,必填
+studentId:学生ID,必填
+RESULT:
+{
+    "result": {
+        "hasMoney": true,//是否有分成
+        "source": "1",//音频来源 1：每日任务 2：微店 3：抢答
+        "money": "100"//分成金额 （分）
+    },
+    "status": 0,
+    "msg": "ok"
+}

@@ -1,0 +1,141 @@
+#1、大表提前一天执行
+alter table education_biz.audio_upload add column wb_type  tinyint default 1 comment '1:白板 2：视频';
+alter table education_pay.audio add column wb_type  tinyint default 1 comment '1:白板 2：视频';
+
+#2、配置表数据
+alter table common_config add column status tinyint default 1 comment ' 1：有效 0：无效';
+alter table common_config add column value1 int default 0 comment '值1';
+alter table common_config add column value2 int default 0 comment '值2';
+insert into common_config(config_key,config_value,value1,value2) values('recharge_reward',0,100,50);
+insert into common_config(config_key,config_value) values('baoyue_chongzhi_fencheng',10);
+insert into common_config(config_key,config_value) values('baonian_chongzhi_fencheng',20);
+
+#3、旧表增加字段
+alter table audio_set add column is_free tinyint default 0 comment '习题集是否免费 1:免费 0：收费';
+alter table learn_message add column dialog_type tinyint default 1 comment '1:拍题互动 2：习题集互动';
+alter table teacher add column avatar_url_bak varchar(200);
+
+#4、新增表
+drop table if exists teacher_dynamic;
+create table teacher_dynamic
+(
+   id                   bigint(20) not null auto_increment comment '主键',
+   teacher_id           varchar(64) not null comment '教师Id',
+   set_id               varchar(64) comment '习题集ID',
+   dynamic_type         tinyint not null comment '1:习题集 2：文字图片',
+   grade_ids            varchar(64) comment '适合的年级',
+   status               tinyint default 1 comment '0:无效 1：有效',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   description          varchar(128) comment '一句话',
+   image_url1           varchar(256) comment '图片1',
+   image_url2           varchar(256) comment '图片2',
+   image_url3           varchar(256) comment '图片3',
+   image_url4           varchar(256) comment '图片4',
+   primary key (id)
+);
+alter table teacher_dynamic comment '教师动态';
+
+drop table if exists teacher_dynamic_message;
+create table teacher_dynamic_message
+(
+   id                   bigint(20) not null auto_increment comment '主键',
+   teacher_id           varchar(64) default '' comment '教师Id',
+   student_id           varchar(64) default '' comment '学生ID',
+   dynamic_id           bigint(20) not null comment '动态ID',
+   type                 tinyint not null comment '消息类型 1:老师发 2：学生发',
+   status               tinyint default 1 comment '0:无效 1：有效',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   content              varchar(256) comment '回复内容',
+   image_url            varchar(256) comment '图片1',
+   reply_id             bigint(20) comment '被回复的ID',
+   replied_type         tinyint comment '被回复的消息类型',
+   replied_user_id      varchar(64) comment '被回复的用户ID',
+   primary key (id)
+);
+
+alter table teacher_dynamic_message comment '教师评论';
+
+drop table if exists teacher_dynamic_upvote;
+create table teacher_dynamic_upvote
+(
+   id                   bigint not null auto_increment,
+   dynamic_id           bigint not null comment '动态ID',
+   create_time          datetime comment '创建时间',
+   votor_id             varchar(64) not null comment '点赞人',
+   primary key (id)
+);
+alter table teacher_dynamic_upvote comment '点赞';
+
+drop table if exists teacher_recharge;
+create table teacher_recharge
+(
+   id                   bigint(20) not null auto_increment comment '主键',
+   teacher_id           varchar(64) not null comment '教师Id',
+   student_id           varchar(64) comment '学生ID',
+   student_phone_number varchar(32) not null comment '学生手机号',
+   status               tinyint default 1 comment '1:等待学生充值 2：已返现到钱包',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   recharge_money       int comment '充值金额',
+   recharge_time        datetime comment '充值时间',
+   income_money			int comment '收入金额',
+   primary key (id)
+);
+alter table teacher_recharge comment '教师充值';
+ 
+drop table if exists teacher_report;
+create table teacher_report
+(
+   id                   bigint(20) not null auto_increment,
+   msg_id               bigint(20) comment '被举报的消息ID',
+   msg_type             tinyint comment '被举报的消息类型 1：留言 2:动态评论',
+   teacher_id           varchar(64) comment '教师ID',
+   create_time          datetime,
+   update_time          datetime,
+   report_type          tinyint not null comment '举报类型 1：侮辱诋毁 2：广告 3：色情 4：政治敏感',
+   content              varchar(512) comment '举报说明',
+   primary key (id)
+);
+
+drop table if exists education_biz.wb2video_process;
+create table education_biz.wb2video_process
+(
+   id                   bigint(20) not null auto_increment comment '主键',
+   teacher_id           varchar(64) not null comment '教师Id',
+   video_url             varchar(64) comment '视频url',
+   status               tinyint default 1 comment '1:上传成功 2:上传失败 3:转视频成功 4:转视频失败',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   wb_id                varchar(128) comment 'wbid',
+   primary key (id)
+);
+alter table education_biz.wb2video_process comment '白板转视频处理表';
+
+#5、创建索引
+create index idx_teacher_report_teacher_id on teacher_report(teacher_id);
+
+create index idx_teacher_recharge_teacher_id on teacher_recharge(teacher_id);
+create index idx_teacher_recharge_student_phone_number on teacher_recharge(student_phone_number);
+
+create index idx_teacher_dynamic_upvote_dynamic_id on teacher_dynamic_upvote(dynamic_id);
+create index idx_teacher_dynamic_upvote_votor_id on teacher_dynamic_upvote(votor_id);
+
+create index idx_teacher_dynamic_message_teacher_id on teacher_dynamic_message(teacher_id);
+create index idx_teacher_dynamic_message_student_id on teacher_dynamic_message(student_id);
+create index idx_teacher_dynamic_message_dynamic_id on teacher_dynamic_message(dynamic_id);
+
+create index idx_teacher_dynamic_teacher_id on teacher_dynamic(teacher_id);
+create index idx_teacher_dynamic_set_id on teacher_dynamic(set_id);
+
+
+####mongos.91xuexibao.com 这个上面 创建 db和index，用于地理位置查找
+use xuexibao_teacher;
+db.teacherLocation.ensureIndex({"position" : "2dsphere"})
+
+#6、数据更新
+##备份教师头像
+update teacher set avatar_url_bak=avatar_url
+
+#7、需要删除的缓存Key：teacher_common_cfg_key_id:all

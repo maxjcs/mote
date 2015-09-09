@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.FeudAnswerDetailDao" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from feud_answer_detail
+    where id = #{id}
+  </delete>
+  
+   <update id="updateByPrimaryKey" parameterType="FeudAnswerDetail" >
+    update feud_answer_detail
+    set feud_quest_id = #{feudQuestId},
+      teacher_id = #{teacherId},
+      feud_type = #{feudType},
+      audio_whiteboard_id = #{audioWhiteboardId},
+      update_time = now(),
+      status = #{status},
+      quest_real_id = #{questRealId},
+      evaluate = #{evaluate},
+      content = #{content},
+      point = #{point},
+      fee = #{fee},
+      audio_whiteboard_url = #{audioWhiteboardUrl}
+    where id = #{id}
+  </update>     
+  <select id="selectLastInsertId" resultType="long">
+      SELECT LAST_INSERT_ID()
+  </select>
+  <insert id="insert" parameterType="FeudAnswerDetail"  >
+     <selectKey resultType="long" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into feud_answer_detail ( feud_quest_id, teacher_id, 
+      feud_type, audio_whiteboard_id, create_time, 
+      update_time, status, quest_real_id, 
+      evaluate, content,point,fee,audio_whiteboard_url)
+    values (#{feudQuestId}, #{teacherId}, 
+      #{feudType}, #{audioWhiteboardId}, now(), 
+      now(), #{status}, #{questRealId}, 
+      #{evaluate}, #{content},#{point},#{fee},#{audioWhiteboardUrl})
+  </insert>
+
+  <update id="updateExpireByTeacherId" parameterType="String" >
+    update feud_answer_detail
+    set   update_time = now(),
+      status = '3'
+    where teacher_id = #{teacherId} and status = '1'
+  </update>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultType="FeudAnswerDetail" parameterType="java.lang.Long" >
+    select id, feud_quest_id, teacher_id, feud_type, audio_whiteboard_id, create_time, 
+    update_time, status, quest_real_id, evaluate, content,point,fee
+    from feud_answer_detail
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultType="FeudAnswerDetail" >
+    select id, feud_quest_id, teacher_id, feud_type, audio_whiteboard_id, create_time, 
+    update_time, status, quest_real_id, evaluate, content,point,fee
+    from feud_answer_detail
+  </select>
+  
+  
+  
+  <select id="seletExpireByTeacherId" resultType="FeudAnswerDetail" parameterType="String">
+      select fd.id, fd.feud_quest_id, fd.teacher_id, fd.feud_type, fd.audio_whiteboard_id, fd.create_time, 
+    fd.update_time, fd.status, fd.quest_real_id, fd.evaluate, fd.content,fd.point,fd.fee
+    from feud_answer_detail fd ,education_biz.feud_quest fq  where
+    fd.feud_quest_id = fq.id and fq.source_teacher='common' and 
+    fd.teacher_id = #{teacherId} and fd.status = '1' and fq.status = '1'
+    
+  </select>
+  
+    <select id="completeDirectFeudList" resultType="FinishFeudAnswerDetailVO" parameterType="Map">
+	   SELECT fd.id as feudAnswerDetailId,fq.id feud_id,q.id question_id,fq.student_id,fd.update_time as completeTime,fd.status,question_real_id,fd.audio_whiteboard_id audioId,
+	   fd.fee as revenue,fd.evaluate,fd.point as score,q.latex,q.solution,q.subject,fq.student_id as studentId  
+	FROM education_biz.feud_answer_detail fd,
+	education_biz.feud_quest fq,education_biz.question q
+	 where fd.feud_quest_id = fq.id 
+	  and fq.source_teacher = #{teacherId}
+	  and q.real_id = fq.question_real_id 
+	  and fd.status in('2','3','4') and fd.teacher_id = #{teacherId} order by fd.update_time desc  limit #{pageSize} offset #{offset} ;
+   </select> 
+   
+       <select id="completeDirectFeudListCount" resultType="Integer" parameterType="Map">
+	   SELECT count(fd.id)
+	 FROM education_biz.feud_answer_detail fd,
+	education_biz.feud_quest fq,education_biz.question q
+	 where fd.feud_quest_id = fq.id 
+	  and fq.source_teacher = #{teacherId}
+	  and q.real_id = fq.question_real_id 
+	  and fd.status in('2','3','4') and fd.teacher_id = #{teacherId} ;
+   </select> 
+   
+   
+
+  <select id="completeFeudList" resultType="FinishFeudAnswerDetailVO" parameterType="Map">
+	   SELECT fd.id as feudAnswerDetailId,fq.id feud_id,q.id question_id,fq.student_id,fd.update_time as completeTime,fd.status,question_real_id,fd.audio_whiteboard_id audioId,
+	   fd.fee as revenue,fd.evaluate,fd.point as score,q.latex,q.solution,q.subject,fq.student_id as studentId  
+	FROM education_biz.feud_answer_detail fd,
+	education_biz.feud_quest fq,education_biz.question q
+	 where fd.feud_quest_id = fq.id 
+	  and fq.source_teacher = 'common'
+	  and q.real_id = fq.question_real_id 
+	  and fd.status in('2','3','4') and fd.teacher_id = #{teacherId} order by fd.update_time desc  limit #{pageSize} offset #{offset} ;
+   </select> 
+     <select id="completeFeudListCount" resultType="Integer" parameterType="Map">
+	   SELECT count(fd.id) 
+	FROM education_biz.feud_answer_detail fd,
+	education_biz.feud_quest fq,education_biz.question q
+	 where fd.feud_quest_id = fq.id 
+	  and fq.source_teacher = 'common'
+	  and q.real_id = fq.question_real_id 
+	  and fd.status in('2','3','4') and fd.teacher_id = #{teacherId} ;
+   </select> 
+   
+     <select id="completeFeudDetail" resultType="FinishFeudAnswerDetailVO" parameterType="String">
+	   SELECT fd.id as feudAnswerDetailId,fq.id feud_id,q.id question_id,fq.student_id,fq.update_time as completeTime,fd.status,question_real_id as questRealId,
+	   fd.fee as revenue,fd.teacher_id,fd.evaluate,fd.feud_type,fd.point as score,q.latex,q.solution,q.content,q.knowledge,q.learn_phase as grade , q.subject ,  fq.student_id as studentId, fd.audio_whiteboard_url as audioWbUrl,fd.audio_whiteboard_id as audioId  
+	FROM education_biz.feud_answer_detail fd,
+	education_biz.feud_quest fq,education_biz.question q
+	 where fd.feud_quest_id = fq.id 
+	  and q.real_id = fq.question_real_id 
+	  and fd.status in('2','3','4') and fd.id = #{feudAnswerDetailId};
+   </select>   
+   
+    
+   <select id="selectPrepareByFeudQuestIdAndTeacherId" resultType="FeudAnswerDetail" parameterType="FeudAnswerDetail" >
+    select id, feud_quest_id, teacher_id, feud_type, audio_whiteboard_id, create_time, 
+    update_time, status, quest_real_id, evaluate, content,point,fee
+    from feud_answer_detail
+    where teacher_id = #{teacherId} and feud_quest_id = #{feudQuestId} and status = 1
+  </select>
+  
+  
+   <select id="getFeudAnswerDetailByWhiteBoardId" resultType="FeudAnswerDetail" parameterType="string" >
+    select 
+    	id, 
+    	feud_quest_id, 
+    	teacher_id, 
+    	feud_type, 
+    	audio_whiteboard_id, 
+    	create_time, 
+    	update_time, 
+    	status, 
+    	quest_real_id, 
+    	evaluate, 
+    	content,
+    	point,
+    	fee
+    from feud_answer_detail
+    where audio_whiteboard_id = #{whiteBoardId} and feud_type=2
+  </select>
+  
+   <select id="hasCommitQuestWithTeacher" resultType="Integer" parameterType="FeudAnswerDetail" >
+     select count(1) from education_biz.feud_answer_detail fd where teacher_id = #{teacherId}
+     and feud_quest_id = #{feudQuestId} and status = 2
+   </select>
+
+  
+</mapper>

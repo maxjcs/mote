@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.RattingApplyDao">
+	<select id="listRattingApply" resultType="RattingApply" parameterType="map">
+		<![CDATA[
+			select id,teacher_id,create_time,update_time,audit_id,audit_time,audit_content,status,star
+			from ratting_apply 
+			where teacher_id=#{teacherId} 
+			order by create_time desc
+		]]>
+	</select>
+
+	<select id="listAudioIdByTime" resultType="String" parameterType="map">
+		<![CDATA[
+			select id
+			from audio_upload 
+			where teacher_id=#{teacherId} and create_time>#{startTime} and create_time<=now()
+			limit 100
+		]]>
+	</select> 
+
+	<insert id="addRattingApply" parameterType="RattingApply">
+		insert into
+		ratting_apply(
+			teacher_id,
+			create_time,
+			update_time
+		)
+		values(
+					#{teacherId},
+					now(),
+					now()
+		)
+	</insert>
+
+	<select id="getLastUnAuditRattingApply" resultType="RattingApply">
+		<![CDATA[
+			select id,teacher_id,create_time,update_time,audit_id,audit_time,audit_content,status,star
+			from ratting_apply  
+			where teacher_id=#{teacherId} and status=0 
+			order by create_time desc
+			limit 1
+		]]>
+	</select>
+	
+	<select id="getLastAuditRattingApply" resultType="RattingApply">
+		<![CDATA[
+			select id,teacher_id,create_time,update_time,audit_id,audit_time,audit_content,status,star
+			from ratting_apply  
+			where teacher_id=#{teacherId} and status in (1,2)
+			order by create_time desc
+			limit 1
+		]]>
+	</select>
+	
+	<select id="getLastRattingApply" resultType="RattingApply">
+		<![CDATA[
+			select id,teacher_id,create_time,update_time,audit_id,audit_time,audit_content,status,star
+			from ratting_apply  
+			where teacher_id=#{teacherId}
+			order by create_time desc
+			limit 1
+		]]>
+	</select>
+</mapper> 

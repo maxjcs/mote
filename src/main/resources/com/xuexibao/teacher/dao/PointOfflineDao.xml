@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.PointOfflineDao">
+	<select id="allPointOffline" resultType="PointOffline" >
+		<![CDATA[
+			select id,name,description,money,point
+			from point_offline 
+		]]>
+	</select>
+
+	<update id="updatePointOffline" parameterType="PointOffline">
+		update point_offline 
+		set  
+			  <if test="#{name}!=null and #{name}!='' ">
+                	name=#{name},
+              </if>
+			  <if test="#{description}!=null and #{description}!='' ">
+                	description=#{description},
+              </if>
+			  <if test="#{money}!=null and #{money}!='' ">
+                	money=#{money},
+              </if>
+			  <if test="#{point}!=null and #{point}!='' ">
+                	point=#{point},
+              </if>
+              1=1
+		where id=#{id}
+	</update>
+</mapper> 

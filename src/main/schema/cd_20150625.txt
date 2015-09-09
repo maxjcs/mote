@@ -1,0 +1,53 @@
+#select concat('update teacher set bank =''',开户行修改为,''' where phone_number=''',手机号,''';')  from 修改开户行;
+#修改开户行信息
+update teacher set bank ='中国工商银行四川师范大学支行' where phone_number='15202843367';
+update teacher set bank ='光大银行合肥濉溪路支行' where phone_number='13856973187';
+update teacher set bank ='中国建设银行合肥龙湖支行' where phone_number='18225525076';
+update teacher set bank ='中国光大银行合肥支行营业部' where phone_number='18856075893';
+update teacher set bank ='中国建设银行合肥高新支行' where phone_number='18655172256';
+update teacher set bank ='中国建设银行合肥梅山路支行' where phone_number='18956075169';
+update teacher set bank ='中国建设银行合肥城西支行' where phone_number='13655698053';
+update teacher set bank ='中国工商银行合肥望江路支行' where phone_number='18019967372';
+update teacher set bank ='中国工商银行灵璧支行' where phone_number='13215577816';
+update teacher set bank ='中国邮政储蓄银行铜陵长江路支行' where phone_number='18326032971';
+update teacher set bank ='中国农业银行翡翠路分理处' where phone_number='18355696318';
+update teacher set bank ='中国建设银行合肥梅山路支行' where phone_number='15209860889';
+update teacher set bank ='中国建设银行合肥芜湖路支行' where phone_number='13635517709';
+
+#select concat('update teacher set bank =''',开户行,''',bank_card=''',银行卡号,''',id_number=''',身份证,''' where phone_number=''',手机号,''';')  from 绑定银行卡;
+#绑定银行卡
+update teacher set bank ='中国工商银行萧县支行',bank_card='6222021312002639894',id_number='342222198510170022' where phone_number='18725575031';
+update teacher set bank ='中国光大银行濉溪路支行',bank_card='62149230006192298',id_number='340824199005120022' where phone_number='15156269907';
+update teacher set bank ='中国农业银行金城支行',bank_card='6228480668148069770',id_number='340827198807246027' where phone_number='18356090705';
+update teacher set bank ='中国邮政储蓄银行翡翠路支行',bank_card='6215993610000631336',id_number='342622199210053226' where phone_number='15255141504';
+update teacher set bank ='中国建设银行桐城路支行',bank_card='6217001630020553738',id_number='342901199306030226' where phone_number='18355311573';
+update teacher set bank ='中国邮政储蓄银行潜山路邮政支局',bank_card='6232183610000696540',id_number='340111198912046036' where phone_number='13865914024';
+update teacher set bank ='中国银行巢湖中路支行',bank_card='6222021315000165242',id_number='342601198502257419' where phone_number='13866972051';
+update teacher set bank ='中国工商银行滨湖支行',bank_card='6222021302027599777',id_number='34082519870822492X' where phone_number='18656561925';
+update teacher set bank ='中国工商银行合肥长江东路支行',bank_card='6222021302025029595',id_number='34010319871230108X' where phone_number='18009692519';
+update teacher set bank ='中国邮政储蓄银行宁国路支行',bank_card='6215993610000935109',id_number='34222519920616051X' where phone_number='18256980113';
+update teacher set bank ='中国工商银行芜湖清水支行',bank_card='6212261307000971687',id_number='340221199505234104' where phone_number='18356220312';
+update teacher set bank ='合肥长丰农村合作银行杨庙支行',bank_card='6217788300400114290',id_number='340121197506113123' where phone_number='13155135026';
+update teacher set bank ='中国民生银行合肥白马支行',bank_card='6226203400699596',id_number='342623219901225551X' where phone_number='15556968143';
+update teacher set bank ='招商银行合肥肥西路支行',bank_card='6214835491019707',id_number='34010119870508001X' where phone_number='13605608606';
+update teacher set bank ='中国光大银行濉溪路支行',bank_card='6226623003807298',id_number='342221198701103045' where phone_number='15212771278';
+update teacher set bank ='中国农业银行合肥包河苑支行',bank_card='6228480668187322973',id_number='341221198805106629' where phone_number='18355108056';
+update teacher set bank ='中国建设银行肥东支行',bank_card='6227001637030042437',id_number='340123198212106494' where phone_number='13721032933';
+update teacher set bank ='合肥科技农村商业银行滨湖新区分理处',bank_card='6229538100104675523',id_number='340822198605010735' where phone_number='15256569268';
+update teacher set bank =' 中国建设银行合肥三孝口支行',bank_card='6217001630010270467',id_number='340121198808171016' where phone_number='15856961611';
+update teacher set bank ='中信银行杭州分行庆春支行',bank_card='6217710801157496',id_number='340402199010011461' where phone_number='18267105355';
+update teacher set bank ='招商银行合肥分行四牌楼支行',bank_card='6225885519214266?',id_number='340311198905280247' where phone_number='18156076850';
+update teacher set bank ='中国银行合肥莲花路支行',bank_card='6013821500005602019',id_number='342427199106196623' where phone_number='18756587577';
+update teacher set bank ='中国农业银行合肥金寨路支行',bank_card='6228210669000634773',id_number='620422199306263230' where phone_number='13053098385';
+update teacher set bank ='中国农业银行合肥蜀山分理处',bank_card='6228480668895855371',id_number='342625199209072816' where phone_number='18356094752';
+update teacher set bank ='中国农业银行金寨路支行',bank_card='6228210660057085811',id_number='420881199110137114' where phone_number='18164462411';
+
+#查询账号重复教师
+select * from teacher where id_number in (
+	select id_number 
+	from teacher 
+	group by id_number 
+	having count(1)>1
+)
+order by id_number;
+ 

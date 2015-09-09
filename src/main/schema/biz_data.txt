@@ -1,0 +1,29 @@
+#新增几个机构的二维码
+delete from teacher where id in ('66c99122-1447-4b80-8ca9-b74eb3e25099','e40a053a-b53c-4119-b485-ee448b2cffee','ae45f847-c2d8-4a11-a402-2ec7343b9098');
+insert into teacher(id,name,phone_number,password,status,star,point,complete_new_user_task,last_device_id,teacher_identify,last_device_type,online_status,create_time,update_time,last_task_time) 
+values('66c99122-1447-4b80-8ca9-b74eb3e25099','孝全文化','18988289533','9AC27B5B143DF84C11E8C7AACEDE44DB',1,3,3000,0,'',1,'1','N',now(),now(),now()),
+		  ('e40a053a-b53c-4119-b485-ee448b2cffee','水浒书业','15053732105','ECF24BF4426859F44C9C71F6EA07B618',1,3,3000,0,'',1,'1','N',now(),now(),now()),
+      ('ae45f847-c2d8-4a11-a402-2ec7343b9098','华翰书业','13703338768','70D3C5B3EEE0C9C0286277CC2B74AF51',1,3,3000,0,'',1,'1','N',now(),now(),now());
+      
+ #教师老数据处理
+update   teacher set star=0,last_task_time=now(),point=0,teacher_identify=1 where star is null 
+ 
+update question set source='1' where ifnull(source,'')='';
+ 
+ 
+18210009241
+13643179000 
+18810447606 
+13466651284 
+13575729573
+13516873314
+18514570160
+18668037368
+13185712857
+18810653563
+13857189725
+18210009241
+ 
+ delete from education_pay.audio where teacher_id in (select id from teacher where phone_number in ())
+ 
+ 

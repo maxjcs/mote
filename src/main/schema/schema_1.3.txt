@@ -1,0 +1,127 @@
+alter table audio_set add column description varchar(512) comment '习题集简介';
+alter table audio_set add column order_no int  default 0 comment '序号';
+
+alter table audio_set add column top_tag int  default 0 comment '标记'; 
+
+alter table teacher_message add column floor int comment '楼层';
+alter table teacher_message add column reply_id bigint comment '被回复的ID';
+alter table teacher_message add column reply_floor bigint comment '被回复的楼层';
+alter table teacher_message add column status tinyint default 1 comment '状态:1有效 0无效';
+
+
+alter table error_correction add column reason_type varchar(128) comment '出错类型';
+
+增加星级字段
+alter table audio_upload add column plan_type varchar(1);
+alter table teacher add column plan_type varchar(1);
+alter table education_pay.audio add column plan_type varchar(1);
+
+alter table organization_sources add column plan_type varchar(1) comment 'A:plana B planb';
+
+alter table audio_upload add column teacher_star int comment '录制音频时教师的星级';
+alter table education_pay.audio add column  teacher_star int comment '录制音频时教师的星级';
+
+
+#增加字段区分抢答及请求讲解
+
+alter table education_biz.audio_upload add column feud_type int  default 1 comment '抢答类型: 1.feud 抢答 2.direct 请求讲解';
+alter table education_pay.audio add column feud_type int  default 1 comment '抢答类型: 1.feud 抢答 2.direct 请求讲解';
+
+
+#增加错题表 20150724
+ drop table if exists error_question;
+
+/*==============================================================*/
+/* Table: error_question                                        */
+/*==============================================================*/
+create table error_question
+(
+   real_id              bigint(20) not null comment '来源id',
+   subject              varchar(200) comment '科目',
+   latex                text comment '标题',
+   content              text comment '试题内容',
+   knowledge            varchar(200) comment '知识点',
+   answer               text comment '试题答案',
+   solution             text comment '试题解析',
+   learn_phase          varchar(200) comment '年级',
+   real_subject         tinyint(4) not null comment '学科编号',
+   create_time          datetime not null comment '创建时间',
+   update_time          timestamp not null default CURRENT_TIMESTAMP comment '更新时间',
+   source               varchar(1) comment '1：每日热题 2：抢答题 3：机构题',
+   status               int default 0 comment '错误状态 [0：已报错 1：已读取 2：已审核]',
+   audit_time           datetime,
+   primary key (real_id)
+);
+
+alter table error_question comment '错题表';
+
+#历史题库插入
+insert into error_question(real_id,subject,latex,content,knowledge,answer,solution,learn_phase,real_subject,create_time,update_time,source,status)
+select real_id,subject,latex,content,knowledge,answer,solution,learn_phase,real_subject,create_time,update_time,source,0 status
+from question 
+where real_id in (select distinct question_id from error_correction);
+
+
+
+DROP TABLE IF EXISTS `audio_eval_approve`;
+CREATE TABLE `audio_eval_approve` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `audio_id` varchar(100) NOT NULL,
+  `good_eval_num` int(11) NOT NULL DEFAULT '0' COMMENT '好评数',
+  `middle_eval_num` int(11) NOT NULL DEFAULT '0' COMMENT '中评数',
+  `bad_eval_num` int(11) NOT NULL DEFAULT '0' COMMENT '差评数',
+  `total_point` int(11) NOT NULL DEFAULT '0' COMMENT '获得积分',
+  `deduct_point` int(11) NOT NULL DEFAULT '0' COMMENT '音频下线要扣除的积分',
+  `teacher_id` varchar(100) NOT NULL COMMENT '教师Id',
+  `question_id` int(11) NOT NULL COMMENT '试题Id',
+  `operator` varchar(255) DEFAULT NULL COMMENT '审核人',
+  `content` varchar(1000) DEFAULT NULL COMMENT '审核内容',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态 0待审 1属实，下线   2不属实',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `approve_time` datetime DEFAULT NULL COMMENT '审核时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_audio_id` (`audio_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `audio_student_evaluation`;
+CREATE TABLE `audio_student_evaluation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `teacher_id` varchar(255) NOT NULL DEFAULT '' COMMENT '教师ID',
+  `audio_id` varchar(50) NOT NULL DEFAULT '' COMMENT '音频ID',
+  `user_id` varchar(50) NOT NULL DEFAULT '' COMMENT '用户ID',
+  `evaluation` int(11) DEFAULT NULL COMMENT '评价级别 1好评，2中评 3差评',
+  `content` varchar(400) DEFAULT NULL COMMENT '评价内容',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '评价时间',
+  `point` int(11) NOT NULL COMMENT '积分变化值',
+  `remain_point` int(11) NOT NULL COMMENT '剩余积分',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8 COMMENT='音频评价';
+
+
+
+DROP TABLE IF EXISTS `evaluation_point_conf`;
+CREATE TABLE `evaluation_point_conf` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL COMMENT '类型 1老师 2大学生',
+  `good` int(11) NOT NULL DEFAULT '0' COMMENT '好评积分',
+  `middle` int(11) NOT NULL DEFAULT '0' COMMENT '中评积分',
+  `bad` int(11) NOT NULL DEFAULT '0' COMMENT '差评积分',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `evaluation_point_conf`
+-- ----------------------------
+BEGIN;
+INSERT INTO `evaluation_point_conf` VALUES ('1', '1', '10', '0', '-30'), ('2', '2', '10', '0', '-30');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+ 
+
+

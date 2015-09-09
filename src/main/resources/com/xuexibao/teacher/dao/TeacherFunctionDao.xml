@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.TeacherFunctionDao">
+
+    <resultMap id="BaseResultMap" type="com.xuexibao.teacher.model.TeacherFunctionPojo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="everyday_task" property="everydayTask" jdbcType="INTEGER"/>
+        <result column="feud" property="feud" jdbcType="INTEGER"/>
+        <result column="learn_talk" property="learnTalk" jdbcType="INTEGER"/>
+        <result column="pay" property="pay" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_column">
+        id,everyday_task,feud,learn_talk,pay
+    </sql>
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_column"/>
+        FROM teacher_function
+        WHERE id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="com.xuexibao.teacher.model.TeacherFunctionPojo" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO teacher_function (id,everyday_task,feud,learn_talk,pay)values(#{id}, #{everydayTask}, #{feud}, #{learnTalk}, #{pay})
+        <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+            <!--<if test="id!=null and id!=''">-->
+                <!--id-->
+            <!--</if>-->
+            <!--<if test="everydayTask!=null">-->
+                <!--everyday_task-->
+            <!--</if>-->
+            <!--<if test="feud!=null">-->
+                <!--feud-->
+            <!--</if>-->
+            <!--<if test="learnTalk!=null">-->
+                <!--learn_talk-->
+            <!--</if>-->
+            <!--<if test="pay!=null">-->
+                <!--pay-->
+            <!--</if>-->
+        <!--</trim>-->
+        <!--<trim prefix="value (" suffix=")" suffixOverrides=",">-->
+            <!--<if test="id!=null and id!=''">-->
+                <!--#{id}-->
+            <!--</if>-->
+            <!--<if test="everydayTask!=null">-->
+                <!--#{everydayTask}-->
+            <!--</if>-->
+            <!--<if test="feud!=null">-->
+                <!--#{feud}-->
+            <!--</if>-->
+            <!--<if test="learnTalk!=null">-->
+                <!--#{learnTalk}-->
+            <!--</if>-->
+            <!--<if test="pay!=null">-->
+                <!--#{pay}-->
+            <!--</if>-->
+        <!--</trim>-->
+    </insert>
+
+    <!-- 更新模块状态-->
+    <update id="updateByTeacherId" parameterType="com.xuexibao.teacher.model.TeacherFunctionPojo">
+        UPDATE teacher_function
+        <set>
+            <if test="everydayTask!=null">
+                everyday_task=#{everydayTask}
+            </if>
+            <if test="feud!=null">
+                feud=#{feud}
+            </if>
+            <if test="learnTalk!=null">
+                learn_talk=#{learnTalk}
+            </if>
+            <if test="pay!=null">
+                pay=#{pay}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper> 

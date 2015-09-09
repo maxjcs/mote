@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.FeudDetailWbDao" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from feud_detail_wb
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="FeudDetailWb"  >
+     <selectKey resultType="long" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into feud_detail_wb ( feud_detail_id, file_url,file_type,wb_id,wb_version, 
+      create_time, update_time)
+    values ( #{feudDetailId}, #{fileUrl}, #{fileType},#{wbId},#{wbVersion}, 
+      now(), now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="FeudDetailWb" >
+    update feud_detail_wb
+    set feud_detail_id = #{feudDetailId},
+      file_url = #{fileUrl},file_type = #{fileType},wb_id = #{wbId}
+      update_time = now()
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultType="FeudDetailWb" parameterType="java.lang.Long" >
+    select id, feud_detail_id, file_url, create_time, update_time,file_type,wb_id,wb_version
+    from feud_detail_wb
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultType="FeudDetailWb" >
+    select id, feud_detail_id, file_url, create_time, update_time,file_type,wb_id,wb_version
+    from feud_detail_wb
+  </select>
+   <select id="selectAllByWbId" resultType="FeudDetailWb" parameterType="String">
+    select id, feud_detail_id, file_url, create_time, update_time,file_type,wb_id,wb_version
+    from feud_detail_wb where wb_id = #{wbId}
+  </select>
+</mapper>

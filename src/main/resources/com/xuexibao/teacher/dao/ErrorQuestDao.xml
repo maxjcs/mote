@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.ErrorQuestDao">
+	<select id="listErrorQuest" resultType="ErrorQuest" parameterType="map">
+		<![CDATA[
+			select *
+			from error_question 
+			where status=0 
+			order by create_time  
+			limit #{start},#{limit}
+		]]>
+	</select>
+	
+	<select id="getQuestReasonTypeList" resultType="QuestReasonType">
+		select b.teacher_id,b.reason,a.question_id,a.reason_type,a.id from (
+			select question_id,group_concat(reason_type) reason_type,min(id) id
+			from error_correction 
+			where question_id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+				  #{item.realId}  
+			</foreach>
+			group by question_id
+		) a,error_correction b
+		where a.id=b.id
+	</select>
+	
+	<update id="updateQuestReadStatus">
+		update error_question 
+		set  status=1,
+              update_time=now()
+		where real_id in 
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+			  #{item}  
+		</foreach>
+	</update>
+	
+	<update id="updateQuestAuditStatus">
+		update error_question 
+		set  status=2,
+              audit_time=now()
+		where real_id in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+			  #{item.realId}  
+		</foreach>
+	</update>
+
+	<insert id="addErrorQuest" parameterType="Question">
+		insert ignore into
+		error_question(
+			real_id,
+			subject,
+			latex,
+			content,
+			knowledge,
+			answer,
+			solution,
+			learn_phase,
+			real_subject,
+			create_time,
+			update_time, 
+			source
+		)
+		values(
+					#{realId},
+					#{subject},
+					#{latex},
+					#{content},
+					#{knowledge},
+					#{answer},
+					#{solution},
+					#{learnPhase},
+					#{realSubject},
+					now(),
+					now(),
+					#{source}
+		)
+	</insert>
+
+	<update id="updateQuestion" parameterType="ErrorQuest">
+		update question 
+		set  subject=#{subject},
+			  content=#{content},
+			  knowledge=#{knowledge},
+			  answer=#{answer},
+			  solution=#{solution},
+			  real_subject=#{realSubject},
+			  learn_phase=#{learnPhase}
+		where real_id=#{realId}
+	</update>
+</mapper> 

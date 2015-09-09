@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+	http://www.springframework.org/schema/context   
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+	http://www.springframework.org/schema/mvc   
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task.xsd">
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.xuexibao.teacher.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+
+	<task:annotation-driven executor="asyncExecutor" scheduler="asyncScheduler"/>
+	<task:executor id="asyncExecutor" pool-size="5-20" keep-alive="60" queue-capacity="5" rejection-policy="DISCARD"/>
+	<task:scheduler id="asyncScheduler" pool-size="10"/>
+    
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	
+		<!-- 设置前缀，即视图所在的路径 -->
+		<property name="prefix" value="/WEB-INF/views/" />
+		<!-- 设置后缀，即视图的扩展名 -->
+		<property name="suffix" value=".jsp" />
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.InternalResourceView
+			</value>
+		</property>
+	</bean>
+
+
+</beans>

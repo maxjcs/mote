@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.LearnTalkMessageDao" >
+	<select id="countTeacherUnReadMessage" resultType="LearnTalkCount" parameterType="hashmap">
+  	select  
+  		count(1) as number   
+  	from
+  		learn_message l 
+  	where 
+  		student_id=#{student_id} and 
+  		teacher_id = #{teacher_id} and 
+  		teacher_offer_id=#{teacher_offer_id} and 
+  		is_read='N' and 
+  		send_msg_user_type=2
+	</select>
+  
+	<select id="learnTalkListSubIds" resultType="long" parameterType="hashmap">
+  	select 
+  			max(id) id 
+  	from  learn_message   
+  	where teacher_id=#{teacher_id} 
+  	group by teacher_offer_id,student_id,dialog_type
+  	order by id desc
+  	limit #{pageSize} offset #{offset}
+	</select>
+  
+  	<select id="studentNumber" resultType="long" >
+  	select 
+  			max(id) id 
+  	from  learn_message 
+  	where teacher_id=#{teacherId} 	and send_msg_user_type= 2 and is_read='N' 
+  	group by teacher_offer_id,student_id
+	</select>
+	
+	<select id="learnTalkStudentListSubIds" resultType="long" parameterType="hashmap">
+  	select 
+  		max(id) id
+  	from learn_message 
+  	where student_id=#{studentId} 
+  	group by teacher_offer_id,teacher_id,dialog_type
+  	order by id desc
+  	limit #{pageSize} offset #{offset}
+	</select>
+  
+	<select id="countStudentUnReadMessage" resultType="LearnTalkCount" parameterType="hashmap">
+  	select  
+  		count(1) as number   
+  	from
+  		learn_message l 
+  	where 
+  		student_id=#{student_id} and 
+  		teacher_id = #{teacher_id} and 
+  		teacher_offer_id=#{teacher_offer_id} and 
+  		is_student_read='N'and 
+  		send_msg_user_type=1
+	</select>
+  
+	<select id="learnTalkStudentRecentMessage" resultType="LearnMessage" parameterType="hashmap">
+  	select  
+  		l.id, 
+  		l.teacher_id, 
+  		l.student_id, 
+  		l.send_msg_user_type, 
+  		l.msg_type,
+  		l.teacher_offer_id, 
+  		l.teacher_offer_type, 
+  		l.teacher_offer_desc,
+  		l.content,
+  		l.is_read, 
+  		l.is_student_read, 
+  		l.create_time, 
+  		l.update_time,
+  		l.dialog_type,
+  		l.image_id   
+  	from 
+  		learn_message l
+  	where 
+  		l.teacher_id=#{teacher_id} and l.student_id=#{student_id} and l.teacher_offer_id=#{teacher_offer_id} and 
+  		l.teacher_offer_type=#{teacher_offer_type} 
+		<if test="dialogType!=null and dialogType!='' ">
+           and l.dialog_type=#{dialogType}    
+        </if>
+  		and l.create_time    &gt; #{timestamp}
+  	order by l.create_time asc
+	</select>
+  
+	<select id="learnTalkDetail" resultType="LearnMessage" parameterType="hashmap">
+  	select  
+  		l.id as id, 
+  		l.teacher_id, 
+  		l.student_id, 
+  		l.send_msg_user_type, 
+  		l.msg_type,
+  		l.teacher_offer_id, 
+  		l.teacher_offer_type, 
+  		l.teacher_offer_desc,
+  		l.content,
+  		l.is_read, 
+  		l.dialog_type,
+  		l.is_student_read, 
+  		l.create_time, 
+  		l.update_time,
+  		l.image_id 
+  	from 
+  		learn_message l
+  	where 
+  		l.teacher_id=#{teacher_id} and l.student_id=#{student_id} and l.teacher_offer_id=#{teacher_offer_id} and 
+  		l.teacher_offer_type=#{teacher_offer_type} 
+  		<if test="dialogType!=null and dialogType!='' ">
+           and l.dialog_type=#{dialogType}    
+        </if>
+  		and  l.create_time &lt;  #{timestamp} 
+  	order by l.create_time desc
+  	limit #{pageSize} 
+	</select>
+
+	<select id="learnTalkImageId" resultType="String" parameterType="hashmap">
+  	select  
+  		l.image_id 
+  	from 
+  		learn_message l
+  	where 
+  		l.teacher_id=#{teacher_id} and l.student_id=#{student_id} and l.teacher_offer_id=#{teacher_offer_id} and l.teacher_offer_type=#{teacher_offer_type} and send_msg_user_type=2
+  	limit 1
+	</select>
+    
+	<select id="learnTalkformIds" resultType="LearnMessage" parameterType="hashmap">
+  	select 	
+  		id, 		
+	  	teacher_id , 		
+	  	student_id, 		
+	  	send_msg_user_type , 		
+	  	msg_type ,	
+	  	dialog_type,	
+	  	teacher_offer_id, 		
+	  	teacher_offer_type,
+	  	teacher_offer_desc,
+	  	content,
+	  	is_read, 		
+	  	create_time,		
+	  	update_time  
+  	from learn_message a
+  		where id in 
+		<foreach item="item" index="index" collection="ids"
+			open="(" separator="," close=")">
+       		 #{item}
+		</foreach>
+  	order by create_time desc 
+	</select>
+  
+  	<update id="learnTalkUpdate" parameterType="hashmap">
+  	UPDATE 
+  		learn_message 
+  	SET 
+  		is_read = 'Y' , update_time = now() 
+  	WHERE  
+  		student_id=#{student_id} and teacher_id = #{teacher_id} and teacher_offer_id=#{teacher_offer_id} 
+	</update>
+	
+	<insert id="insertLearnMsg" parameterType="LearnMessage" useGeneratedKeys="true" keyProperty="id" >
+    insert into 
+    	learn_message 
+    	(teacher_id,
+    	 student_id,
+    	 send_msg_user_type,
+    	 msg_type,
+    	 teacher_offer_id,
+    	 teacher_offer_type,
+    	 teacher_offer_desc,
+    	 is_read,
+    	 is_student_read, 
+    	 content,
+    	 image_id,
+    	 dialog_type,
+    	 create_time,
+    	 update_time ) 
+    values
+    	(#{teacherId},#{studentId},#{sendMsgUserType},#{msgType},#{teacherOfferId},#{teacherOfferType},#{teacherOfferDesc},
+    	#{isRead},#{isStudentRead},#{content},#{imageId},#{dialogType},#{createTime},#{updateTime} )
+	</insert>
+  
+	<update id="learnTalkStudentUpdate" parameterType="hashmap">
+  	UPDATE 
+  		learn_message 
+  	SET 
+  		is_student_read = 'Y' , update_time = now() 
+  	WHERE  
+  		student_id=#{student_id} and teacher_id = #{teacher_id} and teacher_offer_id=#{teacher_offer_id} and teacher_offer_type=#{teacher_offer_type}
+	</update>
+  
+	<select id="queryIsHudong" resultType="String" >
+  	select teacher_offer_id
+  	from  learn_message 
+  	where student_id=#{userId} and teacher_offer_id in
+		<foreach item="item" index="index" collection="allIdList"
+			open="(" separator="," close=")">
+       		 #{item}
+		</foreach>
+	group by teacher_offer_id
+	</select>
+
+</mapper>

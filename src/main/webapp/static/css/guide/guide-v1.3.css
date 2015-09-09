@@ -1,0 +1,18 @@
+@charset "utf-8";
+/**
+ * Guide style sheet for Xuexibao teacher App
+ * Author: Feil.Wang
+ * E-mail: wangfeilong@xuexibao.cn
+ * Date Modified: 2015.07.13
+ */
+html, body { height: 100%; }
+body { background-color: #f2f2f2; font-size: 14px; color: #999; }
+.text-center { text-align: center; }
+.page { height: 100%; }
+.section { padding: 10px; }
+.guide-pic { position: relative; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.guide-pic img { width: 100%; vertical-align: top; }
+.desc-container { position: relative; }
+.desc-body { position: absolute; width: 100%; top: 40%; transform: translateY(-50%); -webkit-transform: translateY(-50%); line-height: 20px; padding: 0 15px; }
+.desc-body h2 { color: #00c698; font-size: 16px; text-align: center; margin-bottom: 10px; }
+.desc-body em { font-size: 16px; color: #777 }

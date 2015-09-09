@@ -1,0 +1,257 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="static/lib/zepto.min.js"></script>
+
+</head>
+<title>教师端1.4版本API相关接口——老陆</title>
+<script>
+$(function(){
+	var index=self.location.href.indexOf('token=');
+	if(index>0){
+		var token=self.location.href.substr(index+6);
+		$('input[name=token]').val(token)
+	}
+});
+
+</script>
+<body>
+	<font color="red"> 有问题联系老陆</font><br>
+	<br>基础接口
+	<div style="margin-left:20px">
+		<br> 1、[api/user/login]获取token
+		<form action="api/user/login" method="post">
+			phoneNumber:<input type="text" name="phoneNumber" value="18758031357" />
+			password：<input type="text" name="password" value="123456" />
+			deviceId：<input type="text" name="deviceId"
+				value="RAgP1i7r+jLQxFd+VmL/5NBNznPtmW/6YxoTQ4QOZvNptzTbxbAz1zE5jUemdXKRYD9SK7tFlmwV45EdVbeYlD8Lt85Xr74b220z6klJFm2RjjZTr121xJeoUrUDV9FRhcTfhabbMndrBCIEo7NYTJ7K/9MoiimxbMgIUTHOVEqygNDKH7QxAW5BNCSYj8Utcilgd2Qeulx/sGMSfLcrdqdlAg2Y19f3h/QPRVNu5pGitagstapOnn6S+NCPV17WTGIfU1UKhL+n+60zSs/SxVNHrj/wbw+kO2HnN5RKGuJTHkPCGmN9aqX1i1EVm0KobQw4zJSo4w8VbPOyQhcCPQ==" />
+			deviceType：<input type="text" name="deviceType" value="1" /> <input
+				type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		2、[api/home/getInfo]主页接口增加主页留言数和围观数（countReplyer，countMessage）
+		<form id="1" action="api/home/getInfo" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+	</div>
+	<br>我的动态
+	<div style="margin-left:20px">
+		<br> 1、[api/dynamic/getFollowedStudentCount]获取关注老师的学生数
+		<form action="api/dynamic/getFollowedStudentCount" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		   
+		<br> 2、[api/dynamic/addAudioSetDynamic]发布习题集动态
+		<form action="api/dynamic/addAudioSetDynamic" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			setId:<input type="text" name="setId" value="03c04b16-8fcc-4959-a963-9629ec830408" />
+			description:<input type="text" name="description" value="该习题集特别棒" />
+			 
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 3、[api/dynamic/addPublishDynamic]发布新建动态
+		<form action="api/dynamic/addPublishDynamic" method="post" enctype="multipart/form-data">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			gradeIds:<input type="text" name="gradeIds" value="1,2,3" />
+			description:<input type="text" name="description" value="该习题集特别棒" /></br>
+			imageFile1:<input type="file" name="image1" /></br>
+			imageFile2:<input type="file" name="image2" /></br>
+			imageFile3:<input type="file" name="image3" /></br>
+			imageFile4:<input type="file" name="image4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 4、[api/dynamic/listDynamic]查询老师动态
+		<form action="api/dynamic/listDynamic" method="post" >
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			lastId:<input type="text" name="lastId" value="0" />
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 5、[api/dynamicmessage/addMessageForTeacher]老师回复动态或则回复学生的评论
+		<form action="api/dynamicmessage/addMessageForTeacher" method="post"  enctype="multipart/form-data">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			dynamicId:<input type="text" name="dynamicId" value="4" /></br>
+			content:<input type="text" name="content" value="你说的好棒啊" /></br>
+			replyId:<input type="text" name="replyId" value="" /></br>
+			image:<input type="file" name="image" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 6、[api/dynamicupvote/addUpvote]老师点赞
+		<form action="api/dynamicupvote/addUpvote" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			dynamicId:<input type="text" name="dynamicId" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 7、[api/dynamicupvote/removeUpvote]老师取消赞
+		<form action="api/dynamicupvote/removeUpvote" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			dynamicId:<input type="text" name="dynamicId" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 8、[api/dynamic/loadDynamic]加载动态信息
+		<form action="api/dynamic/loadDynamic" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			id:<input type="text" name="id" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 9、[api/dynamicmessage/listMessageForTeacher]动态的评论分页列表
+		<form action="api/dynamicmessage/listMessageForTeacher" method="post" >
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			dynamicId:<input type="text" name="dynamicId" value="4" /></br>
+			lastId:<input type="text" name="lastId" value="0" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 10、[api/dynamic/removeDynamic]删除动态信息
+		<form action="api/dynamic/removeDynamic" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			dynamicId:<input type="text" name="dynamicId" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 11、[api/dynamicmessage/removeMessage]删除动态评论信息
+		<form action="api/dynamicmessage/removeMessage" method="post">
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" /></br>
+			id:<input type="text" name="id" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+	 </div>
+	 
+	<br>
+	<br>习题集接口
+	<div style="margin-left:20px">
+		<br> 1、[api/audioset/addAudioSet]新增习题集[成功后返回习题集信息]
+		<form id="1" action="api/audioset/addAudioSet" method="post">
+			Token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			<br>audioset：
+			<textarea name="audioset" cols=60 rows=5>{"description":"本习题集主要用于提升英语听说读写能力","gradeIds":"1,2,3","name":"英语习题集","price":5,"audioIds":["1aa60a9e-c8a7-4421-9888-9ebaf25b1db4","1e4eec74-1341-4617-81d1-0fee023715d8","978c2dd4-7c49-4864-9d9c-5632408250eb","e5a9f78c-0ffa-430f-bcb5-6a2df98328ca","c9486cc8-51c1-4086-9d1d-91f931d41634"]}</textarea>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 2、[api/audioset/setAudioSetFreeStatus]设置习题集免费收费接口<font color="red">[所有习题集接口都增加收费标识返回值，终端根据这个标记显示是否免费]</font>
+		<form id="1" action="api/audioset/setAudioSetFreeStatus" method="post">
+			Token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			</br>setId:<input type="text" name="setId" value="4fbdeed5-3d31-41dd-87bf-d9731e46b353" /></br>
+			isFree:<input type="text" name="isFree" value="0" />[收费标识：1：免费 0：收费]</br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+			3、[api/audioset/listAudio]筛选音频信息[2:自拍]
+			<form id="1" action="api/audioset/listAudio" method="post">
+				Token:<input type="text" name="token"
+					value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+				filterDay：<input type="text" name="filterDay" value="" />
+				audioSource：<input type="text" name="audioSource" value="1" />
+				pageNo：<input type="text" name="pageNo" value="0" /> <input
+					type="submit" name="submit" value="提交" /><br />
+			</form>
+	</div>
+	
+	<br>
+	<br>消息举报
+	<div style="margin-left:20px">
+		<br> 1、[api/teacherreport/addTeacherReport]老师举报动态评论、主页留言
+		<form id="1" action="api/teacherreport/addTeacherReport" method="post">
+			Token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			</br>
+			msgId:<input type="text" name="msgId" value="1" /></br>
+			msgType:<input type="text" name="msgType" value="1" />[消息类型：1：留言评论 2：动态评论]</br>
+			reportType:<input type="text" name="reportType" value="1" />[举报类型 1：侮辱诋毁 2：广告 3：色情 4：政治敏感]</br>
+			content:<input type="text" name="content" value="这个号很有问题" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+	</div>
+	
+	<br>
+	<br>解绑银行卡<br>
+	<div style="margin-left:20px">
+		1、[api/user/sendBankVerifyCode]发送银行卡解绑验证码
+		<form id="1" action="api/user/sendBankVerifyCode" method="post">
+			token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			</br>
+			cipherCode:<input type="text" name="cipherCode" value="63037FF3C01F51FCDC6EB61C3B4A9467F87624E80EE64AE0B200A90A95691BC8" /></br>
+			code:<input type="text" name="code" value="C0V0" /></br>
+			<input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+		
+		2、[api/user/unbindBank]解绑银行卡
+		<form id="1" action="api/user/unbindBank" method="post">
+			token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			</br>verifyCode：<input type="text" name="verifyCode" value="403284" />
+			<input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+	</div>
+	
+	<br>
+	<br>充值返现<br>
+	<div style="margin-left:20px">
+		1、[api/teacherrecharge/addRecharge]提交充值
+		<form id="1" action="api/teacherrecharge/addRecharge" method="post">
+			token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			</br>
+			studentPhoneNumber:<input type="text" name="studentPhoneNumber" value="" /></br>
+			<input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+		
+		2、[api/teacherrecharge/getChargetNotice]获取充值通知
+		<form id="1" action="api/teacherrecharge/getChargetNotice" method="post">
+			token:<input type="text" name="token"
+				value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			</br><input type="submit" name="submit" value="提交"/><br/>      
+		</form>
+		
+		<br> 3、[api/teacherrecharge/listRecharge]查询充值列表
+		<form action="api/teacherrecharge/listRecharge" method="post" >
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			lastId:<input type="text" name="lastId" value="0" />
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 4、[api/wallet/newWalletV14]钱包汇总接口
+		<form action="api/wallet/newWalletV14" method="post" >
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			pageNo:<input type="text" name="pageNo" value="1" /><br />
+			count:<input type="text" name="count" value="10" /><br />
+			type:<input type="text" name="type" value="0" />[0:累计收入 1：已发工资]<br />
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 5、[api/wallet/walletDetail]钱包明细接口
+		<form action="api/wallet/walletDetail" method="post" >
+			token:<input type="text" name="token" value="10DD0C936561877BFCA91D739045D153799D63A8692CC7427FDA4B634656E817E0BACDEF476E3425854B80BE55105FF3032D4B6EABFA37A222FCCF765071D6EA81D231E8C79E1739C6A01E3559529126A2C9C3143A2A61B9A4CCB9056DC885E0" />
+			monthTime:<input type="text" name="monthTime" value="1436788422000" /><br />
+			type:<input type="text" name="type" value="0" />[0:累计收入 1：已发工资]<br />
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br>
+		<br>H5接口<br>
+		<br> 1、[api/dynamic/loadDynamicForH5]加载动态信息
+		<form action="api/dynamic/loadDynamicForH5" method="post">
+			id:<input type="text" name="id" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+		
+		<br> 2、[api/dynamicmessage/listMessageForH5]动态的评论分页列表
+		<form action="api/dynamicmessage/listMessageForH5" method="post" >
+			dynamicId:<input type="text" name="dynamicId" value="4" /></br>
+			<input type="submit" name="submit" value="提交" /><br />
+		</form>
+	</div>
+</body>
+</html>
+

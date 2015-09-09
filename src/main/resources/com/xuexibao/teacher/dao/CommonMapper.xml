@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="gbk" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.CommonMapper">
+    <select id="listQuestionByRealIds" resultType="Question" >
+         select id,subject,latex,content,knowledge,answer,solution,learn_phase,real_subject,real_id,error_number,record_number,create_time,emergency_status,emergency_count,allot_count,update_time,audio_upload_status
+         from question 
+         where real_id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+    </select>
+    
+    <select id="listTeacherByIds" resultType="Teacher" >
+         select id,name,nickname,phone_number,password,id_number,qq,school_id,id_card_image_url,student_card_image_url,
+        	 status,province_id,city_id,weixin,subjects,grades,bank_card,bank,alipay,course_time,self_description,course_year,course_area,
+        	 mingshihui,xingjihua,create_time,update_time,operater,avatar_url,gender,star teacher_star,teacher_identify,point,qrcode_url,device_id,
+        	 last_task_time,last_device_id,last_device_type,complete_new_user_task,online_status,cur_org_id,capacity_test_status,capacity_test_complete_time,capacity_test_give_point,capacity_test_is_joined
+         from teacher 
+         where id in 
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+    </select>
+    
+    <select id="listApproveByAudioIds" resultType="AudioApprove" >
+         select id,audio_id,star,approvor,approve_time,reason,status,evalution
+         from audio_approve 
+         where audio_id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+    </select>
+    
+     <select id="listExplantationByAudioIds" resultType="Explanation" >
+         select id,img_id,question_real_id1,question_real_id2,question_real_id3,live_img_create_time,create_time,update_time,teacher_id,status,audio_whiteboard_id
+         from explanation 
+         where audio_whiteboard_id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+    </select>
+    
+    <select id="listFeudAnswerDetailByAudioIds" resultType="FeudAnswerDetail" >
+         select id,feud_quest_id,teacher_id,feud_type,audio_whiteboard_id,audio_whiteboard_url,create_time,update_time,status,quest_real_id,evaluate,content,point,fee
+         from feud_answer_detail 
+         where audio_whiteboard_id in 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+    </select>
+    
+    <select id="listAudioSetDetailCount" resultType="AudioSetCount" >
+        select set_id,count(1) count
+		from audio_set_detail
+		where set_id in 
+					<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  				#{item}  
+		 			</foreach> 
+		group by set_id 
+    </select>
+    
+    <select id="listTeacherReplyCount" resultType="MessageReplyCount" >
+        select reply_id,count(1) count
+		from teacher_message
+		where reply_id in 
+					<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  				#{item}  
+		 			</foreach> 
+		 			and  status=1
+		group by reply_id 
+    </select>
+    
+    <select id="listAudioByIds" resultType="AudioUpload" >
+         select id,question_id,duration,name,url,subject,status,approve_time,teacher_id,create_time,update_time,type,source
+         from audio_upload 
+         where id in   
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach> 
+    </select>
+</mapper>

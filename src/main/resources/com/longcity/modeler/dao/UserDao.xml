@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.modeler.dao.UserDao" >
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="User" >
+    insert into user (id, phone_number, password, 
+      avart_url, nickname, gender, 
+      birdthday, height, weight, 
+      area_id, wangwang, alipay_id, 
+      alipay_name, status, type, 
+      shop_name, email, weixin, 
+      address, referee, remind_fee
+      )
+    values (#{id}, #{phoneNumber}, #{password}, 
+      #{avartUrl}, #{nickname}, #{gender}, 
+      #{birdthday}, #{height}, #{weight}, 
+      #{areaId}, #{wangwang}, #{alipayId}, 
+      #{alipayName}, #{status}, #{type}, 
+      #{shopName}, #{email}, #{weixin}, 
+      #{address}, #{referee}, #{remindFee}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="User" >
+    update user
+    set phone_number = #{phoneNumber},
+      password = #{password},
+      avart_url = #{avartUrl},
+      nickname = #{nickname},
+      gender = #{gender},
+      birdthday = #{birdthday},
+      height = #{height},
+      weight = #{weight},
+      area_id = #{areaId},
+      wangwang = #{wangwang},
+      alipay_id = #{alipayId},
+      alipay_name = #{alipayName},
+      status = #{status},
+      type = #{type},
+      shop_name = #{shopName},
+      email = #{email},
+      weixin = #{weixin},
+      address = #{address},
+      referee = #{referee},
+      remind_fee = #{remindFee}
+    where id = #{id}
+  </update>
+  
+  <update id="updateRemindFee" parameterType="User" >
+    update user
+    set 
+      remind_fee = remind_fee + #{param2} 
+    where id = #{param1}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
+    weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
+    weixin, address, referee, remind_fee
+    from user
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
+    weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
+    weixin, address, referee, remind_fee
+    from user
+  </select>
+</mapper>

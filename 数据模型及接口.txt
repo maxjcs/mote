@@ -1,0 +1,202 @@
+（1） modeler 
+
+字段名
+
+手机号：phone_number
+密码：password
+头像 avart_url
+昵称: nick
+性别:gender（1男，2女，3未知）
+生日：birdthday
+身高：height 
+体重：weight
+所在地：areaId
+旺旺号：wangwang
+支付宝账号：alipay_id
+支付宝账号名：alipay_name
+状态：0正常 1禁用
+
+接口：
+1）上传头像
+2）保存资料
+3）获取地区
+4）发送验证码
+5）登陆
+6）注册
+7）获取个人资料
+8）忘记密码
+
+（2）seller （合并到modeler）
+
+字段名：
+
+手机号：phone_number
+密码：password
+店铺名：shop_name
+昵称：nickname
+邮箱：email
+微信:weixin
+收件人地址：address
+推荐人：referee
+余额：remind_fee
+
+接口
+1）注册
+2）商家资料查询
+3）商家资料保存
+4）登陆
+5）退出
+6）忘记密码
+
+（3）预付款 advance
+
+字段
+1）user_id
+2)money
+3)create_time
+4)status 0未完成 1已经完成
+
+接口
+1）增加预存款
+2）预存款体现
+3）预存款记录查询 翻页
+
+
+(4)项目需求 project
+
+字段名
+商品标题：title
+商品链接：url
+商品售价：price
+拍摄费用：shot_fee
+商品图片：img_url
+自购折扣：self_buy_off
+拍摄描述：shot_desc
+性别:gender
+体型：shape (1,偏瘦，2中等，3偏胖)
+身高min:height_min
+身高max:height_max
+地域选择：areaId
+模特等级：modeler_level
+模特自购率：self_buy_rate
+当量：number
+任务地点：project_area_id
+状态：1新建，2审核通过，执行中 3，审核不通过 4已经结束
+
+接口
+1）商家发布任务
+2）运营后台查询发布记录 带翻页
+3）审核发布任务
+4) 获取项目详情
+
+
+(5) modeler_task 模特接单
+
+字段
+id
+modeler_id
+project_id
+create_time 接任务时间
+order_no 淘宝订单号
+express_company 快递公司
+express_no 快递单号
+self_buy_fee 自购退款
+status 状态 0接单 2淘宝下单 3 完成收货并晒图 4自购商品 5退还商品 6存在争议，申请客户
+
+接口
+1）接单
+2）录入淘宝订单
+3）完成收货并晒图
+4）自购
+5）退还商品，录入快递单号
+6) 申请客服介入。
+
+
+
+
+(6) task_pic 上传照片管理
+
+字段
+1）modeler_id
+2）project_id
+3）img_url
+4) sort
+
+接口：
+1）上传照片 支持多张
+2）删除照片 支持多张
+3）展示照片 
+
+(7) 模特筛选任务 接口
+
+查询字段：
+1）关键字
+2）费用 
+3）审核通过，未结束的任务
+
+返回
+1）任务列表
+
+(8)交易流水
+
+字段名
+1）modeler_project_id/apply_id
+2) type 1商品退还 2商品收下 3提现
+3) money 金额
+4) create_time
+
+接口
+1）任务收益列表，支持翻页
+2）商品退款列表 ，支持翻页
+3）提现列表，支持翻页。
+
+(9)提现申请
+
+字段名
+1）modeler_id
+2）create_time 申请时间
+3) money 金额
+4) status 状态 1申请中，2已经完成
+5）pay_time 支付时间 
+
+接口
+1）申请提现
+2）提现申请记录，运营后台。支持翻页。
+3）完成支付
+4）提现详情
+
+(10)站内信
+
+字段
+1）title 标题
+2）content 内容
+3）create_time
+
+接口
+1）运营后台发布站内信（公开信）
+2）站内信列表，支持翻页
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

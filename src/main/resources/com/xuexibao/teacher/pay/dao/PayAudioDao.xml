@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.pay.dao.PayAudioDao">
+	<insert id="addPayAudio">
+		insert into audio(id,question_id,gold,duration,name,url,subject,status,recheckStatus,order_id,
+					      teacher_id,create_time,update_time,approvor,approvor_time,type,source,org_id,org_teacher_id,plan_type,teacher_star,feud_type,wb_type)
+		values(#{id},#{questionId},#{gold},#{duration},#{name},#{url},#{subject},#{status},0,#{orderId},
+		       #{teacherId},now(),now(),#{approvor},now(),#{type},#{source},#{orgId},#{orgTeacherId},#{planType},#{teacherStar},#{feudType},#{wbType})
+	</insert>
+	
+	
+	
+	
+	<update id="updateWbTypeUrlPayAudio" parameterType="PayAudio">
+		update audio set  url = #{url}, wb_type =#{wbType}, update_time = now() where id = #{id}
+	</update>
+	
+	
+ 	<select id="queryAudioById"  parameterType="String" resultType="PayAudio">
+ 		select id,question_id,gold,duration,name,url,subject,recheckStatus,status,order_id,teacher_id,create_time,update_time,approvor,approvor_time,version,type,source,org_id,org_teacher_id,teacher_star,plan_type,feud_type,wb_type
+		from audio
+		where id = #{value}
+	</select>
+	
+	<select id="queryAudioByQuestionIdList"  parameterType="map" resultType="PayAudio">
+ 		select id,question_id
+		from audio
+		where question_id in
+		<foreach item="item" index="index" collection="questionIdList"
+      			open="(" separator="," close=")">
+       		 #{item}
+  		</foreach>
+	</select>
+	
+		<select id="queryAudiosByQuestionId" resultType="PayAudio"  parameterType="int">
+		<![CDATA[
+		      select id,question_id,gold,duration,name,url,subject,recheckStatus,status,order_id,teacher_id,create_time,update_time,approvor,approvor_time,version,type,source,org_id,org_teacher_id,teacher_star,plan_type,feud_type,wb_type
+		      from audio 
+		      where question_id = #{param1} and status=1
+		]]>
+	</select>
+</mapper> 

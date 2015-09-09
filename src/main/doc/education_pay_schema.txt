@@ -1,0 +1,2 @@
+#20150406 老陆，音频表增加音频类型，音频来源字段
+alter table audio add column source int comment '1:每日任务 2:微店 3：抢答';

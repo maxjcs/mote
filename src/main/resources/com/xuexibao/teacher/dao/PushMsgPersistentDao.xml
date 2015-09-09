@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.PushMsgPersistentDao">
+
+    <resultMap id="BaseResultMap" type="com.xuexibao.teacher.model.PushMsgPersistentPojo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="msg_type" property="msgType" jdbcType="INTEGER"/>
+        <result column="is_send" property="isSend" jdbcType="VARCHAR"/>
+        <result column="is_read" property="isRead" jdbcType="VARCHAR"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="phone_type" property="phoneType" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, content, msg_type, is_send,is_read, add_time,user_id,phone_type,title
+    </sql>
+
+    <!--add-->
+    <insert id="insert" parameterType="com.xuexibao.teacher.model.PushMsgPersistentPojo">
+        INSERT INTO push_msg_persistent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id !=''">
+                id,
+            </if>
+            <if test="content != null and content !=''">
+                content,
+            </if>
+            <if test="msgType != null ">
+                msg_type,
+            </if>
+            <if test="isSend != null and isSend!=''">
+                is_send,
+            </if>
+            <if test="isRead != null and isRead!=''">
+                is_read,
+            </if>
+            <if test="addTime != null ">
+                add_time,
+            </if>
+            <if test="userId != null and userId!=''">
+                user_id,
+            </if>
+            <if test="phoneType != null and phoneType!=''">
+                phone_type,
+            </if>
+            <if test="title != null and title!=''">
+                title,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id !=''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null and content !=''">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="msgType != null ">
+                #{msgType,jdbcType=INTEGER},
+            </if>
+            <if test="isSend != null and isSend !=''">
+                #{isSend,jdbcType=VARCHAR},
+            </if>
+            <if test="isRead != null and isRead !=''">
+                #{isRead,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null ">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null and userId!=''">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneType != null and phoneType!=''">
+                #{phoneType,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null and title!=''">
+                #{title,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM push_msg_persistent
+        WHERE id=#{id,jdbcType=VARCHAR}
+    </select>
+
+    <!--根据读取状态查询消息列表（未分页）已经成功发送的消息 AND is_send='Y'-->
+    <select id="selectByReadStatusAndUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM push_msg_persistent
+        WHERE 1=1
+        AND user_id=#{userId,jdbcType=VARCHAR}
+        AND msg_type IN (5010,5020,5030,5040,5050,5060,5070)
+        <if test="isRead!=null">
+            AND is_read=#{isRead,jdbcType=VARCHAR}
+        </if>
+        ORDER BY add_time DESC
+    </select>
+
+    <!--mark msg has read-->
+    <update id="setMsgAsRead" parameterType="java.lang.String">
+        UPDATE push_msg_persistent
+        SET is_read='Y'
+        WHERE id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <!--mark msg has send-->
+    <update id="setMsgAsSend" parameterType="java.lang.String">
+        UPDATE push_msg_persistent
+        SET is_send='Y'
+        WHERE id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 根据发送状态、用户id查询消息列表-->
+    <select id="selectBySendStatusAndUserId" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM push_msg_persistent
+        WHERE 1=1
+        AND user_id=#{userId,jdbcType=VARCHAR}
+        <if test="isSend!=null">
+            AND is_send=#{isSend,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+</mapper>

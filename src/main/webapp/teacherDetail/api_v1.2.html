@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教师主页联调接口说明（教师端）</title>
+    <style>
+        p{margin: 10px 0;}
+        code { white-space: pre; color:#777;}
+        .red{ color: red;}
+    </style>
+</head>
+<body>
+<h1>教师主页联调接口说明（教师端）</h1>
+<h2>一、教师主页URL</h2>
+<p>1、教师主页URL传参规则：http://<span class="red">{{url}}</span>/teacherDetail/teacherCode.html?teacherId=<span class="red">{{teacherId}}</span>&viewMode=<span class="red">{{viewModeValue}}</span></p>
+<p>说明：viewMode表示那种浏览模式，<span class="red">viewMode等于1</span>时，表示教师端浏览界面，<span class="red">不传viewMode参数</span>则表示第三方（WEB分享）界面。</p>
+<p>187环境测试URL: <a href="http://192.168.1.187:8280/teacher/teacherDetail/teacherCode.html?teacherId=157dcab6-9395-4432-9596-d7d8f4d9c6f7&viewMode=0" target="_blank">http://192.168.1.187:8280/teacher/teacherDetail/teacherCode.html?teacherId=157dcab6-9395-4432-9596-d7d8f4d9c6f7&viewMode=1</a> </p>
+<h2>二、统一调用方法：jsInvoke</h2>
+
+<p>用法：<span class="red">jsInvoke("事件类型",数据)</span></p>
+
+</code>
+
+<h3>1. 发送留言：sendLeaveMessage</h3>
+
+<p>说明：留言输入框部分由native实现，APP发送留言成功后，调用此方法，刷新留言部分的DOM</p>
+
+<code>
+jsInvoke ("<span class="red">sendLeaveMessage</span>",{
+    content:"test message!!",        //留言内容
+    createTime: 1432894115000        //发送时间
+})
+</code>
+<h2>三、HTML需要APP提供的接口</h2>
+<h3>1.点击二维码：window.external.goToQRCodeView()</h3>
+<p>说明：页面点击二维码图标跳转到二维码界面的方法</p>
+<h3>2.点击习题集标题跳转至习题详情：window.external.workbookDetail(id)</h3>
+<p>说明：参数为习题集id</p>
+</body>
+</html>

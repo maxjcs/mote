@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @author mingyou.wang @version $Id: pom.xml 5530 2012-02-20 07:03:30Z 
+	xin.li$ @since 1.0.0 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:property-placeholder location="classpath:jdbc.properties"
+		ignore-unresolvable="true" />
+
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${teacher.db.url}" />
+		<property name="username" value="${teacher.db.username}" />
+		<property name="password" value="${teacher.db.password}" />
+		<property name="initialSize" value="${teacher.db.initialSize}"></property>
+		<property name="validationQuery" value="select 1"></property>
+		<property name="testOnBorrow" value="${teacher.db.testOnBorrow}"></property>
+		<property name="testOnReturn" value="${teacher.db.testOnReturn}"></property>
+		<property name="testWhileIdle" value="${teacher.db.testWhileIdle}"></property>
+		<property name="maxActive" value="${teacher.db.maxActive}"></property>
+		<property name="maxIdle" value="${teacher.db.maxIdle}"></property>
+		<property name="maxWait" value="${teacher.db.maxWait}"></property>
+	</bean>
+
+	<bean id="payDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${teacher.paydb.url}" />
+		<property name="username" value="${teacher.paydb.username}" />
+		<property name="password" value="${teacher.paydb.password}" />
+		<property name="initialSize" value="${teacher.paydb.initialSize}"></property>
+		<property name="validationQuery" value="select 1"></property>
+		<property name="testOnBorrow" value="${teacher.paydb.testOnBorrow}"></property>
+		<property name="testOnReturn" value="${teacher.paydb.testOnReturn}"></property>
+		<property name="testWhileIdle" value="${teacher.paydb.testWhileIdle}"></property>
+		<property name="maxActive" value="${teacher.paydb.maxActive}"></property>
+		<property name="maxIdle" value="${teacher.paydb.maxIdle}"></property>
+		<property name="maxWait" value="${teacher.paydb.maxWait}"></property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>  
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
+	<bean id="namedParameterJdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg>
+			<ref bean="jdbcTemplate" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-configuration.xml" />
+	</bean>
+
+	<bean id="paySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="payDataSource" />
+		<property name="configLocation" value="classpath:mybatis-configuration.xml" />
+	</bean>
+
+	<bean id="payAudioDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="paySqlSessionFactory" />
+		<property name="mapperInterface" value="com.xuexibao.teacher.pay.dao.PayAudioDao" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.xuexibao.teacher" />
+		<property name="annotationClass" value="com.xuexibao.teacher.core.MybatisMapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+</beans>

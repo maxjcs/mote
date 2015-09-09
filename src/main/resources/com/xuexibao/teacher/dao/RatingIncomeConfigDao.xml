@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.RatingIncomeConfigDao" >
+
+
+  <select id="selectByPrimaryKey" resultType="RatingIncomeConfig" parameterType="java.lang.Integer" >
+    select id, star, source, teacher_identify, fee,description
+    from rating_income_config
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultType="RatingIncomeConfig" >
+    select id, star,teacher_identify, fee,description
+    from rating_income_config
+  </select>
+</mapper>

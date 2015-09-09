@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.teacher.dao.QuestionV2Dao" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="Question" >
+    insert into question ( subject, knowledge, 
+      learn_phase, real_subject, real_id, 
+      error_number, record_number, create_time, 
+      emergency_status, emergency_count, allot_count, 
+      update_time, audio_upload_status, latex, 
+      content, answer, solution,source
+      )
+    values (#{subject}, #{knowledge}, 
+      #{learnPhase}, #{realSubject}, #{realId}, 
+      #{errorNumber}, #{recordNumber}, now(), 
+      #{emergencyStatus}, #{emergencyCount}, #{allotCount}, 
+      #{updateTime}, #{audioUploadStatus}, #{latex}, 
+      #{content}, #{answer}, #{solution},#{source}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="Question" >
+    update question
+    set subject = #{subject},
+      knowledge = #{knowledge},
+      learn_phase = #{learnPhase},
+      real_subject = #{realSubject},
+      real_id = #{realId},
+      error_number = #{errorNumber},
+      record_number = #{recordNumber},
+      create_time = #{createTime},
+      emergency_status = #{emergencyStatus},
+      emergency_count = #{emergencyCount},
+      allot_count = #{allotCount},
+      update_time = #{updateTime},
+      audio_upload_status = #{audioUploadStatus},
+      latex = #{latex},
+      content = #{content},
+      answer = #{answer},
+      solution = #{solution}
+    where id = #{id}
+  </update>
+  
+    <update id="updateAnswerByRealId" parameterType="Question" >
+	    update question
+	    set 
+	      answer = #{answer}
+	    where real_id = #{realId}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultType="Question" parameterType="java.lang.Long" >
+    select id, subject, knowledge, learn_phase, real_subject, real_id, error_number, 
+    record_number, create_time, emergency_status, emergency_count, allot_count, update_time, 
+    audio_upload_status, latex, content, answer, solution
+    from question
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultType="Question" >
+    select id, subject, knowledge, learn_phase, real_subject, real_id, error_number, 
+    record_number, create_time, emergency_status, emergency_count, allot_count, update_time, 
+    audio_upload_status, latex, content, answer, solution
+    from question
+  </select>
+  <select id="queryByRealId" resultType="Question" parameterType="java.lang.Long">
+    select id, subject, knowledge, learn_phase, real_subject, real_id, error_number, 
+    record_number, create_time, emergency_status, emergency_count, allot_count, update_time, 
+    audio_upload_status, latex, content, answer, solution
+    from question where real_id = #{realId} limit 1
+  </select>
+  
+  <select id="getQuestionsByRealIds" resultType="Question" parameterType="list">
+    select id, subject, knowledge, learn_phase, real_subject, real_id, error_number, 
+    record_number, create_time, emergency_status, emergency_count, allot_count, update_time, 
+    audio_upload_status, latex, content, answer, solution
+    from question where real_id in
+    <foreach item="item" index="index" collection="list" 
+             open="(" separator="," close=")">
+            #{item}
+    </foreach>
+  </select>
+  
+  
+  
+  <update id="updateQuestionStatus">
+		update question set audio_upload_status=#{param2} where real_id = #{param1}
+  </update>
+  
+  <update id="updateErrorNumber" parameterType="long">
+		update question set error_number= error_number + 1,update_time=now() where real_id = #{value}
+  </update>
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.DynamicDao">
+	<select id="loadDynamic" resultType="Dynamic" parameterType="Long">
+		<![CDATA[
+			select *
+			from teacher_dynamic 
+			where id=#{value}
+		 ]]>
+	</select>
+
+	<select id="listDynamic" resultType="Dynamic" parameterType="map">
+		<![CDATA[
+			select *
+			from teacher_dynamic 
+			where id <#{lastId} and teacher_id=#{teacherId} and status=1
+			order by id desc 
+			limit #{pageSize}
+		]]>
+	</select>
+	
+	<select id="listDynamicByIds" resultType="Dynamic">
+			select *
+			from teacher_dynamic 
+			where status=1 and id in 
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+			  #{item}  
+			</foreach>
+	</select>
+	
+	<select id="hasDynamicForAudioSet" resultType="boolean">
+		<![CDATA[
+			select count(1)
+			from teacher_dynamic 
+			where set_id=#{value}
+			limit 1
+		]]>
+	</select>
+
+	<select id="countDynamic" resultType="int" parameterType="Dynamic">
+		<![CDATA[
+			select count(1)
+			from teacher_dynamic 
+			where id <#{lastId}
+		]]>
+	</select>
+
+	<insert id="addDynamic"  useGeneratedKeys="true" keyProperty="id"  parameterType="Dynamic">
+		insert into
+		teacher_dynamic(
+			teacher_id,
+			set_id,
+			dynamic_type,
+			grade_ids,
+			status,
+			create_time,
+			update_time,
+			description,
+			image_url1,
+			image_url2,
+			image_url3,
+			image_url4
+		)
+		values(
+					#{teacherId},
+					#{setId},
+					#{dynamicType},
+					#{gradeIds},
+					#{status},
+					#{createTime},
+					#{updateTime},
+					#{description},
+					#{imageUrl1},
+					#{imageUrl2},
+					#{imageUrl3},
+					#{imageUrl4}
+		)
+	</insert>
+
+	<update id="updateDynamic" parameterType="Dynamic">
+		update teacher_dynamic 
+		set  
+			  <if test="#{id}!=null and #{id}!='' ">
+                	id=#{id},
+              </if>
+			  <if test="#{teacherId}!=null and #{teacherId}!='' ">
+                	teacher_id=#{teacherId},
+              </if>
+			  <if test="#{setId}!=null and #{setId}!='' ">
+                	set_id=#{setId},
+              </if>
+			  <if test="#{dynamicType}!=null and #{dynamicType}!='' ">
+                	dynamic_type=#{dynamicType},
+              </if>
+			  <if test="#{gradeIds}!=null and #{gradeIds}!='' ">
+                	grade_ids=#{gradeIds},
+              </if>
+			  <if test="#{status}!=null and #{status}!='' ">
+                	status=#{status},
+              </if>
+			  <if test="#{createTime}!=null and #{createTime}!='' ">
+                	create_time=#{createTime},
+              </if>
+			  <if test="#{updateTime}!=null and #{updateTime}!='' ">
+                	update_time=#{updateTime},
+              </if>
+			  <if test="#{description}!=null and #{description}!='' ">
+                	description=#{description},
+              </if>
+			  <if test="#{imageUrl1}!=null and #{imageUrl1}!='' ">
+                	image_url1=#{imageUrl1},
+              </if>
+			  <if test="#{imageUrl2}!=null and #{imageUrl2}!='' ">
+                	image_url2=#{imageUrl2},
+              </if>
+			  <if test="#{imageUrl3}!=null and #{imageUrl3}!='' ">
+                	image_url3=#{imageUrl3},
+              </if>
+			  <if test="#{imageUrl4}!=null and #{imageUrl4}!='' ">
+                	image_url4=#{imageUrl4},
+              </if>
+			update_time=now()
+		where id=#{id}
+	</update>
+
+	<delete id="removeDynamic" parameterType="Long">
+		<![CDATA[
+			update teacher_dynamic 
+			set status=0
+			where id=#{value}
+		]]>
+	</delete>
+	
+	<select id="getDynamicIdBySetId" resultType="Long" parameterType="String">
+		<![CDATA[
+			select id from teacher_dynamic where set_id=#{value} limit 1
+		]]>
+	</select>
+
+	<select id="isExistDynamic" parameterType="Dynamic" resultType="int">
+		<![CDATA[
+			select count(1) 
+			from teacher_dynamic  
+			where name=#{name} and id!=#{id}
+		]]>
+	</select>
+</mapper> 

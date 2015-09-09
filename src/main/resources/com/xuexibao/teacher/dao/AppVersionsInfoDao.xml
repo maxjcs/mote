@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexibao.teacher.dao.AppVersionsInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.xuexibao.teacher.model.AppVersionsInfoPojo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="version_code" property="versionCode" jdbcType="INTEGER"/>
+        <result column="version_name" property="versionName" jdbcType="VARCHAR"/>
+        <result column="need_update" property="needUpdate" jdbcType="CHAR"/>
+        <result column="force_update" property="forceUpdate" jdbcType="CHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="app_type" property="appType" jdbcType="VARCHAR"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="download_url" property="downloadUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,version_code,version_name,need_update,force_update,description,app_type,add_time,download_url
+    </sql>
+
+    <!--add-->
+    <insert id="insert" parameterType="com.xuexibao.teacher.model.AppVersionsInfoPojo" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO app_versions_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="versionCode != null ">
+                version_code,
+            </if>
+            <if test="versionName != null and versionName !=''">
+                version_name,
+            </if>
+            <if test="needUpdate != null and needUpdate!=''">
+                need_update,
+            </if>
+            <if test="forceUpdate != null and forceUpdate!=''">
+                force_update,
+            </if>
+            <if test="description != null and description!=''">
+                description,
+            </if>
+            <if test="appType != null">
+                app_type,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="downloadUrl != null and downloadUrl!=''">
+                download_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="versionCode != null ">
+                #{versionCode,jdbcType=INTEGER},
+            </if>
+            <if test="versionName != null and versionName !=''">
+                #{versionName,jdbcType=VARCHAR},
+            </if>
+            <if test="needUpdate != null and needUpdate !=''">
+                #{needUpdate,jdbcType=CHAR},
+            </if>
+            <if test="forceUpdate != null and forceUpdate !=''">
+                #{forceUpdate,jdbcType=CHAR},
+            </if>
+            <if test="description != null and description !=''">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="appType != null ">
+                #{appType,jdbcType=INTEGER},
+            </if>
+            <if test="addTime != null ">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="downloadUrl != null and downloadUrl!=''">
+                #{downloadUrl,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+
+    </insert>
+
+    <!--查询appType类型的最新的versions信息-->
+    <select id="getLastVersionInfoByAppType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM app_versions_info
+        WHERE app_type = #{appType,jdbcType=INTEGER}
+        ORDER BY add_time DESC
+        LIMIT 1
+    </select>
+    <!--查询在versionCode版本之后的版本里有多少个强制更新，只需要有一个就决定返回给用户必须要强制更新-->
+    <select id="getAfterNowVersionCodeForceCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM app_versions_info
+        WHERE version_code &gt; #{versionCode,jdbcType=INTEGER}
+        AND force_update='Y'
+    </select>
+
+
+</mapper>
