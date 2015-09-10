@@ -5,7 +5,7 @@
     delete from task_pic
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="TaskPic" >
+  <insert id="insert" parameterType="TaskPic" useGeneratedKeys="true" keyProperty="id">
     insert into task_pic (id, mote_task_id, img_url, 
       sort, create_time, update_time, 
       user_id, task_id)

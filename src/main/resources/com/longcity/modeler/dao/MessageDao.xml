@@ -5,7 +5,7 @@
     delete from message
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="Message" >
+  <insert id="insert" parameterType="Message" useGeneratedKeys="true" keyProperty="id">
     insert into message (id, title, content, 
       create_time, type)
     values (#{id}, #{title}, #{content}, 

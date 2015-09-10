@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.util.JSONPObject;
 
-import com.xuexibao.teacher.constant.PageConstant;
-import com.xuexibao.teacher.core.AppContext;
-import com.xuexibao.teacher.util.PropertyUtil;
+import com.longcity.modeler.constant.PageConstant;
+import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.util.PropertyUtil;
 
 public abstract class AbstractController {
 

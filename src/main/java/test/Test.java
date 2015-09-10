@@ -1,12 +1,8 @@
 package test;
 
 import java.io.IOException;
-import java.util.Date;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.expression.ParseException;
-
-import com.xuexibao.teacher.model.Teacher;
 
 /**
  * @author oldlu
@@ -21,11 +17,11 @@ public class Test {
 		/**
 		 * ObjectMapper支持从byte[]、File、InputStream、字符串等数据的JSON反序列化。
 		 */
-		ObjectMapper mapper = new ObjectMapper();
-		Teacher teacher=new Teacher();
-		teacher.setCreateTime(new Date());
-		String string=mapper.writeValueAsString(teacher);
-		
-		System.out.println(string);
+//		ObjectMapper mapper = new ObjectMapper();
+//		Teacher teacher=new Teacher();
+//		teacher.setCreateTime(new Date());
+//		String string=mapper.writeValueAsString(teacher);
+//		
+//		System.out.println(string);
 	}
 }

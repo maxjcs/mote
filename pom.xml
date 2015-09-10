@@ -110,7 +110,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>teacher</finalName>
+		<finalName>mote</finalName>
 	</build>
 
 	<properties>
@@ -339,11 +339,11 @@
 			<version>1.7.0.RELEASE</version>
 		</dependency>
 		<!-- webapi_client -->
-		<dependency>
+<!--  		<dependency>
 			<groupId>com.education</groupId>
 			<artifactId>webapi_client</artifactId>
 			<version>1.4</version>
-		</dependency>
+		</dependency>  -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcity.modeler.dao.VerifyCodeDao">
+	<insert id="save" >
+		insert into verify_codes(phone_number,verify_code) 
+		values(#{param1},#{param2}) 
+		on duplicate key update verify_code = #{param2}, send_time = now()
+	</insert>
+	
+	<select id="validateVerifyCode1" resultType="boolean">
+		 <![CDATA[
+		 	select count(1) 
+		 	from verify_codes 
+		 	where phone_number = #{param1} and verify_code = #{param2} limit 1
+		 ]]>
+	</select>
+	
+	<select id="validateVerifyCode2" resultType="boolean">
+		 <![CDATA[
+		 	select count(1) 
+		 	from verify_codes 
+		 	where phone_number = #{param1} and verify_code = #{param2} and TIME_TO_SEC(TIMEDIFF(now(),send_time)) < #{param3} limit 1
+		 ]]>
+	</select>
+</mapper> 

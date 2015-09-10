@@ -1,11 +1,9 @@
 package com.longcity.modeler.dao;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
+import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.User;
-import com.xuexibao.teacher.core.MybatisMapper;
 
 @MybatisMapper
 @Repository
@@ -16,9 +14,11 @@ public interface UserDao {
 
     User selectByPrimaryKey(Integer id);
 
-    List<User> selectAll();
-
     int updateByPrimaryKey(User record);
     
     void updateRemindFee(Integer userId,Integer fee);
+    
+    User selectByPhoneNumber(String phoneNumber);
+    
+    void updatePassword(User record);
 }

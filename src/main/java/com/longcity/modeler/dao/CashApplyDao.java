@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.CashApply;
-import com.xuexibao.teacher.core.MybatisMapper;
 
 @MybatisMapper
 @Repository

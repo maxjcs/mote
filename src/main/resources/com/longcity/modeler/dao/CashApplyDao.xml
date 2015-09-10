@@ -5,7 +5,7 @@
     delete from cash_apply
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="CashApply" >
+  <insert id="insert" parameterType="CashApply" useGeneratedKeys="true" keyProperty="id">
     insert into cash_apply (id, user_id, create_time, 
       money, status, pay_time
       )
@@ -39,7 +39,7 @@
     limit #{start},#{pageSize}
   </select>
   
-  <update id="finishPay" resultType="CashApply" parameterType="java.lang.Integer" >
+  <update id="finishPay" parameterType="java.lang.Integer" >
     update cash_apply
     set 
       status = 2,

@@ -11,7 +11,7 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import com.xuexibao.teacher.util.PropertyUtil;
+import com.longcity.modeler.util.PropertyUtil;
 
 @Deprecated
 public class DownloadUrlSerializer extends JsonSerializer<String> {

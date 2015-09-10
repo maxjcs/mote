@@ -16,6 +16,8 @@ public class User {
     private Integer gender;
 
     private Date birdthday;
+    
+    private String birdthdayStr;
 
     private Integer height;
 
@@ -47,8 +49,15 @@ public class User {
     
     private String deviceId;
     
+    public String getBirdthdayStr() {
+		return birdthdayStr;
+	}
 
-    public String getDeviceId() {
+	public void setBirdthdayStr(String birdthdayStr) {
+		this.birdthdayStr = birdthdayStr;
+	}
+
+	public String getDeviceId() {
 		return deviceId;
 	}
 

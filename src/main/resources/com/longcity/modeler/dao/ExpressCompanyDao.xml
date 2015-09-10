@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.longcity.modeler.dao.ExpressCompany" >
-  <resultMap id="BaseResultMap" type="com.longcity.modeler.model.ExpressCompany" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-  </resultMap>
+<mapper namespace="com.longcity.modeler.dao.ExpressCompanyDao" >
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from express_company
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.longcity.modeler.model.ExpressCompany" >
+  <insert id="insert" parameterType="ExpressCompany" useGeneratedKeys="true" keyProperty="id">
     insert into express_company (id, company_name, sort, 
       status)
-    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER})
+    values (#{id}, #{companyName}, #{sort}, 
+      #{status})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.longcity.modeler.model.ExpressCompany" >
+  <update id="updateByPrimaryKey" parameterType="ExpressCompany" >
     update express_company
-    set company_name = #{companyName,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set company_name = #{companyName},
+      sort = #{sort},
+      status = #{status}
+    where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultType="ExpressCompany" parameterType="java.lang.Integer" >
     select id, company_name, sort, status
     from express_company
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultType="ExpressCompany" >
     select id, company_name, sort, status
     from express_company
   </select>

@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	<title>0.1版本相关接口</title>
+	<body>
+		<br>用户模块(模特，商家)<br>
+		1、注册[api/user/register]
+		<form id="1" action="api/user/register" method="post">
+			phoneNumber:<input type="text" name="phoneNumber" value="15888838217" />
+			password：<input type="text" name="password" value="123456" />
+			smsCode(短信验证码)：<input type="text" name="smsCode" value="000000" />
+			type(1模特 2商家)：<input type="text" name="type" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		 2、通过userId获取用户信息[api/user/getUserById]
+		<form id="1" action="api/user/getUserById" method="post">
+			userId：<input type="text" name="userId" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		 3、登陆[api/user/login]
+		<form id="1" action="api/user/login" method="post">
+			phoneNumber：<input type="text" name="phoneNumber" value="15888838217" />
+			password：<input type="text" name="password" value="123456" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+	    4、发送手机验证码[api/user/sendVerifyCode]
+		<form id="1" action="api/user/sendVerifyCode" method="post">
+			phoneNumber：<input type="text" name="phoneNumber" value="15888838217" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		5、密码重置[api/user/changePasswordByVerifyCode]
+		<form id="1" action="api/user/changePasswordByVerifyCode" method="post">
+			phoneNumber：<input type="text" name="phoneNumber" value="15888838217" />
+			new_password：<input type="text" name="password" value="123456" />
+			smsCode：<input type="text" name="smsCode" value="000000" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		6、更新个人资料[api/user/update]
+		<form id="1" action="api/user/update" method="post">
+		    id：<input type="text" name="id" value="1" />
+			phoneNumber：<input type="text" name="phoneNumber" value="15888838217" />
+			avartUrl：<input type="text" name="avartUrl" value="http://***.jpg" />
+			nickname：<input type="text" name="nickname" value="laojiang" />
+			gender(性别1男，2女，3未知)：<input type="text" name="gender" value="1" />
+			birdthday生日：<input type="text" name="birdthdayStr" value="2001-01-01" />
+			height身高：<input type="text" name="height" value="170" />
+			weight体重(kg)：<input type="text" name="weight" value="50" />
+			wangwang：<input type="text" name="wangwang" value="maxjcs" />
+			alipayId：<input type="text" name="alipayId" value="15888838217" />
+			alipayName：<input type="text" name="alipayName" value="11111" />
+			shopName(店铺名)：<input type="text" name="shopName" value="11111" />
+			email：<input type="text" name="email" value="6420@qq.com" />
+			weixin：<input type="text" name="weixin" value="6420@qq.com" />
+			address(商家退货地址)：<input type="text" name="address" value="000000" />
+			referee(推荐人)：<input type="text" name="referee" value="000000" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		
+		
+		
+		<br><br>商家模块<br>
+		1、商家发布任务[api/task/save]
+		<form id="1" action="api/task/save" method="post">
+			userId(商家ID)：<input type="text" name="userId" value="1" />
+			title(标题)：<input type="text" name="title" value="15888838217" />
+			url(商品链接):<input type="text" name="url" value="http://***.htm" />
+			price(单价):<input type="text" name="price" value="120" />
+			shotFee(拍摄费用):<input type="text" name="shotFee" value="120" />
+			imgUrl(图片链接)：<input type="text" name="imgUrl" value="http://***.jpg" />
+			selfBuyOff(自购折扣)：<input type="text" name="selfBuyOff" value="85" />
+			shotDesc(拍摄要求)：<input type="text" name="shotDesc" value="1344566" />
+			gender(性别要求)：<input type="text" name="gender" value="1" />
+			shape(体型要求)：<input type="text" name="shape" value="1" />
+			heightMin(身高最少)：<input type="text" name="heightMin" value="165" />
+			heightMax(身高最大)：<input type="text" name="heightMax" value="180" />
+			number(当量)：<input type="text" name="number" value="10" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		2、模特接单[api/task/newMoteTask]
+		<form id="1" action="api/task/newMoteTask" method="post">
+			moteId(模特ID)：<input type="text" name="moteId" value="2" />
+			taskId(任务Id)：<input type="text" name="taskId" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+	    3、录入订单号[api/task/addOrderNo]
+		<form id="1" action="api/task/addOrderNo" method="post">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
+			orderNo(订单号)：<input type="text" name="orderNo" value="TB00001" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+	    4、完成晒图[api/task/finishShowPic]
+		<form id="1" action="api/task/finishShowPic" method="post">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		5、自购商品[api/task/selfBuy]
+		<form id="1" action="api/task/selfBuy" method="post">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		6、退还商品[api/task/returnItem]
+		<form id="1" action="api/task/returnItem" method="post">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
+			expressCompanyId(快递公司Id)：<input type="text" name="expressCompanyId" value="1" />
+			expressNo(快递单号)：<input type="text" name="expressNo" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		7、申请客服介入[api/task/applyKefu]
+		<form id="1" action="api/task/applyKefu" method="post">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
+		
+	</body>
+</html>
+

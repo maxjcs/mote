@@ -33,7 +33,7 @@ public class CashApplyController extends AbstractController{
      * 提现申请记录
      */
 	@ResponseBody
-    @RequestMapping(value = "add")
+    @RequestMapping(value = "queryList")
     public Object queryList(HttpServletRequest request,Integer userId,Integer status,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	cashApplyService.queryList(userId, status,pageNo==null?1:pageNo,pageSize==null?10:pageSize);

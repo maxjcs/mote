@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.longcity.modeler.dao.Advance" >
-  <resultMap id="BaseResultMap" type="com.longcity.modeler.model.Advance" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="money" property="money" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+<mapper namespace="com.longcity.modeler.dao.AdvanceDao" >
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from advance
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.longcity.modeler.model.Advance" >
+  <insert id="insert" parameterType="Advance" useGeneratedKeys="true" keyProperty="id">
     insert into advance (id, user_id, money, 
       create_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{money,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    values (#{id}, #{userId}, #{money}, 
+      #{createTime})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.longcity.modeler.model.Advance" >
+  <update id="updateByPrimaryKey" parameterType="Advance" >
     update advance
-    set user_id = #{userId,jdbcType=INTEGER},
-      money = #{money,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    set user_id = #{userId},
+      money = #{money},
+      create_time = #{createTime}
+    where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultType="Advance" parameterType="java.lang.Integer" >
     select id, user_id, money, create_time
     from advance
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultType="Advance">
     select id, user_id, money, create_time
     from advance
   </select>

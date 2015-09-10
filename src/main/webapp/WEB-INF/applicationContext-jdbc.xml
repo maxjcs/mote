@@ -16,32 +16,17 @@
 
 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="${teacher.db.url}" />
-		<property name="username" value="${teacher.db.username}" />
-		<property name="password" value="${teacher.db.password}" />
-		<property name="initialSize" value="${teacher.db.initialSize}"></property>
+		<property name="url" value="${mote.db.url}" />
+		<property name="username" value="${mote.db.username}" />
+		<property name="password" value="${mote.db.password}" />
+		<property name="initialSize" value="${mote.db.initialSize}"></property>
 		<property name="validationQuery" value="select 1"></property>
-		<property name="testOnBorrow" value="${teacher.db.testOnBorrow}"></property>
-		<property name="testOnReturn" value="${teacher.db.testOnReturn}"></property>
-		<property name="testWhileIdle" value="${teacher.db.testWhileIdle}"></property>
-		<property name="maxActive" value="${teacher.db.maxActive}"></property>
-		<property name="maxIdle" value="${teacher.db.maxIdle}"></property>
-		<property name="maxWait" value="${teacher.db.maxWait}"></property>
-	</bean>
-
-	<bean id="payDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="${teacher.paydb.url}" />
-		<property name="username" value="${teacher.paydb.username}" />
-		<property name="password" value="${teacher.paydb.password}" />
-		<property name="initialSize" value="${teacher.paydb.initialSize}"></property>
-		<property name="validationQuery" value="select 1"></property>
-		<property name="testOnBorrow" value="${teacher.paydb.testOnBorrow}"></property>
-		<property name="testOnReturn" value="${teacher.paydb.testOnReturn}"></property>
-		<property name="testWhileIdle" value="${teacher.paydb.testWhileIdle}"></property>
-		<property name="maxActive" value="${teacher.paydb.maxActive}"></property>
-		<property name="maxIdle" value="${teacher.paydb.maxIdle}"></property>
-		<property name="maxWait" value="${teacher.paydb.maxWait}"></property>
+		<property name="testOnBorrow" value="${mote.db.testOnBorrow}"></property>
+		<property name="testOnReturn" value="${mote.db.testOnReturn}"></property>
+		<property name="testWhileIdle" value="${mote.db.testWhileIdle}"></property>
+		<property name="maxActive" value="${mote.db.maxActive}"></property>
+		<property name="maxIdle" value="${mote.db.maxIdle}"></property>
+		<property name="maxWait" value="${mote.db.maxWait}"></property>
 	</bean>
 
 	<bean id="transactionManager"
@@ -68,19 +53,9 @@
 		<property name="configLocation" value="classpath:mybatis-configuration.xml" />
 	</bean>
 
-	<bean id="paySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="payDataSource" />
-		<property name="configLocation" value="classpath:mybatis-configuration.xml" />
-	</bean>
-
-	<bean id="payAudioDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="paySqlSessionFactory" />
-		<property name="mapperInterface" value="com.xuexibao.teacher.pay.dao.PayAudioDao" />
-	</bean>
-
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.xuexibao.teacher" />
-		<property name="annotationClass" value="com.xuexibao.teacher.core.MybatisMapper" />
+		<property name="basePackage" value="com.longcity.modeler" />
+		<property name="annotationClass" value="com.longcity.modeler.core.MybatisMapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 </beans>

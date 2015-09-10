@@ -25,12 +25,11 @@
 	</settings>
 
 	<typeAliases>
-		<package name="com.xuexibao.teacher.model" />
-		<package name="com.xuexibao.teacher.model.vo" />
-		<package name="com.xuexibao.teacher.pay.model.vo" />
-		<package name="com.xuexibao.teacher.pay.model" />
+		<package name="com.longcity.modeler.model" />
 	</typeAliases>
+<!--   
   <plugins>
         <plugin interceptor="com.xuexibao.teacher.interceptor.MybatisQueryTimeLogInterceptor"/>
-  </plugins>
+  </plugins> 
+-->
 </configuration>  

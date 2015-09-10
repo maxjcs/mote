@@ -6,12 +6,12 @@
     delete from trade_flow
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="TradeFlow" >
-    insert into trade_flow (id, refer_id, type, 
+  <insert id="insert" parameterType="TradeFlow" useGeneratedKeys="true" keyProperty="id">
+    insert into trade_flow (refer_id, type, 
       money, create_time, user_id
       )
-    values (#{id}, #{referId}, #{type}, 
-      #{money}, #{createTime}, #{userId}
+    values (#{referId}, #{type}, 
+      #{money}, now(), #{userId}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="TradeFlow" >
@@ -19,7 +19,6 @@
     set refer_id = #{referId},
       type = #{type},
       money = #{money},
-      create_time = #{createTime},
       user_id = #{userId}
     where id = #{id}
   </update>

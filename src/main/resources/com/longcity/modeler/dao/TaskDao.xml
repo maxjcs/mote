@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.longcity.modeler.dao.Task" >
+<mapper namespace="com.longcity.modeler.dao.TaskDao" >
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from task
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="Task"  >
-    insert into task (id, user_id, title, 
+  <insert id="insert" parameterType="Task"  useGeneratedKeys="true" keyProperty="id">
+    insert into task (user_id, title, 
       url, price, shot_fee, 
       img_url, self_buy_off, shot_desc, 
       gender, shape, height_min, 
       height_max, areaId, modeler_level, 
       self_buy_rate, number, shot_area_id, 
       status,create_time,update_time)
-    values (#{id}, #{userId}, #{title}, 
+    values (#{userId}, #{title}, 
       #{url}, #{price}, #{shotFee}, 
       #{imgUrl}, #{selfBuyOff}, #{shotDesc}, 
       #{gender}, #{shape}, #{heightMin}, 

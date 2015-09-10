@@ -18,6 +18,7 @@ import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.TradeFlowDao;
 import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.MoteTaskStatus;
+import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.TradeFlowType;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
@@ -69,7 +70,7 @@ public class TaskService {
 		paramMap.put("moteTaskId", moteTaskId);
 		paramMap.put("expressCompanyId", expressCompanyId);
 		paramMap.put("expressNo", expressNo);
-		Integer fee= task.getPrice();
+		Integer fee= task.getPrice()+task.getShotFee();
 		paramMap.put("fee",fee );//单位为分
 		moteTaskDao.returnItem(paramMap);
 		
@@ -110,7 +111,7 @@ public class TaskService {
 		//更新快递信息
 		Map paramMap=new HashMap();
 		paramMap.put("moteTaskId", moteTaskId);
-		Integer fee= task.getPrice()*(100-task.getSelfBuyOff())+task.getPrice();
+		Integer fee= task.getPrice()*(100-task.getSelfBuyOff())/100+task.getShotFee();
 		paramMap.put("fee",fee );//单位为分
 		moteTaskDao.selfBuy(paramMap);
 		
@@ -180,6 +181,7 @@ public class TaskService {
 	 * @return
 	 */
 	public Integer save(Task task){
+		task.setStatus(TaskStatus.newadd.getValue());
 		Integer id=0;
 		if(task.getId()==null){
 			id=taskDao.insert(task);

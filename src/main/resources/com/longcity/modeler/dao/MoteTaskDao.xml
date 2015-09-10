@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.longcity.modeler.dao.MoteTask" >
+<mapper namespace="com.longcity.modeler.dao.MoteTaskDao" >
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from mote_task
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="MoteTask" >
-    insert into mote_task (id, user_id, task_id, 
+  <insert id="insert" parameterType="MoteTask" useGeneratedKeys="true" keyProperty="id">
+    insert into mote_task ( user_id, task_id, 
       create_time, update_time, order_no, 
       express_company_id, express_no, self_buy_fee, 
       status)
-    values (#{id}, #{userId}, #{taskId}, 
+    values (#{userId}, #{taskId}, 
       now(), now(), #{orderNo}, 
       #{expressCompanyId}, #{expressNo}, #{selfBuyFee}, 
       #{status})
@@ -59,7 +59,7 @@
     set  
      express_company_id = #{expressCompanyId},
      express_no = #{expressNo},
-     self_buy_fee = #{fee}
+     self_buy_fee = #{fee},
      status = 5
     where id = #{moteTaskId}
   </update>

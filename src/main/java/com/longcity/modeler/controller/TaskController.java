@@ -35,7 +35,7 @@ public class TaskController extends AbstractController {
      * 申请客服介入
      */
 	@ResponseBody
-    @RequestMapping(value = "ApplyKefu")
+    @RequestMapping(value = "applyKefu")
     public Object ApplyKefu(HttpServletRequest request,Integer moteTaskId) throws Exception{
         try{
         	taskService.applyKefu(moteTaskId);
@@ -71,7 +71,7 @@ public class TaskController extends AbstractController {
         	taskService.selfBuy(moteTaskId);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("发布项目需求失败.", e);
+            logger.error("自购商品失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }
@@ -86,13 +86,13 @@ public class TaskController extends AbstractController {
         	taskService.finishShowPic(moteTaskId);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("发布项目需求失败.", e);
+            logger.error("完成收货并晒图失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }
 	
     /**
-     * 接单
+     * 录入淘宝订单号
      */
 	@ResponseBody
     @RequestMapping(value = "addOrderNo")
@@ -101,7 +101,7 @@ public class TaskController extends AbstractController {
         	taskService.addOrderNo(moteTaskId,orderNo);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("发布项目需求失败.", e);
+            logger.error("录入订单号失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }
@@ -111,13 +111,13 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "newMoteTask")
-    public Object newMoteTask(HttpServletRequest request,Integer taskId) throws Exception{
+    public Object newMoteTask(HttpServletRequest request,Integer moteId,Integer taskId) throws Exception{
         try{
-        	Integer moteId=AppContext.getUserId();
+        	//Integer moteId=AppContext.getUserId();
         	taskService.newMoteTask(moteId,taskId);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("发布项目需求失败.", e);
+            logger.error("接单失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }
@@ -148,7 +148,7 @@ public class TaskController extends AbstractController {
         	taskService.updateStatus(id,status);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("发布项目需求失败.", e);
+            logger.error("更新状态失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }

@@ -2,8 +2,8 @@ package com.longcity.modeler.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.TradeFlow;
-import com.xuexibao.teacher.core.MybatisMapper;
 
 @MybatisMapper
 @Repository

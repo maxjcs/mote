@@ -3,7 +3,7 @@ package com.longcity.modeler.core;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xuexibao.teacher.filter.Token;
+import com.longcity.modeler.filter.Token;
 
 /**
  * 
