@@ -66,7 +66,7 @@
 		
 		
 		<br><br>商家模块<br>
-		1、商家发布任务[api/task/save]
+		1、商家保存任务[api/task/save]
 		<form id="1" action="api/task/save" method="post">
 			userId(商家ID)：<input type="text" name="userId" value="1" />
 			title(标题)：<input type="text" name="title" value="15888838217" />
@@ -81,6 +81,30 @@
 			heightMin(身高最少)：<input type="text" name="heightMin" value="165" />
 			heightMax(身高最大)：<input type="text" name="heightMax" value="180" />
 			number(当量)：<input type="text" name="number" value="10" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		1.1、商家发布任务[api/task/publish]
+		<form id="1" action="api/task/publish" method="post">
+			userId(商家ID)：<input type="text" name="userId" value="1" />
+			title(标题)：<input type="text" name="title" value="15888838217" />
+			url(商品链接):<input type="text" name="url" value="http://***.htm" />
+			price(单价):<input type="text" name="price" value="120" />
+			shotFee(拍摄费用):<input type="text" name="shotFee" value="120" />
+			imgUrl(图片链接)：<input type="text" name="imgUrl" value="http://***.jpg" />
+			selfBuyOff(自购折扣)：<input type="text" name="selfBuyOff" value="85" />
+			shotDesc(拍摄要求)：<input type="text" name="shotDesc" value="1344566" />
+			gender(性别要求)：<input type="text" name="gender" value="1" />
+			shape(体型要求)：<input type="text" name="shape" value="1" />
+			heightMin(身高最少)：<input type="text" name="heightMin" value="165" />
+			heightMax(身高最大)：<input type="text" name="heightMax" value="180" />
+			number(当量)：<input type="text" name="number" value="10" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		1.2、 获取任务详细信息[api/task/getDetailByTaskId]
+		<form id="1" action="api/task/getDetailByTaskId" method="post">
+			taskId(任务ID)：<input type="text" name="taskId" value="1" />
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>
 		
@@ -162,6 +186,25 @@
 			<input type="submit" name="submit" value="提交"/><br/>  
 		</form>
 		
+		<br><br>预付款模块<br>
+		1、增加预付款[api/cash/addCashApply]
+		<form id="1" action="api/cash/addCashApply" method="post">
+			alipayName(支付宝名)：<input type="text" name="alipayName" value="1" />
+			money(金额)：<input type="text" name="money" value="1" />
+			lastSixOrderNo(订单后六位)：<input type="text" name="lastSixOrderNo" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
+		2、提现申请[api/cash/reduceCashApply]
+		<form id="1" action="api/cash/reduceCashApply" method="post">
+			money(金额)：<input type="text" name="money" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
+		3、预付款使用情况[api/cash/getRecordList]
+		<form id="1" action="api/cash/getRecordList" method="post">
+			pageNo：<input type="text" name="pageNo" value="1" />
+			pageSize：<input type="text" name="pageSize" value="10" />
+			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
 	</body>
 </html>
 

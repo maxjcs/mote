@@ -17,6 +17,8 @@ public class AddCashApply {
 	
 	String alipayName;
 	
+	Integer money;
+	
 	String lastSixOrderNo;
 	
 	Integer status;
@@ -24,5 +26,72 @@ public class AddCashApply {
 	Date createTime;
 	
 	Date finishTime;
+	
+
+	public Integer getMoney() {
+		return money;
+	}
+
+	public void setMoney(Integer money) {
+		this.money = money;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getAlipayName() {
+		return alipayName;
+	}
+
+	public void setAlipayName(String alipayName) {
+		this.alipayName = alipayName;
+	}
+
+	public String getLastSixOrderNo() {
+		return lastSixOrderNo;
+	}
+
+	public void setLastSixOrderNo(String lastSixOrderNo) {
+		this.lastSixOrderNo = lastSixOrderNo;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getFinishTime() {
+		return finishTime;
+	}
+
+	public void setFinishTime(Date finishTime) {
+		this.finishTime = finishTime;
+	}
+	
+	
 
 }

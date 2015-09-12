@@ -6,9 +6,8 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="AddCashApply" useGeneratedKeys="true" keyProperty="id">
-    insert into add_cash_apply (user_id,alipay_name,money,last_six_order_no,status, create_time, finish_time
-      )
-    values (#{userId},#{alipayName},#{lastSixOrderNo},#{status}, now(),null)
+    insert into add_cash_apply (user_id,alipay_name,money,last_six_order_no,status, create_time)
+    values (#{userId},#{alipayName},#{money},#{lastSixOrderNo},#{status}, now())
   </insert>
   <update id="finish" parameterType="AddCashApply" >
     update add_cash_apply

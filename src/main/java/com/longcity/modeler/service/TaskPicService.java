@@ -1,8 +1,6 @@
 package com.longcity.modeler.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -31,6 +29,10 @@ public class TaskPicService {
 	
 	@Resource
 	private MoteTaskDao moteTaskDao;
+
+	@Resource
+	private TaskService taskService;
+	
 	
 	/**
 	 * 展示图片
@@ -47,21 +49,19 @@ public class TaskPicService {
 	 * @param moteTaskId
 	 * @param imgUrls
 	 */
-	public void  addImageUrl(Integer moteTaskId,String imgUrls){
+	public void  addImageUrl(Integer moteTaskId,String imgUrl){
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
-		if(StringUtils.isNotBlank(imgUrls)){
-			String[] urls=imgUrls.split(",");
-			for(String url:urls){
-				TaskPic tasckPic=new TaskPic();
-				tasckPic.setImgUrl(url);
-				tasckPic.setMoteTaskId(moteTaskId);
-				tasckPic.setSort(0);
-				tasckPic.setUserId(moteTask.getUserId());
-				tasckPic.setTaskId(moteTask.getTaskId());
-				taskPicDao.insert(tasckPic);
-			}
+		TaskPic tasckPic=new TaskPic();
+		tasckPic.setImgUrl(imgUrl);
+		tasckPic.setMoteTaskId(moteTaskId);
+		tasckPic.setSort(0);
+		tasckPic.setUserId(moteTask.getUserId());
+		tasckPic.setTaskId(moteTask.getTaskId());
+		taskPicDao.insert(tasckPic);
+		int count=taskPicDao.getPicNumByMoteTaskId(moteTaskId);
+		if(count>=6){
+			taskService.uploadImg(moteTaskId);
 		}
-		
 	}
 	
 	/**

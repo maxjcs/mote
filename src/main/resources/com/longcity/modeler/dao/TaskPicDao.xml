@@ -34,5 +34,13 @@
     from task_pic
     where mote_task_id = #{param1} and user_id = #{param2}
   </select>
+  
+  <select id="getPicNumByMoteTaskId" resultType="Integer"  >
+    select ifnull(count(1),0)
+    from task_pic
+    where mote_task_id = #{param1} 
+  </select>
+  
+  
 
 </mapper>

@@ -9,7 +9,7 @@ package com.longcity.modeler.enums;
  */
 public enum TaskStatus {
 	
-   newadd(1), passed(2), not_passed(3), finished(4);
+   no_payed(0),wait_approve(1), passed(2), not_passed(3), finished(4);
     
     private int status;
     

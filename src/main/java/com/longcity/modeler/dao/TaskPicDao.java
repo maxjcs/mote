@@ -21,4 +21,6 @@ public interface TaskPicDao {
     void addImageUrl(Integer moteTaskId,String url);
     
     List<TaskPic> queryMoteTask(Integer moteTaskId,Integer userId);
+    
+    int getPicNumByMoteTaskId(Integer moteTaskId);
 }

@@ -56,6 +56,17 @@ public class TaskService {
 	@Resource
 	private UserDao userDao;
 	
+	
+	
+	/**
+	 * 获取任务详细信息
+	 * @param taskId
+	 */
+	public Task  getDetailByTaskId(Integer taskId){
+		Task task=taskDao.selectByPrimaryKey(taskId);
+		return task;
+	}
+	
 	/**
 	 * 申请客服
 	 * @param moteId
@@ -164,6 +175,18 @@ public class TaskService {
 	}
 	
 	/**
+	 * 完成上传图片
+	 * @param moteId
+	 * @param taskId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void  uploadImg(Integer moteTaskId){
+		Map paramMap=new HashMap();
+		paramMap.put("moteTaskId", moteTaskId);
+		moteTaskDao.uploadImg(paramMap);
+	}
+	
+	/**
 	 * 录入淘宝订单号
 	 * @param moteId
 	 * @param taskId
@@ -195,7 +218,23 @@ public class TaskService {
 	 * @return
 	 */
 	public Integer save(Task task){
-		task.setStatus(TaskStatus.newadd.getValue());
+		task.setStatus(TaskStatus.no_payed.getValue());
+		Integer id=0;
+		if(task.getId()==null){
+			id=taskDao.insert(task);
+		}else{
+			taskDao.updateByPrimaryKey(task);
+		}
+		return id;
+	}
+	
+	/**
+	 * 发布任务
+	 * @param task
+	 * @return
+	 */
+	public Integer publish(Task task){
+		task.setStatus(TaskStatus.wait_approve.getValue());
 		Integer id=0;
 		if(task.getId()==null){
 			id=taskDao.insert(task);

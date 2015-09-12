@@ -13,10 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.model.TaskPic;
 import com.longcity.modeler.service.TaskPicService;
+import com.longcity.modeler.util.FileUtil;
+import com.longcity.modeler.util.UpYunUtil;
+import com.longcity.modeler.validator.Validator;
 
 /**
  * @author maxjcs
@@ -49,6 +53,61 @@ public class TaskPicController extends AbstractController{
     }
 	
 	/**
+	 * 模特上传图片
+	 * @param moteTaskId
+	 * @param image1
+	 * @param image2
+	 * @param image3
+	 * @param image4
+	 * @param image5
+	 * @param image6
+	 */
+	@ResponseBody
+    @RequestMapping(value = "uploadImage")
+	public Object uploadImage(HttpServletRequest request,Integer moteTaskId,MultipartFile image1, MultipartFile image2, MultipartFile image3,
+			MultipartFile image4,MultipartFile image5,MultipartFile image6)throws Exception {
+		Validator.validateImageFile(image1);
+		Validator.validateImageFile(image2);
+		Validator.validateImageFile(image3);
+		Validator.validateImageFile(image4);
+		Validator.validateImageFile(image5);
+		Validator.validateImageFile(image6);
+		
+		try{
+
+			if (!FileUtil.isEmpty(image1)) {
+				String url = UpYunUtil.upload(image1);
+				taskPicService.addImageUrl(moteTaskId,url);
+			}
+			if (!FileUtil.isEmpty(image2)) {
+				String url = UpYunUtil.upload(image2);
+				taskPicService.addImageUrl(moteTaskId,url);
+			}
+			if (!FileUtil.isEmpty(image3)) {
+				String url = UpYunUtil.upload(image3);
+				taskPicService.addImageUrl(moteTaskId,url);
+			}
+			if (!FileUtil.isEmpty(image4)) {
+				String url = UpYunUtil.upload(image4);
+				taskPicService.addImageUrl(moteTaskId,url);
+			}
+			if (!FileUtil.isEmpty(image5)) {
+				String url = UpYunUtil.upload(image4);
+				taskPicService.addImageUrl(moteTaskId,url);
+			}
+			if (!FileUtil.isEmpty(image6)) {
+				String url = UpYunUtil.upload(image4);
+				taskPicService.addImageUrl(moteTaskId,url);
+			}
+			 return dataJson(true,request);
+		}
+		catch (Exception e) {
+			logger.error("上传多张照片失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+		}
+	}
+	
+	/**
      * 上传多张照片
      */
 	@ResponseBody
@@ -64,7 +123,7 @@ public class TaskPicController extends AbstractController{
     }
 	
 	/**
-     * 上传多张照片
+     * 删除多张照片
      */
 	@ResponseBody
     @RequestMapping(value = "removeImageUrl")
@@ -73,7 +132,7 @@ public class TaskPicController extends AbstractController{
         	taskPicService.removeImageUrl(taskPicIds);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("上传多张照片失败.", e);
+            logger.error("删除多张照片失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }

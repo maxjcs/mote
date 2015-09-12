@@ -9,7 +9,7 @@ package com.longcity.modeler.enums;
  */
 public enum MoteTaskStatus {
 	
-    newAccept(1), taobaoOrder(2), showPicOK(3), selfBuy(4), returnItem(5), ApplyKefu(6), TimeOut(7);
+    newAccept(1), taobaoOrder(2), showPicOK(3),uploadImg(4), selfBuy(5), returnItem(6), ApplyKefu(7), TimeOut(8);
     
     private int status;
     

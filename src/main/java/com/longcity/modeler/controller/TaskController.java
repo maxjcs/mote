@@ -34,6 +34,21 @@ public class TaskController extends AbstractController {
 	@Resource
 	TaskService taskService;
 	
+	/**
+     * 获取任务详细信息
+     */
+	@ResponseBody
+    @RequestMapping(value = "getDetailByTaskId")
+    public Object getDetailByTaskId(HttpServletRequest request,Integer taskId) throws Exception{
+        try{
+        	Task task=taskService.getDetailByTaskId(taskId);
+            return dataJson(task, request);
+        }catch(Exception e){
+            logger.error("获取任务详细信息失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
 	
 	
 	/**
@@ -137,6 +152,22 @@ public class TaskController extends AbstractController {
         try{
         	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
         	taskService.save(task);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("发布项目需求失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+    /**
+     * 发布任务
+     */
+	@ResponseBody
+    @RequestMapping(value = "publish")
+    public Object publish(HttpServletRequest request,Task task) throws Exception{
+        try{
+        	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
+        	taskService.publish(task);
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);

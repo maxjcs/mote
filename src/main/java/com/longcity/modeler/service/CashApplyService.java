@@ -46,6 +46,7 @@ public class CashApplyService {
 	 * @param money
 	 */
 	public void  addCashApply(AddCashApply record){
+		record.setStatus(1);//new
 		addCashApplyDao.insert(record);
 	}
 	

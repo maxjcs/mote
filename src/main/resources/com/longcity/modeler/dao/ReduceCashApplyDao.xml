@@ -6,11 +6,11 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="ReduceCashApply" useGeneratedKeys="true" keyProperty="id">
-    insert into reduce_cash_apply (id, user_id, create_time, 
-      money, status, pay_time
+    insert into reduce_cash_apply ( user_id, create_time, 
+      money, status
       )
-    values (#{id}, #{userId}, now(), 
-      #{money}, #{status}, null
+    values (#{userId}, now(), 
+      #{money}, #{status}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="ReduceCashApply" >

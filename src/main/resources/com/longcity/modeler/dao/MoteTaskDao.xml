@@ -58,12 +58,21 @@
     where id = #{moteTaskId}
   </update>
   
+  <update id="uploadImg" >
+    update mote_task
+    set  
+     status = 4,
+     upload_pic_time=now(),
+     update_time = now()
+    where id = #{moteTaskId}
+  </update>
+  
   
   <update id="selfBuy" >
     update mote_task
     set  
      self_buy_fee = #{fee},
-     status = 4,
+     status = 5,
      self_buy_time =now(),
      update_time = now()
     where id = #{moteTaskId}
@@ -75,7 +84,7 @@
      express_company_id = #{expressCompanyId},
      express_no = #{expressNo},
      self_buy_fee = #{fee},
-     status = 5,
+     status = 6,
      return_item_time =now(),
      update_time = now()
     where id = #{moteTaskId}

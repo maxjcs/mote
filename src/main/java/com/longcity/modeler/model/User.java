@@ -45,11 +45,21 @@ public class User {
 
     private String referee;
 
-    private Integer remindFee;
+    private Integer remindFee;//余额
+    
+    private Integer freezeFee;//冻结金额
     
     private String deviceId;
     
-    public String getBirdthdayStr() {
+    public Integer getFreezeFee() {
+		return freezeFee;
+	}
+
+	public void setFreezeFee(Integer freezeFee) {
+		this.freezeFee = freezeFee;
+	}
+
+	public String getBirdthdayStr() {
 		return birdthdayStr;
 	}
 

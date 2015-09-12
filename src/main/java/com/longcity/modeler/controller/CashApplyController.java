@@ -3,6 +3,8 @@
  */
 package com.longcity.modeler.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.model.AddCashApply;
+import com.longcity.modeler.model.CashRecord;
 import com.longcity.modeler.service.CashApplyService;
 
 /**
@@ -53,8 +56,8 @@ public class CashApplyController extends AbstractController{
     public Object getRecordList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	cashApplyService.getRecordList(userId,pageNo,pageSize);
-            return dataJson(true, request);
+        	List<CashRecord> recordList=cashApplyService.getRecordList(userId,pageNo,pageSize);
+            return dataJson(recordList, request);
         }catch(Exception e){
             logger.error("获取预付款使用情况失败.", e);
             return errorJson("服务器异常，请重试.", request);
@@ -69,6 +72,7 @@ public class CashApplyController extends AbstractController{
     public Object addCashApply(HttpServletRequest request,AddCashApply addCashApply) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
+        	addCashApply.setUserId(userId);
         	cashApplyService.addCashApply(addCashApply);
             return dataJson(true, request);
         }catch(Exception e){
@@ -82,9 +86,9 @@ public class CashApplyController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "reduceCashApply")
-    public Object reduceCashApply(HttpServletRequest request,Integer userId,Integer money) throws Exception{
+    public Object reduceCashApply(HttpServletRequest request,Integer money) throws Exception{
         try{
-//        	Integer userId=AppContext.getUserId();
+        	Integer userId=AppContext.getUserId();
         	cashApplyService.reduceCashApply(userId, money);
             return dataJson(true, request);
         }catch(Exception e){

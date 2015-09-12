@@ -22,7 +22,8 @@ public interface MoteTaskDao {
 
     int updateByPrimaryKey(MoteTask record);
     
-    void addOrderNo(Map paramMap);
+    @SuppressWarnings("rawtypes")
+	void addOrderNo(Map paramMap);
     
     void updateStatus(Integer id,Integer status);
     
@@ -35,7 +36,8 @@ public interface MoteTaskDao {
 	@SuppressWarnings("rawtypes")
 	void finishShowPic(Map paramMap);
 	
-	
+	@SuppressWarnings("rawtypes")
+	void uploadImg(Map paramMap);
 	
 	@SuppressWarnings("rawtypes")
 	List<TaskVO> stasticByTaskIds(Map paramMap2);
