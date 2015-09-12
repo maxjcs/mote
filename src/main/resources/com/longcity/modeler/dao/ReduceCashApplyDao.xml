@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.longcity.modeler.dao.CashApplyDao" >
+<mapper namespace="com.longcity.modeler.dao.ReduceCashApplyDao" >
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from cash_apply
+    delete from reduce_cash_apply
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="CashApply" useGeneratedKeys="true" keyProperty="id">
-    insert into cash_apply (id, user_id, create_time, 
+  <insert id="insert" parameterType="ReduceCashApply" useGeneratedKeys="true" keyProperty="id">
+    insert into reduce_cash_apply (id, user_id, create_time, 
       money, status, pay_time
       )
     values (#{id}, #{userId}, now(), 
       #{money}, #{status}, null
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="CashApply" >
-    update cash_apply
+  <update id="updateByPrimaryKey" parameterType="ReduceCashApply" >
+    update reduce_cash_apply
     set user_id = #{userId},
       money = #{money},
       status = #{status}
     where id = #{id}
   </update>
-  <select id="selectByPrimaryKey" resultType="CashApply" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultType="ReduceCashApply" parameterType="java.lang.Integer" >
     select id, user_id, create_time, money, status, pay_time
-    from cash_apply
+    from reduce_cash_apply
     where id = #{id}
   </select>
   
-  <select id="queryList" resultType="CashApply" parameterType="map" >
+  <select id="queryList" resultType="ReduceCashApply" parameterType="map" >
     select id, user_id, create_time, money, status, pay_time
-    from cash_apply
+    from reduce_cash_apply
     where 1=1 
     <if test="userId!=null">
             AND user_id = #{userId}
@@ -40,7 +40,7 @@
   </select>
   
   <update id="finishPay" parameterType="java.lang.Integer" >
-    update cash_apply
+    update reduce_cash_apply
     set 
       status = 2,
       pay_time =now()

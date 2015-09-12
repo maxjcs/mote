@@ -6,20 +6,20 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.longcity.modeler.core.MybatisMapper;
-import com.longcity.modeler.model.CashApply;
+import com.longcity.modeler.model.ReduceCashApply;
 
 @MybatisMapper
 @Repository
-public interface CashApplyDao {
+public interface ReduceCashApplyDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(CashApply record);
+    int insert(ReduceCashApply record);
 
-    CashApply selectByPrimaryKey(Integer id);
+    ReduceCashApply selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKey(CashApply record);
+    int updateByPrimaryKey(ReduceCashApply record);
     
     void finishPay(Integer id);
     
-    List<CashApply> queryList(Map paramMap);
+    List<ReduceCashApply> queryList(Map paramMap);
 }

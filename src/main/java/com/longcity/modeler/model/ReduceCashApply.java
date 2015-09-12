@@ -2,7 +2,7 @@ package com.longcity.modeler.model;
 
 import java.util.Date;
 
-public class CashApply {
+public class ReduceCashApply {
     private Integer id;
 
     private Integer userId;

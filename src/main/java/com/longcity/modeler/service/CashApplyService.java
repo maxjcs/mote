@@ -4,6 +4,7 @@
 package com.longcity.modeler.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,9 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.longcity.modeler.dao.CashApplyDao;
+import com.longcity.modeler.constant.PageConstant;
+import com.longcity.modeler.dao.AddCashApplyDao;
+import com.longcity.modeler.dao.CashRecordDao;
+import com.longcity.modeler.dao.ReduceCashApplyDao;
 import com.longcity.modeler.enums.CashApplyStatus;
-import com.longcity.modeler.model.CashApply;
+import com.longcity.modeler.model.AddCashApply;
+import com.longcity.modeler.model.CashRecord;
+import com.longcity.modeler.model.ReduceCashApply;
 
 /**
  * @author maxjcs
@@ -26,7 +32,48 @@ public class CashApplyService {
 	private static Logger logger = LoggerFactory.getLogger(CashApplyService.class);
 	
 	@Resource
-	CashApplyDao cashApplyDao;
+	ReduceCashApplyDao reduceCashApplyDao;
+	
+	@Resource
+	AddCashApplyDao addCashApplyDao;
+	
+	@Resource
+	CashRecordDao caashRecordDao;
+	
+	/**
+	 * 增加预存款
+	 * @param userId
+	 * @param money
+	 */
+	public void  addCashApply(AddCashApply record){
+		addCashApplyDao.insert(record);
+	}
+	
+	
+	/**
+	 * 预付款使用情况
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<CashRecord> getRecordList(Integer userId,Integer pageNo,Integer pageSize){
+		if(pageNo==null){
+			pageNo=1;
+		}
+		if(pageSize==null){
+			pageSize=PageConstant.PAGE_SIZE_10;
+		}
+		
+		Map paramMap=new HashMap();
+		paramMap.put("userId", userId);
+		paramMap.put("start", (pageNo-1)*pageSize);
+		paramMap.put("pageSize", pageSize);
+		List<CashRecord> cashRecords = caashRecordDao.getRecordList(paramMap);
+		
+		return cashRecords;
+	}
 	
 	
 	
@@ -43,7 +90,7 @@ public class CashApplyService {
 		paramMap.put("status", status);
 		paramMap.put("start", pageSize*(pageNo-1));
 		paramMap.put("pageSize", pageSize);
-		cashApplyDao.queryList(paramMap);
+		reduceCashApplyDao.queryList(paramMap);
 	}
 	
 	
@@ -52,20 +99,20 @@ public class CashApplyService {
 	 * @param userId
 	 * @param money
 	 */
-	public void  add(Integer userId,Integer money){
-		CashApply cashApply= new CashApply();
+	public void  reduceCashApply(Integer userId,Integer money){
+		ReduceCashApply cashApply= new ReduceCashApply();
 		cashApply.setMoney(money);
 		cashApply.setUserId(userId);
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
-		cashApplyDao.insert(cashApply);
+		reduceCashApplyDao.insert(cashApply);
 	}
 	
 	/**
 	 * 查询详情
 	 * @param cashApplyId
 	 */
-	public CashApply  detail(Integer cashApplyId){
-		return cashApplyDao.selectByPrimaryKey(cashApplyId);
+	public ReduceCashApply  detail(Integer cashApplyId){
+		return reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
 	}
 	
 	
@@ -74,7 +121,7 @@ public class CashApplyService {
 	 * @param cashApplyId
 	 */
 	public void  finishPay(Integer cashApplyId){
-		cashApplyDao.finishPay(cashApplyId);
+		reduceCashApplyDao.finishPay(cashApplyId);
 	}
 
 }

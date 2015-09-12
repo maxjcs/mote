@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.model.AddCashApply;
 import com.longcity.modeler.service.CashApplyService;
 
 /**
@@ -20,7 +21,7 @@ import com.longcity.modeler.service.CashApplyService;
  *
  */
 @Controller
-@RequestMapping("cashApply")
+@RequestMapping("cash")
 public class CashApplyController extends AbstractController{
 	
 	private static Logger logger = LoggerFactory.getLogger(CashApplyController.class);
@@ -45,17 +46,49 @@ public class CashApplyController extends AbstractController{
     }
 	
 	/**
+     * 预付款使用情况
+     */
+	@ResponseBody
+    @RequestMapping(value = "getRecordList")
+    public Object getRecordList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
+        try{
+        	Integer userId=AppContext.getUserId();
+        	cashApplyService.getRecordList(userId,pageNo,pageSize);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("获取预付款使用情况失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	/**
+     * 增加预存款申请
+     */
+	@ResponseBody
+    @RequestMapping(value = "addCashApply")
+    public Object addCashApply(HttpServletRequest request,AddCashApply addCashApply) throws Exception{
+        try{
+        	Integer userId=AppContext.getUserId();
+        	cashApplyService.addCashApply(addCashApply);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("增加预存款申请失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	/**
      * 提现申请
      */
 	@ResponseBody
-    @RequestMapping(value = "add")
-    public Object add(HttpServletRequest request,Integer moteTaskId,Integer money) throws Exception{
+    @RequestMapping(value = "reduceCashApply")
+    public Object reduceCashApply(HttpServletRequest request,Integer userId,Integer money) throws Exception{
         try{
-        	Integer userId=AppContext.getUserId();
-        	cashApplyService.add(userId, money);
+//        	Integer userId=AppContext.getUserId();
+        	cashApplyService.reduceCashApply(userId, money);
             return dataJson(true, request);
         }catch(Exception e){
-            logger.error("上传多张照片失败.", e);
+            logger.error("提现申请失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }
