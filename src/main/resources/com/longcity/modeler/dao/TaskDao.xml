@@ -12,14 +12,14 @@
       gender, shape, height_min, 
       height_max, areaId, modeler_level, 
       self_buy_rate, number, shot_area_id, 
-      status,create_time,update_time)
+      status,create_time,update_time,total_fee)
     values (#{userId}, #{title}, 
       #{url}, #{price}, #{shotFee}, 
       #{imgUrl}, #{selfBuyOff}, #{shotDesc}, 
       #{gender}, #{shape}, #{heightMin}, 
       #{heightMax}, #{areaid}, #{modelerLevel}, 
       #{selfBuyRate}, #{number}, #{shotAreaId}, 
-      #{status},now(),now())
+      #{status},now(),now(),#{totalFee})
   </insert>
   <update id="updateByPrimaryKey" parameterType="Task" >
     update task
@@ -40,7 +40,8 @@
       self_buy_rate = #{selfBuyRate},
       number = #{number},
       shot_area_id = #{shotAreaId},
-      status = #{status}
+      status = #{status},
+      total_fee = #{totalFee}
     where id = #{id}
   </update>
   
@@ -53,8 +54,30 @@
   <select id="selectByPrimaryKey" resultType="Task" parameterType="java.lang.Integer" >
     select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
     gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
-    shot_area_id, status
+    shot_area_id, status, total_fee
     from task
     where id = #{id}
   </select>
+  
+  <select id="getNewTaskList" resultType="Task" parameterType="map" >
+    select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
+    gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
+    shot_area_id, status,total_fee
+    from task
+    where user_id = #{userId} and status in (1,3)
+    limit #{start},#{pageSize}
+  </select>
+  
+  <select id="getStasticTaskList" resultType="Task" parameterType="map" >
+    select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
+    gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
+    shot_area_id, status,total_fee
+    from task
+    where user_id = #{userId} and status = #{status}
+    limit #{start},#{pageSize}
+  </select>
+  
+  
+  
+  
 </mapper>

@@ -45,7 +45,17 @@ public class Task {
     
     private Date updateTime;
     
-    public Date getCreateTime() {
+    private Integer totalFee;
+    
+    public Integer getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(Integer totalFee) {
+		this.totalFee = totalFee;
+	}
+
+	public Date getCreateTime() {
 		return createTime;
 	}
 

@@ -3,6 +3,8 @@
  */
 package com.longcity.modeler.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.vo.TaskVO;
 import com.longcity.modeler.service.TaskService;
 
 /**
@@ -130,6 +133,7 @@ public class TaskController extends AbstractController {
     @RequestMapping(value = "save")
     public Object save(HttpServletRequest request,Task task) throws Exception{
         try{
+        	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
         	taskService.save(task);
             return dataJson(true, request);
         }catch(Exception e){
@@ -152,5 +156,51 @@ public class TaskController extends AbstractController {
             return errorJson("服务器异常，请重试.", request);
         }
     }
+	
+	 /**
+     * 获取创建中的项目
+     */
+	@ResponseBody
+    @RequestMapping(value = "getNewTaskList")
+    public Object getNewTaskList(HttpServletRequest request,Integer userId,Integer pageNo,Integer pageSize) throws Exception{
+        try{
+        	List<Task> taskList=taskService.getNewTaskList(userId,pageNo,pageSize);
+            return dataJson(taskList, request);
+        }catch(Exception e){
+            logger.error("更新状态失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	 /**
+     * 获取执行中的项目
+     */
+	@ResponseBody
+    @RequestMapping(value = "getPerformTaskList")
+    public Object getPerformTaskList(HttpServletRequest request,Integer userId,Integer pageNo,Integer pageCount) throws Exception{
+        try{
+        	List<TaskVO> taskVOList=taskService.getStasticTaskList(userId,TaskStatus.passed.getValue(),pageNo,pageCount);
+            return dataJson(taskVOList, request);
+        }catch(Exception e){
+            logger.error("获取执行中的项目失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	 /**
+     * 获取已经完成的项目
+     */
+	@ResponseBody
+    @RequestMapping(value = "getFinishedTaskList")
+    public Object getFinishedTaskList(HttpServletRequest request,Integer userId,Integer pageNo,Integer pageCount) throws Exception{
+        try{
+        	List<TaskVO> taskVOList=taskService.getStasticTaskList(userId,TaskStatus.finished.getValue(),pageNo,pageCount);
+            return dataJson(taskVOList, request);
+        }catch(Exception e){
+            logger.error("获取已经完成的项目失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
 
 }

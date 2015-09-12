@@ -3,7 +3,9 @@
  */
 package com.longcity.modeler.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.longcity.modeler.constant.PageConstant;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.TradeFlowDao;
@@ -23,6 +26,7 @@ import com.longcity.modeler.enums.TradeFlowType;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.TradeFlow;
+import com.longcity.modeler.model.vo.TaskVO;
 
 /**
  * @author maxjcs
@@ -199,5 +203,71 @@ public class TaskService {
 	public void updateStatus(Integer taskId,Integer status){
 		taskDao.updateStatus(taskId,status);
 	}
+	
+	
+	/**
+	 * 获取新建的项目
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Task> getNewTaskList(Integer userId,Integer pageNo,Integer pageSize){
+		if(pageNo==null){
+			pageNo=1;
+		}
+		if(pageSize==null){
+			pageSize=PageConstant.PAGE_SIZE_10;
+		}
+		
+		Map paramMap=new HashMap();
+		paramMap.put("userId", userId);
+		paramMap.put("start", (pageNo-1)*pageSize);
+		paramMap.put("pageSize", pageSize);
+		List<Task> taskList = taskDao.getNewTaskList(paramMap);
+		
+		return taskList;
+	}
+	
+	/**
+	 * 获取执行中的项目
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<TaskVO> getStasticTaskList(Integer userId,Integer status,Integer pageNo,Integer pageSize){
+		if(pageNo==null){
+			pageNo=1;
+		}
+		if(pageSize==null){
+			pageSize=PageConstant.PAGE_SIZE_10;
+		}
+		
+		Map paramMap=new HashMap();
+		paramMap.put("userId", userId);
+		paramMap.put("start", (pageNo-1)*pageSize);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("status", status);
+		List<Task> taskList = taskDao.getStasticTaskList(paramMap);
+		
+		if(taskList.size()==0){
+			return new ArrayList<TaskVO>();
+		}
+		
+		List<Integer> taskIds=new ArrayList<Integer>();
+		for(Task task:taskList){
+			taskIds.add(task.getId());
+		}
+		Map paramMap2=new HashMap();
+		paramMap2.put("taskIds", taskIds);
+		paramMap2.put("status", status);
+		List<TaskVO> volsit=moteTaskDao.stasticByTaskIds(paramMap2);
+		return volsit;
+	}
+	
+	
 
 }

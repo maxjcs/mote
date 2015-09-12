@@ -1,5 +1,8 @@
 package com.longcity.modeler.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.longcity.modeler.core.MybatisMapper;
@@ -17,4 +20,10 @@ public interface TaskDao {
     int updateByPrimaryKey(Task record);
     
     void updateStatus(Integer taskId,Integer status);
+    
+    @SuppressWarnings("rawtypes")
+	List<Task> getNewTaskList(Map paramMap);
+    
+    @SuppressWarnings("rawtypes")
+	List<Task> getStasticTaskList(Map paramMap);
 }
