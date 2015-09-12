@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.MoteTask;
+import com.longcity.modeler.model.vo.MoteTaskVO;
 import com.longcity.modeler.model.vo.TaskVO;
 
 @MybatisMapper
@@ -25,12 +26,21 @@ public interface MoteTaskDao {
     
     void updateStatus(Integer id,Integer status);
     
+	@SuppressWarnings("rawtypes")
 	void selfBuy(Map paramMap);
 	
 	@SuppressWarnings("rawtypes")
 	void returnItem(Map paramMap);
 	
 	@SuppressWarnings("rawtypes")
+	void finishShowPic(Map paramMap);
+	
+	
+	
+	@SuppressWarnings("rawtypes")
 	List<TaskVO> stasticByTaskIds(Map paramMap2);
+	
+	@SuppressWarnings("rawtypes")
+	List<MoteTaskVO> getMoteListByTaskId(Map paramMap2);
 	
 }

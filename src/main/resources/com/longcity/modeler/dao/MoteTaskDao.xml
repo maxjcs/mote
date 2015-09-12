@@ -9,11 +9,11 @@
     insert into mote_task ( user_id, task_id, 
       create_time, update_time, order_no, 
       express_company_id, express_no, self_buy_fee, 
-      status)
+      status,accepted_time)
     values (#{userId}, #{taskId}, 
       now(), now(), #{orderNo}, 
       #{expressCompanyId}, #{expressNo}, #{selfBuyFee}, 
-      #{status})
+      #{status},now())
   </insert>
   <update id="updateByPrimaryKey" parameterType="MoteTask" >
     update mote_task
@@ -24,7 +24,8 @@
       express_company_id = #{expressCompanyId},
       express_no = #{expressNo},
       self_buy_fee = #{selfBuyFee},
-      status = #{status}
+      status = #{status},
+      finish_status = #{finishStatus}
     where id = #{id}
   </update>
   
@@ -32,6 +33,7 @@
     update mote_task
     set 
       update_time = now(),
+      order_no_time = now(),
       order_no = #{orderNo},
       status = 2
     where id = #{moteTaskId}
@@ -46,11 +48,24 @@
   </update>
   
   
+  
+  <update id="finishShowPic" >
+    update mote_task
+    set  
+     status = 3,
+     show_pic_time=now(),
+     update_time = now()
+    where id = #{moteTaskId}
+  </update>
+  
+  
   <update id="selfBuy" >
     update mote_task
     set  
      self_buy_fee = #{fee},
-     status = 4
+     status = 4,
+     self_buy_time =now(),
+     update_time = now()
     where id = #{moteTaskId}
   </update>
   
@@ -60,7 +75,9 @@
      express_company_id = #{expressCompanyId},
      express_no = #{expressNo},
      self_buy_fee = #{fee},
-     status = 5
+     status = 5,
+     return_item_time =now(),
+     update_time = now()
     where id = #{moteTaskId}
   </update>
   
@@ -69,7 +86,7 @@
   
   <select id="selectByPrimaryKey" resultType="MoteTask" parameterType="java.lang.Integer" >
     select id, user_id, task_id, create_time, update_time, order_no, express_company_id, 
-    express_no, self_buy_fee, status
+    express_no, self_buy_fee, status,finish_status
     from mote_task
     where id = #{id}
   </select>
@@ -91,6 +108,15 @@
 	  			#{item}  
 	    </foreach>
   </select>
+  
+    <select id="getMoteListByTaskId" resultType="MoteTaskVO" parameterType="map" >
+	    select u.id,u.nickname,mt.order_no,mt.status,mt.finish_status from mote_task mt,user u
+        where mt.user_id=u.id and mt.task_id=#{taskId}
+        limit #{start},#{pageSize}
+    </select>
+  
+  
+  
   
   
 </mapper>

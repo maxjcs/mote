@@ -4,6 +4,7 @@
 package com.longcity.modeler.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.vo.MoteTaskVO;
 import com.longcity.modeler.model.vo.TaskVO;
 import com.longcity.modeler.service.TaskService;
 
@@ -198,6 +200,37 @@ public class TaskController extends AbstractController {
             return dataJson(taskVOList, request);
         }catch(Exception e){
             logger.error("获取已经完成的项目失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	
+	 /**
+     * 获取接单的模特列表
+     */
+	@ResponseBody
+    @RequestMapping(value = "getMoteListByTaskId")
+    public Object getMoteListByTaskId(HttpServletRequest request,Integer taskId,Integer pageNo,Integer pageCount) throws Exception{
+        try{
+        	List<MoteTaskVO> moteVOList=taskService.getMoteListByTaskId(taskId,pageNo,pageCount);
+            return dataJson(moteVOList, request);
+        }catch(Exception e){
+            logger.error("获取接单的模特列表失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	 /**
+     * 获取模特接单后的进程
+     */
+	@ResponseBody
+    @RequestMapping(value = "getMoteTaskProcess")
+    public Object getMoteTaskProcess(HttpServletRequest request,Integer moteTaskId) throws Exception{
+        try{
+        	Map resutlMap=taskService.getMoteTaskProcess(moteTaskId);
+            return dataJson(resutlMap, request);
+        }catch(Exception e){
+            logger.error("获取模特接单后的进程失败.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }

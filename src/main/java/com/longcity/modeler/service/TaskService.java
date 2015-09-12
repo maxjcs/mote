@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.longcity.modeler.constant.PageConstant;
+import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.TradeFlowDao;
@@ -23,9 +24,12 @@ import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.TradeFlowType;
+import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.TradeFlow;
+import com.longcity.modeler.model.User;
+import com.longcity.modeler.model.vo.MoteTaskVO;
 import com.longcity.modeler.model.vo.TaskVO;
 
 /**
@@ -45,6 +49,9 @@ public class TaskService {
 	
 	@Resource
 	private TradeFlowDao tradeFlowDao;
+	
+	@Resource
+	private MoteCardDao moteCardDao;
 	
 	@Resource
 	private UserDao userDao;
@@ -149,8 +156,11 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void  finishShowPic(Integer moteTaskId){
-		moteTaskDao.updateStatus(moteTaskId,MoteTaskStatus.showPicOK.getValue());
+		Map paramMap=new HashMap();
+		paramMap.put("moteTaskId", moteTaskId);
+		moteTaskDao.finishShowPic(paramMap);
 	}
 	
 	/**
@@ -266,6 +276,56 @@ public class TaskService {
 		paramMap2.put("status", status);
 		List<TaskVO> volsit=moteTaskDao.stasticByTaskIds(paramMap2);
 		return volsit;
+	}
+	
+	/**
+	 * 获取接单的模特列表
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<MoteTaskVO> getMoteListByTaskId(Integer taskId,Integer pageNo,Integer pageSize){
+		if(pageNo==null){
+			pageNo=1;
+		}
+		if(pageSize==null){
+			pageSize=PageConstant.PAGE_SIZE_10;
+		}
+		
+		Map paramMap=new HashMap();
+		paramMap.put("taskId", taskId);
+		paramMap.put("start", (pageNo-1)*pageSize);
+		paramMap.put("pageSize", pageSize);
+		List<MoteTaskVO> moteTaskList = moteTaskDao.getMoteListByTaskId(paramMap);
+		
+		return moteTaskList;
+	}
+	
+	/**
+	 * 获取模特接单后的进程
+	 * @param moteTaskId
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Map getMoteTaskProcess(Integer moteTaskId){
+		Map resutlMap=new HashMap();
+		
+		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+		//获取模特对象
+		User user=userDao.selectByPrimaryKey(moteTask.getUserId());
+		//获取任务对象
+		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		//获取模卡对象
+		List<MoteCard> cardList=moteCardDao.queryByUserId(moteTask.getUserId());
+		
+		resutlMap.put("user", user);
+		resutlMap.put("task", task);
+		resutlMap.put("moteTask", moteTask);
+		resutlMap.put("cardList", cardList);
+		
+		return resutlMap;
 	}
 	
 	
