@@ -91,14 +91,9 @@
 			<input type="submit" name="submit" value="提交"/><br/>
 		</form>
 		
-		2、获取模卡图片[api/user/addMoteCard]
-		<form id="1" action="api/user/addMoteCard" method="post" enctype="multipart/form-data">
-			image1：<input type="file" name="image1" value="" /><br/>
-			image2：<input type="file" name="image2" value="" /><br/>
-			image3：<input type="file" name="image3" value="" /><br/>
-			image4：<input type="file" name="image4" value="" /><br/>
-			image5：<input type="file" name="image5" value="" /><br/>
-			image6：<input type="file" name="image6" value="" /><br/>
+		2、获取模卡图片[api/user/getMoteCardList]
+		<form id="1" action="api/user/getMoteCardList" method="post" >
+			userId(模特Id,不填默认为登陆账号的Id): <input type="text" name="userId" value="1" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>
 		</form>

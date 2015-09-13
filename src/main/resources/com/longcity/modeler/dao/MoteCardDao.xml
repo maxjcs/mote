@@ -5,14 +5,14 @@
     delete from mote_card
     where id = #{id}
   </delete>
-  <insert id="insert" parameterType="Message" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="MoteCard" useGeneratedKeys="true" keyProperty="id">
     insert into mote_card (user_id, img_url, 
       create_time)
     values (#{userId}, #{imgUrl}, 
       now())
   </insert>
   
-  <select id="queryByUserId" resultType="Message" parameterType="java.lang.Integer" >
+  <select id="queryByUserId" resultType="MoteCard" parameterType="java.lang.Integer" >
     select id, user_id, img_url, create_time
     from mote_card
     where user_id = #{param1}
