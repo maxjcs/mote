@@ -152,10 +152,16 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "newMoteTask")
-    public Object newMoteTask(HttpServletRequest request,Integer moteId,Integer taskId) throws Exception{
+    public Object newMoteTask(HttpServletRequest request,Integer taskId) throws Exception{
         try{
-        	//Integer moteId=AppContext.getUserId();
-        	taskService.newMoteTask(moteId,taskId);
+        	Integer moteId=AppContext.getUserId();
+        	int code=taskService.newMoteTask(moteId,taskId);
+        	if(code==0){
+        		return errorJson("该项目接单已满，不能接单！", request);
+        	}
+        	if(code==1){
+        		return errorJson("您已经达到当天的接单量，不能接单！", request);
+        	}
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("接单失败.", e);

@@ -56,6 +56,8 @@ public class TaskService {
 	@Resource
 	private UserDao userDao;
 	
+	private static Integer moteAcceptedDailyNum=10;
+	
 	
 	
 	/**
@@ -226,12 +228,25 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
-	public void  newMoteTask(Integer moteId,Integer taskId){
+	public int  newMoteTask(Integer moteId,Integer taskId){
+		Integer acceptedNum=taskDao.getTotalAcceptedNum(taskId);
+		Task task=taskDao.selectByPrimaryKey(taskId);
+		if(acceptedNum>=task.getNumber()){
+			return 0;//已经达到当量
+		}
+		//模特当天的接单量
+		Integer moteAcceptDaily=taskDao.getMoteAcceptedNumDaily(moteId);
+		if(moteAcceptDaily>=moteAcceptedDailyNum){
+			return 1;//模特当天的接单量超出
+		}
+		
 		MoteTask moteTask=new MoteTask();
 		moteTask.setTaskId(taskId);
 		moteTask.setUserId(moteId);
 		moteTask.setStatus(MoteTaskStatus.newAccept.getValue());
 		moteTaskDao.insert(moteTask);
+		
+		return 2; //接单成功
 	}
 	
 	/**

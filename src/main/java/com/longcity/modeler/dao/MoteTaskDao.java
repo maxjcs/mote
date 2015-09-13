@@ -48,4 +48,6 @@ public interface MoteTaskDao {
 	@SuppressWarnings("rawtypes")
 	List<MoteTaskVO> getMoteListByTaskId(Map paramMap2);
 	
+	List<MoteTask> getAcceptList(Integer maxId);
+	
 }

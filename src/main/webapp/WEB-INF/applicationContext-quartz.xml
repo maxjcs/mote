@@ -5,82 +5,30 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="clearAllotJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="clearAllotTimerTask" />
-        <property name="targetMethod" value="doSchedule" />
-    </bean>
-    <bean id="clearAllotCronTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-        <property name="jobDetail" ref="clearAllotJobDetail" />
-        <property name="startDelay" value="5000" />
-        <property name="repeatInterval" value="3600000" />
-    </bean>
-    
-  <bean id="cronTriggerFeudService" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+   <bean id="cronTriggerHandleMoteTaskTimeOut" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
         <property name="jobDetail">  
-            <ref bean="targetCronFeudService"/>  
-        </property>  
-        <property name="cronExpression">  
-            <value>0 0/10 * * * ?</value>  
-        </property>  
-   </bean> 
-   
-     <bean id="cronTriggerStudentFeudService" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
-        <property name="jobDetail">  
-            <ref bean="targetCronStudentFeudService"/>  
-        </property>  
-        <property name="cronExpression">  
-            <value>0 0/60 * * * ?</value>  
-        </property>  
-   </bean> 
-   
-   <bean id="cronTriggerUpdateTeacherAvatarService" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
-        <property name="jobDetail">  
-            <ref bean="targetUpdateTeacherAvatarService"/>  
+            <ref bean="targetScheduleService"/>  
         </property>  
         <property name="cronExpression">  
             <value>0 0/5 * * * ?</value>  
         </property>  
    </bean> 
-   
-
-    <bean id="targetCronFeudService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+  
+    <bean id="targetScheduleService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
         <property name="targetObject">  
-            <ref bean="feudScheduleTaskService"/>  
+            <ref bean="scheduleService"/>  
         </property>  
         <property name="targetMethod">  
-                <value>checkTeacherExpireFeud</value>  
-        </property>  
-    </bean>  
-    <bean id="targetUpdateTeacherAvatarService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
-        <property name="targetObject">  
-            <ref bean="teacherService"/>  
-        </property>  
-        <property name="targetMethod">  
-                <value>updateTeacherAvart</value>  
+                <value>handleMoteTaskTimeOut</value>  
         </property>  
     </bean> 
-    
-    <bean id="targetCronStudentFeudService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
-        <property name="targetObject">  
-            <ref bean="feudScheduleTaskService"/>  
-        </property>  
-        <property name="targetMethod">  
-                <value>checkStudentFeudQuestExpire</value>  
-        </property>  
-    </bean>   
-    
-    
     
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref bean="clearAllotCronTrigger" />
-                <ref bean="cronTriggerFeudService"/>  
-                <ref bean="cronTriggerStudentFeudService"/> 
-                <ref bean="cronTriggerUpdateTeacherAvatarService"/> 
+                <ref bean="cronTriggerHandleMoteTaskTimeOut"/> 
             </list>
         </property>
     </bean>
-
 
 </beans>

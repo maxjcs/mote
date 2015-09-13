@@ -30,7 +30,7 @@ public class CommnonController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "upload")
-    public Object register(HttpServletRequest request,MultipartFile image) throws Exception{
+    public Object upload(HttpServletRequest request,MultipartFile image) throws Exception{
 		Validator.validateImageFile(image);
         try{
         	String url = UpYunUtil.upload(image);

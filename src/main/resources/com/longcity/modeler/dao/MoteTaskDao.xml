@@ -136,6 +136,32 @@
         where mt.user_id=u.id and mt.task_id=#{taskId}
         limit #{start},#{pageSize}
     </select>
+    
+  <select id="getAcceptList" resultType="MoteTask" parameterType="java.lang.Integer" >
+    select *
+    from mote_task
+    where id > #{param1} and status = 1
+    order by id asc
+    limit 50
+  </select>
+  
+  <select id="getTotalAcceptedNum" resultType="int" parameterType="java.lang.Integer" >
+    select ifnull(count(1),0)
+    from mote_task
+    where task_id={param1} and status != 9
+  </select>
+  
+  <select id="getMoteAcceptedNumDaily" resultType="int" parameterType="java.lang.Integer" >
+    select ifnull(count(1),0)
+    from mote_task
+    where user_id={param1} and date(accepted_time) = curdate()
+  </select>
+  
+  
+  
+  
+    
+    
   
   
   
