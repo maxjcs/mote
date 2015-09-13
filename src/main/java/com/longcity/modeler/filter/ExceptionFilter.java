@@ -101,17 +101,9 @@ public class ExceptionFilter extends AbstractController implements Filter {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("msg", msg);
 		
-		if (StudentApiUrl.apiUrls.contains(req.getPathInfo())) {
-			if(code==0){
-				code=-1;
-			}
-			map.put("status", code);
-			map.put("result", new HashMap<String, String>());
-		} else {
-			map.put("success", false);
-			if (code != 0) {
-				map.put("code", code);
-			}
+		map.put("success", false);
+		if (code != 0) {
+			map.put("code", code);
 		}
 
 		if (res.isCommitted()) {

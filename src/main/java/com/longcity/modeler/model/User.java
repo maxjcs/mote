@@ -49,9 +49,29 @@ public class User {
     
     private Integer freezeFee;//冻结金额
     
-    private String deviceId;
+    private String deviceId="";
     
-    public Integer getFreezeFee() {
+    private String loginType;//登陆类型 1手机登陆 2pc端登陆
+    
+    private String ip;//pc端登陆的ip地址
+    
+    public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+
+	public Integer getFreezeFee() {
 		return freezeFee;
 	}
 

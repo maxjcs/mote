@@ -35,6 +35,15 @@ public class UserService {
 	@Resource
 	private VerifyCodeService verifyCodeService;
 	
+	/**
+	 * 根据主键获取Id
+	 * @param id
+	 * @return
+	 */
+	public User getUserById(Integer id){
+		return userDao.selectByPrimaryKey(id);
+	}
+	
 	
 	/**
 	 * 注册用户

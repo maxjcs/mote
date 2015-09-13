@@ -7,8 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -62,18 +65,25 @@ public class UserController extends AbstractController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "login")
-	public Object login(User userparam, String deviceId, String deviceType, String version) {
+	public Object login(HttpServletRequest request,HttpServletResponse response,User userparam) {
 		Validator.validateBlank(userparam.getPhoneNumber(), "手机号不能为空.");
 		Validator.validateBlank(userparam.getPassword(), "密码不能为空.");
 		Validator.validateMobile(userparam.getPhoneNumber(), "手机号非法.");
+		Validator.validateBlank(userparam.getLoginType(), "登陆类型非法.");
 
 //		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
 		User user = userService.login(userparam);
-
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("token", Token.gen(user));
-
-		return dataJson(result);
+		
+		if(StringUtils.equals(userparam.getLoginType(), "1")){//手机登陆
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("token", Token.gen(user));
+			return dataJson(result);
+		}else if(StringUtils.equals(userparam.getLoginType(), "2")){//pc端登陆
+			Cookie c1 = new Cookie("token", Token.gen(user));
+			c1.setMaxAge(24*60*60);
+			response.addCookie(c1);
+		}
+		return dataJson("");
 	}
 	
 	@ResponseBody

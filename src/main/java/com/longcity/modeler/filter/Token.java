@@ -1,5 +1,6 @@
 package com.longcity.modeler.filter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import com.longcity.modeler.exception.BusinessException;
@@ -47,7 +48,12 @@ public class Token {
 	}
 
 	private static int getHashCode(User user) {
-		String str = user.getPhoneNumber() + "|" + user.getPassword() + "|";// + user.getLastDeviceId();
+		String str ="";
+		if(StringUtils.equals(user.getLoginType(), "1")){
+			str = user.getPhoneNumber() + "|" + user.getPassword() + "|" + user.getDeviceId();
+		}else{
+			str = user.getPhoneNumber() + "|" + user.getPassword() + "|" + user.getIp();
+		}
 		return str.hashCode();
 	}
 
