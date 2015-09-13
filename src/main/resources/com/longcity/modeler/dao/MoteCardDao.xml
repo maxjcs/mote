@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.longcity.modeler.dao.MoteCardDao" >
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="delete" parameterType="java.lang.Integer" >
     delete from mote_card
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="Message" useGeneratedKeys="true" keyProperty="id">
-    insert into mote_card (id, user_id, img_url, 
+    insert into mote_card (user_id, img_url, 
       create_time)
-    values (#{id}, #{userId}, #{imgUrl}, 
+    values (#{userId}, #{imgUrl}, 
       now())
   </insert>
   

@@ -10,14 +10,14 @@
       url, price, shot_fee, 
       img_url, self_buy_off, shot_desc, 
       gender, shape, height_min, 
-      height_max, areaId, modeler_level, 
+      height_max,age_min,age_max, areaId, modeler_level, 
       self_buy_rate, number, shot_area_id, 
       status,create_time,update_time,total_fee)
     values (#{userId}, #{title}, 
       #{url}, #{price}, #{shotFee}, 
       #{imgUrl}, #{selfBuyOff}, #{shotDesc}, 
       #{gender}, #{shape}, #{heightMin}, 
-      #{heightMax}, #{areaid}, #{modelerLevel}, 
+      #{heightMax},#{ageMin},#{ageMax}, #{areaid}, #{modelerLevel}, 
       #{selfBuyRate}, #{number}, #{shotAreaId}, 
       #{status},now(),now(),#{totalFee})
   </insert>
@@ -35,6 +35,8 @@
       shape = #{shape},
       height_min = #{heightMin},
       height_max = #{heightMax},
+      age_min = #{ageMin},
+      age_max = #{ageMax},
       areaId = #{areaid},
       modeler_level = #{modelerLevel},
       self_buy_rate = #{selfBuyRate},

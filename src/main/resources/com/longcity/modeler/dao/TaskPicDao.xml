@@ -6,10 +6,10 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="TaskPic" useGeneratedKeys="true" keyProperty="id">
-    insert into task_pic (id, mote_task_id, img_url, 
+    insert into task_pic (mote_task_id, img_url, 
       sort, create_time, update_time, 
       user_id, task_id)
-    values (#{id}, #{moteTaskId}, #{imgUrl}, 
+    values (#{moteTaskId}, #{imgUrl}, 
       #{sort}, now(), now(), 
       #{userId}, #{taskId})
   </insert>

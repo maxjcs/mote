@@ -16,7 +16,9 @@ public interface UserDao {
 
     User selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKey(User record);
+    int updateMote(User record);
+    
+    int updateSeller(User record);
     
     void updateRemindFee(Integer userId,Integer fee);
     

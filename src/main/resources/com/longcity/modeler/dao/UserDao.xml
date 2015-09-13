@@ -24,9 +24,10 @@
       #{address}, #{referee}, #{remindFee},now(),now()
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="User" >
+  
+  <update id="updateMote" parameterType="User" >
     update user
-    set phone_number = #{phoneNumber},
+    set 
       avart_url = #{avartUrl},
       nickname = #{nickname},
       gender = #{gender},
@@ -37,6 +38,14 @@
       wangwang = #{wangwang},
       alipay_id = #{alipayId},
       alipay_name = #{alipayName},
+      update_time = now()
+    where id = #{id}
+  </update>
+  
+  <update id="updateSeller" parameterType="User" >
+    update user
+    set
+      nickname = #{nickname},
       shop_name = #{shopName},
       email = #{email},
       weixin = #{weixin},
@@ -57,7 +66,7 @@
   <update id="updateFreezeFee"  >
     update user
     set 
-      freeze_fee = freeze_fee + #{param2} ,
+      freeze_fee = freeze_fee + #{param2},
       update_time = now()
     where id = #{param1}
   </update>

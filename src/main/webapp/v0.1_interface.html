@@ -4,7 +4,7 @@
 	</head>
 	<title>0.1版本相关接口</title>
 	<body>
-	    <br>通用模块(模特，商家)<br>
+	    <br><strong><font color="blue">通用模块</font></strong><br>
 	    1、上传图片[api/common/upload]
 		<form id="1" action="api/common/upload" method="post"  enctype="multipart/form-data">
 			file:<input type="file" name="image" value="" /><br/>
@@ -12,7 +12,7 @@
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>
 		
-		<br>用户模块(模特，商家)<br>
+		<br><strong><font color="blue">用户模块(模特，商家)</font></strong><br>
 		1、注册[api/user/register]
 		<form id="1" action="api/user/register" method="post">
 			phoneNumber:<input type="text" name="phoneNumber" value="15888838217" />
@@ -50,10 +50,8 @@
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>
 		
-		6、更新个人资料[api/user/update]
-		<form id="1" action="api/user/update" method="post">
-		    id：<input type="text" name="id" value="1" />
-			phoneNumber：<input type="text" name="phoneNumber" value="15888838217" />
+		6、更新模特资料[api/user/updateMote]
+		<form id="1" action="api/user/updateMote" method="post">
 			avartUrl：<input type="text" name="avartUrl" value="http://***.jpg" />
 			nickname：<input type="text" name="nickname" value="laojiang" />
 			gender(性别1男，2女，3未知)：<input type="text" name="gender" value="1" />
@@ -63,6 +61,13 @@
 			wangwang：<input type="text" name="wangwang" value="maxjcs" />
 			alipayId：<input type="text" name="alipayId" value="15888838217" />
 			alipayName：<input type="text" name="alipayName" value="11111" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		7、更新商家资料[api/user/updateSeller]
+		<form id="1" action="api/user/updateSeller" method="post">
+			nickname：<input type="text" name="nickname" value="laojiang" />
 			shopName(店铺名)：<input type="text" name="shopName" value="11111" />
 			email：<input type="text" name="email" value="6420@qq.com" />
 			weixin：<input type="text" name="weixin" value="6420@qq.com" />
@@ -73,9 +78,42 @@
 		</form>
 		
 		
+		<br><br><strong><font color="blue">模卡相关模块</font></strong><br>
+		1、上传模卡图片[api/user/addMoteCard]
+		<form id="1" action="api/user/addMoteCard" method="post" enctype="multipart/form-data">
+			image1：<input type="file" name="image1" value="" /><br/>
+			image2：<input type="file" name="image2" value="" /><br/>
+			image3：<input type="file" name="image3" value="" /><br/>
+			image4：<input type="file" name="image4" value="" /><br/>
+			image5：<input type="file" name="image5" value="" /><br/>
+			image6：<input type="file" name="image6" value="" /><br/>
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
+		</form>
+		
+		2、获取模卡图片[api/user/addMoteCard]
+		<form id="1" action="api/user/addMoteCard" method="post" enctype="multipart/form-data">
+			image1：<input type="file" name="image1" value="" /><br/>
+			image2：<input type="file" name="image2" value="" /><br/>
+			image3：<input type="file" name="image3" value="" /><br/>
+			image4：<input type="file" name="image4" value="" /><br/>
+			image5：<input type="file" name="image5" value="" /><br/>
+			image6：<input type="file" name="image6" value="" /><br/>
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
+		</form>
+		
+		3、删除模卡图片[api/user/deleteMoteCard]
+		<form id="1" action="api/user/deleteMoteCard" method="post" >
+            模卡ID：<input type="text" name="id" value="1" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
+		</form>
 		
 		
-		<br><br>商家模块<br>
+		
+		
+		<br><br><strong><font color="blue">商家模块</font></strong><br>
 		1、商家保存任务[api/task/save]
 		<form id="1" action="api/task/save" method="post">
 			title(标题)：<input type="text" name="title" value="15888838217" />
@@ -89,6 +127,8 @@
 			shape(体型要求)：<input type="text" name="shape" value="1" />
 			heightMin(身高最少)：<input type="text" name="heightMin" value="165" />
 			heightMax(身高最大)：<input type="text" name="heightMax" value="180" />
+			ageMin(年龄最少)：<input type="text" name="ageMin" value="19" />
+			ageMax(年龄最大)：<input type="text" name="ageMax" value="28" />
 			number(当量)：<input type="text" name="number" value="10" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>       
@@ -107,6 +147,8 @@
 			shape(体型要求)：<input type="text" name="shape" value="1" />
 			heightMin(身高最少)：<input type="text" name="heightMin" value="165" />
 			heightMax(身高最大)：<input type="text" name="heightMax" value="180" />
+			ageMin(年龄最少)：<input type="text" name="ageMin" value="19" />
+			ageMax(年龄最大)：<input type="text" name="ageMax" value="28" />
 			number(当量)：<input type="text" name="number" value="10" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>       
@@ -212,7 +254,22 @@
 			<input type="submit" name="submit" value="提交"/><br/>  
 		</form>
 		
-		<br><br>预付款模块<br>
+		13、模特上传6张图片[api/taskPic/uploadImage]
+		<form id="1" action="api/taskPic/uploadImage" method="post" enctype="multipart/form-data">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" /><br/>
+			image1：<input type="file" name="image1" value="" /><br/>
+			image2：<input type="file" name="image2" value="" /><br/>
+			image3：<input type="file" name="image3" value="" /><br/>
+			image4：<input type="file" name="image4" value="" /><br/>
+			image5：<input type="file" name="image5" value="" /><br/>
+			image6：<input type="file" name="image6" value="" /><br/>
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
+		
+		
+		
+		<br><br><strong><font color="blue">预付款模块</font></strong><br>
 		1、增加预付款[api/cash/addCashApply]
 		<form id="1" action="api/cash/addCashApply" method="post">
 			alipayName(支付宝名)：<input type="text" name="alipayName" value="1" />

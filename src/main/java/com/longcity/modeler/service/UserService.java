@@ -4,6 +4,7 @@
 package com.longcity.modeler.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.longcity.modeler.constant.BusinessConstant;
+import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.UserStatus;
 import com.longcity.modeler.exception.BusinessException;
+import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.util.CipherUtil;
 
@@ -34,6 +37,9 @@ public class UserService {
 	
 	@Resource
 	UserDao userDao;
+	
+	@Resource
+	MoteCardDao moteCardDao;
 	
 	@Resource
 	private VerifyCodeService verifyCodeService;
@@ -108,13 +114,23 @@ public class UserService {
 	}
 	
 	/**
-	 * 更新个人资料
+	 * 更新模特资料
 	 * @param userParam
 	 */
-	public void updateUser(User userParam) {
+	public void updateMote(User userParam) {
 		//更新个人资料
-		userDao.updateByPrimaryKey(userParam);
+		userDao.updateMote(userParam);
 	}
+	
+	/**
+	 * 更新商家资料
+	 * @param userParam
+	 */
+	public void updateSeller(User userParam) {
+		//更新个人资料
+		userDao.updateSeller(userParam);
+	}
+	
 	
 	/**
 	 * 获取个人资料详情
@@ -155,10 +171,6 @@ public class UserService {
 	}
 	
 	
-	
-	
-	
-	
 	/**
 	 * 根据手机号查询用户
 	 * @param phoneNumber
@@ -167,5 +179,38 @@ public class UserService {
 	public User selectByPhoneNumber(String phoneNumber){
 		return userDao.selectByPhoneNumber(phoneNumber);
 	}
+	
+	/**
+	 * 插入模卡图片
+	 * @param phoneNumber
+	 * @return
+	 */
+	public void addMoteCard(Integer userId,String imgUrl){
+		MoteCard record=new MoteCard();
+		record.setUserId(userId);
+		record.setImgUrl(imgUrl);
+		record.setSortNo(0);
+	    moteCardDao.insert(record);
+	}
+	
+	/**
+	 * 获取模卡图片
+	 * @param phoneNumber
+	 * @return
+	 */
+	public List<MoteCard> getMoteCardList(Integer userId){
+	   return moteCardDao.queryByUserId(userId);
+	}
+	
+	/**
+	 * 删除模卡图片
+	 * @param phoneNumber
+	 * @return
+	 */
+	public void deleteMoteCard(Integer id){
+	   moteCardDao.delete(id);
+	}
+	
+	
 
 }

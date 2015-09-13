@@ -28,6 +28,10 @@ public class Task {
     private Integer heightMin;
 
     private Integer heightMax;
+    
+    private Integer ageMin;
+    
+    private Integer ageMax;
 
     private Integer areaid;
 
@@ -47,7 +51,24 @@ public class Task {
     
     private Integer totalFee;
     
-    public Integer getTotalFee() {
+    
+    public Integer getAgeMin() {
+		return ageMin;
+	}
+
+	public void setAgeMin(Integer ageMin) {
+		this.ageMin = ageMin;
+	}
+
+	public Integer getAgeMax() {
+		return ageMax;
+	}
+
+	public void setAgeMax(Integer ageMax) {
+		this.ageMax = ageMax;
+	}
+
+	public Integer getTotalFee() {
 		return totalFee;
 	}
 

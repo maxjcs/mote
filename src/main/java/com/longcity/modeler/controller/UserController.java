@@ -4,6 +4,7 @@
 package com.longcity.modeler.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,13 +18,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.filter.Token;
+import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.service.VerifyCodeService;
+import com.longcity.modeler.util.DateUtils;
+import com.longcity.modeler.util.FileUtil;
+import com.longcity.modeler.util.UpYunUtil;
 import com.longcity.modeler.validator.Validator;
 
 /**
@@ -120,13 +126,35 @@ public class UserController extends AbstractController{
 	}
 	
 	/**
-	 * 更新个人信息
+	 * 更新模特个人信息
 	 */
 	@ResponseBody
-	@RequestMapping(value = "update")
-	public Object update(User user) {
+	@RequestMapping(value = "updateMote")
+	public Object updateMote(User user) {
 		try{
-			userService.updateUser(user);
+			Integer userId=AppContext.getUserId();
+			user.setId(userId);
+			if(StringUtils.isNotBlank(user.getBirdthdayStr())){
+				user.setBirdthday(DateUtils.stringToDate(user.getBirdthdayStr()));
+			}
+			userService.updateMote(user);
+		    return dataJson(true);
+		}catch (Exception e) {
+			logger.error("更新个人信息失败",e);
+		}
+		return errorJson("服务器异常，请重试.");
+	}
+	
+	/**
+	 * 更新商家信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateSeller")
+	public Object updateSeller(User user) {
+		try{
+			Integer userId=AppContext.getUserId();
+			user.setId(userId);
+			userService.updateSeller(user);
 		    return dataJson(true);
 		}catch (Exception e) {
 			logger.error("更新个人信息失败",e);
@@ -160,6 +188,83 @@ public class UserController extends AbstractController{
 		userService.changePasswordByVerifyCode(user.getPhoneNumber(), user.getPassword(),
 				smsCode);
 
+		return dataJson(true);
+	}
+	
+	
+	/**
+	 * 模特上传模卡图片
+	 * @param image1
+	 * @param image2
+	 * @param image3
+	 * @param image4
+	 * @param image5
+	 * @param image6
+	 */
+	@ResponseBody
+    @RequestMapping(value = "addMoteCard")
+	public Object addMoteCard(HttpServletRequest request,MultipartFile image1, MultipartFile image2, MultipartFile image3,
+			MultipartFile image4,MultipartFile image5,MultipartFile image6)throws Exception {
+		Validator.validateImageFile(image1);
+		Validator.validateImageFile(image2);
+		Validator.validateImageFile(image3);
+		Validator.validateImageFile(image4);
+		Validator.validateImageFile(image5);
+		Validator.validateImageFile(image6);
+		try{
+			Integer userId=AppContext.getUserId();
+			if (!FileUtil.isEmpty(image1)) {
+				String url = UpYunUtil.upload(image1);
+				userService.addMoteCard(userId,url);
+			}
+			if (!FileUtil.isEmpty(image2)) {
+				String url = UpYunUtil.upload(image2);
+				userService.addMoteCard(userId,url);
+			}
+			if (!FileUtil.isEmpty(image3)) {
+				String url = UpYunUtil.upload(image3);
+				userService.addMoteCard(userId,url);
+			}
+			if (!FileUtil.isEmpty(image4)) {
+				String url = UpYunUtil.upload(image4);
+				userService.addMoteCard(userId,url);
+			}
+			if (!FileUtil.isEmpty(image5)) {
+				String url = UpYunUtil.upload(image5);
+				userService.addMoteCard(userId,url);
+			}
+			if (!FileUtil.isEmpty(image6)) {
+				String url = UpYunUtil.upload(image6);
+				userService.addMoteCard(userId,url);
+			}
+			 return dataJson(true,request);
+		}
+		catch (Exception e) {
+			logger.error("上传模卡照片失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+		}
+	}
+	
+	/**
+	 * 获取模卡图片
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getMoteCardList")
+	public Object getMoteCardList(Integer userId) {
+		if(userId==null){
+			userId=AppContext.getUserId();
+		}
+		List<MoteCard> cardList=userService.getMoteCardList(userId);
+		return dataJson(cardList);
+	}
+	
+	/**
+	 * 删除模卡图片
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deleteMoteCard")
+	public Object deleteMoteCard(Integer id) {
+		userService.deleteMoteCard(id);
 		return dataJson(true);
 	}
 	

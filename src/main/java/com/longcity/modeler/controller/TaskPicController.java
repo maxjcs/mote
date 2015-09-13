@@ -92,11 +92,11 @@ public class TaskPicController extends AbstractController{
 				taskPicService.addImageUrl(moteTaskId,url);
 			}
 			if (!FileUtil.isEmpty(image5)) {
-				String url = UpYunUtil.upload(image4);
+				String url = UpYunUtil.upload(image5);
 				taskPicService.addImageUrl(moteTaskId,url);
 			}
 			if (!FileUtil.isEmpty(image6)) {
-				String url = UpYunUtil.upload(image4);
+				String url = UpYunUtil.upload(image6);
 				taskPicService.addImageUrl(moteTaskId,url);
 			}
 			 return dataJson(true,request);
