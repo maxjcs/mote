@@ -74,16 +74,17 @@ public class UserController extends AbstractController{
 //		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
 		User user = userService.login(userparam);
 		
+		String token=Token.gen(user);
 		if(StringUtils.equals(userparam.getLoginType(), "1")){//手机登陆
 			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("token", Token.gen(user));
+			result.put("token", token);
 			return dataJson(result);
 		}else if(StringUtils.equals(userparam.getLoginType(), "2")){//pc端登陆
-			Cookie c1 = new Cookie("token", Token.gen(user));
+			Cookie c1 = new Cookie("token", token);
 			c1.setMaxAge(24*60*60);
 			response.addCookie(c1);
 		}
-		return dataJson("");
+		return dataJson(token);
 	}
 	
 	@ResponseBody
