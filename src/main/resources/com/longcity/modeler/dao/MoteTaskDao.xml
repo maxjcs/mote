@@ -73,6 +73,7 @@
     set  
      self_buy_fee = #{fee},
      status = 5,
+     finish_status =1,
      self_buy_time =now(),
      update_time = now()
     where id = #{moteTaskId}
@@ -83,12 +84,23 @@
     set  
      express_company_id = #{expressCompanyId},
      express_no = #{expressNo},
-     self_buy_fee = #{fee},
      status = 6,
      return_item_time =now(),
      update_time = now()
     where id = #{moteTaskId}
   </update>
+  
+  <update id="verifyReturnItem" >
+    update mote_task
+    set
+     self_buy_fee = #{fee},  
+     status = 8,
+     finish_status =1,
+     update_time = now()
+    where id = #{moteTaskId}
+  </update>
+  
+  
   
   
   
@@ -103,13 +115,14 @@
   <select id="stasticByTaskIds" resultType="TaskVO" parameterType="map" >
     select t.id,t.create_time,t.title,
         t.number as  total_num,
-		sum(case when mt.status =1 then 1 else 0 end) as accpeted_num,
-		sum(case when mt.status =2 then 1 else 0 end) as ordered_num,
-		sum(case when mt.status =3 then 1 else 0 end) as finish_show_num,
-		sum(case when mt.status =4 then 1 else 0 end) as self_buy_num,
-		sum(case when mt.status =5 then 1 else 0 end) as return_num,
-		sum(case when mt.status =6 then 1 else 0 end) as kefu_num,
-		sum(case when mt.status =7 then 1 else 0 end) as finished_num
+		sum(case when mt.status >=1 then 1 else 0 end) as accpeted_num,
+		sum(case when mt.status >=2 then 1 else 0 end) as ordered_num,
+		sum(case when mt.status >=3 then 1 else 0 end) as finish_show_num,
+		sum(case when mt.status >=4 then 1 else 0 end) as upload_img_num,
+		sum(case when mt.status =5 then 1 else 0 end) as self_buy_num,
+		sum(case when mt.status =6 then 1 else 0 end) as return_num,
+		sum(case when mt.status =7 then 1 else 0 end) as kefu_num,
+		sum(case when mt.finish_status =1 then 1 else 0 end) as finished_num
     from mote_task mt,task t
 	where mt.task_id=t.id and t.status=#{status}
 	   and mt.task_id in 

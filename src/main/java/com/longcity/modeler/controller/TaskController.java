@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.User;
 import com.longcity.modeler.model.vo.MoteTaskVO;
 import com.longcity.modeler.model.vo.TaskVO;
 import com.longcity.modeler.service.TaskService;
+import com.longcity.modeler.service.UserService;
 
 /**
  * @author maxjcs
@@ -34,6 +36,9 @@ public class TaskController extends AbstractController {
 	
 	@Resource
 	TaskService taskService;
+	
+	@Resource
+	UserService userService;
 	
 	/**
      * 获取任务详细信息
@@ -75,6 +80,21 @@ public class TaskController extends AbstractController {
     public Object returnItem(HttpServletRequest request,Integer moteTaskId,Integer expressCompanyId,String expressNo) throws Exception{
         try{
         	taskService.returnItem(moteTaskId,expressCompanyId,expressNo);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("退还商品失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	/**
+     * 确认退还商品收货
+     */
+	@ResponseBody
+    @RequestMapping(value = "verifyReturnItem")
+    public Object verifyReturnItem(HttpServletRequest request,Integer moteTaskId) throws Exception{
+        try{
+        	taskService.verifyReturnItem(moteTaskId);
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("退还商品失败.", e);
@@ -170,9 +190,18 @@ public class TaskController extends AbstractController {
     public Object publish(HttpServletRequest request,Task task) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
+        	
+            User user= userService.getUserById(userId);
+            Integer totalFee=task.getPrice()*task.getNumber()+task.getShotFee();
+            if(user.getRemindFee()<totalFee){
+            	 return errorJson("预存款不足，请充值！", request);
+            }
+        	//新建任务
         	task.setUserId(userId);
         	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
         	taskService.publish(task);
+        	//冻结金额
+        	userService.freezeFee(userId, totalFee);
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);

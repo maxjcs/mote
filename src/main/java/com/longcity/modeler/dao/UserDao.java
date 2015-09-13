@@ -1,5 +1,7 @@
 package com.longcity.modeler.dao;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.longcity.modeler.core.MybatisMapper;
@@ -21,4 +23,9 @@ public interface UserDao {
     User selectByPhoneNumber(String phoneNumber);
     
     void updatePassword(User record);
+    
+    @SuppressWarnings("rawtypes")
+	void freezeFee(Map praamMap);
+    
+    void updateFreezeFee(Integer userId,Integer fee);
 }

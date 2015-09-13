@@ -3,6 +3,9 @@
  */
 package com.longcity.modeler.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +46,22 @@ public class UserService {
 	public User getUserById(Integer id){
 		return userDao.selectByPrimaryKey(id);
 	}
+	
+	
+	/**
+	 * 冻结金额
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void freezeFee(Integer userId,Integer fee){
+		Map paramMap=new HashMap();
+		paramMap.put("userId", userId);
+		paramMap.put("fee", fee);
+		userDao.freezeFee(paramMap);
+	}
+	
+	
 	
 	
 	/**

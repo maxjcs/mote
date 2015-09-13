@@ -34,6 +34,9 @@ public interface MoteTaskDao {
 	void returnItem(Map paramMap);
 	
 	@SuppressWarnings("rawtypes")
+	void verifyReturnItem(Map paramMap);
+	
+	@SuppressWarnings("rawtypes")
 	void finishShowPic(Map paramMap);
 	
 	@SuppressWarnings("rawtypes")

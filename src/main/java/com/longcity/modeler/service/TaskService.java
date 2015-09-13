@@ -96,12 +96,32 @@ public class TaskService {
 		paramMap.put("fee",fee );//单位为分
 		moteTaskDao.returnItem(paramMap);
 		
+	}
+	
+	/**
+	 * 确认退还商品收货
+	 * @param moteId
+	 * @param taskId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Transactional
+	public void  verifyReturnItem(Integer moteTaskId){
+		//获取对象
+		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		//更新快递信息
+		Map paramMap=new HashMap();
+		paramMap.put("moteTaskId", moteTaskId);
+		Integer fee= task.getPrice()+task.getShotFee();
+		paramMap.put("fee",fee );//单位为分
+		moteTaskDao.verifyReturnItem(paramMap);
+		
 		//mote记录流水
 		TradeFlow tradeFlow=new TradeFlow();
 		tradeFlow.setMoney(fee);
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
-		tradeFlow.setType(TradeFlowType.itemAccept.getValue()); //自购商品
+		tradeFlow.setType(TradeFlowType.itemReturn.getValue()); //退还商品
 		tradeFlowDao.insert(tradeFlow);
 		
 		//商家记录流水
@@ -113,11 +133,13 @@ public class TaskService {
 		tradeFlowDao.insert(tradeFlow2);
 		
 		//商家减余额
-		userDao.updateRemindFee(task.getUserId(), -1*fee);
+		userDao.updateFreezeFee(task.getUserId(), -1*fee);
 		//mote增加余额
 		userDao.updateRemindFee(moteTask.getUserId(), fee);
 		
 	}
+	
+	
 	
 	/**
 	 * 自购商品
@@ -153,8 +175,8 @@ public class TaskService {
 		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
 		tradeFlowDao.insert(tradeFlow2);
 		
-		//商家减余额
-		userDao.updateRemindFee(task.getUserId(), -1*fee);
+		//商家减冻结金额
+		userDao.updateFreezeFee(task.getUserId(), -1*fee);
 		//mote增加余额
 		userDao.updateRemindFee(moteTask.getUserId(), fee);
 		

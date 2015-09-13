@@ -21,7 +21,7 @@ public class Validator {
 	private static String[] fileType = new String[] { "png", "jpg", "jpeg" };
 
 	// 文件大小
-	private static long maxSize = 2048 * 1024;
+	private static long maxSize = 50 * 1024 * 1024;
 
 	public static void validateLtZero(Number num, String msg) {
 		if (num == null || num.longValue() < 1) {

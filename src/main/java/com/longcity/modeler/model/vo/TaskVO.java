@@ -26,7 +26,7 @@ public class TaskVO {
 	
 	Integer finishShowPicNum=0;
 	
-	Integer goodRateNum=0;
+	Integer uploadImgNum=0;
 	
 	Integer selfBuyNum=0;
 	
@@ -94,12 +94,12 @@ public class TaskVO {
 		this.finishShowPicNum = finishShowPicNum;
 	}
 
-	public Integer getGoodRateNum() {
-		return goodRateNum;
+	public Integer getUploadImgNum() {
+		return uploadImgNum;
 	}
 
-	public void setGoodRateNum(Integer goodRateNum) {
-		this.goodRateNum = goodRateNum;
+	public void setUploadImgNum(Integer uploadImgNum) {
+		this.uploadImgNum = uploadImgNum;
 	}
 
 	public Integer getSelfBuyNum() {

@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class UpYunUtil {
 	
 	// 运行前先设置好以下三个参数
-	private static final String BUCKET_NAME = "xuexibao1";
-	private static final String OPERATOR_NAME = "xxbadmin";
-	private static final String OPERATOR_PWD = "XxbmdkJ1509";
+	private static final String BUCKET_NAME = "qmmt2015";
+	private static final String OPERATOR_NAME = "root";
+	private static final String OPERATOR_PWD = "Mote2015";
 	
 	/** 绑定的域名 */
 	private static final String URL = "http://" + BUCKET_NAME + ".b0.upaiyun.com";
@@ -54,7 +54,7 @@ public class UpYunUtil {
 		try{
 			boolean success = upyun.writeFile(filePath, file.getBytes(), true);
 			if(success){
-				return URL + filePath + "!"; //默认保存带感叹号的url，使用时只要加上版本号就行。比如:http://*****.jpg!v6
+				return URL + filePath; 
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();

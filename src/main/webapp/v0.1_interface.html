@@ -4,6 +4,14 @@
 	</head>
 	<title>0.1版本相关接口</title>
 	<body>
+	    <br>通用模块(模特，商家)<br>
+	    1、上传图片[api/common/upload]
+		<form id="1" action="api/common/upload" method="post"  enctype="multipart/form-data">
+			file:<input type="file" name="image" value="" /><br/>
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
 		<br>用户模块(模特，商家)<br>
 		1、注册[api/user/register]
 		<form id="1" action="api/user/register" method="post">
@@ -146,6 +154,13 @@
 			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
 			expressCompanyId(快递公司Id)：<input type="text" name="expressCompanyId" value="1" />
 			expressNo(快递单号)：<input type="text" name="expressNo" value="1" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		6.1、确认退还商品收货[api/task/verifyReturnItem]
+		<form id="1" action="api/task/verifyReturnItem" method="post">
+			moteTaskId(模特接单ID)：<input type="text" name="moteTaskId" value="1" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>

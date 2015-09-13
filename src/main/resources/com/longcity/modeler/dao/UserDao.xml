@@ -46,13 +46,23 @@
     where id = #{id}
   </update>
   
-  <update id="updateRemindFee" parameterType="User" >
+  <update id="updateRemindFee"  >
     update user
     set 
       remind_fee = remind_fee + #{param2} ,
       update_time = now()
     where id = #{param1}
   </update>
+  
+  <update id="updateFreezeFee"  >
+    update user
+    set 
+      freeze_fee = freeze_fee + #{param2} ,
+      update_time = now()
+    where id = #{param1}
+  </update>
+  
+  
   
   <update id="updatePassword" parameterType="User" >
     update user
@@ -62,7 +72,14 @@
     where phone_number = #{phoneNumber}
   </update>
   
-  
+    <update id="freezeFee" parameterType="map" >
+    update user
+    set 
+      remind_fee = remind_fee - #{fee} ,
+      freeze_fee = freeze_fee + #{fee},
+      update_time = now()
+    where id = #{userId} 
+  </update>
   
   <select id="selectByPrimaryKey" resultType="User" parameterType="java.lang.Integer" >
     select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
