@@ -22,8 +22,7 @@ public final class AppContext {
 	}
 
 	public static Integer getUserId() {
-		return 1;
-		//return context.get().getToken().getTid();
+		return context.get().getToken().getTid();
 	}
 
 	public static String getStrToken() {

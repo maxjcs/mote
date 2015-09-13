@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.vo.MoteTaskVO;
@@ -150,6 +151,8 @@ public class TaskController extends AbstractController {
     @RequestMapping(value = "save")
     public Object save(HttpServletRequest request,Task task) throws Exception{
         try{
+        	Integer userId=AppContext.getUserId();
+        	task.setUserId(userId);
         	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
         	taskService.save(task);
             return dataJson(true, request);
@@ -166,6 +169,8 @@ public class TaskController extends AbstractController {
     @RequestMapping(value = "publish")
     public Object publish(HttpServletRequest request,Task task) throws Exception{
         try{
+        	Integer userId=AppContext.getUserId();
+        	task.setUserId(userId);
         	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
         	taskService.publish(task);
             return dataJson(true, request);
@@ -195,8 +200,9 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "getNewTaskList")
-    public Object getNewTaskList(HttpServletRequest request,Integer userId,Integer pageNo,Integer pageSize) throws Exception{
+    public Object getNewTaskList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
+        	Integer userId=AppContext.getUserId();
         	List<Task> taskList=taskService.getNewTaskList(userId,pageNo,pageSize);
             return dataJson(taskList, request);
         }catch(Exception e){
@@ -210,8 +216,9 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "getPerformTaskList")
-    public Object getPerformTaskList(HttpServletRequest request,Integer userId,Integer pageNo,Integer pageCount) throws Exception{
+    public Object getPerformTaskList(HttpServletRequest request,Integer pageNo,Integer pageCount) throws Exception{
         try{
+        	Integer userId=AppContext.getUserId();
         	List<TaskVO> taskVOList=taskService.getStasticTaskList(userId,TaskStatus.passed.getValue(),pageNo,pageCount);
             return dataJson(taskVOList, request);
         }catch(Exception e){
@@ -225,8 +232,9 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "getFinishedTaskList")
-    public Object getFinishedTaskList(HttpServletRequest request,Integer userId,Integer pageNo,Integer pageCount) throws Exception{
+    public Object getFinishedTaskList(HttpServletRequest request,Integer pageNo,Integer pageCount) throws Exception{
         try{
+        	Integer userId=AppContext.getUserId();
         	List<TaskVO> taskVOList=taskService.getStasticTaskList(userId,TaskStatus.finished.getValue(),pageNo,pageCount);
             return dataJson(taskVOList, request);
         }catch(Exception e){

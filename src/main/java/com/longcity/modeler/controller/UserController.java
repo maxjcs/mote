@@ -138,9 +138,10 @@ public class UserController extends AbstractController{
 	 * 获取用户详情
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getUserById")
-	public Object getUserById(Integer userId) { 
+	@RequestMapping(value = "getUserInfo")
+	public Object getUserInfo() { 
 		try {
+			Integer userId=AppContext.getUserId();
 			return dataJson(userService.getUserInfo(userId));
 		} catch (Exception e) {
 			logger.error("获取用户详情失败",e);
