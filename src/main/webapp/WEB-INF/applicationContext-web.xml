@@ -13,30 +13,58 @@
 	http://www.springframework.org/schema/task
 	http://www.springframework.org/schema/task/spring-task.xsd">
 	<mvc:annotation-driven/>
-	<context:component-scan base-package="com.longcity.modeler.*">
+	 <context:property-placeholder location="classpath:freeMarker.properties" ignore-unresolvable="true"/>
+	 <context:component-scan base-package="com.longcity.*">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
-
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>
 	</bean>
-
+<!-- 
 	<task:annotation-driven executor="asyncExecutor" scheduler="asyncScheduler"/>
 	<task:executor id="asyncExecutor" pool-size="5-20" keep-alive="60" queue-capacity="5" rejection-policy="DISCARD"/>
 	<task:scheduler id="asyncScheduler" pool-size="10"/>
-    
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	
-		<!-- 设置前缀，即视图所在的路径 -->
-		<property name="prefix" value="/WEB-INF/views/" />
-		<!-- 设置后缀，即视图的扩展名 -->
-		<property name="suffix" value=".jsp" />
-		<property name="viewClass">
-			<value>org.springframework.web.servlet.view.InternalResourceView
-			</value>
-		</property>
-	</bean>
+ -->	
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath">
+            <value>${templateLoaderPath}</value>
+        </property>
 
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>
+                <entry key="webServer" value="${webServer}"/>
+                <entry key="staticServer" value="${staticServer}"/>
+            </map>
+        </property>
+
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="tag_syntax">${freemarker.tagSyntax}</prop>
+                <prop key="template_update_delay">${freemarker.templateUpdateDelay}</prop>
+                <prop key="defaultEncoding">${freemarker.defaultEncoding}</prop>
+                <prop key="url_escaping_charset">${freemarker.outputEncoding}</prop>
+                <prop key="locale">${freemarker.locale}</prop>
+                <prop key="boolean_format">${freemarker.booleanFormat}</prop>
+                <prop key="datetime_format">${freemarker.datetimeFormat}</prop>
+                <prop key="date_format">${freemarker.dateFormat}</prop>
+                <prop key="time_format">${freemarker.timeFormat}</prop>
+                <prop key="number_format">${freemarker.numberFormat}</prop>
+                <prop key="whitespace_stripping">${freemarker.whitespaceStripping}</prop>
+                <!--<prop key="auto_import">${freemarker.autoImport}</prop>-->
+            </props>
+        </property>
+
+    </bean>
+
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="contentType" value="text/html; charset=utf-8"/>
+        <property name="cache" value="true"/>
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="1"/>
+    </bean>
 
 </beans>

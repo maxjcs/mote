@@ -17,5 +17,7 @@ public class EscapeUrl {
 		escapeUrls.add("/user/getOrgListByCityId"); //
 		escapeUrls.add("/user/loginReact"); // 登录
 		
+		escapeUrls.add("/seller/list"); // 登录
+		
 	}
 }

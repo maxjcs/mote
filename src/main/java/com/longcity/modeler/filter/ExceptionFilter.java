@@ -50,7 +50,8 @@ public class ExceptionFilter extends AbstractController implements Filter {
 		
 		log.info(req.getPathInfo() + " params=" + GsonUtil.obj2Json(req.getParameterMap()));
 
-		response.setContentType("text/plain;charset=UTF-8");
+		//response.setContentType("text/plain;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 
 		try {
 			AppContext.init(req, res);

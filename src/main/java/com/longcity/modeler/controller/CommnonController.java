@@ -4,6 +4,7 @@
 package com.longcity.modeler.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,11 @@ public class CommnonController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "upload")
-    public Object upload(HttpServletRequest request,MultipartFile image) throws Exception{
+    public Object upload(HttpServletRequest request,HttpServletResponse response,MultipartFile image) throws Exception{
 		Validator.validateImageFile(image);
         try{
         	String url = UpYunUtil.upload(image);
+        	response.setContentType("text/html;charset=UTF-8");
             return dataJson(url, request);
         }catch(Exception e){
             logger.error("上传图片失败.", e);

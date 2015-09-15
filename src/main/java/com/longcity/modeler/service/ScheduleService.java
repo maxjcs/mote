@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.longcity.modeler.controller.UserController;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.model.MoteTask;
