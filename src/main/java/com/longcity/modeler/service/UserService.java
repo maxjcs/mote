@@ -53,6 +53,15 @@ public class UserService {
 		return userDao.selectByPrimaryKey(id);
 	}
 	
+	/**
+	 * 审核用户
+	 * @param id
+	 * @return
+	 */
+	public void approve(Integer id,Integer status){
+		 userDao.approve(id,status);
+	}
+	
 	
 	/**
 	 * 冻结金额
@@ -88,7 +97,7 @@ public class UserService {
 		newUser.setPhoneNumber(phoneNumber);
 		newUser.setType(type);
 		newUser.setPassword(CipherUtil.MD5(password));
-		newUser.setStatus(UserStatus.normal.getValue());
+		newUser.setStatus(UserStatus.waitApprove.getValue());
 		newUser.setRemindFee(0);
 		userDao.insert(newUser);
 		

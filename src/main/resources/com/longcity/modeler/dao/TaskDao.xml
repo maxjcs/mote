@@ -81,6 +81,24 @@
     limit #{start},#{pageSize}
   </select>
   
+ <select id="countTaskByUserId" resultType="Task" parameterType="QuerySellerDetailParamVO" >
+    select ifnull(count(1),0)
+    from task
+    where user_id = #{sellerId}
+  </select>
+  
+  <select id="queryTaskByUserId" resultType="Task" parameterType="QuerySellerDetailParamVO" >
+    select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
+    gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
+    shot_area_id, status,total_fee
+    from task
+    where user_id = #{sellerId} 
+    order by id desc
+    limit #{start},#{pageSize}
+  </select>
+  
+  
+  
   
   
   

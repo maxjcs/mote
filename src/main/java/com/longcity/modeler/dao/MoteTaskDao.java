@@ -48,6 +48,13 @@ public interface MoteTaskDao {
 	@SuppressWarnings("rawtypes")
 	List<MoteTaskVO> getMoteListByTaskId(Map paramMap2);
 	
+	Integer countMoteListByTaskId(Integer taskId);
+	
 	List<MoteTask> getAcceptList(Integer maxId);
+	
+	@SuppressWarnings("rawtypes")
+	List<MoteTaskVO> queryListByMoteId(Map paramMap2);
+	
+	Integer countByMoteId(Integer moteId);  
 	
 }

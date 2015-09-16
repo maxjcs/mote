@@ -54,7 +54,7 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.longcity.modeler" />
+		<property name="basePackage" value="com.longcity" />
 		<property name="annotationClass" value="com.longcity.modeler.core.MybatisMapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>

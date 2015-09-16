@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.longcity.manage.model.param.QuerySellerDetailParamVO;
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.Task;
 
@@ -30,4 +31,9 @@ public interface TaskDao {
     
     @SuppressWarnings("rawtypes")
 	List<Task> getStasticTaskList(Map paramMap);
+    
+    int countTaskByUserId(QuerySellerDetailParamVO vo);
+    
+    List<Task> queryTaskByUserId(QuerySellerDetailParamVO vo);
+    
 }

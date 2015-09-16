@@ -137,6 +137,24 @@
         limit #{start},#{pageSize}
     </select>
     
+    <select id="countMoteListByTaskId" resultType="int" >
+	    select ifnull(count(1),0)
+         from mote_task mt,user u
+        where mt.user_id=u.id and mt.task_id=#{param1}
+    </select>
+    
+    <select id="getMoteListByTaskId" resultType="MoteTaskVO" parameterType="map" >
+	    select u.id,u.nickname,mt.order_no,mt.status,mt.finish_status from mote_task mt,user u
+        where mt.user_id=u.id and mt.mote_id=#{param1}
+        limit #{start},#{pageSize}
+    </select>
+    
+    <select id="countByMoteId" resultType="int" >
+	    select ifnull(count(1),0)
+         from mote_task mt,user u
+        where mt.user_id=u.id and mt.mote_id=#{param1}
+    </select>
+    
   <select id="getAcceptList" resultType="MoteTask" parameterType="java.lang.Integer" >
     select *
     from mote_task

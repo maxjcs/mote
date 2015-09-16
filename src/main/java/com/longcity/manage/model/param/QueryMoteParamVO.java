@@ -3,14 +3,14 @@
  */
 package com.longcity.manage.model.param;
 
+import com.longcity.manage.model.vo.MoteVO;
 import com.longcity.manage.model.vo.QueryBaseVO;
-import com.longcity.manage.model.vo.SellerVO;
 
 /**
  * @author maxjcs
  *
  */
-public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
+public class QueryMoteParamVO extends QueryBaseVO<MoteVO>{
 	
 	String registerBegin;
 	
@@ -20,23 +20,21 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 	
 	String nickname;
 	
-	String shopName;
-	
-	String referee;
+	Integer gender;
 	
 	Integer status;
 	
-	Integer projectNumBegin;
+	Integer ageBegin;
 	
-	Integer projectNumEnd;
+	Integer ageEnd;
 	
-	Integer projectNumSort;
+	Integer heigthBegin;
 	
-	Integer moteTaskNumBegin;
+	Integer heigthEnd;
 	
-	Integer moteTaskNumEnd;
+	Integer shape;
 	
-	Integer moteTaskNumSort;
+	String areaIds;
 	
 	Integer remindFeeBegin;
 	
@@ -49,7 +47,7 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 	Integer moteTaskFeeEnd;
 	
 	Integer moteTaskFeeSort;
-
+	
 	public String getRegisterBegin() {
 		return registerBegin;
 	}
@@ -82,20 +80,12 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 		this.nickname = nickname;
 	}
 
-	public String getShopName() {
-		return shopName;
+	public Integer getGender() {
+		return gender;
 	}
 
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
-
-	public String getReferee() {
-		return referee;
-	}
-
-	public void setReferee(String referee) {
-		this.referee = referee;
+	public void setGender(Integer gender) {
+		this.gender = gender;
 	}
 
 	public Integer getStatus() {
@@ -106,52 +96,52 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 		this.status = status;
 	}
 
-	public Integer getProjectNumBegin() {
-		return projectNumBegin;
+	public Integer getAgeBegin() {
+		return ageBegin;
 	}
 
-	public void setProjectNumBegin(Integer projectNumBegin) {
-		this.projectNumBegin = projectNumBegin;
+	public void setAgeBegin(Integer ageBegin) {
+		this.ageBegin = ageBegin;
 	}
 
-	public Integer getProjectNumEnd() {
-		return projectNumEnd;
+	public Integer getAgeEnd() {
+		return ageEnd;
 	}
 
-	public void setProjectNumEnd(Integer projectNumEnd) {
-		this.projectNumEnd = projectNumEnd;
+	public void setAgeEnd(Integer ageEnd) {
+		this.ageEnd = ageEnd;
 	}
 
-	public Integer getProjectNumSort() {
-		return projectNumSort;
+	public Integer getHeigthBegin() {
+		return heigthBegin;
 	}
 
-	public void setProjectNumSort(Integer projectNumSort) {
-		this.projectNumSort = projectNumSort;
+	public void setHeigthBegin(Integer heigthBegin) {
+		this.heigthBegin = heigthBegin;
 	}
 
-	public Integer getMoteTaskNumBegin() {
-		return moteTaskNumBegin;
+	public Integer getHeigthEnd() {
+		return heigthEnd;
 	}
 
-	public void setMoteTaskNumBegin(Integer moteTaskNumBegin) {
-		this.moteTaskNumBegin = moteTaskNumBegin;
+	public void setHeigthEnd(Integer heigthEnd) {
+		this.heigthEnd = heigthEnd;
 	}
 
-	public Integer getMoteTaskNumEnd() {
-		return moteTaskNumEnd;
+	public Integer getShape() {
+		return shape;
 	}
 
-	public void setMoteTaskNumEnd(Integer moteTaskNumEnd) {
-		this.moteTaskNumEnd = moteTaskNumEnd;
+	public void setShape(Integer shape) {
+		this.shape = shape;
 	}
 
-	public Integer getMoteTaskNumSort() {
-		return moteTaskNumSort;
+	public String getAreaIds() {
+		return areaIds;
 	}
 
-	public void setMoteTaskNumSort(Integer moteTaskNumSort) {
-		this.moteTaskNumSort = moteTaskNumSort;
+	public void setAreaIds(String areaIds) {
+		this.areaIds = areaIds;
 	}
 
 	public Integer getRemindFeeBegin() {
@@ -202,6 +192,4 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 		this.moteTaskFeeSort = moteTaskFeeSort;
 	}
 
-
-	
 }

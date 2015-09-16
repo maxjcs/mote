@@ -26,10 +26,9 @@
 
 	<typeAliases>
 		<package name="com.longcity.modeler.model" />
+		<package name="com.longcity.manage.model" />
 	</typeAliases>
-<!--   
   <plugins>
-        <plugin interceptor="com.xuexibao.teacher.interceptor.MybatisQueryTimeLogInterceptor"/>
+        <plugin interceptor="com.longcity.modeler.interceptor.MybatisQueryTimeLogInterceptor"/>
   </plugins> 
--->
 </configuration>  

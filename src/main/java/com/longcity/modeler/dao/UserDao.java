@@ -30,4 +30,6 @@ public interface UserDao {
 	void freezeFee(Map praamMap);
     
     void updateFreezeFee(Integer userId,Integer fee);
+    
+    void approve(Integer userId,Integer status);
 }

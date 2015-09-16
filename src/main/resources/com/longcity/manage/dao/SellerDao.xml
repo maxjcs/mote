@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.manage.dao.SellerDao" >
+
+  <select id="querySellerList" resultType="SellerVO" parameterType="QuerySellerParamVO" >
+    select seller_id as user_id,project_num,task_num,total_fee,task_fee,u.create_time,u.nickname,u.shop_name,u.referee,u.create_time,u.status
+    from seller_statistics ss,user u
+    where 1=1 and ss.seller_id=u.id
+    <include refid="queryWhere"/>
+	<include refid="orderBy"/>
+	limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countSellerList" resultType="int" parameterType="QuerySellerParamVO" >
+    select ifnull(count(1),0)
+    from seller_statistics ss,user u
+    where 1=1 and ss.seller_id=u.id
+    <include refid="queryWhere"/>
+  </select>
+  
+  <sql id="queryWhere">
+        <if test="registerBegin!=null and registerBegin!=''">
+            AND u.create_time&gt;=#{registerBegin}
+        </if>
+        <if test="registerEnd!=null and registerEnd!=''">
+            AND u.create_time&lt;=#{registerEnd}
+        </if>
+        <if test="nickname!=null and nickname!=''">
+            AND u.nickname LIKE CONCAT('%',#{nickname},'%')
+        </if>
+        <if test="shopName!=null and shopName!=''">
+            AND u.shopName LIKE CONCAT('%',#{shopName},'%')
+        </if>
+        <if test="referee!=null and referee!=''">
+            AND u.referee =#{referee}
+        </if>
+        <if test="status!=null and status!=-1">
+            AND u.status = #{status}
+        </if>
+        <if test="projectNumBegin!=null and projectNumBegin!=0">
+            AND ss.project_num &gt;=#{projectNumBegin}
+        </if>
+        <if test="projectNumEnd!=null and projectNumEnd!=0">
+            AND ss.project_num &lt;=#{projectNumEnd}
+        </if>
+        <if test="moteTaskNumBegin!=null and moteTaskNumBegin!=0">
+            AND ss.task_num &gt;=#{moteTaskNumBegin}
+        </if>
+        <if test="moteTaskNumEnd!=null and moteTaskNumEnd!=0">
+            AND ss.task_num &lt;=#{moteTaskNumEnd}
+        </if>
+        <if test="remindFeeBegin!=null and remindFeeBegin!=0">
+            AND ss.total_fee &gt;=#{remindFeeBegin}
+        </if>
+        <if test="remindFeeEnd!=null and remindFeeEnd!=0">
+            AND ss.total_fee &lt;=#{remindFeeEnd}
+        </if>
+        <if test="moteTaskFeeBegin!=null and moteTaskFeeBegin!=0">
+            AND ss.task_fee &gt;=#{moteTaskFeeBegin}
+        </if>
+        <if test="moteTaskFeeEnd!=null and moteTaskFeeEnd!=0">
+            AND ss.task_fee &lt;=#{moteTaskFeeEnd}
+        </if>
+    </sql>
+    
+   <sql id="orderBy">
+         
+        <if test="registerSort!=null and registerSort==0">
+            order by u.create_time asc
+        </if>
+        <if test="registerSort!=null and registerSort==1">
+             order by u.create_time desc
+        </if>
+        <if test="projectNumSort!=null and projectNumSort==0">
+             order by s.project_num asc
+        </if>
+        <if test="projectNumSort!=null and projectNumSort==1">
+             order by ss.project_num desc
+        </if>
+        <if test="moteTaskNumSort!=null and moteTaskNumSort==0">
+             order by s.task_num asc
+        </if>
+        <if test="moteTaskNumSort!=null and moteTaskNumSort==1">
+             order by ss.task_num desc
+        </if>
+        <if test="remindFeeSort!=null and remindFeeSort==0">
+             order by s.total_fee asc
+        </if>
+        <if test="remindFeeSort!=null and remindFeeSort==1">
+             order by ss.total_fee desc
+        </if>
+        <if test="moteTaskFeeSort!=null and moteTaskFeeSort==0">
+             order by s.task_fee asc
+        </if>
+        <if test="moteTaskFeeSort!=null and moteTaskFeeSort==1">
+             order by ss.task_fee desc
+        </if>
+    </sql>
+</mapper>

@@ -268,6 +268,16 @@ public class UserController extends AbstractController{
 		return dataJson(true);
 	}
 	
+	/**
+	 * 审核用户
+	 */
+	@ResponseBody
+	@RequestMapping(value = "approve")
+	public Object approve(Integer id,Integer status) {
+		userService.approve(id,status);
+		return dataJson(true);
+	}
+	
 //	private void checkValidVerifyCode(String cipherCode, String code) {
 //		Map<String, Object> paramMap = new HashMap<String, Object>();
 //		if (StringUtils.isNotBlank(cipherCode)) {

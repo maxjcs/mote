@@ -42,6 +42,14 @@
     where id = #{id}
   </update>
   
+  <update id="approve"  >
+    update user
+    set 
+      status = #{param2}
+      update_time = now()
+    where id = #{param1}
+  </update>
+  
   <update id="updateSeller" parameterType="User" >
     update user
     set

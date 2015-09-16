@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.manage.dao.MoteDao" >
+
+  <select id="queryMoteList" resultType="MoteVO" parameterType="QueryMoteParamVO" >
+    select mote_id as user_id,task_fee,remind_fee,task_num,u.nickname,u.gender,u.height,u.shape,u.age,u.area_id,u.create_time,u.status
+    from mote_statistics ss,user u
+    where 1=1 and ss.mote_id=u.id
+    <include refid="queryWhere"/>
+	<include refid="orderBy"/>
+	limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countMoteList" resultType="int" parameterType="QueryMoteParamVO" >
+    select ifnull(count(1),0)
+    from mote_statistics ss,user u
+    where 1=1 and ss.mote_id=u.id
+    <include refid="queryWhere"/>
+  </select>
+  
+  <sql id="queryWhere">
+        <if test="registerBegin!=null and registerBegin!=''">
+            AND u.create_time&gt;=#{registerBegin}
+        </if>
+        <if test="registerEnd!=null and registerEnd!=''">
+            AND u.create_time&lt;=#{registerEnd}
+        </if>
+        <if test="nickname!=null and nickname!=''">
+            AND u.nickname LIKE CONCAT('%',#{nickname},'%')
+        </if>
+        <if test="gender!=null and gender!=0">
+            AND u.gender =#{gender}
+        </if>
+        <if test="status!=null and status!=-1">
+            AND u.status = #{status}
+        </if>
+        <if test="ageBegin!=null and ageBegin!=0">
+            AND u.age &gt;=#{ageBegin}
+        </if>
+        <if test="ageEnd!=null and ageEnd!=0">
+            AND u.age &lt;=#{ageEnd}
+        </if>
+        <if test="heigthBegin!=null and heigthBegin!=0">
+            AND u.height &gt;=#{heigthBegin}
+        </if>
+        <if test="heigthEnd!=null and heigthEnd!=0">
+            AND u.height &lt;=#{heigthEnd}
+        </if>
+        <if test="shape!=null and shape!=-1">
+            AND u.shape = #{shape}
+        </if>
+        <if test="areaIds!=null and areaIds!=''">
+            AND u.area_id in #{areaIds}
+        </if>
+        <if test="remindFeeBegin!=null and remindFeeBegin!=0">
+            AND ss.remind_fee &gt;=#{remindFeeBegin}
+        </if>
+        <if test="remindFeeEnd!=null and remindFeeEnd!=0">
+            AND ss.remind_fee &lt;=#{remindFeeEnd}
+        </if>
+        <if test="moteTaskFeeBegin!=null and moteTaskFeeBegin!=0">
+            AND ss.task_fee &gt;=#{moteTaskFeeBegin}
+        </if>
+        <if test="moteTaskFeeEnd!=null and moteTaskFeeEnd!=0">
+            AND ss.task_fee &lt;=#{moteTaskFeeEnd}
+        </if>
+    </sql>
+    
+   <sql id="orderBy">
+         
+        <if test="registerSort!=null and registerSort==0">
+            order by u.create_time asc
+        </if>
+        <if test="registerSort!=null and registerSort==1">
+             order by u.create_time desc
+        </if>
+        <if test="remindFeeSort!=null and remindFeeSort==0">
+             order by ss.remind_fee asc
+        </if>
+        <if test="remindFeeSort!=null and remindFeeSort==1">
+             order by ss.remind_fee desc
+        </if>
+        <if test="moteTaskFeeSort!=null and moteTaskFeeSort==0">
+             order by ss.task_fee asc
+        </if>
+        <if test="moteTaskFeeSort!=null and moteTaskFeeSort==1">
+             order by ss.task_fee desc
+        </if>
+    </sql>
+</mapper>

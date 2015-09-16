@@ -1,5 +1,7 @@
 package com.longcity.manage.model.vo;
 
+import java.util.Date;
+
 public class SellerVO {
 	
 	Integer userId;
@@ -16,9 +18,18 @@ public class SellerVO {
 	
 	Integer status;
 	
-	Integer remainFee;
+	Integer totalFee;
 	
-	Integer freezeFee;
+	Integer taskFee;
+	
+	String referee;
+	
+	Date createTime;
+	
+	Integer projectNum;
+	
+	Integer taskNum;
+	
 
 	public Integer getUserId() {
 		return userId;
@@ -76,20 +87,52 @@ public class SellerVO {
 		this.status = status;
 	}
 
-	public Integer getRemainFee() {
-		return remainFee;
+	public Integer getTotalFee() {
+		return totalFee;
 	}
 
-	public void setRemainFee(Integer remainFee) {
-		this.remainFee = remainFee;
+	public void setTotalFee(Integer totalFee) {
+		this.totalFee = totalFee;
 	}
 
-	public Integer getFreezeFee() {
-		return freezeFee;
+	public Integer getTaskFee() {
+		return taskFee;
 	}
 
-	public void setFreezeFee(Integer freezeFee) {
-		this.freezeFee = freezeFee;
+	public void setTaskFee(Integer taskFee) {
+		this.taskFee = taskFee;
+	}
+
+	public String getReferee() {
+		return referee;
+	}
+
+	public void setReferee(String referee) {
+		this.referee = referee;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Integer getProjectNum() {
+		return projectNum;
+	}
+
+	public void setProjectNum(Integer projectNum) {
+		this.projectNum = projectNum;
+	}
+
+	public Integer getTaskNum() {
+		return taskNum;
+	}
+
+	public void setTaskNum(Integer taskNum) {
+		this.taskNum = taskNum;
 	}
 
 }
