@@ -1,5 +1,6 @@
 package com.longcity.modeler.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,10 @@ public interface UserDao {
     void updateFreezeFee(Integer userId,Integer fee);
     
     void approve(Integer userId,Integer status);
+    
+    List<User> querySellerList(Integer maxId);
+    
+    List<User> queryMoteList(Integer maxId);
+    
+    
 }

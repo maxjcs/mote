@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.longcity.manage.dao.SellerDao;
+import com.longcity.manage.model.SellerStatistics;
 import com.longcity.manage.model.param.QuerySellerDetailParamVO;
 import com.longcity.manage.model.param.QuerySellerParamVO;
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
@@ -81,6 +82,15 @@ public class SellerService {
             paramVO.setRows(new ArrayList<MoteTaskVO>());
         }
         return paramVO;
+	}
+	
+	public void save(SellerStatistics sellerSta){
+		SellerStatistics oldSellerStatistics=sellerDao.selectBySellerId(sellerSta.getSellerId());
+		if(oldSellerStatistics==null){
+			sellerDao.insert(sellerSta);
+		}else{
+			sellerDao.update(sellerSta);
+		}
 	}
 	
 

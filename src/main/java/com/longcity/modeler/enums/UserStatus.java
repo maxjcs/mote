@@ -1,7 +1,7 @@
 package com.longcity.modeler.enums;
 
 public enum UserStatus{
-   waitApprove(0), normal(1),abnormal(2);
+   waitApprove(1), normal(2),abnormal(3);
     
     private int code;
     UserStatus(int code){

@@ -56,7 +56,7 @@
   <select id="selectByPrimaryKey" resultType="Task" parameterType="java.lang.Integer" >
     select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
     gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
-    shot_area_id, status, total_fee
+    shot_area_id, status, total_fee,create_time,update_time
     from task
     where id = #{id}
   </select>
@@ -64,7 +64,7 @@
   <select id="getNewTaskList" resultType="Task" parameterType="map" >
     select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
     gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
-    shot_area_id, status,total_fee
+    shot_area_id, status,total_fee,create_time,update_time
     from task
     where user_id = #{userId} and status in (0,1,3)
     order by id desc
@@ -90,12 +90,22 @@
   <select id="queryTaskByUserId" resultType="Task" parameterType="QuerySellerDetailParamVO" >
     select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
     gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
-    shot_area_id, status,total_fee
+    shot_area_id, status,total_fee,create_time,update_time
     from task
     where user_id = #{sellerId} 
     order by id desc
     limit #{start},#{pageSize}
   </select>
+  
+  <select id="getTaskNumBySellerId" resultType="int"  >
+    select ifnull(count(1),0)
+    from task
+    where user_id = #{param1} and status in (2,4)
+  </select>
+  
+  
+  
+  
   
   
   

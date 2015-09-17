@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.longcity.manage.dao.MoteDao" >
 
+  <insert id="insert" parameterType="MoteStatistics" useGeneratedKeys="true" keyProperty="id" >
+    insert into mote_statistics (mote_id,task_fee,remind_fee,task_num,create_time,update_time) 
+    values(#{moteId},#{taskFee},#{remindFee},#{taskNum},now(),now())
+  </insert>
+  
+  <update id="update" parameterType="MoteStatistics"  >
+    update 
+    mote_statistics 
+    set task_fee = #{taskFee},
+    remind_fee = #{remindFee},
+    task_num = #{taskNum},
+    update_time = now()
+    where mote_id =#{moteId}
+  </update>
+
+  <select id="selectByMoteId" resultType="MoteStatistics"  >
+    select *
+    from mote_statistics ss
+    where ss.mote_id=#{param1}
+  </select>
+
+
   <select id="queryMoteList" resultType="MoteVO" parameterType="QueryMoteParamVO" >
     select mote_id as user_id,task_fee,remind_fee,task_num,u.nickname,u.gender,u.height,u.shape,u.age,u.area_id,u.create_time,u.status
     from mote_statistics ss,user u

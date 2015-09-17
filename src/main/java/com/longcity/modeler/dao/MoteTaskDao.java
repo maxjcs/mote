@@ -57,4 +57,14 @@ public interface MoteTaskDao {
 	
 	Integer countByMoteId(Integer moteId);  
 	
+	Integer getMoteTaskNumBySellerId(Integer sellerId);
+	
+	Integer getMoteTaskNumByMoteId(Integer moteId);
+	
+	Integer getMoteTaskTotalFeeBySellerId(Integer sellerId);
+	
+	Integer getMoteTaskTotalFeeByMoteId(Integer moteId);
+	
+	
+	
 }

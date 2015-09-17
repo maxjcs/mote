@@ -113,4 +113,26 @@
     from user
     where phone_number = #{phoneNumber}
   </select>
+  
+  <select id="querySellerList" resultType="User" parameterType="int" >
+    select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
+    weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
+    weixin, address, referee, remind_fee
+    from user
+    where id &gt; #{param1} and type=2
+    order by id asc
+    limit 10
+  </select>
+  
+  <select id="queryMoteList" resultType="User" parameterType="int" >
+    select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
+    weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
+    weixin, address, referee, remind_fee
+    from user
+    where id &gt; #{param1} and type=1
+    order by id asc
+    limit 10
+  </select>
+  
+  
 </mapper>

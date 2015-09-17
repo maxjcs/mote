@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.longcity.manage.dao.MoteDao;
+import com.longcity.manage.model.MoteStatistics;
+import com.longcity.manage.model.SellerStatistics;
 import com.longcity.manage.model.param.QueryMoteDetailParamVO;
 import com.longcity.manage.model.param.QueryMoteParamVO;
 import com.longcity.manage.model.vo.MoteVO;
@@ -62,6 +64,15 @@ public class MoteService {
             paramVO.setRows(new ArrayList<MoteTaskVO>());
         }
         return paramVO;
+	}
+	
+	public void save(MoteStatistics moteSta){
+		MoteStatistics oldMoteStatistics=moteDao.selectByMoteId(moteSta.getMoteId());
+		if(oldMoteStatistics==null){
+			moteDao.insert(moteSta);
+		}else{
+			moteDao.update(moteSta);
+		}
 	}
 	
 }

@@ -36,4 +36,6 @@ public interface TaskDao {
     
     List<Task> queryTaskByUserId(QuerySellerDetailParamVO vo);
     
+    int getTaskNumBySellerId(Integer sellerId);
+    
 }
