@@ -1,0 +1,72 @@
+.effectInputUl .selectWrap{
+    position:relative;/*placeholder pwd*/
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    height: 35px;
+    width: 258px;
+    background: white;
+}
+
+.com_select span{
+    display: block;
+    width: 100%;
+    height: 32px;
+    overflow: hidden;
+    border: 1px solid rgb(204,204,204);
+    border-radius: 4px;
+}
+.com_select input{
+    border:0;
+    width:100%;
+    height:30px;
+    padding-left: 8px;
+    _line-height:30px;
+    background: none;
+    cursor: default;
+}
+.com_select i{
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 13px;
+    right: 5px;
+    border-color: rgb(204,204,204) transparent transparent transparent;
+    border-style: solid;
+    border-width: 6px 6px 0px 6px;
+    padding: 0;
+    width: 0;
+    height: 0;
+    /* ie6 height fix */
+    font-size: 0;
+    line-height: 0;
+    /* ie6 transparent fix */
+    _border-left-color: #dddddd;
+    _border-right-color: #dddddd;
+    _filter: chroma( color = #dddddd);
+}
+.com_select ul{
+    position: absolute;
+    visibility:visible;
+    top:30px;
+    width: 100%;
+    left:0;
+    border: 1px solid rgb(204,204,204);
+    background: white;
+    z-index: 10;
+    padding: 0
+
+}
+
+.com_select ul li{
+    cursor:default;
+    height:20px;
+    padding-left: 8px;
+    text-align: left;
+    font: normal 13px/20px arial;
+}
+.com_select ul .active{
+    color: white;
+    font: bold 14px/20px arial;
+    background: blue!important;
+}

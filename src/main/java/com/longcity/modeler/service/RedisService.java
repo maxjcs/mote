@@ -84,7 +84,9 @@ public class RedisService {
 			Integer totalMoney=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_MONEY_KEY);
 			Integer totalShotFee=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_SHOT_FEE_KEY);
 			String dayNumKey=RedisContstant.TASK_DAY_NUM_KEY+DateUtils.getDateString();
+			String moteDayNumKey=RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getDateString();
 			Integer dayNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(dayNumKey);
+			Integer moteDayNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(moteDayNumKey);
 			//总任务数
 			if(totalNum==null){
 				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_NUM_KEY, 1);
@@ -94,8 +96,9 @@ public class RedisService {
 			//每天任务数
 			if(dayNum==null){
 				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, 1);
+				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(moteDayNumKey, task.getNumber());
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, dayNum+1);
+				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, moteDayNum+task.getNumber());
 			}
 			//商品总金额
 			if(totalMoney==null){

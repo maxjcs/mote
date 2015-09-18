@@ -20,6 +20,9 @@ public class EscapeUrl {
 		//后台
 		escapeUrls.add("/seller/list"); 
 		escapeUrls.add("/mote/list"); 
+		escapeUrls.add("/system/index"); 
+		escapeUrls.add("/system/systemControl"); 
+		escapeUrls.add("/system/message"); 
 		
 	}
 }

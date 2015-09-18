@@ -200,12 +200,24 @@ public class DateUtils {
 	}
 	
 	/**
-	 * 获取文件上传路径
+	 * 获取今天的日期
 	 * @return
 	 */
 	public static String getDateString(){
 		Calendar calendar=Calendar.getInstance();
 		calendar.setTime(new Date());
+		String dateString=calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+""+calendar.get(Calendar.DAY_OF_MONTH);
+		return dateString;
+	}
+	
+	/**
+	 * 获取昨天天的日期
+	 * @return
+	 */
+	public static String getYesterdayDateString(){
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, -1);
 		String dateString=calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+""+calendar.get(Calendar.DAY_OF_MONTH);
 		return dateString;
 	}

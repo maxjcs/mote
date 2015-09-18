@@ -32,6 +32,8 @@ public class RedisContstant {
 	
 	public static final String TASK_DAY_NUM_KEY = "task_day_num_key";
 	
+	public static final String MOTETASK_DAY_NUM_KEY = "mote_task_day_num_key";
+	
 	public static final String TOP1_MOTE_NAME_KEY = "top1_name_key";
 	
 	public static final String TOP1_MOTE_FEE_KEY = "top1_fee_key";
