@@ -20,8 +20,8 @@
     <task:annotation-driven />  
 	<import resource="applicationContext-jdbc.xml" />
 	 <import resource="applicationContext-quartz.xml" />
+	 <import resource="applicationContext-redis.xml" />
 <!-- 	 <import resource="applicationContext-web.xml" />
-	<import resource="applicationContext-redis.xml" />
  	<import resource="applicationContext-mongo.xml" />  
 	<import resource="classpath*:/conf/**/*client.xml"/>  -->
 	

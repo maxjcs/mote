@@ -216,13 +216,28 @@ public class TaskController extends AbstractController {
     }
 	
     /**
-     * 更新状态
+     * 审核通过
      */
 	@ResponseBody
-    @RequestMapping(value = "updateStatus")
-    public Object applayOK(HttpServletRequest request,Integer id,Integer status) throws Exception{
+    @RequestMapping(value = "applayOK")
+    public Object applayOK(HttpServletRequest request,Integer id) throws Exception{
         try{
-        	taskService.updateStatus(id,status);
+        	taskService.updateStatus(id,TaskStatus.passed.getValue());
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("更新状态失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+    /**
+     * 审核不通过
+     */
+	@ResponseBody
+    @RequestMapping(value = "applayReject")
+    public Object applayReject(HttpServletRequest request,Integer id) throws Exception{
+        try{
+        	taskService.updateStatus(id,TaskStatus.not_passed.getValue());
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("更新状态失败.", e);

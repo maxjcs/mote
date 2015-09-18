@@ -44,6 +44,9 @@ public class UserService {
 	@Resource
 	private VerifyCodeService verifyCodeService;
 	
+	@Resource
+	RedisService redisService;
+	
 	/**
 	 * 根据主键获取Id
 	 * @param id
@@ -100,6 +103,8 @@ public class UserService {
 		newUser.setStatus(UserStatus.waitApprove.getValue());
 		newUser.setRemindFee(0);
 		userDao.insert(newUser);
+		//缓存中增加用户数
+		redisService.registerUser(newUser);
 		
 		return 0;//success
 	}

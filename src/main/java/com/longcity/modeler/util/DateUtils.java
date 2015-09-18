@@ -198,4 +198,15 @@ public class DateUtils {
 
 		return formatList(calendar.getTime());
 	}
+	
+	/**
+	 * 获取文件上传路径
+	 * @return
+	 */
+	public static String getDateString(){
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(new Date());
+		String dateString=calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+""+calendar.get(Calendar.DAY_OF_MONTH);
+		return dateString;
+	}
 }

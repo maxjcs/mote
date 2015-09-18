@@ -58,6 +58,9 @@ public class TaskService {
 	
 	private static Integer moteAcceptedDailyNum=10;
 	
+	@Resource
+	RedisService redisService;
+	
 	
 	
 	/**
@@ -139,6 +142,9 @@ public class TaskService {
 		//mote增加余额
 		userDao.updateRemindFee(moteTask.getUserId(), fee);
 		
+		//增加缓存中已经完成的任务量
+		redisService.redisFinishTask();
+		
 	}
 	
 	
@@ -182,6 +188,10 @@ public class TaskService {
 		//mote增加余额
 		userDao.updateRemindFee(moteTask.getUserId(), fee);
 		
+		//增加缓存中已经完成的任务量
+		redisService.redisFinishTask();
+		redisService.redisSelfBuyTask();//自购的商品数
+		
 	}
 	
 	
@@ -221,6 +231,8 @@ public class TaskService {
 		paramMap.put("moteTaskId", moteTaskId);
 		paramMap.put("orderNo", orderNo);
 		moteTaskDao.addOrderNo(paramMap);
+		//增加缓存中正执行的任务量
+		redisService.redisPerformTask();
 	}
 	
 	/**
@@ -245,6 +257,8 @@ public class TaskService {
 		moteTask.setUserId(moteId);
 		moteTask.setStatus(MoteTaskStatus.newAccept.getValue());
 		moteTaskDao.insert(moteTask);
+		//增加缓存中总的任务量
+		redisService.redisNewMoteTask();
 		
 		return 2; //接单成功
 	}
@@ -288,6 +302,9 @@ public class TaskService {
 	 */
 	public void updateStatus(Integer taskId,Integer status){
 		taskDao.updateStatus(taskId,status);
+		if(TaskStatus.passed.getValue()==status){
+			redisService.redisApplyOk(taskId); 
+		}
 	}
 	
 	

@@ -149,6 +149,17 @@
         where mt.user_id=u.id and mt.mote_id=#{param1}
     </select>
     
+    <select id="getTop1Mote" resultType="MoteTaskVO" >
+	    select u.nickname,sum(t.shot_fee) as total_task_fee
+         from mote_task mt,user u,task t
+        where mt.user_id=u.id and t.id=mt.task_id and mt.finish_status=1
+        group by u.nickname
+        order by total_task_fee desc 
+        limit 1
+    </select>
+    
+    
+    
   <select id="getAcceptList" resultType="MoteTask" parameterType="java.lang.Integer" >
     select *
     from mote_task

@@ -22,6 +22,7 @@ import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.User;
+import com.longcity.modeler.model.vo.MoteTaskVO;
 
 /**
  * 用于定时任务
@@ -35,6 +36,9 @@ public class ScheduleService {
 	
 	@Resource
 	SellerService sellerService;
+	
+	@Resource
+	RedisService redisService;
 	
 	@Resource
 	MoteService moteService;
@@ -55,6 +59,8 @@ public class ScheduleService {
 	private static Boolean IS_COUNT_SELLER_RUNNING=false;
 	
 	private static Boolean IS_COUNT_MOTE_RUNNING=false;
+	
+	private static Boolean IS_TOP1_MOTE_RUNNING=false;
 	
 	/**
 	 * 处理任务超时
@@ -177,6 +183,26 @@ public class ScheduleService {
 			IS_COUNT_MOTE_RUNNING=false;
 		}
 		
+	}
+	
+	/**
+	 * top1模特
+	 */
+	public void handleTop1Mote(){
+		if(IS_TOP1_MOTE_RUNNING){
+			return;
+		}
+		try{
+			IS_TOP1_MOTE_RUNNING=true;
+			MoteTaskVO vo=moteTaskDao.getTop1Mote();
+			if(vo!=null){
+				redisService.redisTop1Mote(vo.getNickname(),vo.getTotalTaskFee());
+			}
+		}catch (Exception e) {
+			logger.error("处理任务超时出错",e);
+		}finally{
+			IS_TOP1_MOTE_RUNNING=false;
+		}
 	}
 
 }

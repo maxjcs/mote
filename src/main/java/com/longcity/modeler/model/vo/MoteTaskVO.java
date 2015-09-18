@@ -19,6 +19,16 @@ public class MoteTaskVO {
 	Integer status;
 	
 	Integer finishStatus;
+	
+	Integer totalTaskFee;
+	
+	public Integer getTotalTaskFee() {
+		return totalTaskFee;
+	}
+
+	public void setTotalTaskFee(Integer totalTaskFee) {
+		this.totalTaskFee = totalTaskFee;
+	}
 
 	public Integer getId() {
 		return id;

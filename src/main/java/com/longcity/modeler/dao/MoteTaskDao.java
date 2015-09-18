@@ -65,6 +65,8 @@ public interface MoteTaskDao {
 	
 	Integer getMoteTaskTotalFeeByMoteId(Integer moteId);
 	
+	MoteTaskVO getTop1Mote(); 
+	
 	
 	
 }
