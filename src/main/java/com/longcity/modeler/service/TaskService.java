@@ -316,7 +316,7 @@ public class TaskService {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Task> getNewTaskList(Integer userId,Integer pageNo,Integer pageSize){
+	public Map getNewTaskList(Integer userId,Integer pageNo,Integer pageSize){
 		if(pageNo==null){
 			pageNo=1;
 		}
@@ -328,9 +328,15 @@ public class TaskService {
 		paramMap.put("userId", userId);
 		paramMap.put("start", (pageNo-1)*pageSize);
 		paramMap.put("pageSize", pageSize);
+		
+		Integer totalSize=taskDao.countNewTaskList(paramMap);
 		List<Task> taskList = taskDao.getNewTaskList(paramMap);
 		
-		return taskList;
+		Map resultMap=new HashMap();
+		resultMap.put("totalSize", totalSize);
+		resultMap.put("dataList", taskList);
+		
+		return resultMap;
 	}
 	
 	/**
@@ -341,7 +347,7 @@ public class TaskService {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<TaskVO> getStasticTaskList(Integer userId,Integer status,Integer pageNo,Integer pageSize){
+	public Map getStasticTaskList(Integer userId,Integer status,Integer pageNo,Integer pageSize){
 		if(pageNo==null){
 			pageNo=1;
 		}
@@ -356,9 +362,15 @@ public class TaskService {
 		paramMap.put("status", status);
 		List<Task> taskList = taskDao.getStasticTaskList(paramMap);
 		
+		Map resultMap=new HashMap();
+		
 		if(taskList.size()==0){
-			return new ArrayList<TaskVO>();
+			resultMap.put("totalSize", 0);
+			resultMap.put("voList", new ArrayList<TaskVO>());
+			return resultMap;
 		}
+		
+		Integer totalSize=taskDao.countStasticTaskList(paramMap);
 		
 		List<Integer> taskIds=new ArrayList<Integer>();
 		for(Task task:taskList){
@@ -367,8 +379,11 @@ public class TaskService {
 		Map paramMap2=new HashMap();
 		paramMap2.put("taskIds", taskIds);
 		paramMap2.put("status", status);
-		List<TaskVO> volsit=moteTaskDao.stasticByTaskIds(paramMap2);
-		return volsit;
+		List<TaskVO> volist=moteTaskDao.stasticByTaskIds(paramMap2);
+		
+		resultMap.put("totalSize", totalSize);
+		resultMap.put("dataList", volist);
+		return resultMap;
 	}
 	
 	/**

@@ -71,6 +71,12 @@
     limit #{start},#{pageSize}
   </select>
   
+  <select id="countNewTaskList" resultType="int" parameterType="map" >
+    select ifnull(count(1),0)
+    from task
+    where user_id = #{userId} and status in (0,1,3)
+  </select>
+  
   <select id="getStasticTaskList" resultType="Task" parameterType="map" >
     select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
     gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
@@ -79,6 +85,12 @@
     where user_id = #{userId} and status = #{status}
     order by id desc
     limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countStasticTaskList" resultType="int" parameterType="map" >
+    select ifnull(count(1),0)
+    from task
+    where user_id = #{userId} and status = #{status}
   </select>
   
  <select id="countTaskByUserId" resultType="Task" parameterType="QuerySellerDetailParamVO" >

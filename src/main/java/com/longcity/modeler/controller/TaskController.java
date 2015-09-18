@@ -253,8 +253,10 @@ public class TaskController extends AbstractController {
     public Object getNewTaskList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	List<Task> taskList=taskService.getNewTaskList(userId,pageNo,pageSize);
-            return dataJson(taskList, request);
+        	Map resultMap=taskService.getNewTaskList(userId,pageNo,pageSize);
+        	resultMap.put("pageNo", pageNo);
+        	resultMap.put("pageSize", pageSize);
+            return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("更新状态失败.", e);
             return errorJson("服务器异常，请重试.", request);
@@ -264,13 +266,16 @@ public class TaskController extends AbstractController {
 	 /**
      * 获取执行中的项目
      */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
     @RequestMapping(value = "getPerformTaskList")
-    public Object getPerformTaskList(HttpServletRequest request,Integer pageNo,Integer pageCount) throws Exception{
+    public Object getPerformTaskList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	List<TaskVO> taskVOList=taskService.getStasticTaskList(userId,TaskStatus.passed.getValue(),pageNo,pageCount);
-            return dataJson(taskVOList, request);
+        	Map resultMap=taskService.getStasticTaskList(userId,TaskStatus.passed.getValue(),pageNo,pageSize);
+        	resultMap.put("pageNo", pageNo);
+        	resultMap.put("pageSize", pageSize);
+        	return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("获取执行中的项目失败.", e);
             return errorJson("服务器异常，请重试.", request);
@@ -280,13 +285,16 @@ public class TaskController extends AbstractController {
 	 /**
      * 获取已经完成的项目
      */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
     @RequestMapping(value = "getFinishedTaskList")
-    public Object getFinishedTaskList(HttpServletRequest request,Integer pageNo,Integer pageCount) throws Exception{
+    public Object getFinishedTaskList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	List<TaskVO> taskVOList=taskService.getStasticTaskList(userId,TaskStatus.finished.getValue(),pageNo,pageCount);
-            return dataJson(taskVOList, request);
+        	Map resultMap=taskService.getStasticTaskList(userId,TaskStatus.finished.getValue(),pageNo,pageSize);
+        	resultMap.put("pageNo", pageNo);
+        	resultMap.put("pageSize", pageSize);
+        	return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("获取已经完成的项目失败.", e);
             return errorJson("服务器异常，请重试.", request);

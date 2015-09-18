@@ -29,13 +29,19 @@ public interface TaskDao {
     @SuppressWarnings("rawtypes")
 	List<Task> getNewTaskList(Map paramMap);
     
+    int countNewTaskList(Map paramMap);
+    
     @SuppressWarnings("rawtypes")
 	List<Task> getStasticTaskList(Map paramMap);
+    
+    int countStasticTaskList(Map paramMap);
     
     int countTaskByUserId(QuerySellerDetailParamVO vo);
     
     List<Task> queryTaskByUserId(QuerySellerDetailParamVO vo);
     
     int getTaskNumBySellerId(Integer sellerId);
+    
+
     
 }
