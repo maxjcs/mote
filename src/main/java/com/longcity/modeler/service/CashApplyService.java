@@ -59,7 +59,7 @@ public class CashApplyService {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<CashRecord> getRecordList(Integer userId,Integer pageNo,Integer pageSize){
+	public Map getRecordList(Integer userId,Integer pageNo,Integer pageSize){
 		if(pageNo==null){
 			pageNo=1;
 		}
@@ -72,8 +72,13 @@ public class CashApplyService {
 		paramMap.put("start", (pageNo-1)*pageSize);
 		paramMap.put("pageSize", pageSize);
 		List<CashRecord> cashRecords = caashRecordDao.getRecordList(paramMap);
+		Integer totalSize = caashRecordDao.countRecordList(paramMap);
 		
-		return cashRecords;
+		Map resultMap = new HashMap();
+		resultMap.put("dataList", cashRecords);
+		resultMap.put("totalSize", totalSize);
+		
+		return resultMap;
 	}
 	
 	

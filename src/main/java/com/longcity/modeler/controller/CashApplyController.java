@@ -4,6 +4,7 @@
 package com.longcity.modeler.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -51,13 +52,16 @@ public class CashApplyController extends AbstractController{
 	/**
      * 预付款使用情况
      */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
     @RequestMapping(value = "getRecordList")
     public Object getRecordList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	List<CashRecord> recordList=cashApplyService.getRecordList(userId,pageNo,pageSize);
-            return dataJson(recordList, request);
+        	Map resultMap=cashApplyService.getRecordList(userId,pageNo,pageSize);
+        	resultMap.put("pageNo", pageNo);
+        	resultMap.put("pageSize", pageSize);
+            return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("获取预付款使用情况失败.", e);
             return errorJson("服务器异常，请重试.", request);

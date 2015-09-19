@@ -19,6 +19,10 @@ import com.longcity.modeler.model.CashRecord;
 @Repository
 public interface CashRecordDao {
 	
+	@SuppressWarnings("rawtypes")
 	List<CashRecord> getRecordList(Map parmamap);
+	
+	@SuppressWarnings("rawtypes")
+	int countRecordList(Map parmamap);
 
 }
