@@ -16,7 +16,7 @@
             </div>
             <div class="breadcrumb-env">
                 <ol class="breadcrumb bc-1">
-                    <li><a><i class="fa-home"></i>指示板</a></li>
+                    <li><a><i class="fa-home"></i>商家管理</a></li>
                 </ol>
             </div>
         <#include "../inc/user.ftl">
@@ -96,8 +96,37 @@
                                         <input type="text" class="form-control" size="22" id="moteTaskFeeBegin" name="moteTaskFeeBegin" value="${resultVO.moteTaskFeeBegin?default('')}">
                                         ~ <input type="text" class="form-control" size="22" id="moteTaskFeeEnd" name="moteTaskFeeEnd" value="${resultVO.moteTaskFeeEnd?default('')}">
                                     </div>
+                                    <div class="form-group">
+                                        <label class="control-label">排序</label>
+                                        <select class="form-control" name="sort">
+                                        <#if resultVO.sort?exists>
+                                            <option value="-1">全部</option>
+                                            <option value="1" <#if resultVO.sort==1>selected="selected"</#if>>注册时间-升序</option>
+                                            <option value="2" <#if resultVO.sort==2>selected="selected"</#if>>注册时间-降序</option>
+                                            <option value="3" <#if resultVO.sort==3>selected="selected"</#if>>项目数-升序</option>
+                                            <option value="4" <#if resultVO.sort==4>selected="selected"</#if>>项目数-降序</option>
+                                            <option value="5" <#if resultVO.sort==5>selected="selected"</#if>>任务数-升序</option>
+                                            <option value="6" <#if resultVO.sort==6>selected="selected"</#if>>任务数-降序</option>
+                                            <option value="7" <#if resultVO.sort==7>selected="selected"</#if>>预存款-升序</option>
+                                            <option value="8" <#if resultVO.sort==8>selected="selected"</#if>>预存款-降序</option>
+                                            <option value="9" <#if resultVO.sort==9>selected="selected"</#if>>酬金花费-升序</option>
+                                            <option value="10" <#if resultVO.sort==10>selected="selected"</#if>>酬金花费-降序</option>
+                                        <#else >
+                                            <option value="-1">全部</option>
+                                            <option value="1" >注册时间-升序</option>
+                                            <option value="2" >注册时间-降序</option>
+                                            <option value="3" >项目数-升序</option>
+                                            <option value="4" >项目数-降序</option>
+                                            <option value="5" >任务数-升序</option>
+                                            <option value="6" >任务数-降序</option>
+                                            <option value="7" >预存款-升序</option>
+                                            <option value="8" >预存款-降序</option>
+                                            <option value="9" >酬金花费-升序</option>
+                                            <option value="10" >酬金花费-降序</option>
+                                        </#if>
+                                        </select>
+                                    </div>
                                     <input type="hidden" id="index" name="index" value="${resultVO.index}">
-
                                     <div class="form-group">
                                         <button class="btn btn-secondary btn-single" type="submit">搜索</button>
                                     </div>

@@ -1,9 +1,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="学习宝教师后台管理系统"/>
+<meta name="description" content="全民模特后台管系统"/>
 <meta name="author" content=""/>
-<title>学习宝教师后台管理系统</title>
+<title>全民模特后台管系统</title>
 <link rel="shortcut icon" href="${webServer}assets/images/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="${webServer}assets/css/fonts/linecons/css/linecons.css">
 <link rel="stylesheet" href="${webServer}assets/css/fonts/fontawesome/css/font-awesome.min.css">

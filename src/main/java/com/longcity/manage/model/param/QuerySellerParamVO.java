@@ -16,8 +16,6 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 	
 	String registerEnd;
 	
-	Integer registerSort;
-	
 	String nickname;
 	
 	String shopName;
@@ -30,25 +28,27 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 	
 	Integer projectNumEnd;
 	
-	Integer projectNumSort;
-	
 	Integer moteTaskNumBegin;
 	
 	Integer moteTaskNumEnd;
-	
-	Integer moteTaskNumSort;
 	
 	Integer remindFeeBegin;
 	
 	Integer remindFeeEnd;
 	
-	Integer remindFeeSort;
-	
 	Integer moteTaskFeeBegin;
 	
 	Integer moteTaskFeeEnd;
 	
-	Integer moteTaskFeeSort;
+	Integer sort;
+	
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
 	public String getRegisterBegin() {
 		return registerBegin;
@@ -64,14 +64,6 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 
 	public void setRegisterEnd(String registerEnd) {
 		this.registerEnd = registerEnd;
-	}
-
-	public Integer getRegisterSort() {
-		return registerSort;
-	}
-
-	public void setRegisterSort(Integer registerSort) {
-		this.registerSort = registerSort;
 	}
 
 	public String getNickname() {
@@ -122,14 +114,6 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 		this.projectNumEnd = projectNumEnd;
 	}
 
-	public Integer getProjectNumSort() {
-		return projectNumSort;
-	}
-
-	public void setProjectNumSort(Integer projectNumSort) {
-		this.projectNumSort = projectNumSort;
-	}
-
 	public Integer getMoteTaskNumBegin() {
 		return moteTaskNumBegin;
 	}
@@ -144,14 +128,6 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 
 	public void setMoteTaskNumEnd(Integer moteTaskNumEnd) {
 		this.moteTaskNumEnd = moteTaskNumEnd;
-	}
-
-	public Integer getMoteTaskNumSort() {
-		return moteTaskNumSort;
-	}
-
-	public void setMoteTaskNumSort(Integer moteTaskNumSort) {
-		this.moteTaskNumSort = moteTaskNumSort;
 	}
 
 	public Integer getRemindFeeBegin() {
@@ -170,14 +146,6 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 		this.remindFeeEnd = remindFeeEnd;
 	}
 
-	public Integer getRemindFeeSort() {
-		return remindFeeSort;
-	}
-
-	public void setRemindFeeSort(Integer remindFeeSort) {
-		this.remindFeeSort = remindFeeSort;
-	}
-
 	public Integer getMoteTaskFeeBegin() {
 		return moteTaskFeeBegin;
 	}
@@ -194,14 +162,4 @@ public class QuerySellerParamVO extends QueryBaseVO<SellerVO>{
 		this.moteTaskFeeEnd = moteTaskFeeEnd;
 	}
 
-	public Integer getMoteTaskFeeSort() {
-		return moteTaskFeeSort;
-	}
-
-	public void setMoteTaskFeeSort(Integer moteTaskFeeSort) {
-		this.moteTaskFeeSort = moteTaskFeeSort;
-	}
-
-
-	
 }
