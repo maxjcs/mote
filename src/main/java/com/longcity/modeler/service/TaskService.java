@@ -394,7 +394,7 @@ public class TaskService {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<MoteTaskVO> getMoteListByTaskId(Integer taskId,Integer pageNo,Integer pageSize){
+	public Map getMoteListByTaskId(Integer taskId,Integer pageNo,Integer pageSize){
 		if(pageNo==null){
 			pageNo=1;
 		}
@@ -407,8 +407,13 @@ public class TaskService {
 		paramMap.put("start", (pageNo-1)*pageSize);
 		paramMap.put("pageSize", pageSize);
 		List<MoteTaskVO> moteTaskList = moteTaskDao.getMoteListByTaskId(paramMap);
+		Integer totalSize = moteTaskDao.countMoteListByTaskId(taskId);
 		
-		return moteTaskList;
+		Map resultMap = new HashMap();
+		resultMap.put("totalSize", totalSize);
+		resultMap.put("dataList", moteTaskList);
+		
+		return resultMap;
 	}
 	
 	/**

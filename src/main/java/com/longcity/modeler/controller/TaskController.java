@@ -313,12 +313,15 @@ public class TaskController extends AbstractController {
 	 /**
      * 获取接单的模特列表
      */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
     @RequestMapping(value = "getMoteListByTaskId")
-    public Object getMoteListByTaskId(HttpServletRequest request,Integer taskId,Integer pageNo,Integer pageCount) throws Exception{
+    public Object getMoteListByTaskId(HttpServletRequest request,Integer taskId,Integer pageNo,Integer pageSize) throws Exception{
         try{
-        	List<MoteTaskVO> moteVOList=taskService.getMoteListByTaskId(taskId,pageNo,pageCount);
-            return dataJson(moteVOList, request);
+        	Map resultMap=taskService.getMoteListByTaskId(taskId,pageNo,pageSize);
+        	resultMap.put("pageNo", pageNo);
+        	resultMap.put("pageSize", pageSize);
+            return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("获取接单的模特列表失败.", e);
             return errorJson("服务器异常，请重试.", request);
