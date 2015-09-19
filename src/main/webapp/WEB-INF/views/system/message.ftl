@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <#include "../head.ftl">
+    <#include "../inc/head.ftl">
     <body>
         <div id="J_wrapBody" class="global">
-            <#include "../side.ftl">
+            <#include "../inc/side.ftl">
             <div class="content">
               <form action="./sendMessage" method="post">
                 <table>

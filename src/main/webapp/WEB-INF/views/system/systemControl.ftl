@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <#include "../head.ftl">
+    <#include "../inc/head.ftl">
     <body>
-       <#include "../side.ftl">
         <div id="J_wrapBody" class="global">
-            <#include "../side.ftl">
+            <#include "../inc/side.ftl">
             <div class="content">
               <form action="./setMoteAcceptNum" method="post">
                 <table>
