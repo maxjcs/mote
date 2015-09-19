@@ -22,10 +22,6 @@ public interface TaskDao {
     
     void updateStatus(Integer taskId,Integer status);
     
-    int getTotalAcceptedNum(Integer taskId);
-    
-    int getMoteAcceptedNumDaily(Integer moteId);
-    
     @SuppressWarnings("rawtypes")
 	List<Task> getNewTaskList(Map paramMap);
     

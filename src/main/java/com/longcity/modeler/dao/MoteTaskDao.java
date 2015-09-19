@@ -67,6 +67,10 @@ public interface MoteTaskDao {
 	
 	MoteTaskVO getTop1Mote(); 
 	
+    int getTotalAcceptedNum(Integer taskId);
+    
+    int getMoteAcceptedNumDaily(Integer moteId);
+	
 	
 	
 }

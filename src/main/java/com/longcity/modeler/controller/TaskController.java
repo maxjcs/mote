@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.enums.TaskStatus;
+import com.longcity.modeler.enums.UserType;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.model.vo.MoteTaskVO;
@@ -179,6 +180,10 @@ public class TaskController extends AbstractController {
         try{
         	Integer userId=AppContext.getUserId();
         	task.setUserId(userId);
+        	User user=userService.getUserById(userId);
+        	if(user.getType()==UserType.mote.getValue()){
+        		return errorJson("只有商家才能发布项目", request);
+        	}
         	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
         	taskService.save(task);
             return dataJson(true, request);
@@ -202,6 +207,9 @@ public class TaskController extends AbstractController {
             if(user.getRemindFee()<totalFee){
             	 return errorJson("预存款不足，请充值！", request);
             }
+            if(user.getType()==UserType.mote.getValue()){
+        		return errorJson("只有商家才能发布项目", request);
+        	}
         	//新建任务
         	task.setUserId(userId);
         	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());

@@ -241,13 +241,13 @@ public class TaskService {
 	 * @param taskId
 	 */
 	public int  newMoteTask(Integer moteId,Integer taskId){
-		Integer acceptedNum=taskDao.getTotalAcceptedNum(taskId);
+		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(taskId);
 		Task task=taskDao.selectByPrimaryKey(taskId);
 		if(acceptedNum>=task.getNumber()){
 			return 0;//已经达到当量
 		}
 		//模特当天的接单量
-		Integer moteAcceptDaily=taskDao.getMoteAcceptedNumDaily(moteId);
+		Integer moteAcceptDaily=moteTaskDao.getMoteAcceptedNumDaily(moteId);
 		if(moteAcceptDaily>=moteAcceptedDailyNum){
 			return 1;//模特当天的接单量超出
 		}
