@@ -11,7 +11,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.longcity.modeler.constant.RedisContstant;
-import com.longcity.modeler.service.RedisService;
+import com.longcity.modeler.dao.MessageDao;
+import com.longcity.modeler.model.Message;
 import com.longcity.modeler.util.DateUtils;
 
 /**
@@ -19,11 +20,14 @@ import com.longcity.modeler.util.DateUtils;
  *
  */
 @Controller
-@RequestMapping("system")
+@RequestMapping("back/system")
 public class SystemController extends BaseController{
 	
    @Resource
    private RedisTemplate redisTemplate;
+   
+   @Resource
+   MessageDao messageDao;
 	
     @SuppressWarnings("unchecked")
 	@RequestMapping(value = "index")
@@ -57,15 +61,31 @@ public class SystemController extends BaseController{
     	return "system/index";
     }
     
-    @SuppressWarnings("unchecked")
 	@RequestMapping(value = "systemControl")
     protected String systemControl( ModelMap resultMap) {
+    	Integer moteAcceptNum=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_NUM_KEY);
+    	resultMap.addAttribute("moteAcceptNum", moteAcceptNum);
+    	return "system/systemControl";
+    }
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "setMoteAcceptNum")
+    protected String setMoteAcceptNum(Integer moteAcceptNum, ModelMap resultMap) {
+		if(moteAcceptNum!=null){
+	    	redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_NUM_KEY,moteAcceptNum);
+	    	resultMap.addAttribute("moteAcceptNum", moteAcceptNum);
+		}
     	return "system/systemControl";
     }
     
-    @SuppressWarnings("unchecked")
 	@RequestMapping(value = "message")
     protected String message( ModelMap resultMap) {
+    	return "system/message";
+    }
+	
+	@RequestMapping(value = "sendMessage")
+    protected String sendMessage(Message record, ModelMap resultMap) {
+		messageDao.insert(record);
     	return "system/message";
     }
     

@@ -408,10 +408,12 @@ public class TaskService {
 		paramMap.put("pageSize", pageSize);
 		List<MoteTaskVO> moteTaskList = moteTaskDao.getMoteListByTaskId(paramMap);
 		Integer totalSize = moteTaskDao.countMoteListByTaskId(taskId);
+		Task task=taskDao.selectByPrimaryKey(taskId);
 		
 		Map resultMap = new HashMap();
 		resultMap.put("totalSize", totalSize);
 		resultMap.put("dataList", moteTaskList);
+		resultMap.put("taskTitle", task.getTitle());
 		
 		return resultMap;
 	}

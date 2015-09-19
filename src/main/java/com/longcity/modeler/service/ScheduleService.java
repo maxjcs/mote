@@ -82,7 +82,7 @@ public class ScheduleService {
 				for(MoteTask moteTask:moteTaskList){
 					Date acceptedTime=moteTask.getAcceptedTime();
 					//超过30分钟未淘宝下单，状态改为超时
-					if((new Date().getTime()-acceptedTime.getTime())>acceptedTimeOut*60*1000){
+					if(acceptedTime==null||(new Date().getTime()-acceptedTime.getTime())>acceptedTimeOut*60*1000){
 						moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.TimeOut.getValue());//状态改为超时
 					}
 					maxId=moteTask.getId();

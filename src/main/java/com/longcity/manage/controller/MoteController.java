@@ -20,7 +20,7 @@ import com.longcity.modeler.service.UserService;
  *
  */
 @Controller
-@RequestMapping("mote")
+@RequestMapping("back/mote")
 public class MoteController extends BaseController{
 	
    @Resource

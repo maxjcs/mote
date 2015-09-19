@@ -38,4 +38,8 @@ public class RedisContstant {
 	
 	public static final String TOP1_MOTE_FEE_KEY = "top1_fee_key";
 	
+	//系统控制
+	public static final String MOTE_ACCEPT_NUM_KEY = "mote_accept_num_key";
+	
+	
 }

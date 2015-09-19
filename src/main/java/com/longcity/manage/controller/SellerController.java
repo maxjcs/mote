@@ -23,7 +23,7 @@ import com.longcity.modeler.service.UserService;
  *
  */
 @Controller
-@RequestMapping("seller")
+@RequestMapping("back/seller")
 public class SellerController extends BaseController{
 	
    @Resource

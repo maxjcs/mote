@@ -42,7 +42,7 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		String path = req.getPathInfo();
-		if (EscapeUrl.escapeUrls.contains(path)) {
+		if (EscapeUrl.escapeUrls.contains(path)||path.contains("back")) {
 			fc.doFilter(req, res);
 			return;
 		}
