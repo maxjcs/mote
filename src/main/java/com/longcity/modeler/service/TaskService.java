@@ -4,6 +4,7 @@
 package com.longcity.modeler.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -256,6 +257,7 @@ public class TaskService {
 		moteTask.setTaskId(taskId);
 		moteTask.setUserId(moteId);
 		moteTask.setStatus(MoteTaskStatus.newAccept.getValue());
+		moteTask.setAcceptedTime(new Date());
 		moteTaskDao.insert(moteTask);
 		//增加缓存中总的任务量
 		redisService.redisNewMoteTask();

@@ -33,11 +33,11 @@ public class SellerController extends BaseController{
    @Resource
    TaskService taskService;
 	
-    @RequestMapping(value = "list")
-    protected String list(QuerySellerParamVO paramVO, ModelMap resultMap) {
+    @RequestMapping(value = "manage")
+    protected String manage(QuerySellerParamVO paramVO, ModelMap resultMap) {
     	sellerService.querySellerList(paramVO);
     	resultMap.addAttribute("resultVO", paramVO);
-        return "seller/list";
+        return "seller/manage";
     }
     
     @RequestMapping(value = "detail")

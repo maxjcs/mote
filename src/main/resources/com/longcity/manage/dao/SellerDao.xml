@@ -51,7 +51,7 @@
             AND u.nickname LIKE CONCAT('%',#{nickname},'%')
         </if>
         <if test="shopName!=null and shopName!=''">
-            AND u.shopName LIKE CONCAT('%',#{shopName},'%')
+            AND u.shop_name LIKE CONCAT('%',#{shopName},'%')
         </if>
         <if test="referee!=null and referee!=''">
             AND u.referee =#{referee}

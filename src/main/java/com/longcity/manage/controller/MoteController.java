@@ -28,11 +28,11 @@ public class MoteController extends BaseController{
    @Resource
    UserService userService;
 	
-    @RequestMapping(value = "list")
-    protected String list(QueryMoteParamVO paramVO, ModelMap resultMap) {
+    @RequestMapping(value = "manage")
+    protected String manage(QueryMoteParamVO paramVO, ModelMap resultMap) {
     	moteService.queryMoteList(paramVO);
     	resultMap.addAttribute("resultVO", paramVO);
-        return "mote/list";
+        return "mote/manage";
     }
     
     @RequestMapping(value = "detail")
