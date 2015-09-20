@@ -20,6 +20,7 @@ import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.enums.UserStatus;
 import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.model.User;
+import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.util.PropertyUtil;
 
@@ -30,6 +31,7 @@ import com.longcity.modeler.util.PropertyUtil;
  */
 public class LoginFilter implements Filter {
 	private UserService userService;
+	private RedisService redisService;
 
 	public void init(FilterConfig config) throws ServletException {
 		ServletContext context = config.getServletContext();
@@ -60,7 +62,10 @@ public class LoginFilter implements Filter {
 		User user = userService.getUserById(token.getTid());
 
 		token.valid(user);
-
+		
+		if(redisService.isRedisLogin(user.getId())){
+			throw new BusinessException("请重新登陆.");
+		}
 		if (UserStatus.normal.getValue() == user.getStatus()) {
 			AppContext.setToken(token);
 			fc.doFilter(request, response);

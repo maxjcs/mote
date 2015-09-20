@@ -10,6 +10,7 @@ public class EscapeUrl {
 	static {
 		escapeUrls.add("/user/sendVerifyCode"); // 发送验证码
 		escapeUrls.add("/user/register"); // 注册
+		escapeUrls.add("/user/register4Seller"); // 注册
 		escapeUrls.add("/user/login"); // 登录
 		escapeUrls.add("/user/changePasswordByVerifyCode"); // 重置密码
 		escapeUrls.add("/user/getDeviceId"); // 获取设备号

@@ -25,6 +25,7 @@ import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.filter.Token;
 import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.User;
+import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.service.VerifyCodeService;
 import com.longcity.modeler.util.DateUtils;
@@ -48,14 +49,35 @@ public class UserController extends AbstractController{
 	@Resource
 	private VerifyCodeService verifyCodeService;
 	
+	@Resource
+	private RedisService redisService;
+	
 	/**
-     * 注册
+     * 模特注册
      */
 	@ResponseBody
     @RequestMapping(value = "register")
     public Object register(HttpServletRequest request,String phoneNumber,String smsCode,String password,Integer type) throws Exception{
         try{
         	int code=userService.register(phoneNumber, smsCode, password, type);
+        	if(code==1){
+        		return errorJson("该手机号已经注册！", request);
+        	}
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("用户注册失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	/**
+     * 商家注册
+     */
+	@ResponseBody
+    @RequestMapping(value = "register4Seller")
+    public Object register4Seller(HttpServletRequest request,User user) throws Exception{
+        try{
+        	int code=userService.register4Seller(user);
         	if(code==1){
         		return errorJson("该手机号已经注册！", request);
         	}
@@ -90,6 +112,8 @@ public class UserController extends AbstractController{
 			c1.setMaxAge(24*60*60);
 			response.addCookie(c1);
 		}
+		//设置登陆状态
+		redisService.redisSetLoginStatus(user.getId());
 		return dataJson(token);
 	}
 	
@@ -97,7 +121,8 @@ public class UserController extends AbstractController{
 	@RequestMapping(value = "logout")
 	public Object logout() {
 		userService.logout(AppContext.getUserId());
-
+		//清除登陆状态
+		redisService.redisClearLoginStatus(AppContext.getUserId());
 		return dataJson(true);
 	}
 	

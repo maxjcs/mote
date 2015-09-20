@@ -55,7 +55,17 @@ public class User {
     
     private String ip;//pc端登陆的ip地址
     
-    public String getIp() {
+    private String smsCode;//短信验证码
+    
+    public String getSmsCode() {
+		return smsCode;
+	}
+
+	public void setSmsCode(String smsCode) {
+		this.smsCode = smsCode;
+	}
+
+	public String getIp() {
 		return ip;
 	}
 

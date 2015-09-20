@@ -214,5 +214,34 @@ public class RedisService {
 			logger.error("redisFinishTask error!",e);
 		}
 	}
+	
+	
+	/**
+	 * redis中记录登陆状态
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public boolean isRedisLogin(Integer userId){
+		return redisTemplate.hasKey(RedisContstant.USER_LOGIN_IN_KEY+userId);
+	}
+	
+	/**
+	 * 设置登陆状态
+	 * @param userId
+	 */
+	@SuppressWarnings("unchecked")
+	public void redisSetLoginStatus(Integer userId){
+		redisTemplate.opsForValue().set(RedisContstant.USER_LOGIN_IN_KEY+userId, "true");
+	}
+	
+	/**
+	 * 设置登陆状态
+	 * @param userId
+	 */
+	@SuppressWarnings("unchecked")
+	public void redisClearLoginStatus(Integer userId){
+		redisTemplate.delete(RedisContstant.USER_LOGIN_IN_KEY+userId);
+	}
 
 }

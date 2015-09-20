@@ -109,6 +109,40 @@ public class UserService {
 		return 0;//success
 	}
 	
+	/**
+	 * 注册用户
+	 * @param phoneNumber
+	 * @param smsCode
+	 * @param password
+	 * @param type
+	 * @return
+	 */
+	public int register4Seller(User user){
+		
+		User existUser=userDao.selectByPhoneNumber(user.getPhoneNumber());
+		if(existUser!=null){//存在
+			return 1;
+		}
+		User newUser=new User();
+		newUser.setPhoneNumber(user.getPhoneNumber());
+		newUser.setType(user.getType());
+		newUser.setPassword(CipherUtil.MD5(user.getPassword()));
+		newUser.setShopName(user.getShopName());
+		newUser.setWeixin(user.getWeixin());
+		newUser.setEmail(user.getEmail());
+		newUser.setAddress(user.getAddress());
+		newUser.setReferee(user.getReferee());
+		newUser.setStatus(UserStatus.waitApprove.getValue());
+		newUser.setRemindFee(0);
+		userDao.insert(newUser);
+		//缓存中增加用户数
+		redisService.registerUser(newUser);
+		
+		return 0;//success
+	}
+	
+	
+	
 	@Transactional
 	public User login(User userParam) {
 		User user = selectByPhoneNumber(userParam.getPhoneNumber());
@@ -117,7 +151,7 @@ public class UserService {
 		}
 
 		if (UserStatus.abnormal.getValue() == user.getStatus()) {
-			throw new BusinessException("您的账号因为录题规范问题已被停用.");
+			throw new BusinessException("您的账号已被停用.");
 		}
 
 		if (!StringUtils.equalsIgnoreCase(CipherUtil.MD5(userParam.getPassword()), user.getPassword())) {

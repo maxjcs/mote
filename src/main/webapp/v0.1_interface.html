@@ -13,12 +13,26 @@
 		</form>
 		
 		<br><strong><font color="blue">用户模块(模特，商家)</font></strong><br>
-		1、注册[api/user/register]
+		1.1、模特注册[api/user/register]
 		<form id="1" action="api/user/register" method="post">
 			phoneNumber:<input type="text" name="phoneNumber" value="15888838217" />
 			password：<input type="text" name="password" value="123456" />
 			smsCode(短信验证码)：<input type="text" name="smsCode" value="000000" />
 			type(1模特 2商家)：<input type="text" name="type" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		
+		1.2、商家注册[api/user/register4Seller]
+		<form id="1" action="api/user/register4Seller" method="post">
+			phoneNumber:<input type="text" name="phoneNumber" value="15888838217" />
+			password：<input type="text" name="password" value="123456" />
+			smsCode(短信验证码)：<input type="text" name="smsCode" value="000000" />
+			type(1模特 2商家)：<input type="text" name="type" value="2" />
+			邮箱：<input type="text" name="email" value="64208531@qq.com" />
+			微信号：<input type="text" name="weixin" value="64208531@qq.com" />
+			品牌名：<input type="text" name="shopName" value="***服装" />
+			收件地址：<input type="text" name="address" value="***" />
+			推荐人：<input type="text" name="referee" value="蒋" />
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>
 		
