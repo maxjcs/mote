@@ -175,10 +175,17 @@ public class UserController extends AbstractController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "updateSeller")
-	public Object updateSeller(User user) {
+	public Object updateSeller(String nickname,String shopName,String email,String weixin,String address,String referee) {
 		try{
 			Integer userId=AppContext.getUserId();
+			User user=new User();
 			user.setId(userId);
+			user.setNickname(nickname);
+			user.setShopName(shopName);
+			user.setEmail(email);
+			user.setWeixin(weixin);
+			user.setAddress(address);
+			user.setReferee(referee);
 			userService.updateSeller(user);
 		    return dataJson(true);
 		}catch (Exception e) {

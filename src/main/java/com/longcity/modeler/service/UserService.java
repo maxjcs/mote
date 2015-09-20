@@ -99,7 +99,7 @@ public class UserService {
 		}
 		User newUser=new User();
 		newUser.setPhoneNumber(phoneNumber);
-		newUser.setType(type);
+		newUser.setType(UserType.mote.getValue());
 		newUser.setPassword(CipherUtil.MD5(password));
 		newUser.setStatus(UserStatus.waitApprove.getValue());
 		newUser.setRemindFee(0);
