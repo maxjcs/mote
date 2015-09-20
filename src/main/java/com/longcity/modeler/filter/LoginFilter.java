@@ -38,6 +38,7 @@ public class LoginFilter implements Filter {
 
 		ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
 		userService = (UserService) ctx.getBean("userService");
+		redisService  = (RedisService) ctx.getBean("redisService");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain fc) throws IOException, ServletException {

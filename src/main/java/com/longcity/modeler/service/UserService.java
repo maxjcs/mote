@@ -19,6 +19,7 @@ import com.longcity.modeler.constant.BusinessConstant;
 import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.UserStatus;
+import com.longcity.modeler.enums.UserType;
 import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.User;
@@ -125,7 +126,7 @@ public class UserService {
 		}
 		User newUser=new User();
 		newUser.setPhoneNumber(user.getPhoneNumber());
-		newUser.setType(user.getType());
+		newUser.setType(UserType.seller.getValue());
 		newUser.setPassword(CipherUtil.MD5(user.getPassword()));
 		newUser.setShopName(user.getShopName());
 		newUser.setWeixin(user.getWeixin());
