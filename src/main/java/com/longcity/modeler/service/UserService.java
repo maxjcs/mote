@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.longcity.modeler.constant.BusinessConstant;
+import com.longcity.modeler.dao.MessageDao;
 import com.longcity.modeler.dao.MoteCardDao;
+import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.UserStatus;
 import com.longcity.modeler.enums.UserType;
@@ -47,6 +49,33 @@ public class UserService {
 	
 	@Resource
 	RedisService redisService;
+	
+	@Resource
+	MoteTaskDao moteTaskDao;
+	
+	@Resource
+	MessageDao messageDao;
+	
+	
+	/**
+	 * 我是模特
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Map myMoteInfo(Integer userId){
+		Integer performNum=moteTaskDao.getMoteTaskNumByStatus(userId,"2,3,4,5,6");//进行中
+		Integer finishNum=moteTaskDao.getMoteTaskNumByMoteId(userId);//已经完成
+		Integer applyKefuNum=moteTaskDao.getMoteTaskNumByStatus(userId,"7");//申请客服
+		Integer messageNum = messageDao.countMessageByType("1,2");
+		
+		Map resultMap=new HashMap();
+		resultMap.put("performNum", performNum);
+		resultMap.put("finishNum", finishNum);
+		resultMap.put("applyKefuNum", applyKefuNum);
+		resultMap.put("messageNum", messageNum);
+		return resultMap;
+	}
 	
 	/**
 	 * 根据主键获取Id

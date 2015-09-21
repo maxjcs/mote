@@ -30,4 +30,12 @@
     limit #{start},#{pageSize}
   </select>
   
+  <select id="countMessageByType" resultType="int" >
+    select ifnull(count(1),0)
+    from message
+    where type in (#{type})
+  </select>
+  
+  
+  
 </mapper>

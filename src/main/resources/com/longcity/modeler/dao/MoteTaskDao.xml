@@ -204,4 +204,13 @@
     where t.user_id=#{param1} and mt.task_id=t.id and mt.finish_status =1
   </select>
   
+  <select id="getMoteTaskNumByStatus" resultType="int" >
+    select ifnull(count(1),0)
+    from mote_task mt
+    where mt.user_id=#{param1}  and mt.finish_status =0 and mt.status in (#{param2})
+  </select>
+  
+  
+  
+  
 </mapper>

@@ -310,6 +310,19 @@ public class UserController extends AbstractController{
 		return dataJson(true);
 	}
 	
+	/**
+	 * 我是模特面板
+	 */
+	@ResponseBody
+	@RequestMapping(value = "myMoteInfo")
+	public Object myMoteInfo() {
+		Integer userId=AppContext.getUserId();
+		Map map=userService.myMoteInfo(userId);
+		return dataJson(map);
+	}
+	
+	
+	
 //	private void checkValidVerifyCode(String cipherCode, String code) {
 //		Map<String, Object> paramMap = new HashMap<String, Object>();
 //		if (StringUtils.isNotBlank(cipherCode)) {

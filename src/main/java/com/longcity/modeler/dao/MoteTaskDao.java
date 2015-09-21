@@ -70,6 +70,8 @@ public interface MoteTaskDao {
     int getTotalAcceptedNum(Integer taskId);
     
     int getMoteAcceptedNumDaily(Integer moteId);
+    
+    int getMoteTaskNumByStatus(Integer moteId,String status);
 	
 	
 	

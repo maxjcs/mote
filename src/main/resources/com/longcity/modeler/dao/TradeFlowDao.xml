@@ -27,4 +27,14 @@
     from trade_flow
     where id = #{id}
   </select>
+  
+  <select id="getTaskIncomeList" resultType="TradeFlowVO" parameterType="map" >
+    select  tf.refer_id, tf.type, tf.money, mf.create_time, tf.user_id
+    from trade_flow tf,mote_task mt,task t
+    where tf.user_id =#{userId} and 
+  </select>
+  
+  
+  
+  
 </mapper>

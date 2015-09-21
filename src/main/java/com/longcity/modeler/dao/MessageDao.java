@@ -20,4 +20,6 @@ public interface MessageDao {
     int updateByPrimaryKey(Message record);
     
     List<Message> list(Map paramMap);
+    
+    int countMessageByType(String type);
 }
