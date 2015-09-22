@@ -155,7 +155,7 @@
                                 <#list resultVO.rows as sellerVO>
                                 <tr>
                                     <td>${sellerVO.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td><a class="text-blue" href="#">${sellerVO.nickname?default('-')}</a></td>
+                                    <td><a class="text-blue" href="./sellerDetail?sellerId=${sellerVO.userId}">${sellerVO.nickname?default('-')}</a></td>
                                     <td>${sellerVO.shopName?default('')}</td>
                                     <td>${sellerVO.referee?default('')}</td>
                                     <td>${sellerVO.projectNum?default(0)}</td>

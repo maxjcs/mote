@@ -86,27 +86,38 @@
         <if test="moteTaskFeeEnd!=null and moteTaskFeeEnd!=0">
             AND ss.task_fee &lt;=#{moteTaskFeeEnd}
         </if>
+        <if test="taskNumBegin!=null and taskNumFeeBegin!=0">
+            AND ss.task_num &gt;=#{taskNumBegin}
+        </if>
+        <if test="taskNumEnd!=null and taskNumEnd!=0">
+            AND ss.task_num &lt;=#{taskNumEnd}
+        </if>
     </sql>
     
    <sql id="orderBy">
-         
-        <if test="registerSort!=null and registerSort==0">
+        <if test="sort!=null and sort==1">
             order by u.create_time asc
         </if>
-        <if test="registerSort!=null and registerSort==1">
-             order by u.create_time desc
+        <if test="sort!=null and sort==2">
+            order by u.create_time desc
         </if>
-        <if test="remindFeeSort!=null and remindFeeSort==0">
-             order by ss.remind_fee asc
+        <if test="sort!=null and sort==3">
+            order by ss.task_fee asc
         </if>
-        <if test="remindFeeSort!=null and remindFeeSort==1">
+        <if test="sort!=null and sort==4">
+             order by ss.task_fee desc
+        </if>
+        <if test="sort!=null and sort==5">
+            order by ss.remind_fee asc
+        </if>
+        <if test="sort!=null and sort==6">
              order by ss.remind_fee desc
         </if>
-        <if test="moteTaskFeeSort!=null and moteTaskFeeSort==0">
-             order by ss.task_fee asc
+        <if test="sort!=null and sort==7">
+             order by ss.task_num asc
         </if>
-        <if test="moteTaskFeeSort!=null and moteTaskFeeSort==1">
-             order by ss.task_fee desc
+        <if test="sort!=null and sort==8">
+             order by ss.task_num desc
         </if>
     </sql>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.longcity.manage.model.vo.MoteDetailVO;
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.vo.MoteTaskVO;
@@ -53,7 +54,7 @@ public interface MoteTaskDao {
 	List<MoteTask> getAcceptList(Integer maxId);
 	
 	@SuppressWarnings("rawtypes")
-	List<MoteTaskVO> queryListByMoteId(Map paramMap2);
+	List<MoteDetailVO> queryListByMoteId(Map paramMap2);
 	
 	Integer countByMoteId(Integer moteId);  
 	

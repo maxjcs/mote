@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.longcity.manage.model.param.QueryCashParamVO;
+import com.longcity.manage.model.vo.CashApplyVO;
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.AddCashApply;
 
@@ -26,5 +28,9 @@ public interface AddCashApplyDao {
 	List<AddCashApply> queryList(Map paramMap);
 	
 	void finish(Integer id);
+	
+	int countAddCashList(QueryCashParamVO paramVO);
+	
+	List<CashApplyVO> addCashList(QueryCashParamVO paramVO);
 
 }

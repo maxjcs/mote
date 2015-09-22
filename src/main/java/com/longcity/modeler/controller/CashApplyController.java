@@ -3,7 +3,7 @@
  */
 package com.longcity.modeler.controller;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.model.AddCashApply;
-import com.longcity.modeler.model.CashRecord;
+import com.longcity.modeler.model.ReduceCashApply;
+import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.CashApplyService;
+import com.longcity.modeler.service.UserService;
+import com.longcity.modeler.service.VerifyCodeService;
 
 /**
  * @author maxjcs
@@ -33,18 +36,49 @@ public class CashApplyController extends AbstractController{
 	@Resource
 	CashApplyService cashApplyService;
 	
+	@Resource
+	VerifyCodeService verifyCodeService;
+	
+	@Resource
+	UserService userService;
+	
 	
 	/**
      * 提现申请记录
      */
+	@SuppressWarnings("unchecked")
 	@ResponseBody
-    @RequestMapping(value = "queryList")
-    public Object queryList(HttpServletRequest request,Integer userId,Integer status,Integer pageNo,Integer pageSize) throws Exception{
+    @RequestMapping(value = "queryApplyList")
+    public Object queryApplyList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
-        	cashApplyService.queryList(userId, status,pageNo==null?1:pageNo,pageSize==null?10:pageSize);
-            return dataJson(true, request);
+        	Integer userId=AppContext.getUserId();
+        	Map resultMap=cashApplyService.queryApplyList(userId, null,pageNo==null?1:pageNo,pageSize==null?10:pageSize);
+        	resultMap.put("pageNo", pageNo);
+        	resultMap.put("pageSize", pageSize);
+            return dataJson(resultMap, request);
         }catch(Exception e){
-            logger.error("上传多张照片失败.", e);
+            logger.error("提现申请记录.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	/**
+     * 提现申请记录详情
+     */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@ResponseBody
+    @RequestMapping(value = "getReduceApplyDetail")
+    public Object getReduceApplyDetail(HttpServletRequest request,Integer id) throws Exception{
+        try{
+        	Integer userId=AppContext.getUserId();
+        	User user=userService.getUserById(userId);
+        	Map resultMap=new HashMap();
+        	ReduceCashApply apply=cashApplyService.getApplyDetail(id);
+        	resultMap.put("apply", apply);
+        	resultMap.put("alipayId", user.getAlipayId());
+            return dataJson(resultMap, request);
+        }catch(Exception e){
+            logger.error("提现申请记录.", e);
             return errorJson("服务器异常，请重试.", request);
         }
     }
@@ -90,9 +124,20 @@ public class CashApplyController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "reduceCashApply")
-    public Object reduceCashApply(HttpServletRequest request,Integer money) throws Exception{
+    public Object reduceCashApply(HttpServletRequest request,Integer money,String password,String smsCode) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
+        	
+        	//验证短信验证码
+        	User user=userService.getUserById(userId);
+        	verifyCodeService.validateVerifyCode(user.getPhoneNumber(), smsCode);
+        	//校验密码
+        	User userParam=new User();
+        	userParam.setId(userId);
+        	userParam.setPhoneNumber(user.getPhoneNumber());
+        	userParam.setPassword(password);
+        	userService.login(userParam);
+        	//提交申请
         	cashApplyService.reduceCashApply(userId, money);
             return dataJson(true, request);
         }catch(Exception e){

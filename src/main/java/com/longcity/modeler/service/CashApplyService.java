@@ -50,6 +50,15 @@ public class CashApplyService {
 		addCashApplyDao.insert(record);
 	}
 	
+	/**
+	 * 提现申请详情
+	 * @param userId
+	 * @param money
+	 */
+	public ReduceCashApply  getApplyDetail(Integer id){
+		ReduceCashApply apply=reduceCashApplyDao.selectByPrimaryKey(id);
+		return apply;
+	}
 	
 	/**
 	 * 预付款使用情况
@@ -90,13 +99,20 @@ public class CashApplyService {
 	 * @param money
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void  queryList(Integer userId,Integer status,Integer pageNo,Integer pageSize){
+	public Map  queryApplyList(Integer userId,Integer status,Integer pageNo,Integer pageSize){
 		Map paramMap=new HashMap();
 		paramMap.put("userId", userId);
 		paramMap.put("status", status);
 		paramMap.put("start", pageSize*(pageNo-1));
 		paramMap.put("pageSize", pageSize);
-		reduceCashApplyDao.queryList(paramMap);
+		List<ReduceCashApply> list=reduceCashApplyDao.queryApplyList(paramMap);
+		Integer totalSize=reduceCashApplyDao.countApplyList(paramMap);
+		
+		Map resultlMap=new HashMap();
+		resultlMap.put("dataList", list);
+		resultlMap.put("totalSize", totalSize);
+		
+		return resultlMap;
 	}
 	
 	

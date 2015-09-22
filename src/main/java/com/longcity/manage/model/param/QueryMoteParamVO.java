@@ -16,8 +16,6 @@ public class QueryMoteParamVO extends QueryBaseVO<MoteVO>{
 	
 	String registerEnd;
 	
-	Integer registerSort;
-	
 	String nickname;
 	
 	Integer gender;
@@ -40,14 +38,40 @@ public class QueryMoteParamVO extends QueryBaseVO<MoteVO>{
 	
 	Integer remindFeeEnd;
 	
-	Integer remindFeeSort;
-	
 	Integer moteTaskFeeBegin;
 	
 	Integer moteTaskFeeEnd;
 	
-	Integer moteTaskFeeSort;
+	Integer taskNumBegin;
 	
+	Integer taskNumEnd;
+	
+	Integer sort;
+	
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getTaskNumBegin() {
+		return taskNumBegin;
+	}
+
+	public void setTaskNumBegin(Integer taskNumBegin) {
+		this.taskNumBegin = taskNumBegin;
+	}
+
+	public Integer getTaskNumEnd() {
+		return taskNumEnd;
+	}
+
+	public void setTaskNumEnd(Integer taskNumEnd) {
+		this.taskNumEnd = taskNumEnd;
+	}
+
 	public String getRegisterBegin() {
 		return registerBegin;
 	}
@@ -62,14 +86,6 @@ public class QueryMoteParamVO extends QueryBaseVO<MoteVO>{
 
 	public void setRegisterEnd(String registerEnd) {
 		this.registerEnd = registerEnd;
-	}
-
-	public Integer getRegisterSort() {
-		return registerSort;
-	}
-
-	public void setRegisterSort(Integer registerSort) {
-		this.registerSort = registerSort;
 	}
 
 	public String getNickname() {
@@ -160,14 +176,6 @@ public class QueryMoteParamVO extends QueryBaseVO<MoteVO>{
 		this.remindFeeEnd = remindFeeEnd;
 	}
 
-	public Integer getRemindFeeSort() {
-		return remindFeeSort;
-	}
-
-	public void setRemindFeeSort(Integer remindFeeSort) {
-		this.remindFeeSort = remindFeeSort;
-	}
-
 	public Integer getMoteTaskFeeBegin() {
 		return moteTaskFeeBegin;
 	}
@@ -182,14 +190,6 @@ public class QueryMoteParamVO extends QueryBaseVO<MoteVO>{
 
 	public void setMoteTaskFeeEnd(Integer moteTaskFeeEnd) {
 		this.moteTaskFeeEnd = moteTaskFeeEnd;
-	}
-
-	public Integer getMoteTaskFeeSort() {
-		return moteTaskFeeSort;
-	}
-
-	public void setMoteTaskFeeSort(Integer moteTaskFeeSort) {
-		this.moteTaskFeeSort = moteTaskFeeSort;
 	}
 
 }

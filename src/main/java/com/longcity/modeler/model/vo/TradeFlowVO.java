@@ -17,7 +17,7 @@ public class TradeFlowVO {
 	
 	String url;
 	
-	Date finishDate;
+	Date acceptTime;
 	
 	Integer money;
 	
@@ -51,12 +51,12 @@ public class TradeFlowVO {
 		this.url = url;
 	}
 
-	public Date getFinishDate() {
-		return finishDate;
+	public Date getAcceptTime() {
+		return acceptTime;
 	}
 
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
+	public void setAcceptTime(Date acceptTime) {
+		this.acceptTime = acceptTime;
 	}
 
 	public Integer getMoney() {

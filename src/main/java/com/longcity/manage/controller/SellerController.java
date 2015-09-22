@@ -40,15 +40,15 @@ public class SellerController extends BaseController{
         return "seller/manage";
     }
     
-    @RequestMapping(value = "detail")
-    protected String detail(QuerySellerDetailParamVO paramVO, ModelMap resultMap) {
+    @RequestMapping(value = "sellerDetail")
+    protected String sellerDetail(QuerySellerDetailParamVO paramVO, ModelMap resultMap) {
     	sellerService.querySellerDetail(paramVO);
     	//获取用户
     	User user=userService.getUserById(paramVO.getSellerId());
     	
     	resultMap.addAttribute("resultVO", paramVO);
     	resultMap.addAttribute("seller", user);
-        return "seller/list";
+        return "seller/sellerDetail";
     }
     
     @RequestMapping(value = "projectDetail")

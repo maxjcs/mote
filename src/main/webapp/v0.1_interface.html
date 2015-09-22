@@ -133,6 +133,28 @@
 			<input type="submit" name="submit" value="提交"/><br/>
 		</form>
 		
+		2、任务收益[api/trade/getTaskIncomeList]
+		<form id="1" action="api/trade/getTaskIncomeList" method="post" >
+			pageNo：<input type="text" name="pageNo" value="1" />
+			pageSize：<input type="text" name="pageSize" value="10" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
+		</form>
+		3、商品退还[api/trade/getItemMoneyList]
+		<form id="1" action="api/trade/getItemMoneyList" method="post" >
+			pageNo：<input type="text" name="pageNo" value="1" />
+			pageSize：<input type="text" name="pageSize" value="10" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
+		</form>
+		4、提现记录[api/cash/queryApplyList]
+		<form id="1" action="api/cash/queryApplyList" method="post" >
+			pageNo：<input type="text" name="pageNo" value="1" />
+			pageSize：<input type="text" name="pageSize" value="10" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
+		</form>
+		
 		<br><br><strong><font color="blue">商家模块</font></strong><br>
 		1、商家保存任务[api/task/save]
 		<form id="1" action="api/task/save" method="post">
@@ -300,6 +322,8 @@
 		2、提现申请[api/cash/reduceCashApply]
 		<form id="1" action="api/cash/reduceCashApply" method="post">
 			money(金额)：<input type="text" name="money" value="1" />
+			smsCode(验证码)：<input type="text" name="smsCode" value="000000" />
+			password(密码)：<input type="text" name="password" value="****" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>  
 		</form>
@@ -309,6 +333,12 @@
 			pageSize：<input type="text" name="pageSize" value="10" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
+		4、提现申请详情[api/cash/getReduceApplyDetail]
+		<form id="1" action="api/cash/getReduceApplyDetail" method="post">
+			id：<input type="text" name="id" value="1" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>
 		</form>
 	</body>
 </html>

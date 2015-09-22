@@ -25,4 +25,8 @@ public interface TradeFlowDao {
     
     @SuppressWarnings("rawtypes")
 	Integer countTaskIncomeList(Map paramMap);
+    
+    List<TradeFlowVO> getItemMoneyList(Map paramMap);
+    
+    Integer countItemMoneyList(Map paramMap);
 }

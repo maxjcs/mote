@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.longcity.manage.model.param.QueryCashParamVO;
+import com.longcity.manage.model.vo.CashApplyVO;
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.ReduceCashApply;
 
@@ -21,5 +23,14 @@ public interface ReduceCashApplyDao {
     
     void finishPay(Integer id);
     
-    List<ReduceCashApply> queryList(Map paramMap);
+    @SuppressWarnings("rawtypes")
+	List<ReduceCashApply> queryApplyList(Map paramMap);
+    
+    @SuppressWarnings("rawtypes")
+	int countApplyList(Map paramMap);
+    
+    int countReduceCashList(QueryCashParamVO vo);
+    
+    List<CashApplyVO> reduceCashList(QueryCashParamVO vo);
+    
 }

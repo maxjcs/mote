@@ -14,12 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.longcity.manage.dao.MoteDao;
 import com.longcity.manage.model.MoteStatistics;
-import com.longcity.manage.model.SellerStatistics;
 import com.longcity.manage.model.param.QueryMoteDetailParamVO;
 import com.longcity.manage.model.param.QueryMoteParamVO;
+import com.longcity.manage.model.vo.MoteDetailVO;
 import com.longcity.manage.model.vo.MoteVO;
 import com.longcity.modeler.dao.MoteTaskDao;
-import com.longcity.modeler.model.vo.MoteTaskVO;
 
 /**
  * @author maxjcs
@@ -56,12 +55,12 @@ public class MoteService {
         	paramMap.put("moteId",paramVO.getMoteId());
         	paramMap.put("start",paramVO.getStart());
         	paramMap.put("pageSize",paramVO.getPageSize());
-            List<MoteTaskVO> rows = moteTaskDao.queryListByMoteId(paramMap);
+            List<MoteDetailVO> rows = moteTaskDao.queryListByMoteId(paramMap);
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{
             paramVO.setTotal(0);
-            paramVO.setRows(new ArrayList<MoteTaskVO>());
+            paramVO.setRows(new ArrayList<MoteDetailVO>());
         }
         return paramVO;
 	}

@@ -29,9 +29,31 @@
   </select>
   
   <select id="getTaskIncomeList" resultType="TradeFlowVO" parameterType="map" >
-    select  tf.refer_id, tf.type, tf.money, mf.create_time, tf.user_id
+    select  tf.refer_id, tf.type, tf.money, tf.create_time, tf.user_id,t.url,mt.create_time as accept_time
     from trade_flow tf,mote_task mt,task t
-    where tf.user_id =#{userId} and 
+    where tf.user_id =#{userId} and mt.task_id= t.id and tf.refer_id=mt.id and tf.type=0
+    order by tf.id desc
+    limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countTaskIncomeList" resultType="int" parameterType="map" >
+    select  ifnull(count(1),0)
+    from trade_flow tf,mote_task mt,task t
+    where tf.user_id =#{userId} and mt.task_id= t.id and tf.refer_id=mt.id and tf.type=0
+  </select>
+  
+    <select id="getItemMoneyList" resultType="TradeFlowVO" parameterType="map" >
+    select  tf.refer_id, tf.type, tf.money, tf.create_time, tf.user_id,t.url,mt.create_time as accept_time
+    from trade_flow tf,mote_task mt,task t
+    where tf.user_id =#{userId} and mt.task_id= t.id and tf.refer_id=mt.id and tf.type in (1,2)
+    order by tf.id desc
+    limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countItemMoneyList" resultType="int" parameterType="map" >
+    select  ifnull(count(1),0)
+    from trade_flow tf,mote_task mt,task t
+    where tf.user_id =#{userId} and mt.task_id= t.id and tf.refer_id=mt.id and tf.type in (1,2)
   </select>
   
   

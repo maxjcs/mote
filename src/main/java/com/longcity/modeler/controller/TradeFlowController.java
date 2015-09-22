@@ -49,5 +49,24 @@ public class TradeFlowController extends AbstractController {
             return errorJson("服务器异常，请重试.", request);
         }
     }
+	
+	/**
+     * 获取任务收益记录
+     */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@ResponseBody
+    @RequestMapping(value = "getItemMoneyList")
+    public Object getItemMoneyList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
+        try{
+        	Integer userId=AppContext.getUserId();
+        	Map resutlMap=tradeFlowService.getItemMoneyList(userId, pageNo, pageSize);
+        	resutlMap.put("pageNo", pageNo);
+        	resutlMap.put("pageSize", pageSize);
+            return dataJson(resutlMap, request);
+        }catch(Exception e){
+            logger.error("获取任务详细信息失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
 
 }

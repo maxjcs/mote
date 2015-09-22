@@ -3,14 +3,14 @@
  */
 package com.longcity.manage.model.param;
 
+import com.longcity.manage.model.vo.MoteDetailVO;
 import com.longcity.manage.model.vo.QueryBaseVO;
-import com.longcity.modeler.model.vo.MoteTaskVO;
 
 /**
  * @author maxjcs
  *
  */
-public class QueryMoteDetailParamVO extends QueryBaseVO<MoteTaskVO>{
+public class QueryMoteDetailParamVO extends QueryBaseVO<MoteDetailVO>{
 	
 	Integer moteId;
 

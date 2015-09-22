@@ -29,7 +29,7 @@ public class TradeFlowService {
 	TradeFlowDao tradeFlowDao;
 	
 	/**
-	 * 
+	 * 任务收益
 	 * @param userId
 	 * @param pageNo
 	 * @param pageSize
@@ -51,5 +51,31 @@ public class TradeFlowService {
 		
 		return resultMap;
 	}
+	
+	/**
+	 * 商品退还
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map getItemMoneyList(Integer userId,Integer pageNo,Integer pageSize){
+		Map resultMap=new HashMap();
+		
+		Map paramMap=new HashMap();
+		paramMap.put("userId", userId);
+		paramMap.put("start", (pageNo-1)*pageSize);
+		paramMap.put("pageSize", pageSize);
+		
+		List<TradeFlowVO> voList=tradeFlowDao.getItemMoneyList(paramMap);
+		Integer totalSize=tradeFlowDao.countItemMoneyList(paramMap); 
+		resultMap.put("dataList", voList);
+		resultMap.put("totalSize", totalSize);
+		
+		return resultMap;
+	}
+	
+	
 
 }

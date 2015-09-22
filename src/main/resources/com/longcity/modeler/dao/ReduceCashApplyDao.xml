@@ -26,7 +26,7 @@
     where id = #{id}
   </select>
   
-  <select id="queryList" resultType="ReduceCashApply" parameterType="map" >
+  <select id="queryApplyList" resultType="ReduceCashApply" parameterType="map" >
     select id, user_id, create_time, money, status, pay_time
     from reduce_cash_apply
     where 1=1 
@@ -36,7 +36,20 @@
     <if test="status!=null">
             AND status = #{status}
     </if>
+    order by id desc
     limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countApplyList" resultType="int" parameterType="map" >
+    select ifnull(count(1),0)
+    from reduce_cash_apply
+    where 1=1 
+    <if test="userId!=null">
+            AND user_id = #{userId}
+    </if>
+    <if test="status!=null">
+            AND status = #{status}
+    </if>
   </select>
   
   <update id="finishPay" parameterType="java.lang.Integer" >
