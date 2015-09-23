@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.longcity.modeler.dao.AddCashApplyDao" >
+  
+  <select id="selectByPrimaryKey" resultType="AddCashApply"  >
+	    select *
+	    from add_cash_apply where id=#{param1}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from add_cash_apply
     where id = #{id}
@@ -17,17 +23,18 @@
     where id = #{id}
   </update>
   
-  <select id="queryList" resultType="AddCashApply" parameterType="map" >
-    select id, user_id, alipay_name, money, last_six_order_no,status, create_time,finish_time
-    from add_cash_apply
-    where 1=1 
-    <if test="userId!=null">
-            AND user_id = #{userId}
-    </if>
-    <if test="status!=null">
-            AND status = #{status}
-    </if>
+  <select id="addCashList" resultType="CashApplyVO" parameterType="QueryCashParamVO" >
+    select ac.id as applyId, ac.user_id, ac.alipay_name,ac.alipay_id,ac.money, ac.last_six_order_no as order_no,ac.status, ac.create_time,ac.finish_time,u.nickname,u.phone_number
+    from add_cash_apply ac,user u
+    where 1=1 and ac.user_id = u.id
+    order by ac.id desc
     limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countAddCashList" resultType="Integer" parameterType="QueryCashParamVO" >
+	    select ifnull(count(1),0)
+	    from add_cash_apply ac,user u
+	    where 1=1 and ac.user_id = u.id
   </select>
   
 </mapper>

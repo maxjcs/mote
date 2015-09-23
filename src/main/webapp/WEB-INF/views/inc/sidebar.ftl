@@ -58,12 +58,12 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="${webServer}api/back/cash/addCashList">
                             <span class="title">充值管理</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="${webServer}api/back/cash/reduceCashList">
                             <span class="title">提现管理</span>
                         </a>
                     </li>

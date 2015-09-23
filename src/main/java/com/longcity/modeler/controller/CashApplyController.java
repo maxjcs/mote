@@ -73,7 +73,7 @@ public class CashApplyController extends AbstractController{
         	Integer userId=AppContext.getUserId();
         	User user=userService.getUserById(userId);
         	Map resultMap=new HashMap();
-        	ReduceCashApply apply=cashApplyService.getApplyDetail(id);
+        	ReduceCashApply apply=cashApplyService.reduceApplyDetail(id);
         	resultMap.put("apply", apply);
         	resultMap.put("alipayId", user.getAlipayId());
             return dataJson(resultMap, request);

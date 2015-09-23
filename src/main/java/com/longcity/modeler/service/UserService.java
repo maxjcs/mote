@@ -289,6 +289,10 @@ public class UserService {
 	   moteCardDao.delete(id);
 	}
 	
+	public void updateRemindFee(Integer userId,Integer money){
+		userDao.updateRemindFee(userId, money);
+	}
+	
 	
 
 }

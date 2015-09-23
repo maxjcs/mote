@@ -14,8 +14,48 @@ public class ReduceCashApply {
     private Integer status;
 
     private Date payTime;
+    
+    private String nickname;
+    
+    private String phoneNumber;
+    
+    private String alipayId;
+    
+    private String alipayName;
+    
+    public String getAlipayId() {
+		return alipayId;
+	}
 
-    public Integer getId() {
+	public void setAlipayId(String alipayId) {
+		this.alipayId = alipayId;
+	}
+
+	public String getAlipayName() {
+		return alipayName;
+	}
+
+	public void setAlipayName(String alipayName) {
+		this.alipayName = alipayName;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Integer getId() {
         return id;
     }
 

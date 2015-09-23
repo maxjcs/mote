@@ -52,6 +52,22 @@
     </if>
   </select>
   
+  <select id="reduceCashList" resultType="CashApplyVO" parameterType="QueryCashParamVO" >
+    select rc.id as apply_id, rc.user_id, rc.create_time, rc.money, rc.status, rc.pay_time as finish_time,u.nickname,u.phone_number
+    from reduce_cash_apply rc,user u 
+    where rc.user_id = u.id 
+    order by rc.id desc
+    limit #{start},#{pageSize}
+  </select>
+  
+  <select id="countReduceCashList" resultType="int" parameterType="QueryCashParamVO" >
+    select ifnull(count(1),0)
+    from reduce_cash_apply rc,user u 
+    where rc.user_id = u.id 
+    order by rc.id desc
+    limit #{start},#{pageSize}
+   </select>
+  
   <update id="finishPay" parameterType="java.lang.Integer" >
     update reduce_cash_apply
     set 

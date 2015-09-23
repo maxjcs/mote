@@ -4,7 +4,6 @@
 package com.longcity.modeler.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -25,9 +24,9 @@ public interface AddCashApplyDao {
 	
 	void delete(Integer id);
 	
-	List<AddCashApply> queryList(Map paramMap);
-	
 	void finish(Integer id);
+	
+	AddCashApply selectByPrimaryKey(Integer id);
 	
 	int countAddCashList(QueryCashParamVO paramVO);
 	

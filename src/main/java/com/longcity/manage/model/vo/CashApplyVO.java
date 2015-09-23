@@ -30,6 +30,26 @@ public class CashApplyVO {
 	Date finishTime;
 	
 	String orderNo;
+	
+	String alipayId;
+	
+	String alipayName;
+	
+	public String getAlipayId() {
+		return alipayId;
+	}
+
+	public void setAlipayId(String alipayId) {
+		this.alipayId = alipayId;
+	}
+
+	public String getAlipayName() {
+		return alipayName;
+	}
+
+	public void setAlipayName(String alipayName) {
+		this.alipayName = alipayName;
+	}
 
 	public Integer getApplyId() {
 		return applyId;

@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.longcity.modeler.constant.PageConstant;
 import com.longcity.modeler.dao.AddCashApplyDao;
@@ -21,6 +22,7 @@ import com.longcity.modeler.enums.CashApplyStatus;
 import com.longcity.modeler.model.AddCashApply;
 import com.longcity.modeler.model.CashRecord;
 import com.longcity.modeler.model.ReduceCashApply;
+import com.longcity.modeler.model.User;
 
 /**
  * @author maxjcs
@@ -38,7 +40,10 @@ public class CashApplyService {
 	AddCashApplyDao addCashApplyDao;
 	
 	@Resource
-	CashRecordDao caashRecordDao;
+	CashRecordDao cashRecordDao;
+	
+	@Resource
+	UserService userService;
 	
 	/**
 	 * 增加预存款
@@ -51,13 +56,12 @@ public class CashApplyService {
 	}
 	
 	/**
-	 * 提现申请详情
+	 * 增加预存款
 	 * @param userId
 	 * @param money
 	 */
-	public ReduceCashApply  getApplyDetail(Integer id){
-		ReduceCashApply apply=reduceCashApplyDao.selectByPrimaryKey(id);
-		return apply;
+	public AddCashApply  addCashApplyDetail(Integer id){
+		return addCashApplyDao.selectByPrimaryKey(id);
 	}
 	
 	/**
@@ -80,8 +84,8 @@ public class CashApplyService {
 		paramMap.put("userId", userId);
 		paramMap.put("start", (pageNo-1)*pageSize);
 		paramMap.put("pageSize", pageSize);
-		List<CashRecord> cashRecords = caashRecordDao.getRecordList(paramMap);
-		Integer totalSize = caashRecordDao.countRecordList(paramMap);
+		List<CashRecord> cashRecords = cashRecordDao.getRecordList(paramMap);
+		Integer totalSize = cashRecordDao.countRecordList(paramMap);
 		
 		Map resultMap = new HashMap();
 		resultMap.put("dataList", cashRecords);
@@ -133,7 +137,7 @@ public class CashApplyService {
 	 * 查询详情
 	 * @param cashApplyId
 	 */
-	public ReduceCashApply  detail(Integer cashApplyId){
+	public ReduceCashApply  reduceApplyDetail(Integer cashApplyId){
 		return reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
 	}
 	
@@ -142,8 +146,29 @@ public class CashApplyService {
 	 * 完成支付
 	 * @param cashApplyId
 	 */
-	public void  finishPay(Integer cashApplyId){
+	@Transactional
+	public Boolean  finishReducePay(Integer cashApplyId){
+		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
+		User user=userService.getUserById(reduceCashApply.getUserId());
+		if(reduceCashApply.getMoney()>user.getRemindFee()){
+			return false;
+		}else{
+			userService.updateRemindFee(reduceCashApply.getUserId(), reduceCashApply.getMoney()*-1);
+		}
 		reduceCashApplyDao.finishPay(cashApplyId);
+		return true;
+	}
+	
+	/**
+	 * 确认充值
+	 * @param cashApplyId
+	 */
+	@Transactional
+	public Boolean  finishAddCashPay(Integer cashApplyId){
+		AddCashApply addCashApply=addCashApplyDao.selectByPrimaryKey(cashApplyId);
+		userService.updateRemindFee(addCashApply.getUserId(), addCashApply.getMoney());
+		addCashApplyDao.finish(cashApplyId);
+		return true;
 	}
 
 }
