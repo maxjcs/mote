@@ -35,14 +35,14 @@ public class MoteController extends BaseController{
         return "mote/manage";
     }
     
-    @RequestMapping(value = "detail")
+    @RequestMapping(value = "moteDetail")
     protected String detail(QueryMoteDetailParamVO paramVO, ModelMap resultMap) {
     	moteService.queryMoteDetail(paramVO);
     	//获取用户
     	User user=userService.getUserById(paramVO.getMoteId());
     	resultMap.addAttribute("resultVO", paramVO);
     	resultMap.addAttribute("mote", user);
-        return "mote/list";
+        return "mote/moteDetail";
     }
 
 }

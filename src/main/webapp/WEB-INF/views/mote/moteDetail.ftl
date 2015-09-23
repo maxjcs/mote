@@ -51,24 +51,32 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">出生日期：</label>
-                                    <span class="control-label">${mote.birdthday??string("yyyy-MM-dd HH:mm:ss")}</span>
+                                    <span class="control-label">
+                                      <#if mote.birdthday?exists>
+                                    	 ${mote.birdthday?string("yyyy-MM-dd HH:mm:ss")}
+                                      </#if>	
+                                    </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">身高：</label>
-                                    <span class="control-label">${mote.heigth?default(0)}</span>
+                                    <span class="control-label">${mote.heigth?default('')}</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">体重：</label>
-                                    <span class="control-label">${seller.weight?default('')}kg</span>
+                                    <span class="control-label">${mote.weight?default('')}kg</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">体型：</label>
                                     <span class="control-label">
-                                         <#if mote.shape==1>偏瘦</#if>
-                                         <#if mote.shape==2>中等</#if>
-                                         <#if mote.shape==3>偏胖</#if>
+                                         <#if mote.shape?exists>
+	                                         <#if mote.shape==1>偏瘦</#if>
+	                                         <#if mote.shape==2>中等</#if>
+	                                         <#if mote.shape==3>偏胖</#if>
+                                         </#if>
                                     </span>
                                 </div>
+                              </div>
+                               <div class="col-md-5">  
                                 <div class="form-group">
                                     <label class="control-label">旺旺：</label>
                                     <span class="control-label">${mote.wangwang?default('')}kg</span>

@@ -3,6 +3,8 @@
  */
 package com.longcity.manage.model.vo;
 
+import java.util.Date;
+
 /**
  * @author maxjcs
  *
@@ -19,7 +21,7 @@ public class MoteDetailVO {
     
     Integer status;
     
-    Integer createTime;
+    Date createTime;
 
 	public String getTitle() {
 		return title;
@@ -61,13 +63,12 @@ public class MoteDetailVO {
 		this.status = status;
 	}
 
-	public Integer getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Integer createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-    
+	}    
 
 }

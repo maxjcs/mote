@@ -46,13 +46,15 @@
                                     <span class="control-label">${seller.email?default('')}</span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">邮箱地址：</label>
+                                    <label class="control-label">微信：</label>
                                     <span class="control-label">${seller.weixin?default('')}</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">店铺名：</label>
                                     <span class="control-label">${seller.shopName?default('')}</span>
                                 </div>
+                               </div>
+                               <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="control-label">收件地址：</label>
                                     <span class="control-label">${seller.address?default('')}</span>

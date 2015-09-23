@@ -50,22 +50,22 @@
         <if test="nickname!=null and nickname!=''">
             AND u.nickname LIKE CONCAT('%',#{nickname},'%')
         </if>
-        <if test="gender!=null and gender!=0">
+        <if test="gender!=null and gender!=-1">
             AND u.gender =#{gender}
         </if>
         <if test="status!=null and status!=-1">
             AND u.status = #{status}
         </if>
-        <if test="ageBegin!=null and ageBegin!=0">
+        <if test="ageBegin!=null and ageBegin!=-1">
             AND u.age &gt;=#{ageBegin}
         </if>
-        <if test="ageEnd!=null and ageEnd!=0">
+        <if test="ageEnd!=null and ageEnd!=-1">
             AND u.age &lt;=#{ageEnd}
         </if>
-        <if test="heigthBegin!=null and heigthBegin!=0">
+        <if test="heigthBegin!=null and heigthBegin!=-1">
             AND u.height &gt;=#{heigthBegin}
         </if>
-        <if test="heigthEnd!=null and heigthEnd!=0">
+        <if test="heigthEnd!=null and heigthEnd!=-1">
             AND u.height &lt;=#{heigthEnd}
         </if>
         <if test="shape!=null and shape!=-1">
@@ -74,22 +74,22 @@
         <if test="areaIds!=null and areaIds!=''">
             AND u.area_id in #{areaIds}
         </if>
-        <if test="remindFeeBegin!=null and remindFeeBegin!=0">
+        <if test="remindFeeBegin!=null and remindFeeBegin!=-1">
             AND ss.remind_fee &gt;=#{remindFeeBegin}
         </if>
-        <if test="remindFeeEnd!=null and remindFeeEnd!=0">
+        <if test="remindFeeEnd!=null and remindFeeEnd!=-1">
             AND ss.remind_fee &lt;=#{remindFeeEnd}
         </if>
-        <if test="moteTaskFeeBegin!=null and moteTaskFeeBegin!=0">
+        <if test="moteTaskFeeBegin!=null and moteTaskFeeBegin!=-1">
             AND ss.task_fee &gt;=#{moteTaskFeeBegin}
         </if>
-        <if test="moteTaskFeeEnd!=null and moteTaskFeeEnd!=0">
+        <if test="moteTaskFeeEnd!=null and moteTaskFeeEnd!=-1">
             AND ss.task_fee &lt;=#{moteTaskFeeEnd}
         </if>
-        <if test="taskNumBegin!=null and taskNumFeeBegin!=0">
+        <if test="taskNumBegin!=null and taskNumFeeBegin!=-1">
             AND ss.task_num &gt;=#{taskNumBegin}
         </if>
-        <if test="taskNumEnd!=null and taskNumEnd!=0">
+        <if test="taskNumEnd!=null and taskNumEnd!=-1">
             AND ss.task_num &lt;=#{taskNumEnd}
         </if>
     </sql>

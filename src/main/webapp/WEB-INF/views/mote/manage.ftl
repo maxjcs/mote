@@ -179,24 +179,28 @@
                                     <td>${moteVO.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td><a class="text-blue" href="./moteDetail?moteId=${moteVO.userId}">${moteVO.nickname?default('-')}</a></td>
                                     <td>
+                                       <#if moteVO.gender?exists>
                                          <#if moteVO.gender==1>男</#if>
                                          <#if moteVO.gender==2>女</#if>
                                          <#if moteVO.gender==3>未知</#if>
+                                       </#if>   
                                      </td>
-                                    <td>${moteVO.age?default(0)}</td>
-                                    <td>${moteVO.heigth?default(0)}</td>
+                                    <td>${moteVO.age?default('')}</td>
+                                    <td>${moteVO.heigth?default('')}</td>
                                     <td>
-                                        <#if moteVO.shape==1>偏瘦</#if>
-                                        <#if moteVO.shape==2>中等</#if>
-                                        <#if moteVO.shape==3>偏胖</#if>
+                                        <#if moteVO.shape?exists>
+	                                        <#if moteVO.shape==1>偏瘦</#if>
+	                                        <#if moteVO.shape==2>中等</#if>
+	                                        <#if moteVO.shape==3>偏胖</#if>
+	                                    </#if>    
                                     </td>
                                     <td>${moteVO.taskFee?default(0)}</td>
-                                    <td>${sellerVO.remindFee?default(0)}</td>
-                                    <td>${sellerVO.taskNum?default(0)}</td>
+                                    <td>${moteVO.remindFee?default(0)}</td>
+                                    <td>${moteVO.taskNum?default(0)}</td>
                                     <td>
-                                        <#if sellerVO.status==1><span class="text-success">待审核</span></#if>
-                                        <#if sellerVO.status==2><span class="text-danger">正常</span></#if>
-                                        <#if sellerVO.status==3><span class="text-danger">停用</span></#if>
+                                        <#if moteVO.status==1><span class="text-success">待审核</span></#if>
+                                        <#if moteVO.status==2><span class="text-danger">正常</span></#if>
+                                        <#if moteVO.status==3><span class="text-danger">停用</span></#if>
                                     </td>
                                 </tr>
                                 </#list>

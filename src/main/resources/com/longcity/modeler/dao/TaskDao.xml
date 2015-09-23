@@ -93,7 +93,7 @@
     where user_id = #{userId} and status = #{status}
   </select>
   
- <select id="countTaskByUserId" resultType="Task" parameterType="QuerySellerDetailParamVO" >
+ <select id="countTaskByUserId" resultType="int" parameterType="QuerySellerDetailParamVO" >
     select ifnull(count(1),0)
     from task
     where user_id = #{sellerId}

@@ -145,9 +145,19 @@
     
     <select id="countByMoteId" resultType="int" >
 	    select ifnull(count(1),0)
-         from mote_task mt,user u
-        where mt.user_id=u.id and mt.mote_id=#{param1}
+        from mote_task mt,task t
+        where t.id=mt.task_id and mt.user_id=#{param1}
     </select>
+    
+    <select id="queryListByMoteId" resultType="MoteDetailVO" parameterType="map">
+	    select t.title,t.price,t.shot_fee,t.self_buy_off,mt.status,mt.create_time
+        from mote_task mt,task t
+        where t.id=mt.task_id and mt.user_id=#{moteId}
+        order by mt.id desc
+        limit #{start},#{pageSize} 
+    </select>
+    
+    
     
     <select id="getTop1Mote" resultType="MoteTaskVO" >
 	    select u.nickname,sum(t.shot_fee) as total_task_fee
