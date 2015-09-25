@@ -74,40 +74,41 @@
                                 <div class="form-group">
                                     <label class="control-label">账号状态：</label>
                                     <span class="control-label">
+                                    
                                     <#assign status=(seller.status)?default(-1) >
-                                    <#if status==1>待审核</#if>
-                                    <#if status==2>正常</#if>
-                                    <#if status==3>停用</#if>
+                                    <#if status==1>待审核
+                                    <form action="${webServer}api/user/approve" method="post">
+	                                    <input type="hidden" name='status' value="2">
+	                                    <input type="hidden" name='id' value="${seller.id}">
+	                                    <input type="submit" name='aa' value="审核通过">
+                                    </form>
+                                    <form action="${webServer}api/user/approve" method="post">
+	                                    <input type="hidden" name='status' value="3">
+	                                    <input type="hidden" name='id' value="${seller.id}">
+	                                    <input type="submit" name='aa' value="审核不通过">
+                                    </form>
+                                    </#if>
+                                    <#if status==2>正常
+                                    <form action="${webServer}api/user/approve" method="post">
+	                                    <input type="hidden" name='status' value="3">
+	                                    <input type="hidden" name='id' value="${seller.id}">
+	                                    <input type="submit" name='aa' value="停用">
+                                    </form>
+                                    </#if>
+                                    <#if status==3>停用
+                                    <form action="${webServer}api/user/approve" method="post">
+	                                    <input type="hidden" name='status' value="2">
+	                                    <input type="hidden" name='id' value="${seller.id}">
+	                                    <input type="submit" name='aa' value="启用">
+                                    </form>
+                                    </#if>
+                                    
                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="avatar">
-                                    <img src="${webServer}assets/images/user-4.png" class="img-circle" width="120">
-                                </div>
-                                <div class="forbidden-btn">
-                                <#if seller.status==1>
-                                    <button class="btn btn-success btn-icon btn-icon-standalone"
-                                            onclick="forOpen('${seller.id}');">
-                                        <i class="fa-lock"></i>
-                                        <span>审核通过账户</span>
-
-                                    </button>
-                                </#if>
-                                <#if seller.status==2>
-                                    <button class="btn btn-red btn-icon btn-icon-standalone"
-                                            onclick="forbidden('${seller.id}');">
-                                        <i class="fa-lock"></i>
-                                        <span>禁用账户</span>
-                                    </button>
-                                </#if>
-                                <#if seller.status==3>
-                                    <button class="btn btn-red btn-icon btn-icon-standalone"
-                                            onclick="forbidden('${seller.id}');">
-                                        <i class="fa-lock"></i>
-                                        <span>启用账户</span>
-                                    </button>
-                                </#if>
+                                    <img src="${seller.avartUrl?default('')}" class="img-circle" width="120">
                                 </div>
                             </div>
                         </div>

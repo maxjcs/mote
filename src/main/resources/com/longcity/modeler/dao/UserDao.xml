@@ -45,7 +45,7 @@
   <update id="approve"  >
     update user
     set 
-      status = #{param2}
+      status = #{param2},
       update_time = now()
     where id = #{param1}
   </update>

@@ -17,6 +17,7 @@ public class EscapeUrl {
 		escapeUrls.add("/user/changeStar"); // 修改星级
 		escapeUrls.add("/user/getOrgListByCityId"); //
 		escapeUrls.add("/user/loginReact"); // 登录
+		escapeUrls.add("/user/approve"); // 登录
 		
 	}
 }
