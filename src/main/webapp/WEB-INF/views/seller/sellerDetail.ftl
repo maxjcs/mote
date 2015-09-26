@@ -137,7 +137,7 @@
                                 <tbody>
                                 <#list resultVO.rows as task>
                                 <tr>
-                                    <td><a class="text-blue" href="#">${task.title?default('')}</a></td>
+                                    <td><a class="text-blue" href="../task/detail?taskId=${task.id}">${task.title?default('')}</a></td>
                                     <td>${task.price?default(0)}</td>
                                     <td>${task.shotFee?default(0)}</td>
                                     <td>${task.number?default(0)}</td>

@@ -133,7 +133,7 @@
                                 <tbody>
                                 <#list resultVO.rows as moteTaskVO>
                                 <tr>
-                                    <td><a class="text-blue" href="#">${moteTaskVO.nickname?default('')}</a></td>
+                                    <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.nickname?default('')}</a></td>
                                     <td>${moteTaskVO.orderNo?default('')}</td>
                                     <td>${moteTaskVO.status?default('')}</td>
                                     <td>${moteTaskVO.status?default('')}</td>
