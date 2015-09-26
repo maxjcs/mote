@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class MoteDetailVO {
 	
+	Integer id;
+	
 	String title;
 	
     private Integer price;
@@ -22,6 +24,14 @@ public class MoteDetailVO {
     Integer status;
     
     Date createTime;
+    
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;

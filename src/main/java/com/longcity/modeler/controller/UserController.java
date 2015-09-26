@@ -305,9 +305,19 @@ public class UserController extends AbstractController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "approve")
-	public Object approve(Integer id,Integer status) {
+	public void approve(HttpServletResponse response,Integer id,Integer status,Integer type) {
 		userService.approve(id,status);
-		return dataJson(true);
+		try{
+			if(type==1){//商家
+				 response.sendRedirect("../back/seller/sellerDetail?sellerId="+id);
+			}else{
+				response.sendRedirect("../back/mote/moteDetail?moteId="+id);
+			}  
+			return;
+		}catch (Exception e) {
+			
+		}
+		
 	}
 	
 	/**

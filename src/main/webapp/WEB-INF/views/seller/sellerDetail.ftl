@@ -74,16 +74,18 @@
                                 <div class="form-group">
                                     <label class="control-label">账号状态：</label>
                                     <span class="control-label">
-                                    
+                                    <font color='red'>
                                     <#assign status=(seller.status)?default(-1) >
                                     <#if status==1>待审核
                                     <form action="${webServer}api/user/approve" method="post">
 	                                    <input type="hidden" name='status' value="2">
 	                                    <input type="hidden" name='id' value="${seller.id}">
+	                                    <input type="hidden" name='type' value="1">
 	                                    <input type="submit" name='aa' value="审核通过">
                                     </form>
                                     <form action="${webServer}api/user/approve" method="post">
 	                                    <input type="hidden" name='status' value="3">
+	                                    <input type="hidden" name='type' value="1">
 	                                    <input type="hidden" name='id' value="${seller.id}">
 	                                    <input type="submit" name='aa' value="审核不通过">
                                     </form>
@@ -91,6 +93,7 @@
                                     <#if status==2>正常
                                     <form action="${webServer}api/user/approve" method="post">
 	                                    <input type="hidden" name='status' value="3">
+	                                    <input type="hidden" name='type' value="1">
 	                                    <input type="hidden" name='id' value="${seller.id}">
 	                                    <input type="submit" name='aa' value="停用">
                                     </form>
@@ -98,11 +101,12 @@
                                     <#if status==3>停用
                                     <form action="${webServer}api/user/approve" method="post">
 	                                    <input type="hidden" name='status' value="2">
+	                                    <input type="hidden" name='type' value="1">
 	                                    <input type="hidden" name='id' value="${seller.id}">
 	                                    <input type="submit" name='aa' value="启用">
                                     </form>
                                     </#if>
-                                    
+                                    </font>
                                     </span>
                                 </div>
                             </div>

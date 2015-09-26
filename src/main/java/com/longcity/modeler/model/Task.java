@@ -51,8 +51,17 @@ public class Task {
     
     private Integer totalFee;
     
+    private String nickname;
     
-    public Integer getAgeMin() {
+    public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public Integer getAgeMin() {
 		return ageMin;
 	}
 

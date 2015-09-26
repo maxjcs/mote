@@ -2,7 +2,7 @@
  * Created by Feil.Wang on 2015/4/24.
  */
 (function (W, $) {
-    function forbidden(teacherId) {
+    function forbidden(userId) {
         var d = dialog({
             title: '操作',
             content: '确定要禁用此账户吗？',
@@ -10,7 +10,7 @@
             ok: function () {
                 var that = this;
                 $.ajax({
-                    url: WEB_SERVER + 'front/teacherManage/closeTeacherAccountByTeacherId/' + teacherId,
+                    url: WEB_SERVER + 'api/user/approve'+'?id='+userId+'&status=3',
                     method: 'POST',
                     dataType: 'json',
                     data: '',

@@ -6,8 +6,11 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.longcity.manage.model.param.QuerySellerDetailParamVO;
+import com.longcity.manage.model.param.QueryTaskDetailParamVO;
+import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.vo.MoteTaskVO;
 
 @MybatisMapper
 @Repository
@@ -37,6 +40,14 @@ public interface TaskDao {
     List<Task> queryTaskByUserId(QuerySellerDetailParamVO vo);
     
     int getTaskNumBySellerId(Integer sellerId);
+    
+    int countTaskList(QueryTaskParamVO paramVO);
+    
+    List<Task> queryTaskList(QueryTaskParamVO paramVO);
+    
+    int countMoteTaskByTaskId(QueryTaskDetailParamVO paramVO);
+    
+    List<MoteTaskVO> queryMoteTaskByTaskId(QueryTaskDetailParamVO paramVO);
     
 
     

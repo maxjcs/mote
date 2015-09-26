@@ -54,9 +54,7 @@
   </update>
   
   <select id="selectByPrimaryKey" resultType="Task" parameterType="java.lang.Integer" >
-    select id, user_id, title, url, price, shot_fee, img_url, self_buy_off, shot_desc, 
-    gender, shape, height_min, height_max, areaId, modeler_level, self_buy_rate, number, 
-    shot_area_id, status, total_fee,create_time,update_time
+    select *
     from task
     where id = #{id}
   </select>
@@ -114,6 +112,51 @@
     from task
     where user_id = #{param1} and status in (2,4)
   </select>
+  
+  <select id="queryTaskList" parameterType="QueryTaskParamVO"  resultType="Task" >
+    select u.nickname,t.*
+    from task t,user u
+    where 1=1 and t.user_id = u.id 
+    <include refid="queryWhere"/>
+    order by id desc
+    limit #{start},#{pageSize}
+  </select>
+
+  <select id="countTaskList" parameterType="QueryTaskParamVO" resultType="int"  >
+    select ifnull(count(1),0)
+     from task t,user u
+    where 1=1 and t.user_id = u.id
+    <include refid="queryWhere"/>
+  </select>
+  
+   <sql id="queryWhere">
+        <if test="registerBegin!=null and registerBegin!=''">
+            AND t.create_time&gt;=#{registerBegin}
+        </if>
+        <if test="registerEnd!=null and registerEnd!=''">
+            AND t.create_time&lt;=#{registerEnd}
+        </if>
+        <if test="title!=null and title!=''">
+            AND t.title LIKE CONCAT('%',#{title},'%')
+        </if>
+        <if test="status!=null and status!=-1">
+            AND t.status = ${status}
+        </if>
+   </sql>  
+   
+  <select id="countMoteTaskByTaskId" parameterType="QueryTaskDetailParamVO" resultType="int"  >
+    select ifnull(count(1),0)
+     from mote_task mt,user u
+    where mt.user_id = u.id and mt.user_id=#{taskId}
+  </select>
+  
+    <select id="queryMoteTaskByTaskId" parameterType="QueryTaskDetailParamVO" resultType="MoteTaskVO"  >
+    select u.nickname,mt.order_no,mt.status,mt.finish_status
+     from mote_task mt,user u
+    where mt.user_id = u.id and mt.user_id=#{taskId}
+  </select>
+   
+     
   
   
   

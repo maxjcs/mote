@@ -1,0 +1,112 @@
+.content h1 {
+	padding: 0 50px;
+	height: 50px;
+	font: 400 19px/50px arial
+}
+
+
+
+
+
+.content table .process {
+	width: 96%;
+	margin: 0 2%;
+	height: 50%;
+	border-radius: 10px;
+	background: red;
+	background: -webkit-linear-gradient(left, #b32ff2 0, #7a3ce9 100%);
+	background: linear-gradient(to right, #b32ff2 0, #7a3ce9 100%)
+}
+
+.user-data {
+	float: left;
+	width: 450px;
+	background: #fff;
+	padding: 15px 0 15px 50px
+}
+
+.user-data .detail {
+	height: 120px;
+	width: 100%
+}
+
+.user-data .detail img {
+	float: left;
+	border-radius: 5px
+}
+
+.user-data .detail div {
+	float: left;
+	width: 300px;
+	padding-left: 50px;
+	font: 400 12px/30px arial
+}
+
+.img-list {
+	width: 450px
+}
+
+.img-list li {
+	float: left;
+	padding: 5px;
+	margin:0 5px;
+}
+
+.user-process {
+	float: left;
+	position: relative;
+	width: 500px;
+	overflow: hidden
+}
+
+.user-process img {
+	border-radius: 55px
+}
+
+.line-process {
+	position: absolute;
+	height: 100%;
+	width: 10px;
+	left: 28px;
+	top: 55px;
+	border-left: 1px solid gray
+}
+
+.user-process li {
+	padding-bottom: 20px
+}
+
+.user-process li div {
+	margin: 5px 0 5px 28px
+}
+
+.user-process li .time {
+	padding-left: 35px;
+	padding-bottom: 6px;
+	position: relative;
+	border-bottom: 1px solid gray;
+	width:300px;
+}
+
+.user-process li .con {
+	padding-left: 35px
+}
+
+.milestone .point {
+	position: absolute;
+	bottom: -5px;
+	left: -5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	background: gray
+}
+
+.milestone input {
+	border: 1px solid gray;
+	padding: 5px;
+	border-radius: 4px;
+	color: #fff;
+	background: #29C6EB;
+	cursor: pointer
+}

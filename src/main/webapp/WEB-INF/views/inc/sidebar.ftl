@@ -69,6 +69,18 @@
                     </li>
                 </ul>
             </li>
+            <li >
+                <a href="javascript:;">
+                    <span class="title">任务管理模块</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="${webServer}api/back/task/manage">
+                            <span class="title">任务管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

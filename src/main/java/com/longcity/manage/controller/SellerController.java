@@ -3,6 +3,9 @@
  */
 package com.longcity.manage.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import com.longcity.manage.model.param.QuerySellerDetailParamVO;
 import com.longcity.manage.model.param.QuerySellerParamVO;
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.service.SellerService;
+import com.longcity.modeler.model.MoteCard;
+import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.TaskService;
@@ -60,6 +65,17 @@ public class SellerController extends BaseController{
     	resultMap.addAttribute("resultVO", paramVO);
     	resultMap.addAttribute("task", task);
         return "seller/list";
+    }
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "moteTaskDetail")
+    protected String moteTaskDetail(Integer moteTaskId, ModelMap resultMap) {
+    	Map map=taskService.getMoteTaskProcess(moteTaskId);
+    	resultMap.addAttribute("user", (User)map.get("user"));
+    	resultMap.addAttribute("task", (Task)map.get("task"));
+    	resultMap.addAttribute("moteTask", (MoteTask)map.get("moteTask"));
+    	resultMap.addAttribute("cardList", (List<MoteCard>)map.get("cardList"));
+        return "seller/moteTaskDetail";
     }
 
 }

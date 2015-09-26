@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.longcity.manage.model.param.QueryTaskDetailParamVO;
+import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.constant.PageConstant;
 import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.MoteTaskDao;
@@ -61,6 +63,33 @@ public class TaskService {
 	
 	@Resource
 	RedisService redisService;
+	
+
+	public QueryTaskParamVO queryTaskList(QueryTaskParamVO paramVO){
+		Integer total = taskDao.countTaskList(paramVO);
+        if (total > 0) {
+            List<Task> rows = taskDao.queryTaskList(paramVO);
+            paramVO.setTotal(total);
+            paramVO.setRows(rows);
+        }else{
+            paramVO.setTotal(0);
+            paramVO.setRows(new ArrayList<Task>());
+        }
+        return paramVO;
+	}
+	
+	public QueryTaskDetailParamVO queryTaskDetail(QueryTaskDetailParamVO paramVO){
+		Integer total = taskDao.countMoteTaskByTaskId(paramVO);
+        if (total > 0) {
+            List<MoteTaskVO> rows = taskDao.queryMoteTaskByTaskId(paramVO);
+            paramVO.setTotal(total);
+            paramVO.setRows(rows);
+        }else{
+            paramVO.setTotal(0);
+            paramVO.setRows(new ArrayList<MoteTaskVO>());
+        }
+        return paramVO;
+	}
 	
 	
 	

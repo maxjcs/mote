@@ -106,8 +106,7 @@
   
   
   <select id="selectByPrimaryKey" resultType="MoteTask" parameterType="java.lang.Integer" >
-    select id, user_id, task_id, create_time, update_time, order_no, express_company_id, 
-    express_no, self_buy_fee, status,finish_status
+    select *
     from mote_task
     where id = #{id}
   </select>
@@ -150,7 +149,7 @@
     </select>
     
     <select id="queryListByMoteId" resultType="MoteDetailVO" parameterType="map">
-	    select t.title,t.price,t.shot_fee,t.self_buy_off,mt.status,mt.create_time
+	    select mt.id,t.title,t.price,t.shot_fee,t.self_buy_off,mt.status,mt.create_time
         from mote_task mt,task t
         where t.id=mt.task_id and mt.user_id=#{moteId}
         order by mt.id desc

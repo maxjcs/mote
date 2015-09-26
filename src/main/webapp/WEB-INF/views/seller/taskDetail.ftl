@@ -16,7 +16,7 @@
             </div>
             <div class="breadcrumb-env">
                 <ol class="breadcrumb bc-1">
-                    <li><a><i class="fa-home"></i>模特管理  ---${mote.nickname?default('')}</a></li>
+                    <li><a><i class="fa-home"></i>商家管理---项目管理---${task.title?default('')}</a></li>
                 </ol>
             </div>
         <#include "../inc/user.ftl">
@@ -29,8 +29,8 @@
                         <div class="form clearfix">
                             <div class="col-md-4">
                               <form method="post" role="form" id="searchForm"
-                                  action="${webServer}api/back/mote/moteDetail">
-                                  <input type="hidden" name="moteId" value="${mote.id}">
+                                  action="${webServer}api/back/seller/taskDetail">
+                                  <input type="hidden" name="taskId" value="${task.id}">
                                   <input type="hidden" id="index" name="index" value="${resultVO.index}">
                               </form>    
                                 <div class="form-group">
@@ -159,7 +159,7 @@
                                 <tbody>
                                 <#list resultVO.rows as detailVO>
                                 <tr>
-                                    <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${detailVO.id}">${detailVO.title?default('')}</a></td>
+                                    <td>${detailVO.title?default('')}</td>
                                     <td>${detailVO.price?default(0)}</td>
                                     <td>${detailVO.shotFee?default(0)}</td>
                                     <td>${detailVO.selfBuyOff?default(0)}%</td>
