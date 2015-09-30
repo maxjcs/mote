@@ -4,6 +4,8 @@
 package com.longcity.modeler.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +65,43 @@ public class TaskService {
 	
 	@Resource
 	RedisService redisService;
+	
+	@Resource
+	UserService userService;
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Map searchTask(Integer moteId,String keywords,Integer fee,Integer pageNo,Integer pageSize){
+		User mote=userService.getUserById(moteId);
+		List<Integer> acceptedTaskIds = moteTaskDao.get15DaysList(moteId);
+		
+		Map resultMap=new HashMap();
+		
+		Map paramMap=new HashMap();
+		paramMap.put("keywords", keywords);
+		paramMap.put("fee", fee);
+		paramMap.put("gender", mote.getGender());
+		paramMap.put("age", mote.getAge());
+		paramMap.put("heigth", mote.getHeight());
+		paramMap.put("shape", mote.getShape());
+		if(!acceptedTaskIds.isEmpty()){
+			paramMap.put("acceptedTaskIds", acceptedTaskIds);
+		}
+		paramMap.put("start", (pageNo-1)*pageSize);
+		paramMap.put("pageSize", pageSize==null?10:pageSize);
+		
+		resultMap.put("pageNo", pageNo);
+		resultMap.put("pageSize", pageSize);
+		
+		int totalSize= taskDao.countTask(paramMap);
+		resultMap.put("totalSize", totalSize);
+		if(totalSize>0){
+			List<Task> taskList= taskDao.searchTask(paramMap);
+			resultMap.put("dataList", taskList);
+		}else{
+			resultMap.put("dataList", new ArrayList<Task>());
+		}
+		return resultMap;
+	}
 	
 
 	public QueryTaskParamVO queryTaskList(QueryTaskParamVO paramVO){

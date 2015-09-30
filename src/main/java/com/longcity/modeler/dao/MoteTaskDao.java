@@ -73,6 +73,8 @@ public interface MoteTaskDao {
     int getMoteAcceptedNumDaily(Integer moteId);
     
     int getMoteTaskNumByStatus(Integer moteId,String status);
+    
+    List<Integer> get15DaysList(Integer moteId);
 	
 	
 	

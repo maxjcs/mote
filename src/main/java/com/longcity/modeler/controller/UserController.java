@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.longcity.modeler.constant.BusinessConstant;
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.filter.Token;
@@ -31,6 +32,7 @@ import com.longcity.modeler.service.VerifyCodeService;
 import com.longcity.modeler.util.DateUtils;
 import com.longcity.modeler.util.FileUtil;
 import com.longcity.modeler.util.UpYunUtil;
+import com.longcity.modeler.util.VerifyCodeUtil;
 import com.longcity.modeler.validator.Validator;
 
 /**
@@ -141,11 +143,11 @@ public class UserController extends AbstractController{
 			throw new BusinessException("该手机号未注册");
 		}
 
-		String verifyCode = "000000";//VerifyCodeUtil.getRandNum(BusinessConstant.VERIFY_CODE_LENGTH);
+		String verifyCode = VerifyCodeUtil.getRandNum(BusinessConstant.VERIFY_CODE_LENGTH);
 
 		verifyCodeService.saveVerifyCode(phoneNumber, verifyCode);
 
-		//VerifyCodeUtil.sendMessage(phoneNumber, verifyCode);
+		VerifyCodeUtil.sendMessage(phoneNumber, verifyCode);
 
 		return dataJson(true);
 	}

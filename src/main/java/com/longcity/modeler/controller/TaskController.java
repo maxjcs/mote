@@ -3,6 +3,7 @@
  */
 package com.longcity.modeler.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,25 @@ public class TaskController extends AbstractController {
 	
 	@Resource
 	UserService userService;
+	
+	/**
+     * 获取任务详细信息
+     */
+	@SuppressWarnings({"rawtypes" })
+	@ResponseBody
+    @RequestMapping(value = "search")
+    public Object searchTask(String keywords,Integer fee,Integer pageNo,Integer pageSize) throws Exception{
+        try{
+        	Integer moteId=AppContext.getUserId();
+        	Map resutlMap=taskService.searchTask(moteId,keywords,fee,pageNo,pageSize);
+            return dataJson(resutlMap);
+        }catch(Exception e){
+            logger.error("获取任务详细信息失败.", e);
+            return errorJson("服务器异常，请重试.");
+        }
+    }
+	
+	
 	
 	/**
      * 获取任务详细信息

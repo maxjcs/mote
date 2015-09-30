@@ -49,6 +49,10 @@ public interface TaskDao {
     
     List<MoteTaskVO> queryMoteTaskByTaskId(QueryTaskDetailParamVO paramVO);
     
+    int countTask(Map paramMap);
+    
+    List<Task> searchTask(Map paramMap);
+    
 
     
 }

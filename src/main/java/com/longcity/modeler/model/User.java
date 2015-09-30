@@ -1,5 +1,6 @@
 package com.longcity.modeler.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class User {
@@ -57,7 +58,32 @@ public class User {
     
     private String smsCode;//短信验证码
     
-    public String getSmsCode() {
+    private Integer shape;
+    
+    public Integer getShape() {
+		return shape;
+	}
+
+	public void setShape(Integer shape) {
+		this.shape = shape;
+	}
+
+	public Integer getAge() {
+    	if(birdthday==null){
+    		return null;
+    	}
+    	Calendar birthCal=Calendar.getInstance();
+    	birthCal.setTime(birdthday);
+    	
+    	Calendar nowCalendar=Calendar.getInstance();
+    	nowCalendar.setTime(new Date());
+    	
+    	Integer year=nowCalendar.get(Calendar.YEAR)-birthCal.get(Calendar.YEAR)+1;
+    	
+		return year;
+	}
+
+	public String getSmsCode() {
 		return smsCode;
 	}
 
