@@ -202,6 +202,9 @@ public class TaskController extends AbstractController {
         	if(code==1){
         		return errorJson("您已经达到当天的接单量，不能接单！", request);
         	}
+        	if(code==3){
+        		return errorJson("已经接单！", request);
+        	}
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("接单失败.", e);

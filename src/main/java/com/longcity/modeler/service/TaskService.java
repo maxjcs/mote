@@ -318,6 +318,12 @@ public class TaskService {
 	 * @param taskId
 	 */
 	public int  newMoteTask(Integer moteId,Integer taskId){
+		
+		MoteTask existMoteTask=moteTaskDao.queryByMoteIdAndTaskId(moteId,taskId);
+		if(existMoteTask!=null){
+			return 3;
+		}
+		
 		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(taskId);
 		Task task=taskDao.selectByPrimaryKey(taskId);
 		if(task==null){

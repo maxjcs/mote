@@ -80,4 +80,6 @@ public interface MoteTaskDao {
 	
 	Integer getUnFinishNumByMoteId(Integer moteId);
 	
+	MoteTask queryByMoteIdAndTaskId(Integer moteId,Integer taskId);
+	
 }

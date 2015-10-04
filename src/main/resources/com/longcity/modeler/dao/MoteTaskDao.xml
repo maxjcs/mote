@@ -237,6 +237,12 @@
     where mt.user_id=#{param1} and status in (1,2,3,4)
   </select>
   
+ <select id="queryByMoteIdAndTaskId" resultType="MoteTask" >
+    select *
+    from mote_task mt
+    where user_id=#{param1} and task_id = #{param2}
+  </select>
+  
   
   
   
