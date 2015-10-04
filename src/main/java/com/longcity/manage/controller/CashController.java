@@ -93,25 +93,23 @@ public class CashController extends BaseController{
 	 * @return
 	 */
     @RequestMapping(value = "verifyReduceCash")
-    protected String verifyReduceCash(Integer id,String money,ModelMap resultMap) {
+    protected String verifyReduceCash(Integer id,String alipayNo,ModelMap resultMap) {
     	ReduceCashApply apply=cashApplyService.reduceApplyDetail(id);
     	//完成
-    	Double dmoney=Double.parseDouble(money)*100;
-    	if(StringUtils.equals(String.valueOf(dmoney.intValue()), String.valueOf(apply.getMoney()))){
-    		Boolean success=cashApplyService.finishReducePay(id);
-    		if(success){
-    			apply.setStatus(2);//完成
-    			resultMap.addAttribute("message", "操作成功");
-    		}else{
-    			resultMap.addAttribute("message", "操作失败,金额不对,请核对！");
-    		}
-    	}
+    	Boolean success=cashApplyService.finishReducePay(id,alipayNo);
+		if(success){
+			apply.setStatus(2);//完成
+			resultMap.addAttribute("message", "操作成功");
+		}else{
+			resultMap.addAttribute("message", "操作失败,金额不足！");
+		}
     	//获取用户相关信息
     	User user=userService.getUserById(apply.getUserId());
     	apply.setNickname(user.getNickname());
     	apply.setPhoneNumber(user.getPhoneNumber());
     	apply.setAlipayId(user.getAlipayId());
     	apply.setAlipayName(user.getAlipayName());
+    	apply.setAlipayNo(alipayNo);
     	resultMap.addAttribute("resultVO", apply);
         return "cash/reduceCashDetail";
     } 

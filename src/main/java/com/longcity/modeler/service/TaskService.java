@@ -340,6 +340,7 @@ public class TaskService {
 	 */
 	public Integer save(Task task){
 		task.setStatus(TaskStatus.no_payed.getValue());
+		task.setOldUrl(task.getUrl());
 		Integer id=0;
 		if(task.getId()==null){
 			id=taskDao.insert(task);
@@ -358,6 +359,7 @@ public class TaskService {
 		task.setStatus(TaskStatus.wait_approve.getValue());
 		Integer id=0;
 		if(task.getId()==null){
+			task.setOldUrl(task.getUrl());
 			id=taskDao.insert(task);
 		}else{
 			taskDao.updateByPrimaryKey(task);

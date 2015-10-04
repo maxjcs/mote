@@ -21,13 +21,13 @@
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultType="ReduceCashApply" parameterType="java.lang.Integer" >
-    select id, user_id, create_time, money, status, pay_time
+    select *
     from reduce_cash_apply
     where id = #{id}
   </select>
   
   <select id="queryApplyList" resultType="ReduceCashApply" parameterType="map" >
-    select id, user_id, create_time, money, status, pay_time
+    select *
     from reduce_cash_apply
     where 1=1 
     <if test="userId!=null">
@@ -68,12 +68,13 @@
     limit #{start},#{pageSize}
    </select>
   
-  <update id="finishPay" parameterType="java.lang.Integer" >
+  <update id="finishPay">
     update reduce_cash_apply
     set 
       status = 2,
+      alipay_no = #{param2},
       pay_time =now()
-    where id = #{id}
+    where id = #{param1}
   </update>
   
   

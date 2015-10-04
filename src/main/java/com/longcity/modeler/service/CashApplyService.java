@@ -147,7 +147,7 @@ public class CashApplyService {
 	 * @param cashApplyId
 	 */
 	@Transactional
-	public Boolean  finishReducePay(Integer cashApplyId){
+	public Boolean  finishReducePay(Integer cashApplyId,String alipayNo){
 		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
 		User user=userService.getUserById(reduceCashApply.getUserId());
 		if(reduceCashApply.getMoney()>user.getRemindFee()){
@@ -155,7 +155,7 @@ public class CashApplyService {
 		}else{
 			userService.updateRemindFee(reduceCashApply.getUserId(), reduceCashApply.getMoney()*-1);
 		}
-		reduceCashApplyDao.finishPay(cashApplyId);
+		reduceCashApplyDao.finishPay(cashApplyId,alipayNo);
 		return true;
 	}
 	

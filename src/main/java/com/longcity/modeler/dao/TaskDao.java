@@ -53,6 +53,8 @@ public interface TaskDao {
     
     List<Task> searchTask(Map paramMap);
     
+    void updateTaskUrl(Integer id,String url);
+    
 
     
 }

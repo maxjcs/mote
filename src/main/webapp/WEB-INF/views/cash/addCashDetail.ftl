@@ -24,7 +24,6 @@
         <div class="row">
            <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-body">
                     <form method="post" role="form" id="searchForm"
                                   action="${webServer}api/back/cash/verifyAddCash">
                         <input type="hidden" name="id" value="${resultVO.id}">          

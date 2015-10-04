@@ -12,15 +12,16 @@
       gender, shape, height_min, 
       height_max,age_min,age_max, areaId, modeler_level, 
       self_buy_rate, number, shot_area_id, 
-      status,create_time,update_time,total_fee)
+      status,create_time,update_time,total_fee,old_url)
     values (#{userId}, #{title}, 
       #{url}, #{price}, #{shotFee}, 
       #{imgUrl}, #{selfBuyOff}, #{shotDesc}, 
       #{gender}, #{shape}, #{heightMin}, 
       #{heightMax},#{ageMin},#{ageMax}, #{areaid}, #{modelerLevel}, 
       #{selfBuyRate}, #{number}, #{shotAreaId}, 
-      #{status},now(),now(),#{totalFee})
+      #{status},now(),now(),#{totalFee},#{oldUrl})
   </insert>
+  
   <update id="updateByPrimaryKey" parameterType="Task" >
     update task
     set user_id = #{userId},
@@ -50,6 +51,12 @@
   <update id="updateStatus" >
     update task
     set  status = #{param2}
+    where id = #{param1}
+  </update>
+  
+  <update id="updateTaskUrl" >
+    update task
+    set  url = #{param2}
     where id = #{param1}
   </update>
   

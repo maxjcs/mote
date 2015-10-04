@@ -23,7 +23,17 @@ public class ReduceCashApply {
     
     private String alipayName;
     
-    public String getAlipayId() {
+    private String alipayNo;
+    
+    public String getAlipayNo() {
+		return alipayNo;
+	}
+
+	public void setAlipayNo(String alipayNo) {
+		this.alipayNo = alipayNo;
+	}
+
+	public String getAlipayId() {
 		return alipayId;
 	}
 

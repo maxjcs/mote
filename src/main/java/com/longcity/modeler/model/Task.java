@@ -53,7 +53,17 @@ public class Task {
     
     private String nickname;
     
-    public String getNickname() {
+    private String oldUrl;
+    
+    public String getOldUrl() {
+		return oldUrl;
+	}
+
+	public void setOldUrl(String oldUrl) {
+		this.oldUrl = oldUrl;
+	}
+
+	public String getNickname() {
 		return nickname;
 	}
 

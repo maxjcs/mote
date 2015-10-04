@@ -21,7 +21,7 @@ public interface ReduceCashApplyDao {
 
     int updateByPrimaryKey(ReduceCashApply record);
     
-    void finishPay(Integer id);
+    void finishPay(Integer id,String alipayNo);
     
     @SuppressWarnings("rawtypes")
 	List<ReduceCashApply> queryApplyList(Map paramMap);

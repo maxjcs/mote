@@ -36,4 +36,24 @@
 <script>
     var WEB_SERVER = '${webServer}';
 </script>
+<style>
+ table tr
+ {
+ 	padding:10px;
+ 	height:40px;
+ }
+  table td
+ {
+ 	padding:10px;
+ }
+ 
+@font-face {
+  font-family: 'iconfont2';
+  src: url('//at.alicdn.com/t/font_1443962892_112225.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1443962892_112225.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1443962892_112225.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1443962892_112225.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1443962892_112225.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+</style>
 

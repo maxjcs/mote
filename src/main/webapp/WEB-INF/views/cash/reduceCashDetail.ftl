@@ -24,20 +24,19 @@
         <div class="row">
            <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-body">
                     <form method="post" role="form" id="searchForm"
                                   action="${webServer}api/back/cash/verifyReduceCash">
                         <input type="hidden" name="id" value="${resultVO.id}">          
-                        <table>
-                          <tr>
+                        <table >
+                          <tr class="tr-height">
                            <td><font color='red'>${message?default("")}</font></td>
                            <td>&nbsp;</td>
                          </tr>
-                         <tr>
+                         <tr class="tr-height">
                            <td>用户昵称:</td>
                            <td>${resultVO.nickname?default('')}</td>
                          </tr>
-                         <tr>
+                         <tr class="tr-height">
                            <td>手机号:</td>
                            <td>${resultVO.phoneNumber?default('')}</td>
                          </tr>
@@ -50,12 +49,12 @@
                            <td>${resultVO.alipayName?default('')}</td>
                          </tr>
                          <tr>
-                           <td>金额:</td>
+                           <td>支付宝单号:</td>
                            <td>
                                 <#if resultVO.status==1>
-	                               <input type="text" name="money" value="">
+	                               <input type="text" name="alipayNo" value="">
                            		<#else>
-	                                ${resultVO.money?default(0)}
+	                                ${resultVO.alipayNo?default('')}
 	                       		</#if>
                            </td>
                          </tr>

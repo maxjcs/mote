@@ -12,9 +12,11 @@
                 </a>
             </div>
         </header>
+        <#assign iconJson="{'taobaoExerciseSets':'linecons-doc','revenueManage':'linecons-database','exerciseSets':'linecons-doc','teacherManage':'linecons-user','operate':'linecons-comment','audioLibs':'linecons-music','everydayTask':'linecons-note','organization':'linecons-shop','directional':'linecons-paper-plane','quickAnswer':'linecons-megaphone','teacherSetting':'linecons-params','systemUser':'linecons-cog'}"?eval />
         <ul id="main-menu" class="main-menu">
             <li >
                 <a href="javascript:;">
+                    <i style="font-family:'iconfont2'">&#xe600</i>
                     <span class="title">主板</span>
                 </a>
                 <ul>
@@ -37,6 +39,7 @@
             </li>
             <li >
                 <a href="javascript:;">
+                <i style="font-family:'iconfont2'">&#xe603</i>
                     <span class="title">用户管理模块</span>
                 </a>
                 <ul>
@@ -53,7 +56,9 @@
                 </ul>
             </li>
             <li >
+             
                 <a href="javascript:;">
+                   <i style="font-family:'iconfont2'">&#xe601</i>
                     <span class="title">财务管理模块</span>
                 </a>
                 <ul>
@@ -71,12 +76,13 @@
             </li>
             <li >
                 <a href="javascript:;">
-                    <span class="title">任务管理模块</span>
+                 <i style="font-family:'iconfont2'">&#xe606</i>
+                    <span class="title">自拍秀项目管理</span>
                 </a>
                 <ul>
                     <li>
                         <a href="${webServer}api/back/task/manage">
-                            <span class="title">任务管理</span>
+                            <span class="title">自拍秀项目管理</span>
                         </a>
                     </li>
                 </ul>
