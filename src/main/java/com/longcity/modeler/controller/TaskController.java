@@ -193,6 +193,9 @@ public class TaskController extends AbstractController {
         try{
         	Integer moteId=AppContext.getUserId();
         	int code=taskService.newMoteTask(moteId,taskId);
+        	if(code==-1){
+        		return errorJson("项目不存在！", request);
+        	}
         	if(code==0){
         		return errorJson("该项目接单已满，不能接单！", request);
         	}

@@ -320,6 +320,9 @@ public class TaskService {
 	public int  newMoteTask(Integer moteId,Integer taskId){
 		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(taskId);
 		Task task=taskDao.selectByPrimaryKey(taskId);
+		if(task==null){
+			return -1;
+		}
 		if(acceptedNum>=task.getNumber()){
 			return 0;//已经达到当量
 		}

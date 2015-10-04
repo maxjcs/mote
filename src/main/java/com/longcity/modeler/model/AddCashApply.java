@@ -27,6 +27,15 @@ public class AddCashApply {
 	
 	Date finishTime;
 	
+	String alipayId;
+	
+	public String getAlipayId() {
+		return alipayId;
+	}
+
+	public void setAlipayId(String alipayId) {
+		this.alipayId = alipayId;
+	}
 
 	public Integer getMoney() {
 		return money;
