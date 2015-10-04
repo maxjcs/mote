@@ -18,7 +18,6 @@
 			phoneNumber:<input type="text" name="phoneNumber" value="15888838217" />
 			password：<input type="text" name="password" value="123456" />
 			smsCode(短信验证码)：<input type="text" name="smsCode" value="000000" />
-			type(1模特 2商家)：<input type="text" name="type" value="1" />
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>
 		
@@ -103,6 +102,16 @@
 			fee(费用*以上)：<input type="text" name="fee" value="10" />
 			pageNo：<input type="text" name="pageNo" value="1" />
 			pageSize：<input type="text" name="pageSize" value="10" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		10、检查手机是否注册[api/user/hasRegistered]
+		<form id="1" action="api/user/hasRegistered" method="post">
+			手机号码：<input type="text" name="phoneNumber" value="15888838217" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
+		11、退出登陆[api/user/logout]
+		<form id="1" action="api/user/logout" method="post">
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>

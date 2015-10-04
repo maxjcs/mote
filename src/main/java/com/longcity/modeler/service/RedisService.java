@@ -5,6 +5,7 @@ package com.longcity.modeler.service;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -221,9 +222,12 @@ public class RedisService {
 	 * @param userId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public boolean isRedisLogin(Integer userId){
-		return redisTemplate.hasKey(RedisContstant.USER_LOGIN_IN_KEY+userId);
+		String value=(String)redisTemplate.opsForValue().get(RedisContstant.USER_LOGIN_IN_KEY+userId);
+		if(StringUtils.equals(value, "true")){
+			return true;
+		}
+		return false;
 	}
 	
 	/**

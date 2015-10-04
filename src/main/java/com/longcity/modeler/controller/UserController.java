@@ -91,6 +91,21 @@ public class UserController extends AbstractController{
     }
 	
 	/**
+     * 手机是否注册
+     */
+	@ResponseBody
+    @RequestMapping(value = "hasRegistered")
+    public Object hasRegistered(HttpServletRequest request,String phoneNumber) throws Exception{
+        try{
+        	Boolean hasRegistered=userService.hasRegistered(phoneNumber);
+            return dataJson(hasRegistered, request);
+        }catch(Exception e){
+            logger.error("检测手机是否注册失败失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	/**
 	 * 登录
 	 */
 	@ResponseBody
@@ -106,17 +121,16 @@ public class UserController extends AbstractController{
 		
 		String token=Token.gen(user);
 		if(StringUtils.equals(userparam.getLoginType(), "1")){//手机登陆
-			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("token", token);
-			return dataJson(result);
 		}else if(StringUtils.equals(userparam.getLoginType(), "2")){//pc端登陆
 			Cookie c1 = new Cookie("token", token);
 			c1.setMaxAge(24*60*60);
 			response.addCookie(c1);
 		}
 		//设置登陆状态
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("token", token);
 		redisService.redisSetLoginStatus(user.getId());
-		return dataJson(token);
+		return dataJson(result);
 	}
 	
 	@ResponseBody

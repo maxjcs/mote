@@ -171,6 +171,23 @@ public class UserService {
 		return 0;//success
 	}
 	
+	/**
+	 * 注册用户
+	 * @param phoneNumber
+	 * @return
+	 */
+	public Boolean hasRegistered(String phoneNumber){
+		
+		User existUser=userDao.selectByPhoneNumber(phoneNumber);
+		if(existUser!=null){//存在
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	
 	
 	
 	@Transactional

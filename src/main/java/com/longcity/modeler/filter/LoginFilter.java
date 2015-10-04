@@ -64,7 +64,7 @@ public class LoginFilter implements Filter {
 
 		token.valid(user);
 		
-		if(redisService.isRedisLogin(user.getId())){
+		if(!redisService.isRedisLogin(user.getId())){
 			throw new BusinessException("请重新登陆.");
 		}
 		if (UserStatus.normal.getValue() == user.getStatus()) {
