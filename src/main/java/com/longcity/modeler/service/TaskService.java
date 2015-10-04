@@ -523,6 +523,14 @@ public class TaskService {
 		return resutlMap;
 	}
 	
+	public Integer getUnFinishNumByMoteId(Integer moteId){
+		Integer count=moteTaskDao.getUnFinishNumByMoteId(moteId);
+		return count;
+	}
+	
+	
+	
+	
 	
 
 }

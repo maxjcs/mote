@@ -78,4 +78,6 @@ public interface MoteTaskDao {
 	
 	List<Integer> getAcceptedTaskIdList(Integer moteId);
 	
+	Integer getUnFinishNumByMoteId(Integer moteId);
+	
 }

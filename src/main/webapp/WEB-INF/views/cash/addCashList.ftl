@@ -59,7 +59,7 @@
                                     <td>${applyVO.orderNo?default(0)}</td>
                                     <td>
                                         <#if applyVO.status==1><span class="text-success">申请中</span></#if>
-                                        <#if applyVO.status==2><span class="text-danger">已支付</span></#if>
+                                        <#if applyVO.status==2><span class="text-danger">已充值</span></#if>
                                     </td>
                                 </tr>
                                 </#list>

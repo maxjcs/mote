@@ -231,6 +231,14 @@
     where mt.user_id=#{param1} 
   </select>
   
+    <select id="getUnFinishNumByMoteId" resultType="int" >
+    select ifnull(count(1),0)
+    from mote_task mt
+    where mt.user_id=#{param1} and status in (1,2,3,4)
+  </select>
+  
+  
+  
   
   
   

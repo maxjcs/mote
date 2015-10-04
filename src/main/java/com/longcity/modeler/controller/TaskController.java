@@ -43,6 +43,22 @@ public class TaskController extends AbstractController {
 	UserService userService;
 	
 	/**
+     * 获取模特接单的未完成的数量
+     */
+	@ResponseBody
+    @RequestMapping(value = "getUnFinishNumByMoteId")
+    public Object getUnFinishNumByTaskId() throws Exception{
+        try{
+        	Integer moteId=AppContext.getUserId();
+        	Integer count=taskService.getUnFinishNumByMoteId(moteId);
+            return dataJson(count);
+        }catch(Exception e){
+            logger.error("获取模特接单的未完成的数量失败.", e);
+            return errorJson("服务器异常，请重试.");
+        }
+    }
+	
+	/**
      * 获取任务详细信息
      */
 	@SuppressWarnings({"rawtypes" })
