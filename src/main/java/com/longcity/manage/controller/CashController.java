@@ -57,6 +57,11 @@ public class CashController extends BaseController{
     @RequestMapping(value = "addCashDetail")
     protected String addCashDetail(Integer id,ModelMap resultMap) {
     	AddCashApply addCashApply=cashApplyService.addCashApplyDetail(id);
+    	String orderNo=addCashApply.getLastSixOrderNo();
+    	if(StringUtils.isNotEmpty(orderNo)&&StringUtils.length(orderNo)>=2){
+    		orderNo="**"+orderNo.substring(2, orderNo.length());
+    		addCashApply.setLastSixOrderNo(orderNo);
+    	}
     	resultMap.addAttribute("resultVO", addCashApply);
         return "cash/addCashDetail";
     } 
@@ -72,7 +77,7 @@ public class CashController extends BaseController{
     	AddCashApply addCashApply=cashApplyService.addCashApplyDetail(id);
     	//完成
     	Double dmoney=Double.parseDouble(money)*100;
-    	if(StringUtils.equals(String.valueOf(dmoney.intValue()), String.valueOf(addCashApply.getMoney()))&&StringUtils.equals(lastSixOrderNo, addCashApply.getLastSixOrderNo())){
+    	if(StringUtils.equals(String.valueOf(dmoney.intValue()), String.valueOf(addCashApply.getMoney()))&&StringUtils.equals(lastSixOrderNo.substring(lastSixOrderNo.length()-6, lastSixOrderNo.length()), addCashApply.getLastSixOrderNo())){
     		Boolean success=cashApplyService.finishAddCashPay(id);
     		if(success){
     			addCashApply.setStatus(2);//完成

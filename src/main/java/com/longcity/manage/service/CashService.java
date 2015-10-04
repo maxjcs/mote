@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.longcity.manage.model.param.QueryCashParamVO;
@@ -33,6 +34,13 @@ public class CashService {
 		Integer total = addCashApplyDao.countAddCashList(paramVO);
         if (total > 0) {
             List<CashApplyVO> rows = addCashApplyDao.addCashList(paramVO);
+            for(CashApplyVO vo:rows){
+            	String orderNo=vo.getOrderNo();
+            	if(StringUtils.isNotEmpty(orderNo)&&StringUtils.length(orderNo)>=2){
+            		orderNo="**"+orderNo.substring(2, orderNo.length());
+            		vo.setOrderNo(orderNo);
+            	}
+            }
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{

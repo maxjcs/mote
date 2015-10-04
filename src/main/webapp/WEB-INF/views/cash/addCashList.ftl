@@ -41,7 +41,6 @@
                                     <th>店铺名</th>
                                     <th>支付宝账号</th>
                                     <th>支付宝账号名</th>
-                                    <th>充值金额</th>
                                     <th>订单号</th>
                                     <th>状态</th>
                                 </tr>
@@ -55,8 +54,7 @@
                                     <td>${applyVO.shopName?default('')}</td>
                                     <td>${applyVO.alipayId?default('')}</td>
                                     <td>${applyVO.alipayName?default('')}</td>
-                                    <td>${applyVO.money?default(0)}</td>
-                                    <td>${applyVO.orderNo?default(0)}</td>
+                                    <td>${applyVO.orderNo?default('')}</td>
                                     <td>
                                         <#if applyVO.status==1><span class="text-success">申请中</span></#if>
                                         <#if applyVO.status==2><span class="text-danger">已充值</span></#if>

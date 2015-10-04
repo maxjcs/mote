@@ -61,6 +61,12 @@
                            </td>
                          </tr>
                          <tr>
+                           <td>校验订单号:</td>
+                           <td>
+                               ${resultVO.lastSixOrderNo?default('')}
+                           </td>
+                         </tr>
+                         <tr>
                            <#if resultVO.status==1>
 	                           <td><input type="submit" name="aa" value="确认录入"></td>
 	                           <td><input type="button" name="aa" value="取消"></td>
