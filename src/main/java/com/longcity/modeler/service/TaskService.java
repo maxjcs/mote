@@ -72,7 +72,10 @@ public class TaskService {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map searchTask(Integer moteId,String keywords,Integer fee,Integer pageNo,Integer pageSize){
 		User mote=userService.getUserById(moteId);
+		//15天内已经接单的列表
 		List<Integer> acceptedTaskIds = moteTaskDao.get15DaysList(moteId);
+		//所有已经接单的任务Id
+		List<Integer> allAcceptedTaskIds = moteTaskDao.getAcceptedTaskIdList(moteId);
 		
 		Map resultMap=new HashMap();
 		
@@ -96,6 +99,11 @@ public class TaskService {
 		resultMap.put("totalSize", totalSize);
 		if(totalSize>0){
 			List<Task> taskList= taskDao.searchTask(paramMap);
+			for(Task task:taskList){
+				if(allAcceptedTaskIds.contains(task.getId())){
+					task.setIsAccepted(true);
+				}
+			}
 			resultMap.put("dataList", taskList);
 		}else{
 			resultMap.put("dataList", new ArrayList<Task>());

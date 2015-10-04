@@ -120,7 +120,7 @@ public class UserService {
 	 * @param type
 	 * @return
 	 */
-	public int register(String phoneNumber,String smsCode,String password,Integer type){
+	public int register(String phoneNumber,String smsCode,String password){
 		
 		User existUser=userDao.selectByPhoneNumber(phoneNumber);
 		if(existUser!=null){//存在

@@ -204,7 +204,9 @@ public class TaskController extends AbstractController {
         	if(user.getType()==UserType.mote.getValue()){
         		return errorJson("只有商家才能发布项目", request);
         	}
-        	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
+        	task.setPrice(task.getPrice()*100);//转换成分
+        	task.setShotFee(task.getShotAreaId()*100);//转换成分
+        	task.setTotalFee(task.getPrice()*task.getNumber()*100+task.getShotFee()*100);//转换成分
         	taskService.save(task);
             return dataJson(true, request);
         }catch(Exception e){
@@ -223,7 +225,7 @@ public class TaskController extends AbstractController {
         	Integer userId=AppContext.getUserId();
         	
             User user= userService.getUserById(userId);
-            Integer totalFee=task.getPrice()*task.getNumber()+task.getShotFee();
+            Integer totalFee=task.getPrice()*task.getNumber()*100+task.getShotFee()*100;
             if(user.getRemindFee()<totalFee){
             	 return errorJson("预存款不足，请充值！", request);
             }
@@ -232,7 +234,9 @@ public class TaskController extends AbstractController {
         	}
         	//新建任务
         	task.setUserId(userId);
-        	task.setTotalFee(task.getPrice()*task.getNumber()+task.getShotFee());
+        	task.setPrice(task.getPrice()*100);//转换成分
+        	task.setShotFee(task.getShotAreaId()*100);//转换成分
+        	task.setTotalFee(totalFee);//转换成分
         	taskService.publish(task);
         	//冻结金额
         	userService.freezeFee(userId, totalFee);

@@ -55,7 +55,17 @@ public class Task {
     
     private String oldUrl;
     
-    public String getOldUrl() {
+    private Boolean isAccepted;
+    
+    public Boolean getIsAccepted() {
+		return isAccepted;
+	}
+
+	public void setIsAccepted(Boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+
+	public String getOldUrl() {
 		return oldUrl;
 	}
 

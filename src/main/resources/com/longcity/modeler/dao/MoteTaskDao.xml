@@ -225,6 +225,12 @@
     where mt.user_id=#{param1} and TO_DAYS(NOW()) - TO_DAYS(create_time) &lt;= 3 
   </select>
   
+  <select id="getAcceptedTaskIdList" resultType="int" >
+    select distinct mt.task_id
+    from mote_task mt
+    where mt.user_id=#{param1} 
+  </select>
+  
   
   
   

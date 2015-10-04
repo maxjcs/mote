@@ -76,6 +76,6 @@ public interface MoteTaskDao {
     
     List<Integer> get15DaysList(Integer moteId);
 	
-	
+	List<Integer> getAcceptedTaskIdList(Integer moteId);
 	
 }

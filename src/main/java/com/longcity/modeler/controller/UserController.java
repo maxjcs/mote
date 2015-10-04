@@ -59,9 +59,12 @@ public class UserController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "register")
-    public Object register(HttpServletRequest request,String phoneNumber,String smsCode,String password,Integer type) throws Exception{
+    public Object register(HttpServletRequest request,String phoneNumber,String smsCode,String password) throws Exception{
         try{
-        	int code=userService.register(phoneNumber, smsCode, password, type);
+        	//验证码是否有效
+        	verifyCodeService.validateVerifyCode(phoneNumber, smsCode);
+        	//注册
+        	int code=userService.register(phoneNumber, smsCode, password);
         	if(code==1){
         		return errorJson("该手机号已经注册！", request);
         	}
@@ -79,6 +82,9 @@ public class UserController extends AbstractController{
     @RequestMapping(value = "register4Seller")
     public Object register4Seller(HttpServletRequest request,User user) throws Exception{
         try{
+        	//验证码是否有效
+        	verifyCodeService.validateVerifyCode(user.getPhoneNumber(), user.getSmsCode());
+        	//注册
         	int code=userService.register4Seller(user);
         	if(code==1){
         		return errorJson("该手机号已经注册！", request);
