@@ -44,6 +44,9 @@ public class ScheduleService {
 	RedisService redisService;
 	
 	@Resource
+	TaskService taskService;
+	
+	@Resource
 	MoteService moteService;
 	
 	@Resource
@@ -60,6 +63,8 @@ public class ScheduleService {
 	
 	private static Long acceptedTimeOut=30L;//分钟
 	
+	private static Long returnItemTimeOut=7L;//天
+	
 	private static Boolean IS_MOTETASK_RUNNING=false;
 	
 	private static Boolean IS_COUNT_SELLER_RUNNING=false;
@@ -67,6 +72,59 @@ public class ScheduleService {
 	private static Boolean IS_COUNT_MOTE_RUNNING=false;
 	
 	private static Boolean IS_TOP1_MOTE_RUNNING=false;
+	
+	private static Boolean IS_RETURN_ITEM_RUNNING=false;
+	
+	
+	/**
+	 * 处理任务超时
+	 */
+	public void handleReturnItemTimeOut(){
+		
+		if(IS_RETURN_ITEM_RUNNING){
+			return;
+		}
+		try{
+			IS_RETURN_ITEM_RUNNING=true;
+			
+			Integer maxId=0;
+			while (true) {
+				List<MoteTask> moteTaskList=moteTaskDao.getReturnItemList(maxId);
+				if(moteTaskList.size()==0){
+					break;
+				}
+				Integer redisTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
+				if(redisTimeOut!=null){
+					returnItemTimeOut=new Long(redisTimeOut);
+				}
+				
+				Calendar calendar=Calendar.getInstance();
+				calendar.setTime(new Date());
+				for(MoteTask moteTask:moteTaskList){
+					Date returnItemTime=moteTask.getReturnItemTime();
+					if(returnItemTime!=null){
+						//超过7天未确认收货，默认直接收货。
+						Calendar accCalendar=Calendar.getInstance();
+						accCalendar.setTime(returnItemTime);
+						Long timeOut=calendar.getTimeInMillis()-accCalendar.getTimeInMillis();
+						//判断是否超时
+						if(returnItemTime==null||timeOut>returnItemTimeOut*24*60*60*1000){
+							taskService.verifyReturnItem(moteTask.getId());
+						}
+					}
+					maxId=moteTask.getId();
+				}
+			}
+		}catch (Exception e) {
+			logger.error("处理任务超时出错",e);
+		}finally{
+			IS_RETURN_ITEM_RUNNING=false;
+		}
+		
+	}
+	
+	
+	
 	
 	/**
 	 * 处理任务超时

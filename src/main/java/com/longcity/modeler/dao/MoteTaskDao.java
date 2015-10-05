@@ -53,6 +53,8 @@ public interface MoteTaskDao {
 	
 	List<MoteTask> getAcceptList(Integer maxId);
 	
+	List<MoteTask> getReturnItemList(Integer maxId);
+	
 	@SuppressWarnings("rawtypes")
 	List<MoteDetailVO> queryListByMoteId(Map paramMap2);
 	

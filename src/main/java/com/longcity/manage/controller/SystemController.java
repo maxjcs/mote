@@ -69,11 +69,12 @@ public class SystemController extends BaseController{
     protected String systemControl( ModelMap resultMap) {
     	Integer moteAcceptNum=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_NUM_KEY);
     	Integer acceptTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
+    	Integer verifyReturnItemTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
     	
     	SystemConfig systemConfig = new SystemConfig();
     	systemConfig.setAcceptTimeOut(acceptTimeOut);
     	systemConfig.setMoteAcceptNum(moteAcceptNum);
-    	
+    	systemConfig.setVerifyReturnItemTimeOut(verifyReturnItemTimeOut);
     	resultMap.addAttribute("config", systemConfig);
     	return "system/systemControl";
     }
@@ -88,6 +89,9 @@ public class SystemController extends BaseController{
 			}
 			if(systemConfig.getAcceptTimeOut()!=null){
 				redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY,systemConfig.getAcceptTimeOut());
+			}
+			if(systemConfig.getVerifyReturnItemTimeOut()!=null){
+				redisTemplate.opsForValue().set(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY,systemConfig.getVerifyReturnItemTimeOut());
 			}
 			try {
 				response.sendRedirect("./systemControl");

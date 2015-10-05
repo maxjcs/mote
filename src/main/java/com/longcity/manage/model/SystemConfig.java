@@ -13,6 +13,16 @@ public class SystemConfig {
 	
 	private Integer acceptTimeOut;
 	
+	private Integer verifyReturnItemTimeOut;
+	
+	
+	public Integer getVerifyReturnItemTimeOut() {
+		return verifyReturnItemTimeOut;
+	}
+
+	public void setVerifyReturnItemTimeOut(Integer verifyReturnItemTimeOut) {
+		this.verifyReturnItemTimeOut = verifyReturnItemTimeOut;
+	}
 
 	public Integer getMoteAcceptNum() {
 		return moteAcceptNum;

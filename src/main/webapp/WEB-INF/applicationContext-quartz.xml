@@ -61,14 +61,14 @@
 
    <bean id="cronTriggerHandleMoteTaskTimeOut" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
         <property name="jobDetail">  
-            <ref bean="targetScheduleService"/>  
+            <ref bean="targetMoteTaskTimeOutScheduleService"/>  
         </property>  
         <property name="cronExpression">  
             <value>0 0/5 * * * ?</value>  
         </property>  
    </bean> 
   
-    <bean id="targetScheduleService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+    <bean id="targetMoteTaskTimeOutScheduleService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
         <property name="targetObject">  
             <ref bean="scheduleService"/>  
         </property>  
@@ -77,10 +77,31 @@
         </property>  
     </bean> 
     
+    <bean id="targetReturnItemTimeOutScheduleService" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <property name="targetObject">  
+            <ref bean="scheduleService"/>  
+        </property>  
+        <property name="targetMethod">  
+                <value>handleReturnItemTimeOut</value>  
+        </property>  
+    </bean> 
+    
+    <bean id="cronTriggerHandleReturnItemTimeOut" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail">  
+            <ref bean="targetReturnItemTimeOutScheduleService"/>  
+        </property>  
+        <property name="cronExpression">  
+            <value>0 0 1 * * ?</value>  
+        </property>  
+   </bean> 
+    
+    
+    
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="cronTriggerHandleMoteTaskTimeOut"/> 
+                 <ref bean="cronTriggerHandleReturnItemTimeOut"/>
                 <ref bean="cronTriggerHandleCountSeller"/> 
                 <ref bean="cronTriggerHandleCountMote"/> 
                 <ref bean="cronTriggerHandleTop1Mote"/> 

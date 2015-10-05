@@ -37,6 +37,10 @@
 		                        <td><input type="text" name="acceptTimeOut" value="${config.acceptTimeOut?default(30)}"/></td>
 		                    </tr>
 		                    <tr>
+		                        <td>确认收货超时时间（天）:</td>
+		                        <td><input type="text" name="verifyReturnItemTimeOut" value="${config.verifyReturnItemTimeOut?default(7)}"/></td>
+		                    </tr>
+		                    <tr>
 		                        <td colspan=2 ><input type="submit" value="确定" /></td>
 		                    </tr>
 		                </table>

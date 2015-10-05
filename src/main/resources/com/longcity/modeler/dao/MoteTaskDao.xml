@@ -177,6 +177,16 @@
     limit 50
   </select>
   
+  <select id="getReturnItemList" resultType="MoteTask" parameterType="java.lang.Integer" >
+    select *
+    from mote_task
+    where id > #{param1} and status = 6
+    order by id asc
+    limit 50
+  </select>
+  
+  
+  
   <select id="getTotalAcceptedNum" resultType="int" parameterType="java.lang.Integer" >
     select ifnull(count(1),0)
     from mote_task
