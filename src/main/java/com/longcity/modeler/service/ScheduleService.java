@@ -84,13 +84,15 @@ public class ScheduleService {
 				calendar.setTime(new Date());
 				for(MoteTask moteTask:moteTaskList){
 					Date acceptedTime=moteTask.getAcceptedTime();
-					//超过30分钟未淘宝下单，状态改为超时
-					Calendar accCalendar=Calendar.getInstance();
-					accCalendar.setTime(acceptedTime);
-					Long timeOut=calendar.getTimeInMillis()-accCalendar.getTimeInMillis();
-					//判断是否超时
-					if(acceptedTime==null||timeOut>acceptedTimeOut*60*1000){
-						moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.TimeOut.getValue());//状态改为超时
+					if(acceptedTime!=null){
+						//超过30分钟未淘宝下单，状态改为超时
+						Calendar accCalendar=Calendar.getInstance();
+						accCalendar.setTime(acceptedTime);
+						Long timeOut=calendar.getTimeInMillis()-accCalendar.getTimeInMillis();
+						//判断是否超时
+						if(acceptedTime==null||timeOut>acceptedTimeOut*60*1000){
+							moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.TimeOut.getValue());//状态改为超时
+						}
 					}
 					maxId=moteTask.getId();
 				}
