@@ -3,6 +3,7 @@
  */
 package com.longcity.modeler.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class ScheduleService {
 	@Resource
 	TaskDao taskDao;
 	
-	private static Integer acceptedTimeOut=30*24*60;//分钟
+	private static Long acceptedTimeOut=30*24*60L;//分钟
 	
 	private static Boolean IS_MOTETASK_RUNNING=false;
 	
@@ -79,10 +80,16 @@ public class ScheduleService {
 				if(moteTaskList.size()==0){
 					break;
 				}
+				Calendar calendar=Calendar.getInstance();
+				calendar.setTime(new Date());
 				for(MoteTask moteTask:moteTaskList){
 					Date acceptedTime=moteTask.getAcceptedTime();
 					//超过30分钟未淘宝下单，状态改为超时
-					if(acceptedTime==null||(new Date().getTime()-acceptedTime.getTime())>acceptedTimeOut*60*1000){
+					Calendar accCalendar=Calendar.getInstance();
+					accCalendar.setTime(acceptedTime);
+					Long timeOut=calendar.getTimeInMillis()-accCalendar.getTimeInMillis();
+					//判断是否超时
+					if(acceptedTime==null||timeOut>acceptedTimeOut*60*1000){
 						moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.TimeOut.getValue());//状态改为超时
 					}
 					maxId=moteTask.getId();
