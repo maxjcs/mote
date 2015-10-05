@@ -11,12 +11,14 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.longcity.manage.model.MoteStatistics;
 import com.longcity.manage.model.SellerStatistics;
 import com.longcity.manage.service.MoteService;
 import com.longcity.manage.service.SellerService;
+import com.longcity.modeler.constant.RedisContstant;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.UserDao;
@@ -53,7 +55,10 @@ public class ScheduleService {
 	@Resource
 	TaskDao taskDao;
 	
-	private static Long acceptedTimeOut=30*24*60L;//分钟
+   @Resource
+   private RedisTemplate redisTemplate;
+	
+	private static Long acceptedTimeOut=30L;//分钟
 	
 	private static Boolean IS_MOTETASK_RUNNING=false;
 	
@@ -80,6 +85,11 @@ public class ScheduleService {
 				if(moteTaskList.size()==0){
 					break;
 				}
+				Integer redisTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
+				if(redisTimeOut!=null){
+					acceptedTimeOut=new Long(redisTimeOut);
+				}
+				
 				Calendar calendar=Calendar.getInstance();
 				calendar.setTime(new Date());
 				for(MoteTask moteTask:moteTaskList){

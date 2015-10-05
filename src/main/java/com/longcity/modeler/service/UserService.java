@@ -62,18 +62,29 @@ public class UserService {
 	 * @param userId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map myMoteInfo(Integer userId){
+		Integer followNum=moteTaskDao.countByMoteId(userId);
 		Integer performNum=moteTaskDao.getMoteTaskNumByStatus(userId,"2,3,4,5,6");//进行中
 		Integer finishNum=moteTaskDao.getMoteTaskNumByMoteId(userId);//已经完成
 		Integer applyKefuNum=moteTaskDao.getMoteTaskNumByStatus(userId,"7");//申请客服
 		Integer messageNum = messageDao.countMessageByType("1,2");
 		
 		Map resultMap=new HashMap();
+		resultMap.put("followNum", followNum);
 		resultMap.put("performNum", performNum);
 		resultMap.put("finishNum", finishNum);
 		resultMap.put("applyKefuNum", applyKefuNum);
 		resultMap.put("messageNum", messageNum);
+		
+		User user = getUserById(userId);
+		Integer remindFee = user.getRemindFee();
+		if(remindFee!=null){
+			resultMap.put("remindFee", new Double(remindFee)/100);
+		}else{
+			resultMap.put("remindFee", 0);
+		}
+		
 		return resultMap;
 	}
 	

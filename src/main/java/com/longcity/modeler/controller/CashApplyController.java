@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.bson.NewBSONDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class CashApplyController extends AbstractController{
 	/**
      * 提现申请记录
      */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
     @RequestMapping(value = "queryApplyList")
     public Object queryApplyList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
@@ -55,6 +56,14 @@ public class CashApplyController extends AbstractController{
         	Map resultMap=cashApplyService.queryApplyList(userId, null,pageNo==null?1:pageNo,pageSize==null?10:pageSize);
         	resultMap.put("pageNo", pageNo);
         	resultMap.put("pageSize", pageSize);
+        	//模特余额
+        	User user=userService.getUserById(userId);
+        	if(user.getRemindFee()!=null){
+        		resultMap.put("remindFee", new Double(user.getRemindFee())/100);
+        	}else{
+        		resultMap.put("remindFee", 0);
+        	}
+        	
             return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("提现申请记录.", e);
@@ -75,7 +84,6 @@ public class CashApplyController extends AbstractController{
         	Map resultMap=new HashMap();
         	ReduceCashApply apply=cashApplyService.reduceApplyDetail(id);
         	resultMap.put("apply", apply);
-        	resultMap.put("alipayId", user.getAlipayId());
             return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("提现申请记录.", e);
