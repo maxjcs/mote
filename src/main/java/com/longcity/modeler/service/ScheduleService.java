@@ -52,7 +52,7 @@ public class ScheduleService {
 	@Resource
 	TaskDao taskDao;
 	
-	private static Integer acceptedTimeOut=30;//分钟
+	private static Integer acceptedTimeOut=30*24*60;//分钟
 	
 	private static Boolean IS_MOTETASK_RUNNING=false;
 	

@@ -40,6 +40,8 @@ public class CashService {
             		orderNo="**"+orderNo.substring(2, orderNo.length());
             		vo.setOrderNo(orderNo);
             	}
+            	//转换成元
+            	vo.setMoney(vo.getMoney()/100);
             }
             paramVO.setTotal(total);
             paramVO.setRows(rows);
@@ -55,6 +57,9 @@ public class CashService {
     	Integer total = reduceCashApplyDao.countReduceCashList(paramVO); 
         if (total > 0) {  
             List<CashApplyVO> rows = reduceCashApplyDao.reduceCashList(paramVO);
+            for(CashApplyVO vo:rows){
+            	vo.setMoney(vo.getMoney()/100);
+            }
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{

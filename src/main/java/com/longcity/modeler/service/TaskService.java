@@ -146,6 +146,8 @@ public class TaskService {
 	 */
 	public Task  getDetailByTaskId(Integer taskId){
 		Task task=taskDao.selectByPrimaryKey(taskId);
+		//转换金额为元
+		convertTaskMoney(task);
 		return task;
 	}
 	
@@ -420,6 +422,10 @@ public class TaskService {
 		
 		Integer totalSize=taskDao.countNewTaskList(paramMap);
 		List<Task> taskList = taskDao.getNewTaskList(paramMap);
+		//转换金额为元
+		for(Task task:taskList){
+			convertTaskMoney(task);
+		}
 		
 		Map resultMap=new HashMap();
 		resultMap.put("totalSize", totalSize);
@@ -535,6 +541,23 @@ public class TaskService {
 	public Integer getUnFinishNumByMoteId(Integer moteId){
 		Integer count=moteTaskDao.getUnFinishNumByMoteId(moteId);
 		return count;
+	}
+	
+	
+	/**
+	 * 转换成元
+	 * @param task
+	 */
+	public void convertTaskMoney(Task task){
+		if(task.getPrice()!=null&&task.getPrice()>0){
+			task.setPrice(task.getPrice()/100);
+		}
+		if(task.getShotFee()!=null&&task.getShotFee()>0){
+			task.setShotFee(task.getShotFee()/100);
+		}
+		if(task.getTotalFee()!=null&&task.getTotalFee()>0){
+			task.setTotalFee(task.getTotalFee()/100);
+		}
 	}
 	
 	

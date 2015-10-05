@@ -3,6 +3,7 @@
  */
 package com.longcity.modeler.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class CashApplyService {
 	 */
 	public void  addCashApply(AddCashApply record){
 		record.setStatus(1);//new
+		record.setMoney(record.getMoney()*100);//以分保存
 		addCashApplyDao.insert(record);
 	}
 	
@@ -61,7 +63,9 @@ public class CashApplyService {
 	 * @param money
 	 */
 	public AddCashApply  addCashApplyDetail(Integer id){
-		return addCashApplyDao.selectByPrimaryKey(id);
+		AddCashApply addApply= addCashApplyDao.selectByPrimaryKey(id);
+		addApply.setMoney(addApply.getMoney()/100);
+		return addApply;
 	}
 	
 	/**
@@ -84,8 +88,22 @@ public class CashApplyService {
 		paramMap.put("userId", userId);
 		paramMap.put("start", (pageNo-1)*pageSize);
 		paramMap.put("pageSize", pageSize);
-		List<CashRecord> cashRecords = cashRecordDao.getRecordList(paramMap);
+		
 		Integer totalSize = cashRecordDao.countRecordList(paramMap);
+		List<CashRecord> cashRecords = null;
+		if(totalSize>0){
+			cashRecords = cashRecordDao.getRecordList(paramMap);
+			for(CashRecord record:cashRecords){
+				if(record.getMoney()!=null){
+					record.setMoney(record.getMoney()/100);
+				}
+				if(record.getRemindMoney()!=null){
+				   record.setRemindMoney(record.getRemindMoney()/100);
+				}
+			}
+		}else{
+			cashRecords = new ArrayList<CashRecord>();
+		}
 		
 		Map resultMap = new HashMap();
 		resultMap.put("dataList", cashRecords);
@@ -109,8 +127,18 @@ public class CashApplyService {
 		paramMap.put("status", status);
 		paramMap.put("start", pageSize*(pageNo-1));
 		paramMap.put("pageSize", pageSize);
-		List<ReduceCashApply> list=reduceCashApplyDao.queryApplyList(paramMap);
+		
 		Integer totalSize=reduceCashApplyDao.countApplyList(paramMap);
+		List<ReduceCashApply> list=null;
+		
+		if(totalSize>0){
+		     list=reduceCashApplyDao.queryApplyList(paramMap);
+		     for(ReduceCashApply apply:list){
+		    	 apply.setMoney(apply.getMoney()/100);
+		     }
+		}else{
+			list =new ArrayList<ReduceCashApply>();
+		}
 		
 		Map resultlMap=new HashMap();
 		resultlMap.put("dataList", list);
@@ -127,7 +155,7 @@ public class CashApplyService {
 	 */
 	public void  reduceCashApply(Integer userId,Integer money){
 		ReduceCashApply cashApply= new ReduceCashApply();
-		cashApply.setMoney(money);
+		cashApply.setMoney(money*100);
 		cashApply.setUserId(userId);
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
 		reduceCashApplyDao.insert(cashApply);
@@ -138,7 +166,11 @@ public class CashApplyService {
 	 * @param cashApplyId
 	 */
 	public ReduceCashApply  reduceApplyDetail(Integer cashApplyId){
-		return reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
+		ReduceCashApply cashApply= reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
+		if(cashApply.getMoney()!=null){
+			cashApply.setMoney(cashApply.getMoney()/100);
+		}
+		return cashApply;
 	}
 	
 	

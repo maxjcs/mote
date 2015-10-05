@@ -3,8 +3,6 @@
  */
 package com.longcity.modeler.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -21,8 +19,6 @@ import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.UserType;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
-import com.longcity.modeler.model.vo.MoteTaskVO;
-import com.longcity.modeler.model.vo.TaskVO;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
 
@@ -302,6 +298,7 @@ public class TaskController extends AbstractController {
 	 /**
      * 获取创建中的项目
      */
+	@SuppressWarnings("unchecked")
 	@ResponseBody
     @RequestMapping(value = "getNewTaskList")
     public Object getNewTaskList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
