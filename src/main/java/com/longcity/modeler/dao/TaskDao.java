@@ -55,6 +55,4 @@ public interface TaskDao {
     
     void updateTaskUrl(Integer id,String url);
     
-
-    
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.longcity.manage.model.vo.MoteDetailVO;
 import com.longcity.modeler.core.MybatisMapper;
 import com.longcity.modeler.model.MoteTask;
+import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.vo.MoteTaskVO;
 import com.longcity.modeler.model.vo.TaskVO;
 
@@ -83,5 +84,9 @@ public interface MoteTaskDao {
 	Integer getUnFinishNumByMoteId(Integer moteId);
 	
 	MoteTask queryByMoteIdAndTaskId(Integer moteId,Integer taskId);
+	
+	Integer countAcceptedTaskList(Map paramMap);
+	
+	List<Task> getAcceptedTaskList(Map paramMap);
 	
 }

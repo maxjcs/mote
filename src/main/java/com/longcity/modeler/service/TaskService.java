@@ -4,8 +4,6 @@
 package com.longcity.modeler.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +30,7 @@ import com.longcity.modeler.enums.TradeFlowType;
 import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.TaskPic;
 import com.longcity.modeler.model.TradeFlow;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.model.vo.MoteTaskVO;
@@ -45,6 +44,9 @@ import com.longcity.modeler.model.vo.TaskVO;
 public class TaskService {
 	
 	private static Logger logger = LoggerFactory.getLogger(TaskService.class);
+	
+	@Resource
+	TaskPicService taskPicService;
 	
 	@Resource
 	private TaskDao taskDao;
@@ -528,12 +530,12 @@ public class TaskService {
 		//获取任务对象
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
 		//获取模卡对象
-		List<MoteCard> cardList=moteCardDao.queryByUserId(moteTask.getUserId());
+		List<TaskPic> taskPicList=taskPicService.showImage(moteTaskId, moteTask.getUserId());
 		
 		resutlMap.put("user", user);
 		resutlMap.put("task", task);
 		resutlMap.put("moteTask", moteTask);
-		resutlMap.put("cardList", cardList);
+		resutlMap.put("picNum", taskPicList.size());//上传的图片数
 		
 		return resutlMap;
 	}

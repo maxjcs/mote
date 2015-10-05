@@ -112,9 +112,9 @@ public class TaskPicController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "addImageUrl")
-    public Object addImageUrl(HttpServletRequest request,Integer moteTaskId,String imgUrls) throws Exception{
+    public Object addImageUrl(HttpServletRequest request,Integer moteTaskId,String imgUrl) throws Exception{
         try{
-        	taskPicService.addImageUrl(moteTaskId,imgUrls);
+        	taskPicService.addImageUrl(moteTaskId,imgUrl);
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("上传多张照片失败.", e);

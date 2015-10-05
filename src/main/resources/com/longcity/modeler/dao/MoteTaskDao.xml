@@ -253,6 +253,20 @@
     where user_id=#{param1} and task_id = #{param2}
   </select>
   
+  <select id="countAcceptedTaskList" resultType="int" parameterType="map">
+    select ifnull(count(1),0)
+    from mote_task mt,task t
+    where mt.task_id=t.id and mt.user_id=#{userId} 
+  </select>
+  
+    <select id="getAcceptedTaskList" resultType="Task" parameterType="map">
+    select t.*
+    from mote_task mt,task t
+    where mt.task_id=t.id and mt.user_id=#{userId} 
+    order by mt.id desc
+    limit #{start},#{pageSize}
+  </select>
+  
   
   
   

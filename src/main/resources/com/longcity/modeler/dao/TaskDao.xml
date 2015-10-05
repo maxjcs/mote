@@ -157,7 +157,7 @@
     where mt.user_id = u.id and mt.user_id=#{taskId}
   </select>
   
-    <select id="queryMoteTaskByTaskId" parameterType="QueryTaskDetailParamVO" resultType="MoteTaskVO"  >
+  <select id="queryMoteTaskByTaskId" parameterType="QueryTaskDetailParamVO" resultType="MoteTaskVO"  >
     select mt.id,u.nickname,mt.order_no,mt.status,mt.finish_status
      from mote_task mt,user u
     where mt.user_id = u.id and mt.user_id=#{taskId}
