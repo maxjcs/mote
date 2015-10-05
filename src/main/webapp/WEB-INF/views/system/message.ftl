@@ -37,12 +37,13 @@
 			                                <option value="3">所有商家</option>
 			                            </select>
 			                        </td>
-			                        <td>
-			                            <textarea name="content"></textarea>
+			                    </tr>
+			                    <tr>
+			                       <td colspan=2>
+			                        <textarea name="content" rows=10 cols=50></textarea>
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td>&nbsp;</td>
 			                        <td><input type="submit" value="确定" /></td>
 			                        <td>&nbsp;</td>
 			                    </tr>
