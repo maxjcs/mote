@@ -3,13 +3,17 @@
  */
 package com.longcity.manage.controller;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.longcity.manage.model.SystemConfig;
 import com.longcity.modeler.constant.RedisContstant;
 import com.longcity.modeler.dao.MessageDao;
 import com.longcity.modeler.model.Message;
@@ -64,18 +68,32 @@ public class SystemController extends BaseController{
 	@RequestMapping(value = "systemControl")
     protected String systemControl( ModelMap resultMap) {
     	Integer moteAcceptNum=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_NUM_KEY);
-    	resultMap.addAttribute("moteAcceptNum", moteAcceptNum);
+    	Integer acceptTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
+    	
+    	SystemConfig systemConfig = new SystemConfig();
+    	systemConfig.setAcceptTimeOut(acceptTimeOut);
+    	systemConfig.setMoteAcceptNum(moteAcceptNum);
+    	
+    	resultMap.addAttribute("config", systemConfig);
     	return "system/systemControl";
     }
 	
+	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "setMoteAcceptNum")
-    protected String setMoteAcceptNum(Integer moteAcceptNum, ModelMap resultMap) {
-		if(moteAcceptNum!=null){
-	    	redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_NUM_KEY,moteAcceptNum);
-	    	resultMap.addAttribute("moteAcceptNum", moteAcceptNum);
+	@RequestMapping(value = "save")
+    protected void save(SystemConfig systemConfig,HttpServletResponse response) {
+		if(systemConfig!=null){
+			if(systemConfig.getMoteAcceptNum()!=null){
+				redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_NUM_KEY,systemConfig.getMoteAcceptNum());
+			}
+			if(systemConfig.getAcceptTimeOut()!=null){
+				redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY,systemConfig.getAcceptTimeOut());
+			}
+			try {
+				response.sendRedirect("./systemControl");
+			} catch (IOException e) {
+			}
 		}
-    	return "system/systemControl";
     }
     
 	@RequestMapping(value = "message")

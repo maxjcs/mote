@@ -26,12 +26,18 @@
            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-				        <form action="./setMoteAcceptNum" method="post">
+				        <form action="./save" method="post">
 		                <table>
 		                    <tr>
 		                        <td>模特日接单上限:</td>
-		                        <td><input type="text" name="moteAcceptNum" value="${moteAcceptNum?default(10)}"/></td>
-		                        <td><input type="submit" value="确定" /></td>
+		                        <td><input type="text" name="moteAcceptNum" value="${config.moteAcceptNum?default(10)}"/></td>
+		                    </tr>
+		                    <tr>
+		                        <td>接单超时时间（分）:</td>
+		                        <td><input type="text" name="acceptTimeOut" value="${config.acceptTimeOut?default(30)}"/></td>
+		                    </tr>
+		                    <tr>
+		                        <td colspan=2 ><input type="submit" value="确定" /></td>
 		                    </tr>
 		                </table>
 		               </form>

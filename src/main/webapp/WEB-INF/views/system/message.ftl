@@ -29,7 +29,7 @@
 				        <form action="./sendMessage" method="post">
 			                <table>
 			                   <tr>
-			                        <td>接手人群:</td>
+			                        <td>接收人群:</td>
 			                        <td>
 			                            <select name="type">
 			                                <option value="1">所有用户</option>

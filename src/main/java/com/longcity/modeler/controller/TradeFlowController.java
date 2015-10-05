@@ -40,7 +40,7 @@ public class TradeFlowController extends AbstractController {
     public Object getTaskIncomeList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	Map resutlMap=tradeFlowService.getTaskIncomeList(userId, pageNo, pageSize);
+        	Map resutlMap=tradeFlowService.getTaskIncomeList(userId, pageNo==null?1:pageNo, pageSize);
         	resutlMap.put("pageNo", pageNo);
         	resutlMap.put("pageSize", pageSize);
             return dataJson(resutlMap, request);

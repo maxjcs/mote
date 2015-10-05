@@ -40,6 +40,7 @@ public class RedisContstant {
 	
 	//系统控制
 	public static final String MOTE_ACCEPT_NUM_KEY = "mote_accept_num_key";
+	public static final String MOTE_ACCEPT_TIMEOUT_KEY = "mote_accept_timeout_key";
 	
 	//登陆状态
 	public static final String USER_LOGIN_IN_KEY = "user_login_in_key:";
