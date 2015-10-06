@@ -4,6 +4,7 @@
 package com.longcity.modeler.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -19,8 +20,10 @@ import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.TaskPic;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.MoteTaskService;
+import com.longcity.modeler.service.TaskPicService;
 import com.longcity.modeler.service.UserService;
 
 /**
@@ -38,6 +41,9 @@ public class MoteTaskController extends AbstractController{
 	
 	@Resource
 	UserService userService;
+	
+	@Resource
+	TaskPicService taskPicService;
 	
 	@Resource
 	TaskDao taskDao;
@@ -66,14 +72,19 @@ public class MoteTaskController extends AbstractController{
     @RequestMapping(value = "getReturnItemInfo")
     public Object getReturnItemInfo(HttpServletRequest request,Integer moteTaskId) throws Exception{
         try{
+        	Integer userId=AppContext.getUserId();
+        			
         	MoteTask moteTask=moteTaskService.selectByPrimarykey(moteTaskId);
         	//获取
         	Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
         	User seller=userService.getUserById(task.getUserId());
         	
+        	List<TaskPic> picList= taskPicService.showImage(moteTaskId, userId);
+        	
         	Map resultMap=new HashMap();
         	resultMap.put("task", task);
         	resultMap.put("address", seller.getAddress());
+        	resultMap.put("picList", picList);
         	
             return dataJson(resultMap, request);
         }catch(Exception e){
