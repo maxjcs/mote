@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
+import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 
 /**
@@ -32,6 +33,11 @@ public class MoteTaskService {
 	
 	@Resource
 	TaskDao taskDao;
+	
+	
+	public MoteTask selectByPrimarykey(Integer id){
+		return moteTaskDao.selectByPrimaryKey(id);
+	}
 	
 	/**
 	 * 
