@@ -11,9 +11,13 @@ public class Task {
 
     private String url;
 
-    private Integer price;
+    private Double price;
+    
+    private Integer priceFen;
 
-    private Integer shotFee;
+    private Double shotFee;
+    
+    private Integer shotFeeFen;
 
     private String imgUrl;
 
@@ -49,7 +53,9 @@ public class Task {
     
     private Date updateTime;
     
-    private Integer totalFee;
+    private Double totalFee;
+    
+    private Integer totalFeeFen;
     
     private String nickname;
     
@@ -57,7 +63,57 @@ public class Task {
     
     private Boolean isAccepted;
     
-    public Boolean getIsAccepted() {
+    
+    
+    public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Integer getPriceFen() {
+		return priceFen;
+	}
+
+	public void setPriceFen(Integer priceFen) {
+		this.priceFen = priceFen;
+	}
+
+	public Double getShotFee() {
+		return shotFee;
+	}
+
+	public void setShotFee(Double shotFee) {
+		this.shotFee = shotFee;
+	}
+
+	public Integer getShotFeeFen() {
+		return shotFeeFen;
+	}
+
+	public void setShotFeeFen(Integer shotFeeFen) {
+		this.shotFeeFen = shotFeeFen;
+	}
+
+	public Double getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(Double totalFee) {
+		this.totalFee = totalFee;
+	}
+
+	public Integer getTotalFeeFen() {
+		return totalFeeFen;
+	}
+
+	public void setTotalFeeFen(Integer totalFeeFen) {
+		this.totalFeeFen = totalFeeFen;
+	}
+
+	public Boolean getIsAccepted() {
 		return isAccepted;
 	}
 
@@ -95,14 +151,6 @@ public class Task {
 
 	public void setAgeMax(Integer ageMax) {
 		this.ageMax = ageMax;
-	}
-
-	public Integer getTotalFee() {
-		return totalFee;
-	}
-
-	public void setTotalFee(Integer totalFee) {
-		this.totalFee = totalFee;
 	}
 
 	public Date getCreateTime() {
@@ -151,22 +199,6 @@ public class Task {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getShotFee() {
-        return shotFee;
-    }
-
-    public void setShotFee(Integer shotFee) {
-        this.shotFee = shotFee;
     }
 
     public String getImgUrl() {

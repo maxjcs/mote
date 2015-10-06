@@ -76,17 +76,18 @@ public class CashController extends BaseController{
     protected String verifyAddCash(Integer id,String money,String lastSixOrderNo,ModelMap resultMap) {
     	AddCashApply addCashApply=cashApplyService.addCashApplyDetail(id);
     	//完成
-    	Double dmoney=Double.parseDouble(money)*100;
-    	if(StringUtils.equals(String.valueOf(dmoney.intValue()), String.valueOf(addCashApply.getMoney()))&&StringUtils.equals(lastSixOrderNo.substring(lastSixOrderNo.length()-6, lastSixOrderNo.length()), addCashApply.getLastSixOrderNo())){
-    		Boolean success=cashApplyService.finishAddCashPay(id);
-    		if(success){
-    			addCashApply.setStatus(2);//完成
-    			resultMap.addAttribute("message", "操作成功");
-    		}else{
-    			resultMap.addAttribute("message", "操作失败,金额或者订单号不对,请核对！");
-    		}
+    	if(StringUtils.equals(money, String.valueOf(addCashApply.getMoney()))){
+    		int len=lastSixOrderNo.length()-6;
+            if(StringUtils.equals(lastSixOrderNo.substring(len<=0?0:len, lastSixOrderNo.length()), addCashApply.getLastSixOrderNo())){
+	    		Boolean success=cashApplyService.finishAddCashPay(id);
+	    		if(success){
+	    			addCashApply.setStatus(2);//完成
+	    			resultMap.addAttribute("message", "操作成功");
+	    		}else{
+	    			resultMap.addAttribute("message", "操作失败,金额或者订单号不对,请核对！");
+	    		}
+            }
     	}
-    	
     	resultMap.addAttribute("resultVO", addCashApply);
         return "cash/addCashDetail";
     } 

@@ -17,7 +17,9 @@ public class AddCashApply {
 	
 	String alipayName;
 	
-	Integer money;
+	Double money;
+	
+	Integer moneyFen;//分单位
 	
 	String lastSixOrderNo;
 	
@@ -37,12 +39,20 @@ public class AddCashApply {
 		this.alipayId = alipayId;
 	}
 
-	public Integer getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
-	public void setMoney(Integer money) {
+	public void setMoney(Double money) {
 		this.money = money;
+	}
+
+	public Integer getMoneyFen() {
+		return moneyFen;
+	}
+
+	public void setMoneyFen(Integer moneyFen) {
+		this.moneyFen = moneyFen;
 	}
 
 	public Integer getId() {

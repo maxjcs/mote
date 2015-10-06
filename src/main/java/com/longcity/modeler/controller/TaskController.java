@@ -21,6 +21,7 @@ import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -222,9 +223,9 @@ public class TaskController extends AbstractController {
         	if(user.getType()==UserType.mote.getValue()){
         		return errorJson("只有商家才能发布项目", request);
         	}
-        	task.setPrice(task.getPrice()*100);//转换成分
-        	task.setShotFee(task.getShotAreaId()*100);//转换成分
-        	task.setTotalFee(task.getPrice()*task.getNumber()*100+task.getShotFee()*100);//转换成分
+        	task.setPriceFen(MoneyUtil.yuan2Fen(task.getPrice()));//转换成分
+        	task.setShotFeeFen(MoneyUtil.yuan2Fen(task.getShotFee()));//转换成分
+        	task.setTotalFeeFen(MoneyUtil.yuan2Fen(task.getPrice()*task.getNumber()+task.getShotFee()));//转换成分
         	taskService.save(task);
             return dataJson(true, request);
         }catch(Exception e){
@@ -243,7 +244,7 @@ public class TaskController extends AbstractController {
         	Integer userId=AppContext.getUserId();
         	
             User user= userService.getUserById(userId);
-            Integer totalFee=task.getPrice()*task.getNumber()*100+task.getShotFee()*100;
+            Double totalFee=task.getPrice()*task.getNumber()+task.getShotFee();
             if(user.getRemindFee()<totalFee){
             	 return errorJson("预存款不足，请充值！", request);
             }
@@ -252,12 +253,12 @@ public class TaskController extends AbstractController {
         	}
         	//新建任务
         	task.setUserId(userId);
-        	task.setPrice(task.getPrice()*100);//转换成分
-        	task.setShotFee(task.getShotAreaId()*100);//转换成分
-        	task.setTotalFee(totalFee);//转换成分
+        	task.setPriceFen(MoneyUtil.yuan2Fen(task.getPrice()));//转换成分
+        	task.setShotFeeFen(MoneyUtil.yuan2Fen(task.getShotFee()));//转换成分
+        	task.setTotalFeeFen(MoneyUtil.yuan2Fen(totalFee));//转换成分
         	taskService.publish(task);
         	//冻结金额
-        	userService.freezeFee(userId, totalFee);
+        	userService.freezeFee(userId, MoneyUtil.double2Int(totalFee));
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);

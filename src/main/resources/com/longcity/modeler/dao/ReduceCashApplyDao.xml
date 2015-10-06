@@ -10,7 +10,7 @@
       money, status
       )
     values (#{userId}, now(), 
-      #{money}, #{status}
+      #{moneyFen}, #{status}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="ReduceCashApply" >

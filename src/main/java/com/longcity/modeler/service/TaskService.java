@@ -27,7 +27,6 @@ import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.TradeFlowType;
-import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.TaskPic;
@@ -35,6 +34,7 @@ import com.longcity.modeler.model.TradeFlow;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.model.vo.MoteTaskVO;
 import com.longcity.modeler.model.vo.TaskVO;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -178,8 +178,8 @@ public class TaskService {
 		paramMap.put("moteTaskId", moteTaskId);
 		paramMap.put("expressCompanyId", expressCompanyId);
 		paramMap.put("expressNo", expressNo);
-		Integer fee= task.getPrice()+task.getShotFee();
-		paramMap.put("fee",fee );//单位为分
+		Double fee= task.getPrice()+task.getShotFee();
+		paramMap.put("fee",MoneyUtil.double2Int(fee));//单位为分
 		moteTaskDao.returnItem(paramMap);
 		
 	}
@@ -198,13 +198,13 @@ public class TaskService {
 		//更新快递信息
 		Map paramMap=new HashMap();
 		paramMap.put("moteTaskId", moteTaskId);
-		Integer fee= task.getPrice()+task.getShotFee();
-		paramMap.put("fee",fee );//单位为分
+		Double fee= task.getPrice()+task.getShotFee();
+		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
 		moteTaskDao.verifyReturnItem(paramMap);
 		
 		//mote记录流水
 		TradeFlow tradeFlow=new TradeFlow();
-		tradeFlow.setMoney(fee);
+		tradeFlow.setMoney(MoneyUtil.double2Int(fee));
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
 		tradeFlow.setType(TradeFlowType.itemReturn.getValue()); //退还商品
@@ -212,16 +212,16 @@ public class TaskService {
 		
 		//商家记录流水
 		TradeFlow tradeFlow2=new TradeFlow();
-		tradeFlow2.setMoney(fee);
+		tradeFlow2.setMoney(MoneyUtil.double2Int(fee));
 		tradeFlow2.setReferId(moteTaskId);
 		tradeFlow2.setUserId(task.getUserId());
 		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
 		tradeFlowDao.insert(tradeFlow2);
 		
 		//商家减余额
-		userDao.updateFreezeFee(task.getUserId(), -1*fee);
+		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
 		//mote增加余额
-		userDao.updateRemindFee(moteTask.getUserId(), fee);
+		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
@@ -244,13 +244,13 @@ public class TaskService {
 		//更新快递信息
 		Map paramMap=new HashMap();
 		paramMap.put("moteTaskId", moteTaskId);
-		Integer fee= task.getPrice()*(100-task.getSelfBuyOff())/100+task.getShotFee();
-		paramMap.put("fee",fee );//单位为分
+		Double fee= task.getPrice()*(100-task.getSelfBuyOff())/100+task.getShotFee();
+		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
 		moteTaskDao.selfBuy(paramMap);
 		
 		//mote记录流水
 		TradeFlow tradeFlow=new TradeFlow();
-		tradeFlow.setMoney(fee);
+		tradeFlow.setMoney(MoneyUtil.double2Int(fee));
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
 		tradeFlow.setType(TradeFlowType.itemAccept.getValue()); //自购商品
@@ -258,16 +258,16 @@ public class TaskService {
 		
 		//商家记录流水
 		TradeFlow tradeFlow2=new TradeFlow();
-		tradeFlow2.setMoney(fee);
+		tradeFlow2.setMoney(MoneyUtil.double2Int(fee));
 		tradeFlow2.setReferId(moteTaskId);
 		tradeFlow2.setUserId(task.getUserId());
 		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
 		tradeFlowDao.insert(tradeFlow2);
 		
 		//商家减冻结金额
-		userDao.updateFreezeFee(task.getUserId(), -1*fee);
+		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
 		//mote增加余额
-		userDao.updateRemindFee(moteTask.getUserId(), fee);
+		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
@@ -556,13 +556,13 @@ public class TaskService {
 	 */
 	public void convertTaskMoney(Task task){
 		if(task.getPrice()!=null&&task.getPrice()>0){
-			task.setPrice(task.getPrice()/100);
+			task.setPrice(MoneyUtil.fen2Yuan(task.getPrice()));
 		}
 		if(task.getShotFee()!=null&&task.getShotFee()>0){
-			task.setShotFee(task.getShotFee()/100);
+			task.setShotFee(MoneyUtil.fen2Yuan(task.getShotFee()));
 		}
 		if(task.getTotalFee()!=null&&task.getTotalFee()>0){
-			task.setTotalFee(task.getTotalFee()/100);
+			task.setTotalFee(MoneyUtil.fen2Yuan(task.getTotalFee()));
 		}
 	}
 	

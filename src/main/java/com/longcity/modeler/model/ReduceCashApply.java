@@ -9,7 +9,9 @@ public class ReduceCashApply {
 
     private Date createTime;
 
-    private Integer money;
+    private Double money;
+    
+    private Integer moneyFen;
 
     private Integer status;
 
@@ -89,15 +91,23 @@ public class ReduceCashApply {
         this.createTime = createTime;
     }
 
-    public Integer getMoney() {
-        return money;
-    }
+    public Double getMoney() {
+		return money;
+	}
 
-    public void setMoney(Integer money) {
-        this.money = money;
-    }
+	public void setMoney(Double money) {
+		this.money = money;
+	}
 
-    public Integer getStatus() {
+	public Integer getMoneyFen() {
+		return moneyFen;
+	}
+
+	public void setMoneyFen(Integer moneyFen) {
+		this.moneyFen = moneyFen;
+	}
+
+	public Integer getStatus() {
         return status;
     }
 

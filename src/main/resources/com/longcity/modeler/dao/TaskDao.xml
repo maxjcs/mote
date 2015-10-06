@@ -14,12 +14,12 @@
       self_buy_rate, number, shot_area_id, 
       status,create_time,update_time,total_fee,old_url)
     values (#{userId}, #{title}, 
-      #{url}, #{price}, #{shotFee}, 
+      #{url}, #{priceFen}, #{shotFeeFen}, 
       #{imgUrl}, #{selfBuyOff}, #{shotDesc}, 
       #{gender}, #{shape}, #{heightMin}, 
       #{heightMax},#{ageMin},#{ageMax}, #{areaid}, #{modelerLevel}, 
       #{selfBuyRate}, #{number}, #{shotAreaId}, 
-      #{status},now(),now(),#{totalFee},#{oldUrl})
+      #{status},now(),now(),#{totalFeeFen},#{oldUrl})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="Task" >
@@ -27,8 +27,8 @@
     set user_id = #{userId},
       title = #{title},
       url = #{url},
-      price = #{price},
-      shot_fee = #{shotFee},
+      price = #{priceFen},
+      shot_fee = #{shotFeeFen},
       img_url = #{imgUrl},
       self_buy_off = #{selfBuyOff},
       shot_desc = #{shotDesc},
@@ -44,7 +44,7 @@
       number = #{number},
       shot_area_id = #{shotAreaId},
       status = #{status},
-      total_fee = #{totalFee}
+      total_fee = #{totalFeeFen}
     where id = #{id}
   </update>
   

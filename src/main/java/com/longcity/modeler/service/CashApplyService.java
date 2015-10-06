@@ -24,6 +24,7 @@ import com.longcity.modeler.model.AddCashApply;
 import com.longcity.modeler.model.CashRecord;
 import com.longcity.modeler.model.ReduceCashApply;
 import com.longcity.modeler.model.User;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -53,7 +54,7 @@ public class CashApplyService {
 	 */
 	public void  addCashApply(AddCashApply record){
 		record.setStatus(1);//new
-		record.setMoney(record.getMoney()*100);//以分保存
+		record.setMoneyFen(MoneyUtil.yuan2Fen(record.getMoney()));//以分保存
 		addCashApplyDao.insert(record);
 	}
 	
@@ -64,7 +65,7 @@ public class CashApplyService {
 	 */
 	public AddCashApply  addCashApplyDetail(Integer id){
 		AddCashApply addApply= addCashApplyDao.selectByPrimaryKey(id);
-		addApply.setMoney(addApply.getMoney()/100);
+		addApply.setMoney(MoneyUtil.fen2Yuan(addApply.getMoney()));
 		return addApply;
 	}
 	
@@ -134,7 +135,7 @@ public class CashApplyService {
 		if(totalSize>0){
 		     list=reduceCashApplyDao.queryApplyList(paramMap);
 		     for(ReduceCashApply apply:list){
-		    	 apply.setMoney(apply.getMoney()/100);
+		    	 apply.setMoney(MoneyUtil.fen2Yuan(apply.getMoney()));
 		     }
 		}else{
 			list =new ArrayList<ReduceCashApply>();
@@ -153,9 +154,9 @@ public class CashApplyService {
 	 * @param userId
 	 * @param money
 	 */
-	public void  reduceCashApply(Integer userId,Integer money){
+	public void  reduceCashApply(Integer userId,Double money){
 		ReduceCashApply cashApply= new ReduceCashApply();
-		cashApply.setMoney(money*100);
+		cashApply.setMoneyFen(MoneyUtil.yuan2Fen(money));
 		cashApply.setUserId(userId);
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
 		reduceCashApplyDao.insert(cashApply);
@@ -168,7 +169,7 @@ public class CashApplyService {
 	public ReduceCashApply  reduceApplyDetail(Integer cashApplyId){
 		ReduceCashApply cashApply= reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
 		if(cashApply.getMoney()!=null){
-			cashApply.setMoney(cashApply.getMoney()/100);
+			cashApply.setMoney(MoneyUtil.fen2Yuan(cashApply.getMoney()));
 		}
 		return cashApply;
 	}
@@ -185,7 +186,7 @@ public class CashApplyService {
 		if(reduceCashApply.getMoney()>user.getRemindFee()){
 			return false;
 		}else{
-			userService.updateRemindFee(reduceCashApply.getUserId(), reduceCashApply.getMoney()*-1);
+			userService.updateRemindFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
 		}
 		reduceCashApplyDao.finishPay(cashApplyId,alipayNo);
 		return true;
@@ -198,7 +199,7 @@ public class CashApplyService {
 	@Transactional
 	public Boolean  finishAddCashPay(Integer cashApplyId){
 		AddCashApply addCashApply=addCashApplyDao.selectByPrimaryKey(cashApplyId);
-		userService.updateRemindFee(addCashApply.getUserId(), addCashApply.getMoney());
+		userService.updateRemindFee(addCashApply.getUserId(),  MoneyUtil.double2Int(addCashApply.getMoney()));
 		addCashApplyDao.finish(cashApplyId);
 		return true;
 	}

@@ -26,6 +26,7 @@ import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.util.CipherUtil;
+import com.longcity.modeler.util.MoneyUtil;
 
 
 /**
@@ -80,7 +81,7 @@ public class UserService {
 		User user = getUserById(userId);
 		Integer remindFee = user.getRemindFee();
 		if(remindFee!=null){
-			resultMap.put("remindFee", new Double(remindFee)/100);
+			resultMap.put("remindFee", MoneyUtil.fen2Yuan(remindFee));
 		}else{
 			resultMap.put("remindFee", 0);
 		}

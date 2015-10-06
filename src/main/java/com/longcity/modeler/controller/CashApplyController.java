@@ -23,6 +23,7 @@ import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.CashApplyService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.service.VerifyCodeService;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -59,7 +60,7 @@ public class CashApplyController extends AbstractController{
         	//模特余额
         	User user=userService.getUserById(userId);
         	if(user.getRemindFee()!=null){
-        		resultMap.put("remindFee", new Double(user.getRemindFee())/100);
+        		resultMap.put("remindFee", MoneyUtil.fen2Yuan(user.getRemindFee()));
         	}else{
         		resultMap.put("remindFee", 0);
         	}
@@ -132,7 +133,7 @@ public class CashApplyController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "reduceCashApply")
-    public Object reduceCashApply(HttpServletRequest request,Integer money,String password,String smsCode) throws Exception{
+    public Object reduceCashApply(HttpServletRequest request,Double money,String password,String smsCode) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
         	
@@ -150,7 +151,7 @@ public class CashApplyController extends AbstractController{
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("提现申请失败.", e);
-            return errorJson("服务器异常，请重试.", request);
+            return errorJson("提现申请失败.", request);
         }
     }
 

@@ -21,7 +21,7 @@ public class CashApplyVO {
 	
 	String shopName;
 	
-	Integer money;
+	Double money;
 	
 	Integer status;
 	
@@ -91,11 +91,11 @@ public class CashApplyVO {
 		this.shopName = shopName;
 	}
 
-	public Integer getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
-	public void setMoney(Integer money) {
+	public void setMoney(Double money) {
 		this.money = money;
 	}
 
