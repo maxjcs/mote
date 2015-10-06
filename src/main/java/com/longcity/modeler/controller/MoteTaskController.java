@@ -72,14 +72,13 @@ public class MoteTaskController extends AbstractController{
     @RequestMapping(value = "getReturnItemInfo")
     public Object getReturnItemInfo(HttpServletRequest request,Integer moteTaskId) throws Exception{
         try{
-        	Integer userId=AppContext.getUserId();
         			
         	MoteTask moteTask=moteTaskService.selectByPrimarykey(moteTaskId);
         	//获取
         	Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
         	User seller=userService.getUserById(task.getUserId());
         	
-        	List<TaskPic> picList= taskPicService.showImage(moteTaskId, userId);
+        	List<TaskPic> picList= taskPicService.showImage(moteTaskId, moteTask.getUserId());
         	
         	Map resultMap=new HashMap();
         	resultMap.put("task", task);
