@@ -260,7 +260,7 @@
   </select>
   
     <select id="getAcceptedTaskList" resultType="Task" parameterType="map">
-    select t.*
+    select mt.id,t.user_id,t.title,t.url,t.price,t.shot_fee,t.img_url,t.self_buy_off
     from mote_task mt,task t
     where mt.task_id=t.id and mt.user_id=#{userId} 
     order by mt.id desc
