@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.dao.MoteTaskDao;
+import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.TaskPic;
 import com.longcity.modeler.service.TaskPicService;
 import com.longcity.modeler.util.FileUtil;
@@ -35,6 +37,9 @@ public class TaskPicController extends AbstractController{
 	@Resource
 	TaskPicService taskPicService;
 	
+	@Resource
+	MoteTaskDao moteTaskDao;
+	
 	
 	/**
      * 展示多张照片
@@ -43,8 +48,8 @@ public class TaskPicController extends AbstractController{
     @RequestMapping(value = "showImage")
     public Object showImage(HttpServletRequest request,Integer moteTaskId) throws Exception{
         try{
-        	Integer userId=AppContext.getUserId();
-        	List<TaskPic> picList=taskPicService.showImage(moteTaskId,userId);
+        	MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+        	List<TaskPic> picList=taskPicService.showImage(moteTaskId,moteTask.getUserId());
             return dataJson(picList, request);
         }catch(Exception e){
             logger.error("上传多张照片失败.", e);
