@@ -526,16 +526,20 @@ public class TaskService {
 		
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
 		//获取模特对象
-		User user=userDao.selectByPrimaryKey(moteTask.getUserId());
+		User mote=userDao.selectByPrimaryKey(moteTask.getUserId());
 		//获取任务对象
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
 		//获取模卡对象
 		List<TaskPic> taskPicList=taskPicService.showImage(moteTaskId, moteTask.getUserId());
 		
-		resutlMap.put("user", user);
+		resutlMap.put("user", mote);
 		resutlMap.put("task", task);
 		resutlMap.put("moteTask", moteTask);
 		resutlMap.put("picNum", taskPicList.size());//上传的图片数
+		
+		 //商家收货地址
+		User seller=userDao.selectByPrimaryKey(task.getUserId());
+		resutlMap.put("address", seller.getAddress());
 		
 		return resutlMap;
 	}
