@@ -46,9 +46,13 @@ public class User {
 
     private String referee;
 
-    private Integer remindFee;//余额
+    private Double remindFee;//余额
     
-    private Integer freezeFee;//冻结金额
+    private Double freezeFee;//冻结金额
+    
+    private Double remindFeeFen;//余额
+    
+    private Double freezeFeeFen;//冻结金额
     
     private String deviceId="";
     
@@ -105,14 +109,6 @@ public class User {
 
 	public void setLoginType(String loginType) {
 		this.loginType = loginType;
-	}
-
-	public Integer getFreezeFee() {
-		return freezeFee;
-	}
-
-	public void setFreezeFee(Integer freezeFee) {
-		this.freezeFee = freezeFee;
 	}
 
 	public String getBirdthdayStr() {
@@ -291,11 +287,37 @@ public class User {
         this.referee = referee == null ? null : referee.trim();
     }
 
-    public Integer getRemindFee() {
-        return remindFee;
-    }
+	public Double getRemindFee() {
+		return remindFee;
+	}
 
-    public void setRemindFee(Integer remindFee) {
-        this.remindFee = remindFee;
-    }
+	public void setRemindFee(Double remindFee) {
+		this.remindFee = remindFee;
+	}
+
+	public Double getFreezeFee() {
+		return freezeFee;
+	}
+
+	public void setFreezeFee(Double freezeFee) {
+		this.freezeFee = freezeFee;
+	}
+
+	public Double getRemindFeeFen() {
+		return remindFeeFen;
+	}
+
+	public void setRemindFeeFen(Double remindFeeFen) {
+		this.remindFeeFen = remindFeeFen;
+	}
+
+	public Double getFreezeFeeFen() {
+		return freezeFeeFen;
+	}
+
+	public void setFreezeFeeFen(Double freezeFeeFen) {
+		this.freezeFeeFen = freezeFeeFen;
+	}
+
+    
 }

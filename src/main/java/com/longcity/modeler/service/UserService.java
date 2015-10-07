@@ -92,7 +92,7 @@ public class UserService {
 		resultMap.put("messageNum", messageNum);
 		
 		User user = getUserById(userId);
-		Integer remindFee = user.getRemindFee();
+		Double remindFee = user.getRemindFee();
 		if(remindFee!=null){
 			resultMap.put("remindFee", MoneyUtil.fen2Yuan(remindFee));
 		}else{
@@ -156,7 +156,7 @@ public class UserService {
 		newUser.setType(UserType.mote.getValue());
 		newUser.setPassword(CipherUtil.MD5(password));
 		newUser.setStatus(UserStatus.normal.getValue());
-		newUser.setRemindFee(0);
+		newUser.setRemindFee(0.0);
 		userDao.insert(newUser);
 		//缓存中增加用户数
 		redisService.registerUser(newUser);
@@ -188,7 +188,7 @@ public class UserService {
 		newUser.setAddress(user.getAddress());
 		newUser.setReferee(user.getReferee());
 		newUser.setStatus(UserStatus.normal.getValue());
-		newUser.setRemindFee(0);
+		newUser.setRemindFee(0.0);
 		userDao.insert(newUser);
 		//缓存中增加用户数
 		redisService.registerUser(newUser);
@@ -257,7 +257,9 @@ public class UserService {
 	 * @param userParam
 	 */
 	public User getUserInfo(Integer userId) {
-		return  userDao.selectByPrimaryKey(userId);
+		User user =  userDao.selectByPrimaryKey(userId);
+		user.setRemindFee(MoneyUtil.fen2Yuan(user.getRemindFee()));
+		return user;
 	}
 	
 	

@@ -26,6 +26,7 @@ import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.model.vo.MoteTaskVO;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * 用于定时任务
@@ -196,7 +197,7 @@ public class ScheduleService {
 					//任务数
 					Integer moteTaskNum=moteTaskDao.getMoteTaskNumBySellerId(user.getId());
 					//预存款
-					Integer remindFee=user.getRemindFee();
+					Double remindFee=user.getRemindFee();
 					//酬金花费
 					Integer taskFee=moteTaskDao.getMoteTaskTotalFeeBySellerId(user.getId());
 					
@@ -204,7 +205,7 @@ public class ScheduleService {
 					sellerSta.setSellerId(user.getId());
 					sellerSta.setProjectNum(taskNum);
 					sellerSta.setTaskNum(moteTaskNum);
-					sellerSta.setTotalFee(remindFee);
+					sellerSta.setTotalFee(MoneyUtil.double2Int(remindFee));
 					sellerSta.setTaskFee(taskFee);
 					sellerService.save(sellerSta);
 					
@@ -240,14 +241,14 @@ public class ScheduleService {
 					//任务数
 					Integer moteTaskNum=moteTaskDao.getMoteTaskNumByMoteId(user.getId());
 					//预存款
-					Integer remindFee=user.getRemindFee();
+					Double remindFee=user.getRemindFee();
 					//收益
 					Integer taskFee=moteTaskDao.getMoteTaskTotalFeeByMoteId(user.getId());
 					
 					MoteStatistics moteSta=new MoteStatistics();
 					moteSta.setMoteId(user.getId());
 					moteSta.setTaskNum(moteTaskNum);
-					moteSta.setRemindFee(remindFee);
+					moteSta.setRemindFee(MoneyUtil.double2Int(remindFee));
 					moteSta.setTaskFee(taskFee);
 					moteService.save(moteSta);
 					
