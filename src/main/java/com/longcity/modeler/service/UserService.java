@@ -187,7 +187,7 @@ public class UserService {
 		newUser.setEmail(user.getEmail());
 		newUser.setAddress(user.getAddress());
 		newUser.setReferee(user.getReferee());
-		newUser.setStatus(UserStatus.waitApprove.getValue());
+		newUser.setStatus(UserStatus.normal.getValue());
 		newUser.setRemindFee(0);
 		userDao.insert(newUser);
 		//缓存中增加用户数
