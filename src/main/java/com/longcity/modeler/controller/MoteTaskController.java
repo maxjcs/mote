@@ -53,14 +53,14 @@ public class MoteTaskController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "getAcceptedTaskList")
-    public Object getAcceptedTaskList(HttpServletRequest request,Integer pageNo,Integer pageSize) throws Exception{
+    public Object getAcceptedTaskList(HttpServletRequest request,Integer type,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
-        	Map resultMap=moteTaskService.getAcceptedTaskList(userId, pageNo==null?1:pageNo, pageSize);
+        	Map resultMap=moteTaskService.getAcceptedTaskList(userId,type, pageNo==null?1:pageNo, pageSize);
             return dataJson(resultMap, request);
         }catch(Exception e){
             logger.error("获取模特接单列表失败.", e);
-            return errorJson("服务器异常，请重试.", request);
+            return errorJson("获取模特接单列表失败", request);
         }
     }
 	

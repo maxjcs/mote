@@ -257,12 +257,30 @@
     select ifnull(count(1),0)
     from mote_task mt,task t
     where mt.task_id=t.id and mt.user_id=#{userId} 
+    <if test="type!=null and type!=1">
+            AND mt.finish_status = 0
+    </if>
+    <if test="type!=null and type!=2">
+            AND mt.finish_status = 1
+    </if>
+    <if test="type!=null and type!=3">
+            AND mt.status = 7
+    </if>
   </select>
   
   <select id="getAcceptedTaskList" resultType="Task" parameterType="map">
     select mt.id,t.user_id,t.title,t.url,t.price,t.shot_fee,t.img_url,t.self_buy_off
     from mote_task mt,task t
     where mt.task_id=t.id and mt.user_id=#{userId} 
+    <if test="type!=null and type!=1">
+            AND mt.finish_status = 0
+    </if>
+    <if test="type!=null and type!=2">
+            AND mt.finish_status = 1
+    </if>
+    <if test="type!=null and type!=3">
+            AND mt.status = 7
+    </if>
     order by mt.id desc
     limit #{start},#{pageSize}
   </select>

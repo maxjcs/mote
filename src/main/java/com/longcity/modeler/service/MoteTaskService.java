@@ -47,11 +47,13 @@ public class MoteTaskService {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Map getAcceptedTaskList(Integer userId,Integer pageNo,Integer pageSize){
+	public Map getAcceptedTaskList(Integer userId,Integer type,Integer pageNo,Integer pageSize){
 		Map paramMap=new HashMap();
 		paramMap.put("userId", userId);
+		paramMap.put("type", type);
 		paramMap.put("start", (pageNo-1)*pageSize);
 		paramMap.put("pageSize", pageSize);
+		
 		
 		Integer totalSize=moteTaskDao.countAcceptedTaskList(paramMap);
 		

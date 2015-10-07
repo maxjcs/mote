@@ -28,16 +28,36 @@
   <update id="updateMote" parameterType="User" >
     update user
     set 
-      avart_url = #{avartUrl},
-      nickname = #{nickname},
-      gender = #{gender},
-      birdthday = #{birdthday},
-      height = #{height},
-      weight = #{weight},
-      area_id = #{areaId},
-      wangwang = #{wangwang},
-      alipay_id = #{alipayId},
-      alipay_name = #{alipayName},
+    <if test="avartUrl!=null and avartUrl!=''">
+           avart_url = #{avartUrl},
+    </if>
+    <if test="nickname!=null and nickname!=''">
+           nickname = #{nickname},
+    </if>
+    <if test="gender!=null and gender!=-1">
+           gender = #{gender},
+    </if> 
+    <if test="birdthday!=null and birdthday!=''">
+           birdthday = #{birdthday},
+    </if>
+    <if test="height!=null and height!=''">
+           height = #{height},
+    </if> 
+    <if test="weight!=null and weight!=''">
+           weight = #{weight},
+    </if> 
+    <if test="areaId!=null and areaId!=''">
+           area_id = #{areaId},
+    </if>
+    <if test="wangwang!=null and wangwang!=''">
+           wangwang = #{wangwang},
+    </if>
+     <if test="alipayId!=null and alipayId!=''">
+           alipay_id = #{alipayId},
+    </if>
+    <if test="alipayName!=null and alipayName!=''">
+           alipay_name = #{alipayName},
+    </if>
       update_time = now()
     where id = #{id}
   </update>
