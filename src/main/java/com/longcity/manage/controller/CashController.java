@@ -76,7 +76,7 @@ public class CashController extends BaseController{
     protected String verifyAddCash(Integer id,String money,String lastSixOrderNo,ModelMap resultMap) {
     	AddCashApply addCashApply=cashApplyService.addCashApplyDetail(id);
     	//完成
-    	if(StringUtils.equals(money, String.valueOf(addCashApply.getMoney()))){
+    	if(addCashApply.getMoney()-new Double(money)==0){
     		int len=lastSixOrderNo.length()-6;
             if(StringUtils.equals(lastSixOrderNo.substring(len<=0?0:len, lastSixOrderNo.length()), addCashApply.getLastSixOrderNo())){
 	    		Boolean success=cashApplyService.finishAddCashPay(id);

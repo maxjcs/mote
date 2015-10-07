@@ -142,6 +142,7 @@
                                 <tr>
                                     <th>注册日期</th>
                                     <th>昵称</th>
+                                    <th>手机号</th>
                                     <th>店铺名</th>
                                     <th>推荐人</th>
                                     <th>项目数</th>
@@ -155,7 +156,8 @@
                                 <#list resultVO.rows as sellerVO>
                                 <tr>
                                     <td>${sellerVO.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td><a class="text-blue" href="./sellerDetail?sellerId=${sellerVO.userId}">${sellerVO.nickname?default('-')}</a></td>
+                                    <td>${sellerVO.nickname?default('-')}</td>
+                                    <td><a class="text-blue" href="./sellerDetail?sellerId=${sellerVO.userId}">${sellerVO.phoneNumber?default('-')}</a></td>
                                     <td>${sellerVO.shopName?default('')}</td>
                                     <td>${sellerVO.referee?default('')}</td>
                                     <td>${sellerVO.projectNum?default(0)}</td>

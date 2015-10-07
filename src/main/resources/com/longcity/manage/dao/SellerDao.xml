@@ -25,7 +25,7 @@
   </update>
 
   <select id="querySellerList" resultType="SellerVO" parameterType="QuerySellerParamVO" >
-    select seller_id as user_id,project_num,task_num,total_fee,task_fee,u.create_time,u.nickname,u.shop_name,u.referee,u.create_time,u.status
+    select seller_id as user_id,project_num,task_num,total_fee,task_fee,u.create_time,u.nickname,u.phone_number,u.shop_name,u.referee,u.create_time,u.status
     from seller_statistics ss,user u
     where 1=1 and ss.seller_id=u.id
     <include refid="queryWhere"/>
