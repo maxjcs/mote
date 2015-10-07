@@ -179,8 +179,9 @@
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>
 		</form>
-		5、模特关注的任务列表[api/motetask/getAcceptedTaskList]
+		5、模特任务列表[api/motetask/getAcceptedTaskList]
 		<form id="1" action="api/motetask/getAcceptedTaskList" method="post" >
+		    type(0 关注，1进行中，2已经完成，3存在争议)：<input type="text" name="type" value="0" />
 			pageNo：<input type="text" name="pageNo" value="1" />
 			pageSize：<input type="text" name="pageSize" value="10" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
