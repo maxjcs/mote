@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.longcity.modeler.constant.BusinessConstant;
 import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.filter.Token;
 import com.longcity.modeler.model.MoteCard;
@@ -170,6 +171,26 @@ public class UserController extends AbstractController{
 		VerifyCodeUtil.sendMessage(phoneNumber, verifyCode);
 
 		return dataJson(true);
+	}
+	
+	/**
+	 * 更新模特个人信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateMoteAvart")
+	public Object updateMoteAvart(MultipartFile image) {
+		try{
+			Integer userId=AppContext.getUserId();
+			Validator.validateImageFile(image);
+			if (!FileUtil.isEmpty(image)) {
+				String url = UpYunUtil.upload(image);
+				userService.updateMoteAvart(userId,url);
+			}
+		    return dataJson(true);
+		}catch (Exception e) {
+			logger.error("更新个人信息失败",e);
+		}
+		return errorJson("服务器异常，请重试.");
 	}
 	
 	/**

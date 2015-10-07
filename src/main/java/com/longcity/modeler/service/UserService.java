@@ -59,6 +59,19 @@ public class UserService {
 	
 	
 	/**
+	 * 更新用户头像
+	 * @param userId
+	 * @param avartUrl
+	 */
+	public void updateMoteAvart(Integer userId,String avartUrl){
+		User user=new User();
+		user.setId(userId);
+		user.setAvartUrl(avartUrl);
+		userDao.updateMote(user);
+	}
+	
+	
+	/**
 	 * 我是模特
 	 * @param userId
 	 * @return
