@@ -20,6 +20,7 @@ import com.longcity.modeler.dao.AddCashApplyDao;
 import com.longcity.modeler.dao.CashRecordDao;
 import com.longcity.modeler.dao.ReduceCashApplyDao;
 import com.longcity.modeler.enums.CashApplyStatus;
+import com.longcity.modeler.enums.CashRecordType;
 import com.longcity.modeler.model.AddCashApply;
 import com.longcity.modeler.model.CashRecord;
 import com.longcity.modeler.model.ReduceCashApply;
@@ -189,6 +190,8 @@ public class CashApplyService {
 			userService.updateRemindFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
 		}
 		reduceCashApplyDao.finishPay(cashApplyId,alipayNo);
+		//
+		
 		return true;
 	}
 	
@@ -201,7 +204,26 @@ public class CashApplyService {
 		AddCashApply addCashApply=addCashApplyDao.selectByPrimaryKey(cashApplyId);
 		userService.updateRemindFee(addCashApply.getUserId(),  MoneyUtil.double2Int(addCashApply.getMoney()));
 		addCashApplyDao.finish(cashApplyId);
+		//充值记录
+		addCashRecord(addCashApply.getUserId(),addCashApply.getMoney(),"充值",CashRecordType.add.getValue());
 		return true;
+	}
+	
+	/**
+	 * 增加充值记录
+	 * @param userId
+	 * @param money
+	 */
+	public void addCashRecord(Integer userId,Double money,String title,Integer type){
+		//充值记录
+		User user=userService.getUserById(userId);
+		CashRecord cashRecord = new CashRecord();
+		cashRecord.setMoneyFen(MoneyUtil.double2Int(money));
+		cashRecord.setRemindMoneyFen(MoneyUtil.double2Int(user.getRemindFee()));
+		cashRecord.setTitle(title);
+		cashRecord.setUserId(userId);
+		cashRecord.setType(type);
+		cashRecordDao.insert(cashRecord);
 	}
 
 }

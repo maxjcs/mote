@@ -24,5 +24,7 @@ public interface CashRecordDao {
 	
 	@SuppressWarnings("rawtypes")
 	int countRecordList(Map parmamap);
+	
+	void insert(CashRecord record);
 
 }

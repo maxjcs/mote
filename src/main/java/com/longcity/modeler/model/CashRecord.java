@@ -16,7 +16,9 @@ public class CashRecord {
 	
 	Integer userId;
 	
-	Integer money;
+	Double money;
+	
+	Integer moneyFen;
 	
 	Integer type;
 	
@@ -24,7 +26,9 @@ public class CashRecord {
 	
 	Date createTime;
 	
-	Integer remindMoney;
+	Double remindMoney;
+	
+	Integer remindMoneyFen;
 
 	public Integer getId() {
 		return id;
@@ -40,14 +44,6 @@ public class CashRecord {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
-	}
-
-	public Integer getMoney() {
-		return money;
-	}
-
-	public void setMoney(Integer money) {
-		this.money = money;
 	}
 
 	public Integer getType() {
@@ -74,13 +70,38 @@ public class CashRecord {
 		this.createTime = createTime;
 	}
 
-	public Integer getRemindMoney() {
+	public Double getMoney() {
+		return money;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
+	}
+
+	public Integer getMoneyFen() {
+		return moneyFen;
+	}
+
+	public void setMoneyFen(Integer moneyFen) {
+		this.moneyFen = moneyFen;
+	}
+
+	public Double getRemindMoney() {
 		return remindMoney;
 	}
 
-	public void setRemindMoney(Integer remindMoney) {
+	public void setRemindMoney(Double remindMoney) {
 		this.remindMoney = remindMoney;
 	}
+
+	public Integer getRemindMoneyFen() {
+		return remindMoneyFen;
+	}
+
+	public void setRemindMoneyFen(Integer remindMoneyFen) {
+		this.remindMoneyFen = remindMoneyFen;
+	}
+
 	
 	
 

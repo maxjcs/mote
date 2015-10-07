@@ -23,6 +23,7 @@ import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.TradeFlowDao;
 import com.longcity.modeler.dao.UserDao;
+import com.longcity.modeler.enums.CashRecordType;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.TradeFlowType;
@@ -66,6 +67,9 @@ public class TaskService {
 	
 	@Resource
 	UserService userService;
+	
+	@Resource
+	CashApplyService cashApplyService;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map searchTask(Integer moteId,String keywords,Integer fee,Integer pageNo,Integer pageSize){
@@ -222,6 +226,9 @@ public class TaskService {
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
 		
+		//商家预存款减少记录
+		cashApplyService.addCashRecord(task.getUserId(), fee*100, "模特退还商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
+		
 	}
 	
 	
@@ -269,6 +276,8 @@ public class TaskService {
 		redisService.redisFinishTask();
 		redisService.redisSelfBuyTask();//自购的商品数
 		
+		//商家预存款减少记录
+		cashApplyService.addCashRecord(task.getUserId(), fee*100, "模特自购商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
 	}
 	
 	
