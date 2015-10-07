@@ -61,7 +61,8 @@ public class UserController extends AbstractController{
 	@ResponseBody
     @RequestMapping(value = "register")
     public Object register(HttpServletRequest request,String phoneNumber,String smsCode,String password) throws Exception{
-        try{
+		Validator.validateMobile(phoneNumber,"手机号不正确");
+		try{
         	//验证码是否有效
         	verifyCodeService.validateVerifyCode(phoneNumber, smsCode);
         	//注册
