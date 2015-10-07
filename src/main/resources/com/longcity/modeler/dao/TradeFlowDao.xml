@@ -29,7 +29,7 @@
   </select>
   
   <select id="getTaskIncomeList" resultType="TradeFlowVO" parameterType="map" >
-    select  tf.refer_id, tf.type, tf.money, tf.create_time, tf.user_id,t.url,mt.create_time as accept_time
+    select  tf.refer_id, tf.type, tf.money, tf.create_time, tf.user_id,t.img_url as url,mt.create_time as accept_time
     from trade_flow tf,mote_task mt,task t
     where tf.user_id =#{userId} and mt.task_id= t.id and tf.refer_id=mt.id and tf.type=0
     order by tf.id desc
