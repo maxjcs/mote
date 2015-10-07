@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.longcity.modeler.dao.TradeFlowDao;
 import com.longcity.modeler.model.vo.TradeFlowVO;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -45,6 +46,9 @@ public class TradeFlowService {
 		paramMap.put("pageSize", pageSize);
 		
 		List<TradeFlowVO> voList=tradeFlowDao.getTaskIncomeList(paramMap);
+		for(TradeFlowVO vo:voList){
+			vo.setMoney(MoneyUtil.fen2Yuan(vo.getMoney()));
+		}
 		Integer totalSize=tradeFlowDao.countTaskIncomeList(paramMap);
 		resultMap.put("dataList", voList);
 		resultMap.put("totalSize", totalSize);
@@ -69,6 +73,9 @@ public class TradeFlowService {
 		paramMap.put("pageSize", pageSize);
 		
 		List<TradeFlowVO> voList=tradeFlowDao.getItemMoneyList(paramMap);
+		for(TradeFlowVO vo:voList){
+			vo.setMoney(MoneyUtil.fen2Yuan(vo.getMoney()));
+		}
 		Integer totalSize=tradeFlowDao.countItemMoneyList(paramMap); 
 		resultMap.put("dataList", voList);
 		resultMap.put("totalSize", totalSize);

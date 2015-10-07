@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.constant.PageConstant;
-import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.TradeFlowDao;
@@ -56,9 +55,6 @@ public class TaskService {
 	
 	@Resource
 	private TradeFlowDao tradeFlowDao;
-	
-	@Resource
-	private MoteCardDao moteCardDao;
 	
 	@Resource
 	private UserDao userDao;
@@ -204,7 +200,7 @@ public class TaskService {
 		
 		//mote记录流水
 		TradeFlow tradeFlow=new TradeFlow();
-		tradeFlow.setMoney(MoneyUtil.double2Int(fee));
+		tradeFlow.setMoneyFen(MoneyUtil.yuan2Fen(fee));
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
 		tradeFlow.setType(TradeFlowType.itemReturn.getValue()); //退还商品
@@ -212,16 +208,16 @@ public class TaskService {
 		
 		//商家记录流水
 		TradeFlow tradeFlow2=new TradeFlow();
-		tradeFlow2.setMoney(MoneyUtil.double2Int(fee));
+		tradeFlow2.setMoneyFen(MoneyUtil.yuan2Fen(fee));
 		tradeFlow2.setReferId(moteTaskId);
 		tradeFlow2.setUserId(task.getUserId());
 		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
 		tradeFlowDao.insert(tradeFlow2);
 		
 		//商家减余额
-		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
+		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.yuan2Fen(fee));
 		//mote增加余额
-		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
+		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.yuan2Fen(fee));
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
@@ -250,7 +246,7 @@ public class TaskService {
 		
 		//mote记录流水
 		TradeFlow tradeFlow=new TradeFlow();
-		tradeFlow.setMoney(MoneyUtil.double2Int(fee));
+		tradeFlow.setMoneyFen(MoneyUtil.yuan2Fen(fee));
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
 		tradeFlow.setType(TradeFlowType.itemAccept.getValue()); //自购商品
@@ -258,16 +254,16 @@ public class TaskService {
 		
 		//商家记录流水
 		TradeFlow tradeFlow2=new TradeFlow();
-		tradeFlow2.setMoney(MoneyUtil.double2Int(fee));
+		tradeFlow2.setMoneyFen(MoneyUtil.yuan2Fen(fee));
 		tradeFlow2.setReferId(moteTaskId);
 		tradeFlow2.setUserId(task.getUserId());
 		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
 		tradeFlowDao.insert(tradeFlow2);
 		
 		//商家减冻结金额
-		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
+		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.yuan2Fen(fee));
 		//mote增加余额
-		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
+		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.yuan2Fen(fee));
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();

@@ -19,7 +19,9 @@ public class TradeFlowVO {
 	
 	Date acceptTime;
 	
-	Integer money;
+	Double money;
+	
+	Integer moneyFen;
 	
 	Integer price;
 	
@@ -27,6 +29,14 @@ public class TradeFlowVO {
 	
 	Integer type;
 	
+	public Integer getMoneyFen() {
+		return moneyFen;
+	}
+
+	public void setMoneyFen(Integer moneyFen) {
+		this.moneyFen = moneyFen;
+	}
+
 	public Integer getReferId() {
 		return referId;
 	}
@@ -59,11 +69,11 @@ public class TradeFlowVO {
 		this.acceptTime = acceptTime;
 	}
 
-	public Integer getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
-	public void setMoney(Integer money) {
+	public void setMoney(Double money) {
 		this.money = money;
 	}
 

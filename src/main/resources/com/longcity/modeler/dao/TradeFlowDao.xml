@@ -11,7 +11,7 @@
       money, create_time, user_id
       )
     values (#{referId}, #{type}, 
-      #{money}, now(), #{userId}
+      #{moneyFen}, now(), #{userId}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="TradeFlow" >

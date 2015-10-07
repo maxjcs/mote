@@ -9,7 +9,9 @@ public class TradeFlow {
 
     private Integer type;
 
-    private Integer money;
+    private Double money;
+    
+    private Integer moneyFen;
 
     private Date createTime;
 
@@ -39,15 +41,23 @@ public class TradeFlow {
         this.type = type;
     }
 
-    public Integer getMoney() {
-        return money;
-    }
+    public Double getMoney() {
+		return money;
+	}
 
-    public void setMoney(Integer money) {
-        this.money = money;
-    }
+	public void setMoney(Double money) {
+		this.money = money;
+	}
 
-    public Date getCreateTime() {
+	public Integer getMoneyFen() {
+		return moneyFen;
+	}
+
+	public void setMoneyFen(Integer moneyFen) {
+		this.moneyFen = moneyFen;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 
