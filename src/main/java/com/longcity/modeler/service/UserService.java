@@ -155,7 +155,7 @@ public class UserService {
 		newUser.setPhoneNumber(phoneNumber);
 		newUser.setType(UserType.mote.getValue());
 		newUser.setPassword(CipherUtil.MD5(password));
-		newUser.setStatus(UserStatus.waitApprove.getValue());
+		newUser.setStatus(UserStatus.normal.getValue());
 		newUser.setRemindFee(0);
 		userDao.insert(newUser);
 		//缓存中增加用户数

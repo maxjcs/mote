@@ -163,6 +163,7 @@
                                 <tr>
                                     <th>注册日期</th>
                                     <th>昵称</th>
+                                    <th>手机号</th>
                                     <th>性别</th>
                                     <th>年龄</th>
                                     <th>身高</th>
@@ -177,7 +178,8 @@
                                 <#list resultVO.rows as moteVO>
                                 <tr>
                                     <td>${moteVO.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td><a class="text-blue" href="./moteDetail?moteId=${moteVO.userId}">${moteVO.nickname?default('-')}</a></td>
+                                    <td>${moteVO.nickname?default('-')}</td>
+                                    <td><a class="text-blue" href="./moteDetail?moteId=${moteVO.userId}">${moteVO.phoneNumber?default('')}</a></td>
                                     <td>
                                        <#if moteVO.gender?exists>
                                          <#if moteVO.gender==1>男</#if>

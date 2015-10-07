@@ -25,7 +25,7 @@
 
 
   <select id="queryMoteList" resultType="MoteVO" parameterType="QueryMoteParamVO" >
-    select mote_id as user_id,task_fee,ss.remind_fee,task_num,u.nickname,u.gender,u.height,u.shape,u.age,u.area_id,u.create_time,u.status
+    select mote_id as user_id,task_fee,ss.remind_fee,task_num,u.nickname,u.phone_number,u.gender,u.height,u.shape,u.age,u.area_id,u.create_time,u.status
     from mote_statistics ss,user u
     where 1=1 and ss.mote_id=u.id
     <include refid="queryWhere"/>

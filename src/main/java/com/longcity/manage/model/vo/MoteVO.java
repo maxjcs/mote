@@ -8,6 +8,8 @@ public class MoteVO {
 	
 	String nickname;
 	
+	String phoneNumber;
+	
 	Integer gender;
 	
 	Integer age;
@@ -27,6 +29,22 @@ public class MoteVO {
 	Integer taskNum;
 
 	Date createTime;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Integer getTaskNum() {
+		return taskNum;
+	}
+
+	public void setTaskNum(Integer taskNum) {
+		this.taskNum = taskNum;
+	}
 
 	public Integer getUserId() {
 		return userId;
