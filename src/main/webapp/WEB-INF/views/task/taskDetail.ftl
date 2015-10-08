@@ -276,9 +276,8 @@
                                     <th>模特昵称</th>
                                     <th>订单号</th>
                                     <th>已接单</th>
-                                    <th>已拍下</th>
-                                    <th>已接单</th>
                                     <th>已好评</th>
+                                    <th>已上传</th>
                                     <th>自购</th>
                                     <th>退还</th>
                                     <th>完结</th>
@@ -288,13 +287,24 @@
                                 <#list resultVO.rows as moteTaskVO>
                                 <tr>
                                     <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.nickname?default('')}</a></td>
-                                    <td>${moteTaskVO.orderNo?default('')}</td>
-                                    <td>${moteTaskVO.status?default('')}</td>
-                                    <td>${moteTaskVO.status?default('')}</td>
-                                    <td>${moteTaskVO.status?default('')}</td>
-                                    <td>${moteTaskVO.status?default('')}</td>
+                                    <td>是</td>
                                     <td>
-                                       <#if moteTaskVO.status==5>
+                                       <#if moteTaskVO.status>=2&&moteTaskVO.status!=9>
+                                           是
+                                       </#if>
+                                    </td>
+                                    <td>
+										<#if moteTaskVO.status>=3&&moteTaskVO.status!=9>
+                                           是
+                                       </#if>
+                                    </td>
+                                    <td> 
+                                      <#if moteTaskVO.status>=4&&moteTaskVO.status!=9>
+                                           是
+                                       </#if>
+             						</td>
+                                    <td>
+                                       <#if moteTaskVO.status==5&&moteTaskVO.status!=9>
                                            是
                                        </#if>    
                                     </td>

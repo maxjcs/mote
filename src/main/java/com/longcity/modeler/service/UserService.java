@@ -277,7 +277,7 @@ public class UserService {
 			throw new BusinessException("用户不存在或已停用.");
 		}
 
-		verifyCodeService.validateVerifyCode(phoneNumber, verifyCode, BusinessConstant.VERIFY_CODE_EXPIRATION_TIME);
+		verifyCodeService.validateVerifyCode(phoneNumber, verifyCode);
 
 		user.setPassword(password);
 		updatePassword(user);
