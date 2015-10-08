@@ -544,7 +544,9 @@ public class TaskService {
 		
 		 //商家收货地址
 		User seller=userDao.selectByPrimaryKey(task.getUserId());
-		resutlMap.put("address", seller.getAddress());
+		if(seller!=null){
+			resutlMap.put("address", seller.getAddress());
+		}
 		
 		return resutlMap;
 	}
