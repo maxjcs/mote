@@ -210,21 +210,19 @@ public class TaskController extends AbstractController {
     }
 	
     /**
-     * 关注
+     * 关注任务列表
      */
 	@ResponseBody
-    @RequestMapping(value = "followList")
-    public Object followList(HttpServletRequest request,Integer taskId) throws Exception{
+    @RequestMapping(value = "getFollowList")
+    public Object getFollowList(HttpServletRequest request,Integer taskId,Integer pageNo,Integer pageSize) throws Exception{
         try{
         	Integer moteId=AppContext.getUserId();
-        	int code=taskService.follow(moteId,taskId);
-        	if(code==1){
-        		return errorJson("已经关注了该任务！", request);
-        	}
-            return dataJson(true, request);
+        	Map resultMap=taskService.getFollowList(moteId, pageNo, pageSize);
+        	
+            return dataJson(resultMap, request);
         }catch(Exception e){
-            logger.error("关注该任务失败.", e);
-            return errorJson("关注该任务失败.", request);
+            logger.error("获取关注任务列表失败.", e);
+            return errorJson("获取关注任务列表失败.", request);
         }
     }
 	

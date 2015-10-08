@@ -18,4 +18,18 @@
     where mote_id = #{param1} and task_id = #{param2}
   </select>
   
+  <select id="countFollowList" resultType="int"  >
+    select ifnull(count(1),0)
+    from mote_follow mt,task t
+    where mt.mote_id = #{moteId} and mt.task_id=t.id
+  </select>
+  
+  <select id="getFollowList" resultType="Task"  >
+    select t.*
+    from mote_follow mt,task t
+    where mt.mote_id = #{moteId} and mt.task_id=t.id
+    order by mt.id desc
+    limit #{start},#{pageSize}
+  </select>
+  
 </mapper>

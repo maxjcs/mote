@@ -328,6 +328,31 @@ public class TaskService {
 	}
 	
 	/**
+	 * 获取关注订单列表
+	 * @param moteId
+	 * @param taskId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Map  getFollowList(Integer moteId,Integer pageNo,Integer pageSize){
+		
+		Map paramMap=new HashMap();
+		paramMap.put("moteId",moteId);
+		paramMap.put("start",((pageNo==null?1:pageNo)-1)*pageSize);
+		paramMap.put("pageSize",pageSize);
+		
+		List<Task> list=moteFollowDao.getFollowList(paramMap);
+		
+		Integer totalSize=moteFollowDao.countFollowList(paramMap);
+		
+		Map resultMap = new HashMap();
+		resultMap.put("pageNo", pageNo);
+		resultMap.put("pageSize",pageSize);
+		resultMap.put("totalSize", totalSize);
+		resultMap.put("dataList", list);
+		return resultMap; 
+	}
+	
+	/**
 	 * 关注订单
 	 * @param moteId
 	 * @param taskId
