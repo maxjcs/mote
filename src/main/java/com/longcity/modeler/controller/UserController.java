@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.longcity.modeler.constant.BusinessConstant;
 import com.longcity.modeler.core.AppContext;
 import com.longcity.modeler.dao.UserDao;
+import com.longcity.modeler.enums.UserType;
 import com.longcity.modeler.exception.BusinessException;
 import com.longcity.modeler.filter.Token;
 import com.longcity.modeler.model.MoteCard;
@@ -126,6 +127,40 @@ public class UserController extends AbstractController{
 
 //		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
 		User user = userService.login(userparam);
+		if(user.getType()==UserType.seller.getValue()){
+			return errorJson("账号类型不正确,请确认模特身份", request);
+		}
+		
+		String token=Token.gen(user);
+		if(StringUtils.equals(userparam.getLoginType(), "1")){//手机登陆
+		}else if(StringUtils.equals(userparam.getLoginType(), "2")){//pc端登陆
+			Cookie c1 = new Cookie("token", token);
+			c1.setMaxAge(24*60*60);
+			response.addCookie(c1);
+		}
+		//设置登陆状态
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("token", token);
+		redisService.redisSetLoginStatus(user.getId());
+		return dataJson(result);
+	}
+	
+	/**
+	 * 登录
+	 */
+	@ResponseBody
+	@RequestMapping(value = "login4Seller")
+	public Object login4Seller(HttpServletRequest request,HttpServletResponse response,User userparam) {
+		Validator.validateBlank(userparam.getPhoneNumber(), "手机号不能为空.");
+		Validator.validateBlank(userparam.getPassword(), "密码不能为空.");
+		Validator.validateMobile(userparam.getPhoneNumber(), "手机号非法.");
+		Validator.validateBlank(userparam.getLoginType(), "登陆类型非法.");
+
+//		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
+		User user = userService.login(userparam);
+		if(user.getType()==UserType.mote.getValue()){
+			return errorJson("模特不能登录商家后台", request);
+		}
 		
 		String token=Token.gen(user);
 		if(StringUtils.equals(userparam.getLoginType(), "1")){//手机登陆
