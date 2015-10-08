@@ -32,6 +32,9 @@ public class MoteTaskService {
 	MoteTaskDao moteTaskDao;
 	
 	@Resource
+	TaskService taskService;
+	
+	@Resource
 	TaskDao taskDao;
 	
 	
@@ -60,6 +63,9 @@ public class MoteTaskService {
 		List<Task> taskList=new ArrayList<Task>();
 		if(totalSize>0){
 			taskList=moteTaskDao.getAcceptedTaskList(paramMap);
+			for(Task task:taskList){
+				taskService.convertTaskMoney(task);
+			}
 		}
 		
 		Map resultMap=new HashMap();
