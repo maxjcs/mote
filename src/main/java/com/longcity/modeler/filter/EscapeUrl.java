@@ -12,6 +12,7 @@ public class EscapeUrl {
 		escapeUrls.add("/user/register"); // 注册
 		escapeUrls.add("/user/register4Seller"); // 注册
 		escapeUrls.add("/user/login"); // 登录
+		escapeUrls.add("/user/login4Seller"); // 登录
 		escapeUrls.add("/user/changePasswordByVerifyCode"); // 重置密码
 		escapeUrls.add("/user/getDeviceId"); // 获取设备号
 		escapeUrls.add("/user/changeStar"); // 修改星级
