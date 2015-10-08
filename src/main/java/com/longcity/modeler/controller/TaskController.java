@@ -213,7 +213,7 @@ public class TaskController extends AbstractController {
      * 关注
      */
 	@ResponseBody
-    @RequestMapping(value = "follow")
+    @RequestMapping(value = "followList")
     public Object followList(HttpServletRequest request,Integer taskId) throws Exception{
         try{
         	Integer moteId=AppContext.getUserId();
