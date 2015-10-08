@@ -56,9 +56,11 @@
 					</div>
 					</div>
 					<ul class="img-list" data-reactid=".0.1.1.1">
-					   <#list cardList as card>
-						 <li data-reactid=".0.1.1.1.0"><img width="132" height="132" src="${card.imgUrl}!v1" data-reactid=".0.1.1.1.0.0"></li>
-					   </#list>
+					   <#if cardList?exists>
+						   <#list cardList as card>
+							 <li data-reactid=".0.1.1.1.0"><img width="132" height="132" src="${card.imgUrl}!v1" data-reactid=".0.1.1.1.0.0"></li>
+						   </#list>
+					   </#if>	   
 					</ul>
 					</div>
 					<div class="user-process" data-reactid=".0.1.2">

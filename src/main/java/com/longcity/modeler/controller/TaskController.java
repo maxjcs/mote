@@ -277,7 +277,7 @@ public class TaskController extends AbstractController {
         	}
         	task.setPriceFen(MoneyUtil.yuan2Fen(task.getPrice()));//转换成分
         	task.setShotFeeFen(MoneyUtil.yuan2Fen(task.getShotFee()));//转换成分
-        	task.setTotalFeeFen(MoneyUtil.yuan2Fen(task.getPrice()*task.getNumber()+task.getShotFee()));//转换成分
+        	task.setTotalFeeFen(MoneyUtil.yuan2Fen((task.getPrice()+task.getShotFee())*task.getNumber()));//转换成分
         	taskService.save(task);
             return dataJson(true, request);
         }catch(Exception e){
@@ -296,7 +296,7 @@ public class TaskController extends AbstractController {
         	Integer userId=AppContext.getUserId();
         	
             User user= userService.getUserById(userId);
-            Double totalFee=task.getPrice()*task.getNumber()+task.getShotFee();
+            Double totalFee=(task.getPrice()+task.getShotFee())*task.getNumber();
             if(user.getRemindFee()<totalFee){
             	 return errorJson("预存款不足，请充值！", request);
             }
