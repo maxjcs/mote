@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.constant.PageConstant;
+import com.longcity.modeler.dao.MoteFollowDao;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.TradeFlowDao;
@@ -27,6 +28,7 @@ import com.longcity.modeler.enums.CashRecordType;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.TradeFlowType;
+import com.longcity.modeler.model.MoteFollow;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.TaskPic;
@@ -70,6 +72,9 @@ public class TaskService {
 	
 	@Resource
 	CashApplyService cashApplyService;
+	
+	@Resource
+	MoteFollowDao moteFollowDao;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map searchTask(Integer moteId,String keywords,Integer fee,Integer pageNo,Integer pageSize){
@@ -320,6 +325,34 @@ public class TaskService {
 		moteTaskDao.addOrderNo(paramMap);
 		//增加缓存中正执行的任务量
 		redisService.redisPerformTask();
+	}
+	
+	/**
+	 * 关注订单
+	 * @param moteId
+	 * @param taskId
+	 */
+	public int  follow(Integer moteId,Integer taskId){
+		
+		List<MoteFollow> list=moteFollowDao.queryByMoteIdAndTaskId(moteId,taskId);
+		if(list!=null&&list.size()>=1){
+			return 1;
+		}
+		
+		MoteFollow follow = new MoteFollow();
+		follow.setMoteId(moteId);
+		follow.setTaskId(taskId);
+		moteFollowDao.insert(follow);
+		return 2; //接单成功
+	}
+	
+	/**
+	 * 取消关注订单
+	 * @param moteId
+	 * @param taskId
+	 */
+	public void  cancelFollow(Integer moteId,Integer taskId){
+		moteFollowDao.delete(moteId,taskId);
 	}
 	
 	/**

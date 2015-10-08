@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longcity.modeler.dao.MoteFollowDao" >
+  <delete id="delete"  >
+    delete from mote_follow
+    where mote_id = #{param1} and task_id = #{param2}
+  </delete>
+  <insert id="insert" parameterType="MoteFollow" useGeneratedKeys="true" keyProperty="id">
+    insert into mote_follow (mote_id, task_id, 
+      create_time)
+    values (#{moteId}, #{taskId}, 
+      now())
+  </insert>
+  
+  <select id="queryByMoteIdAndTaskId" resultType="MoteFollow"  >
+    select *
+    from mote_follow
+    where mote_id = #{param1} and task_id = #{param2}
+  </select>
+  
+</mapper>

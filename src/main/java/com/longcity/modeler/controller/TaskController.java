@@ -209,6 +209,60 @@ public class TaskController extends AbstractController {
         }
     }
 	
+    /**
+     * 关注
+     */
+	@ResponseBody
+    @RequestMapping(value = "follow")
+    public Object followList(HttpServletRequest request,Integer taskId) throws Exception{
+        try{
+        	Integer moteId=AppContext.getUserId();
+        	int code=taskService.follow(moteId,taskId);
+        	if(code==1){
+        		return errorJson("已经关注了该任务！", request);
+        	}
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("关注该任务失败.", e);
+            return errorJson("关注该任务失败.", request);
+        }
+    }
+	
+    /**
+     * 关注
+     */
+	@ResponseBody
+    @RequestMapping(value = "follow")
+    public Object follow(HttpServletRequest request,Integer taskId) throws Exception{
+        try{
+        	Integer moteId=AppContext.getUserId();
+        	int code=taskService.follow(moteId,taskId);
+        	if(code==1){
+        		return errorJson("已经关注了该任务！", request);
+        	}
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("关注该任务失败.", e);
+            return errorJson("关注该任务失败.", request);
+        }
+    }
+	
+    /**
+     * 取消关注
+     */
+	@ResponseBody
+    @RequestMapping(value = "cancelFollow")
+    public Object cancelFollow(HttpServletRequest request,Integer taskId) throws Exception{
+        try{
+        	Integer moteId=AppContext.getUserId();
+        	taskService.cancelFollow(moteId,taskId);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("取消关注失败.", e);
+            return errorJson("取消关注失败.", request);
+        }
+    }
+	
 	
     /**
      * 录入任务

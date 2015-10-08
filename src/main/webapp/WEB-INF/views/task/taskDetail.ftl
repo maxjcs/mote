@@ -287,30 +287,41 @@
                                 <#list resultVO.rows as moteTaskVO>
                                 <tr>
                                     <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.nickname?default('')}</a></td>
+                                    <td>${moteTaskVO.orderNo?default('')}</td>
                                     <td>是</td>
                                     <td>
-                                       <#if moteTaskVO.status>=2&&moteTaskVO.status!=9>
+                                       <#if moteTaskVO.status gte 2 && moteTaskVO.status!=9>
                                            是
+                                       <#else>   
+                                           -
                                        </#if>
                                     </td>
                                     <td>
-										<#if moteTaskVO.status>=3&&moteTaskVO.status!=9>
+										<#if moteTaskVO.status gte 3 && moteTaskVO.status!=9>
                                            是
+                                        <#else>   
+                                           -
                                        </#if>
                                     </td>
                                     <td> 
-                                      <#if moteTaskVO.status>=4&&moteTaskVO.status!=9>
+                                      <#if moteTaskVO.status gte 4 && moteTaskVO.status!=9>
                                            是
+                                       <#else>   
+                                           -    
                                        </#if>
              						</td>
                                     <td>
-                                       <#if moteTaskVO.status==5&&moteTaskVO.status!=9>
+                                       <#if moteTaskVO.status==5 && moteTaskVO.status!=9>
                                            是
+                                       <#else>   
+                                           -    
                                        </#if>    
                                     </td>
                                     <td>
                                        <#if moteTaskVO.status==6>
                                            是
+                                       <#else>   
+                                           -    
                                        </#if>
                                     </td>
                                     <td>
