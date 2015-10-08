@@ -105,6 +105,7 @@ public class TaskService {
 				if(allAcceptedTaskIds.contains(task.getId())){
 					task.setIsAccepted(true);
 				}
+				convertTaskMoney(task);
 			}
 			resultMap.put("dataList", taskList);
 		}else{
