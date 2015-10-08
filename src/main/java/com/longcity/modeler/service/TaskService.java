@@ -535,6 +535,7 @@ public class TaskService {
 		User mote=userDao.selectByPrimaryKey(moteTask.getUserId());
 		//获取任务对象
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		convertTaskMoney(task);
 		//获取模卡对象
 		List<TaskPic> taskPicList=taskPicService.showImage(moteTaskId, moteTask.getUserId());
 		

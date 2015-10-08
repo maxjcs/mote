@@ -24,6 +24,7 @@ import com.longcity.modeler.model.TaskPic;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.MoteTaskService;
 import com.longcity.modeler.service.TaskPicService;
+import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
 
 /**
@@ -38,6 +39,9 @@ public class MoteTaskController extends AbstractController{
 	
 	@Resource
 	MoteTaskService moteTaskService;
+	
+	@Resource
+	TaskService taskService;
 	
 	@Resource
 	UserService userService;
@@ -76,6 +80,8 @@ public class MoteTaskController extends AbstractController{
         	MoteTask moteTask=moteTaskService.selectByPrimarykey(moteTaskId);
         	//获取
         	Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+        	taskService.convertTaskMoney(task);
+        	
         	User seller=userService.getUserById(task.getUserId());
         	
         	List<TaskPic> picList= taskPicService.showImage(moteTaskId, moteTask.getUserId());

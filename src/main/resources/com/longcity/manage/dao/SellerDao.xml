@@ -35,8 +35,8 @@
   
   <select id="countSellerList" resultType="int" parameterType="QuerySellerParamVO" >
     select ifnull(count(1),0)
-    from seller_statistics ss,user u
-    where 1=1 and ss.seller_id=u.id
+    from user u left join seller_statistics ss on (ss.seller_id=u.id)
+    where 1=1 
     <include refid="queryWhere"/>
   </select>
   
