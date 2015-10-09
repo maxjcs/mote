@@ -13,7 +13,7 @@ public class BusinessConstant {
     public static final int VERIFY_CODE_LENGTH = 6;
     
     //验证码信息
-    public static final String VERIFY_CODE = "这是您的验证码：%s，请保管好，有效期60秒【全民模特】";
+    public static final String VERIFY_CODE = "这是您的验证码：%s，请保管好，有效期10分钟【全民模特】";
     
     //每次取题目的个数
     public static final int QUESTION_BATCH_LIMIT = 10;

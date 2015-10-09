@@ -20,6 +20,8 @@ public class EscapeUrl {
 		escapeUrls.add("/user/loginReact"); // 登录
 		escapeUrls.add("/user/approve"); // 登录
 		escapeUrls.add("/user/hasRegistered"); //是否已经登陆
+		escapeUrls.add("/common/h5Url"); //是否已经登陆
+		
 		
 	}
 }
