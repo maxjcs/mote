@@ -46,7 +46,7 @@
                                     <span class="control-label">
                                          <#if mote.gender?exists>
 	                                         <#if mote.gender==1>男</#if>
-	                                         <#if mote.gender==2>女</#if>
+	                                         <#if mote.gender==0>女</#if>
 	                                         <#if mote.gender==3>未知</#if>
 	                                     </#if>    
                                     </span>

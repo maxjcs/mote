@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.zxing.common.detector.MathUtils;
 import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.UserType;
 import com.longcity.modeler.model.Task;
@@ -38,6 +40,10 @@ public class TaskController extends AbstractController {
 	
 	@Resource
 	UserService userService;
+	
+	@Resource
+	TaskDao taskDao;
+	
 	
 	/**
      * 获取模特接单的未完成的数量
@@ -279,6 +285,37 @@ public class TaskController extends AbstractController {
         	task.setShotFeeFen(MoneyUtil.yuan2Fen(task.getShotFee()));//转换成分
         	task.setTotalFeeFen(MoneyUtil.yuan2Fen((task.getPrice()+task.getShotFee())*task.getNumber()));//转换成分
         	taskService.save(task);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("发布项目需求失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	
+    /**
+     * 任务付费
+     */
+	@ResponseBody
+    @RequestMapping(value = "payTask")
+    public Object payTask(HttpServletRequest request,Integer taskId) throws Exception{
+        try{
+        	Integer userId=AppContext.getUserId();
+        	
+            User user= userService.getUserById(userId);
+            
+            Task task=taskDao.selectByPrimaryKey(taskId);
+            
+            if(user.getRemindFee()<task.getTotalFee()){
+            	 return errorJson("预存款不足，请充值！", request);
+            }
+            if(userId!=task.getUserId()){
+        		return errorJson("只有给自己的项目付费", request);
+        	}
+        	
+        	taskService.publish(task);
+        	//冻结金额
+        	userService.freezeFee(userId, MoneyUtil.double2Int(task.getTotalFee()));
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);

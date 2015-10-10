@@ -39,7 +39,7 @@
 						<span data-reactid=".0.1.1.0.2.1">
 			                <#if user.gender?exists>
                                  <#if user.gender==1>男</#if>
-                                 <#if user.gender==2>女</#if>
+                                 <#if user.gender==0>女</#if>
                                  <#if user.gender==3>未知</#if>
                             </#if> 
 						</span>

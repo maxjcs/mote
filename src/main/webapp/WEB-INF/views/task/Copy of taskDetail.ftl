@@ -55,7 +55,7 @@
                                     <span class="control-label">
                                       <#if task.gender?exists>
                                          <#if task.gender==1>男</#if>
-                                         <#if task.gender==2>女</#if>
+                                         <#if task.gender==0>女</#if>
                                          <#if task.gender==3>未知</#if>
                                        </#if>
                                     </span>

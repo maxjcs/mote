@@ -72,7 +72,7 @@
                                         <#if resultVO.gender?exists>
                                             <option value="-1">全部</option>
                                             <option value="1" <#if resultVO.gender==1>selected="selected"</#if>>男 </option>                                           </option>
-                                            <option value="2" <#if resultVO.gender==2>selected="selected"</#if>>女</option>
+                                            <option value="2" <#if resultVO.gender==0>selected="selected"</#if>>女</option>
                                         <#else >
                                             <option value="-1">全部</option>
                                             <option value="1">男</option>
@@ -183,7 +183,7 @@
                                     <td>
                                        <#if moteVO.gender?exists>
                                          <#if moteVO.gender==1>男</#if>
-                                         <#if moteVO.gender==2>女</#if>
+                                         <#if moteVO.gender==0>女</#if>
                                          <#if moteVO.gender==3>未知</#if>
                                        </#if>   
                                      </td>
