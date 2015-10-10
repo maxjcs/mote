@@ -326,6 +326,22 @@ public class TaskController extends AbstractController {
     }
 	
     /**
+     * 获取任务详情
+     */
+	@ResponseBody
+    @RequestMapping(value = "getTaskById")
+    public Object getTaskById(HttpServletRequest request,Integer taskId) throws Exception{
+        try{
+            Task task=taskDao.selectByPrimaryKey(taskId);
+            taskService.convertTaskMoney(task);
+            return dataJson(task, request);
+        }catch(Exception e){
+            logger.error("获取任务详情失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+    /**
      * 发布任务
      */
 	@ResponseBody
