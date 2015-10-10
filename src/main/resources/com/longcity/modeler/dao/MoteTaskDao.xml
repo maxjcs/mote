@@ -29,6 +29,24 @@
     where id = #{id}
   </update>
   
+  <update id="acceptTask" parameterType="MoteTask" >
+    update mote_task
+    set 
+      accepted_time = now(),
+      update_time = now(),
+      status = #{status}
+    where id = #{id}
+  </update>
+  
+  <delete id="cancelFollowTask" >
+    delete from mote_task
+    where user_id = #{parma1} and task_id = #{param2}
+  </delete>
+  
+  
+  
+  
+  
   <update id="addOrderNo" >
     update mote_task
     set 

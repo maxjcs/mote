@@ -353,34 +353,6 @@ public class TaskService {
 	}
 	
 	/**
-	 * 关注订单
-	 * @param moteId
-	 * @param taskId
-	 */
-	public int  follow(Integer moteId,Integer taskId){
-		
-		List<MoteFollow> list=moteFollowDao.queryByMoteIdAndTaskId(moteId,taskId);
-		if(list!=null&&list.size()>=1){
-			return 1;
-		}
-		
-		MoteFollow follow = new MoteFollow();
-		follow.setMoteId(moteId);
-		follow.setTaskId(taskId);
-		moteFollowDao.insert(follow);
-		return 2; //接单成功
-	}
-	
-	/**
-	 * 取消关注订单
-	 * @param moteId
-	 * @param taskId
-	 */
-	public void  cancelFollow(Integer moteId,Integer taskId){
-		moteFollowDao.delete(moteId,taskId);
-	}
-	
-	/**
 	 * 新接订单
 	 * @param moteId
 	 * @param taskId
@@ -411,11 +383,49 @@ public class TaskService {
 		moteTask.setUserId(moteId);
 		moteTask.setStatus(MoteTaskStatus.newAccept.getValue());
 		moteTask.setAcceptedTime(new Date());
-		moteTaskDao.insert(moteTask);
+		moteTaskDao.acceptTask(moteTask);
 		//增加缓存中总的任务量
 		redisService.redisNewMoteTask();
 		
 		return 2; //接单成功
+	}
+	
+	/**
+	 * 关注订单
+	 * @param moteId
+	 * @param taskId
+	 */
+	public int  followTask(Integer moteId,Integer taskId){
+		
+		MoteTask existMoteTask=moteTaskDao.queryByMoteIdAndTaskId(moteId,taskId);
+		if(existMoteTask!=null){
+			return 3;
+		}
+		
+		MoteTask moteTask=new MoteTask();
+		moteTask.setTaskId(taskId);
+		moteTask.setUserId(moteId);
+		moteTask.setStatus(MoteTaskStatus.follow.getValue());
+		moteTaskDao.insert(moteTask);
+		
+		return 1; //关注成功
+	}
+	
+	/**
+	 * 取消关注订单
+	 * @param moteId
+	 * @param taskId
+	 */
+	public int  cancelFollowTask(Integer moteId,Integer taskId){
+		
+		MoteTask existMoteTask=moteTaskDao.queryByMoteIdAndTaskId(moteId,taskId);
+		if(existMoteTask!=null&&existMoteTask.getStatus()!=MoteTaskStatus.follow.getValue()){
+			return 3;
+		}
+
+		moteTaskDao.cancelFollowTask(moteId,taskId);
+		
+		return 1; //关注成功
 	}
 	
 	/**

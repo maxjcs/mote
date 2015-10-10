@@ -89,4 +89,8 @@ public interface MoteTaskDao {
 	
 	List<Task> getAcceptedTaskList(Map paramMap);
 	
+	void acceptTask(MoteTask moteTask);
+	
+	void cancelFollowTask(Integer moteId,Integer taskId);
+	
 }
