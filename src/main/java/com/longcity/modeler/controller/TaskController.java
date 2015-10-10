@@ -312,7 +312,9 @@ public class TaskController extends AbstractController {
             if(userId!=task.getUserId()){
         		return errorJson("只有给自己的项目付费", request);
         	}
-        	
+        	task.setPriceFen(MoneyUtil.double2Int(task.getPrice()));//转换成分
+        	task.setShotFeeFen(MoneyUtil.double2Int(task.getShotFee()));//转换成分
+        	task.setTotalFeeFen(MoneyUtil.double2Int(task.getTotalFee()));//转换成分
         	taskService.publish(task);
         	//冻结金额
         	userService.freezeFee(userId, MoneyUtil.double2Int(task.getTotalFee()));

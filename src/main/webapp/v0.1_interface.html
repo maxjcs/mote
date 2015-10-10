@@ -52,6 +52,13 @@
 			loginType(1手机,2PC端):<input type="text" name="loginType" value="1" />
 			<input type="submit" name="submit" value="提交"/><br/>       
 		</form>
+		3.1、登陆[api/user/login4Seller]
+		<form id="1" action="api/user/login4Seller" method="post">
+			phoneNumber：<input type="text" name="phoneNumber" value="15888838217" />
+			password:<input type="text" name="password" value="123456" />
+			loginType(1手机,2PC端):<input type="text" name="loginType" value="1" />
+			<input type="submit" name="submit" value="提交"/><br/>       
+		</form>
 		
 	    4、发送手机验证码[api/user/sendVerifyCode]
 		<form id="1" action="api/user/sendVerifyCode" method="post">
@@ -147,6 +154,12 @@
 		<form id="1" action="api/task/getFollowList" method="post">
 		    pageNo：<input type="text" name="pageNo" value="1" />
 			pageSize：<input type="text" name="pageSize" value="10" />
+			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
+			<input type="submit" name="submit" value="提交"/><br/>  
+		</form>
+		17、获取关注任务列表[api/task/payTask]
+		<form id="1" action="api/task/payTask" method="post">
+		    taskId：<input type="text" name="taskId" value="47" />
 			token:<input type="text" name="token" value="7261ABA172E2397A58A1C780547F25554508F9812F3F8E18B503304E1B5B8F3112DEF3C1B35E2B7376CA5EA6CDCC8E96" />
 			<input type="submit" name="submit" value="提交"/><br/>  
 		</form>
