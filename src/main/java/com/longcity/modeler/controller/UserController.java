@@ -195,11 +195,6 @@ public class UserController extends AbstractController{
 		Validator.validateBlank(phoneNumber, "手机号不能为空.");
 		Validator.validateMobile(phoneNumber, "手机号非法.");
 
-		User user = userService.selectByPhoneNumber(phoneNumber);
-		if (user == null) {
-			throw new BusinessException("该手机号未注册");
-		}
-
 		String verifyCode = VerifyCodeUtil.getRandNum(BusinessConstant.VERIFY_CODE_LENGTH);
 
 		verifyCodeService.saveVerifyCode(phoneNumber, verifyCode);
