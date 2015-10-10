@@ -365,7 +365,7 @@ public class TaskController extends AbstractController {
         	task.setTotalFeeFen(MoneyUtil.yuan2Fen(totalFee));//转换成分
         	taskService.publish(task);
         	//冻结金额
-        	userService.freezeFee(userId, MoneyUtil.double2Int(totalFee));
+        	userService.freezeFee(userId, MoneyUtil.double2Int(totalFee*100));
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);
