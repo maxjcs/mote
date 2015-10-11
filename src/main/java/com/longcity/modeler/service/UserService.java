@@ -99,6 +99,8 @@ public class UserService {
 			resultMap.put("remindFee", 0);
 		}
 		
+		resultMap.put("avartUrl", user.getAvartUrl());
+		
 		return resultMap;
 	}
 	
