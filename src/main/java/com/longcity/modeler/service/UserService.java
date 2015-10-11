@@ -79,9 +79,9 @@ public class UserService {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map myMoteInfo(Integer userId){
 		Integer followNum=moteTaskDao.countByMoteId(userId);
-		Integer performNum=moteTaskDao.getMoteTaskNumByStatus(userId,"2,3,4,5,6");//进行中
+		Integer performNum=moteTaskDao.getPerformMoteTaskNum(userId);//进行中
 		Integer finishNum=moteTaskDao.getMoteTaskNumByMoteId(userId);//已经完成
-		Integer applyKefuNum=moteTaskDao.getMoteTaskNumByStatus(userId,"7");//申请客服
+		Integer applyKefuNum=moteTaskDao.getKefuMoteTaskNum(userId);//申请客服
 		Integer messageNum = messageDao.countMessageByType("1,2");
 		
 		Map resultMap=new HashMap();
