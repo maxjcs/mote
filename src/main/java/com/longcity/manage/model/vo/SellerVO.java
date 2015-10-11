@@ -18,9 +18,9 @@ public class SellerVO {
 	
 	Integer status;
 	
-	Integer totalFee;
+	Double totalFee;
 	
-	Integer taskFee;
+	Double taskFee;
 	
 	String referee;
 	
@@ -87,22 +87,6 @@ public class SellerVO {
 		this.status = status;
 	}
 
-	public Integer getTotalFee() {
-		return totalFee;
-	}
-
-	public void setTotalFee(Integer totalFee) {
-		this.totalFee = totalFee;
-	}
-
-	public Integer getTaskFee() {
-		return taskFee;
-	}
-
-	public void setTaskFee(Integer taskFee) {
-		this.taskFee = taskFee;
-	}
-
 	public String getReferee() {
 		return referee;
 	}
@@ -135,4 +119,20 @@ public class SellerVO {
 		this.taskNum = taskNum;
 	}
 
+	public Double getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(Double totalFee) {
+		this.totalFee = totalFee;
+	}
+
+	public Double getTaskFee() {
+		return taskFee;
+	}
+
+	public void setTaskFee(Double taskFee) {
+		this.taskFee = taskFee;
+	}
+	
 }

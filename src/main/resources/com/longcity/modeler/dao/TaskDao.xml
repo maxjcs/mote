@@ -117,7 +117,7 @@
   <select id="getTaskNumBySellerId" resultType="int"  >
     select ifnull(count(1),0)
     from task
-    where user_id = #{param1} and status in (2,4)
+    where user_id = #{param1} 
   </select>
   
   <select id="queryTaskList" parameterType="QueryTaskParamVO"  resultType="Task" >

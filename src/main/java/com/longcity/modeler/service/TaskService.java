@@ -110,7 +110,7 @@ public class TaskService {
 				if(allAcceptedTaskIds.contains(task.getId())){
 					task.setIsAccepted(true);
 				}
-				convertTaskMoney(task);
+				MoneyUtil.convertTaskMoney(task);
 			}
 			resultMap.put("dataList", taskList);
 		}else{
@@ -124,6 +124,9 @@ public class TaskService {
 		Integer total = taskDao.countTaskList(paramVO);
         if (total > 0) {
             List<Task> rows = taskDao.queryTaskList(paramVO);
+            for(Task task:rows){
+            	MoneyUtil.convertTaskMoney(task);
+            }
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{
@@ -155,7 +158,7 @@ public class TaskService {
 	public Task  getDetailByTaskId(Integer taskId){
 		Task task=taskDao.selectByPrimaryKey(taskId);
 		//转换金额为元
-		convertTaskMoney(task);
+		MoneyUtil.convertTaskMoney(task);
 		return task;
 	}
 	
@@ -500,7 +503,7 @@ public class TaskService {
 		List<Task> taskList = taskDao.getNewTaskList(paramMap);
 		//转换金额为元
 		for(Task task:taskList){
-			convertTaskMoney(task);
+			MoneyUtil.convertTaskMoney(task);
 		}
 		
 		Map resultMap=new HashMap();
@@ -603,7 +606,7 @@ public class TaskService {
 		User mote=userDao.selectByPrimaryKey(moteTask.getUserId());
 		//获取任务对象
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
-		convertTaskMoney(task);
+		MoneyUtil.convertTaskMoney(task);
 		//获取模卡对象
 		List<TaskPic> taskPicList=taskPicService.showImage(moteTaskId, moteTask.getUserId());
 		
@@ -627,21 +630,7 @@ public class TaskService {
 	}
 	
 	
-	/**
-	 * 转换成元
-	 * @param task
-	 */
-	public void convertTaskMoney(Task task){
-		if(task.getPrice()!=null&&task.getPrice()>0){
-			task.setPrice(MoneyUtil.fen2Yuan(task.getPrice()));
-		}
-		if(task.getShotFee()!=null&&task.getShotFee()>0){
-			task.setShotFee(MoneyUtil.fen2Yuan(task.getShotFee()));
-		}
-		if(task.getTotalFee()!=null&&task.getTotalFee()>0){
-			task.setTotalFee(MoneyUtil.fen2Yuan(task.getTotalFee()));
-		}
-	}
+
 	
 	
 	

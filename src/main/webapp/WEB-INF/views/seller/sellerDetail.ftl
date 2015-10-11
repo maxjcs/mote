@@ -65,11 +65,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">预计款：</label>
-                                    <span class="control-label">${seller.remindFee?default(0)}</span>
+                                    <span class="control-label">${seller.remindFee?default(0)}元</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">冻结款：</label>
-                                    <span class="control-label">${seller.freezeFee?default(0)}</span>
+                                    <span class="control-label">${seller.freezeFee?default(0)}元</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">账号状态：</label>

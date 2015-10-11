@@ -18,6 +18,7 @@ import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -64,7 +65,7 @@ public class MoteTaskService {
 		if(totalSize>0){
 			taskList=moteTaskDao.getAcceptedTaskList(paramMap);
 			for(Task task:taskList){
-				taskService.convertTaskMoney(task);
+				MoneyUtil.convertTaskMoney(task);
 			}
 		}
 		

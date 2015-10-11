@@ -319,7 +319,7 @@ public class TaskController extends AbstractController {
     public Object getTaskById(HttpServletRequest request,Integer taskId) throws Exception{
         try{
             Task task=taskDao.selectByPrimaryKey(taskId);
-            taskService.convertTaskMoney(task);
+            MoneyUtil.convertTaskMoney(task);
             return dataJson(task, request);
         }catch(Exception e){
             logger.error("获取任务详情失败.", e);

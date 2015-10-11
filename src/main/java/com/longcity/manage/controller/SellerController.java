@@ -22,6 +22,7 @@ import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -50,6 +51,8 @@ public class SellerController extends BaseController{
     	sellerService.querySellerDetail(paramVO);
     	//获取用户
     	User user=userService.getUserById(paramVO.getSellerId());
+    	user.setRemindFee(MoneyUtil.fen2Yuan(user.getRemindFee()));
+    	user.setFreezeFee(MoneyUtil.fen2Yuan(user.getFreezeFee()));
     	
     	resultMap.addAttribute("resultVO", paramVO);
     	resultMap.addAttribute("seller", user);

@@ -22,6 +22,8 @@ import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.vo.MoteTaskVO;
+import com.longcity.modeler.service.TaskService;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -39,10 +41,15 @@ public class SellerService {
 	@Resource
 	MoteTaskDao moteTaskDao;
 	
+	
 	public QuerySellerParamVO querySellerList(QuerySellerParamVO paramVO){
 		Integer total = sellerDao.countSellerList(paramVO);
         if (total > 0) {
             List<SellerVO> rows = sellerDao.querySellerList(paramVO);
+            for(SellerVO vo:rows){
+            	vo.setTaskFee(MoneyUtil.fen2Yuan(vo.getTaskFee()));
+            	vo.setTotalFee(MoneyUtil.fen2Yuan(vo.getTotalFee()));
+            }
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{
@@ -56,6 +63,10 @@ public class SellerService {
 		Integer total = taskDao.countTaskByUserId(paramVO);
         if (total > 0) {
             List<Task> rows = taskDao.queryTaskByUserId(paramVO);
+            for(Task task:rows){
+            	MoneyUtil.convertTaskMoney(task);
+            }
+            
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{
