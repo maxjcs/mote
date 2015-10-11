@@ -192,10 +192,10 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "newMoteTask")
-    public Object newMoteTask(HttpServletRequest request,Integer taskId) throws Exception{
+    public Object newMoteTask(HttpServletRequest request,Integer id) throws Exception{
         try{
         	Integer moteId=AppContext.getUserId();
-        	int code=taskService.newMoteTask(moteId,taskId);
+        	int code=taskService.newMoteTask(id);
         	if(code==-1){
         		return errorJson("项目不存在！", request);
         	}

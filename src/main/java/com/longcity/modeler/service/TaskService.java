@@ -360,10 +360,12 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
-	public int  newMoteTask(Integer moteId,Integer taskId){
+	public int  newMoteTask(Integer id){
 		
-		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(taskId);
-		Task task=taskDao.selectByPrimaryKey(taskId);
+		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(id);
+		
+		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(moteTask.getTaskId());
+		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
 		if(task==null){
 			return -1;
 		}
@@ -371,14 +373,11 @@ public class TaskService {
 			return 0;//已经达到当量
 		}
 		//模特当天的接单量
-		Integer moteAcceptDaily=moteTaskDao.getMoteAcceptedNumDaily(moteId);
+		Integer moteAcceptDaily=moteTaskDao.getMoteAcceptedNumDaily(moteTask.getUserId());
 		if(moteAcceptDaily>=moteAcceptedDailyNum){
 			return 1;//模特当天的接单量超出
 		}
 		
-		MoteTask moteTask=new MoteTask();
-		moteTask.setTaskId(taskId);
-		moteTask.setUserId(moteId);
 		moteTask.setStatus(MoteTaskStatus.newAccept.getValue());
 		moteTask.setAcceptedTime(new Date());
 		moteTaskDao.acceptTask(moteTask);
