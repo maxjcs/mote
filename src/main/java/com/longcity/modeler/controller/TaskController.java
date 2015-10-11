@@ -239,10 +239,9 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "cancelFollow")
-    public Object cancelFollow(HttpServletRequest request,Integer taskId) throws Exception{
+    public Object cancelFollow(HttpServletRequest request,Integer id) throws Exception{
         try{
-        	Integer moteId=AppContext.getUserId();
-        	int code=taskService.cancelFollowTask(moteId,taskId);
+        	int code=taskService.cancelFollowTask(id);
         	if(code==3){
         		return errorJson("已经下单，不能删除！", request);
         	}

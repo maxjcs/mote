@@ -39,7 +39,7 @@ public class RedisService {
 		try{
 			//mote
 			if(UserType.mote.getValue()==newUser.getType()){
-				Integer totalNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).get(RedisContstant.MOTE_TOTAL_NUM_KEY);
+				Integer totalNum=(Integer)getInt(RedisContstant.MOTE_HKEY,RedisContstant.MOTE_TOTAL_NUM_KEY);
 				String dayNumKey=RedisContstant.MOTE_DAY_NUM_KEY+DateUtils.getDateString();
 				Integer dayNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).get(dayNumKey);
 				if(totalNum==null){
@@ -235,7 +235,7 @@ public class RedisService {
 	 * @param value
 	 */
 	@SuppressWarnings("unchecked")
-	public Integer getInt(String hkey,String key,Integer type){
+	public Integer getInt(String hkey,String key){
 		return (Integer)stringRedisTemplate.boundHashOps(hkey).get(key);
 	}
 	
@@ -246,7 +246,7 @@ public class RedisService {
 	 * @param value
 	 */
 	@SuppressWarnings("unchecked")
-	public String getInt(String hkey,String key,String type){
+	public String getString(String hkey,String key){
 		return (String)stringRedisTemplate.boundHashOps(hkey).get(key);
 	}
 	

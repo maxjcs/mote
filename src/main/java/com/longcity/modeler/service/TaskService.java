@@ -419,14 +419,14 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
-	public int  cancelFollowTask(Integer moteId,Integer taskId){
+	public int  cancelFollowTask(Integer id){
 		
-		MoteTask existMoteTask=moteTaskDao.queryByMoteIdAndTaskId(moteId,taskId);
+		MoteTask existMoteTask=moteTaskDao.selectByPrimaryKey(id);
 		if(existMoteTask!=null&&existMoteTask.getStatus()!=MoteTaskStatus.follow.getValue()){
 			return 3;
 		}
 
-		moteTaskDao.cancelFollowTask(moteId,taskId);
+		moteTaskDao.deleteByPrimaryKey(id);
 		
 		return 1; //关注成功
 	}
