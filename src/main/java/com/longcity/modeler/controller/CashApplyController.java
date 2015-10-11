@@ -146,6 +146,8 @@ public class CashApplyController extends AbstractController{
         	userParam.setPhoneNumber(user.getPhoneNumber());
         	userParam.setPassword(password);
         	userService.login(userParam);
+        	
+        	
         	//提交申请
         	cashApplyService.reduceCashApply(userId, money);
             return dataJson(true, request);

@@ -31,40 +31,40 @@ public class RedisService {
 	private TaskDao taskDao;
 	
 	@SuppressWarnings("rawtypes")
-	@Resource
-	private RedisTemplate redisTemplate;
+   @Resource
+   private RedisTemplate stringRedisTemplate;
 	
 	@SuppressWarnings("unchecked")
 	public void registerUser(User newUser){
 		try{
 			//mote
 			if(UserType.mote.getValue()==newUser.getType()){
-				Integer totalNum=(Integer)redisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).get(RedisContstant.MOTE_TOTAL_NUM_KEY);
+				Integer totalNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).get(RedisContstant.MOTE_TOTAL_NUM_KEY);
 				String dayNumKey=RedisContstant.MOTE_DAY_NUM_KEY+DateUtils.getDateString();
-				Integer dayNum=(Integer)redisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).get(dayNumKey);
+				Integer dayNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).get(dayNumKey);
 				if(totalNum==null){
-					redisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(RedisContstant.MOTE_TOTAL_NUM_KEY, 1);
+					stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(RedisContstant.MOTE_TOTAL_NUM_KEY, 1);
 				}else{
-					redisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(RedisContstant.MOTE_TOTAL_NUM_KEY, totalNum+1);
+					stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(RedisContstant.MOTE_TOTAL_NUM_KEY, totalNum+1);
 				}
 				if(dayNum==null){
-					redisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(dayNumKey, 1);
+					stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(dayNumKey, 1);
 				}else{
-					redisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(dayNumKey, dayNum+1);
+					stringRedisTemplate.boundHashOps(RedisContstant.MOTE_HKEY).put(dayNumKey, dayNum+1);
 				}
 			}else if(UserType.seller.getValue()==newUser.getType()){
-				Integer totalNum=(Integer)redisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).get(RedisContstant.SELLER_TOTAL_NUM_KEY);
+				Integer totalNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).get(RedisContstant.SELLER_TOTAL_NUM_KEY);
 				String dayNumKey=RedisContstant.SELLER_DAY_NUM_KEY+DateUtils.getDateString();
-				Integer dayNum=(Integer)redisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).get(dayNumKey);
+				Integer dayNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).get(dayNumKey);
 				if(totalNum==null){
-					redisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(RedisContstant.SELLER_TOTAL_NUM_KEY, 1);
+					stringRedisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(RedisContstant.SELLER_TOTAL_NUM_KEY, 1);
 				}else{
-					redisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(RedisContstant.SELLER_TOTAL_NUM_KEY, totalNum+1);
+					stringRedisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(RedisContstant.SELLER_TOTAL_NUM_KEY, totalNum+1);
 				}
 				if(dayNum==null){
-					redisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(dayNumKey, 1);
+					stringRedisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(dayNumKey, 1);
 				}else{
-					redisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(dayNumKey, dayNum+1);
+					stringRedisTemplate.boundHashOps(RedisContstant.SELLER_HKEY).put(dayNumKey, dayNum+1);
 				}
 			}
 			
@@ -81,37 +81,37 @@ public class RedisService {
 	public void redisApplyOk(Integer taskId){
 		Task task=taskDao.selectByPrimaryKey(taskId);
 		try{
-			Integer totalNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_NUM_KEY);
-			Integer totalMoney=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_MONEY_KEY);
-			Integer totalShotFee=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_SHOT_FEE_KEY);
+			Integer totalNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_NUM_KEY);
+			Integer totalMoney=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_MONEY_KEY);
+			Integer totalShotFee=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.TASK_TOTAL_SHOT_FEE_KEY);
 			String dayNumKey=RedisContstant.TASK_DAY_NUM_KEY+DateUtils.getDateString();
 			String moteDayNumKey=RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getDateString();
-			Integer dayNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(dayNumKey);
-			Integer moteDayNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(moteDayNumKey);
+			Integer dayNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(dayNumKey);
+			Integer moteDayNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(moteDayNumKey);
 			//总任务数
 			if(totalNum==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_NUM_KEY, 1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_NUM_KEY, 1);
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_NUM_KEY, totalNum+1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_NUM_KEY, totalNum+1);
 			}
 			//每天任务数
 			if(dayNum==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, 1);
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(moteDayNumKey, task.getNumber());
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, 1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(moteDayNumKey, task.getNumber());
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, moteDayNum+task.getNumber());
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(dayNumKey, moteDayNum+task.getNumber());
 			}
 			//商品总金额
 			if(totalMoney==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, task.getNumber()*task.getPrice());
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, task.getNumber()*task.getPrice());
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, totalMoney+task.getNumber()*task.getPrice());
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, totalMoney+task.getNumber()*task.getPrice());
 			}
 			//总拍摄费用
 			if(totalShotFee==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, task.getNumber()*task.getShotFee());
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, task.getNumber()*task.getShotFee());
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, totalShotFee+task.getNumber()*task.getShotFee());
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TASK_TOTAL_MONEY_KEY, totalShotFee+task.getNumber()*task.getShotFee());
 			}
 		}catch (Exception e) {
 			logger.error("redisApplyOk error!",e);
@@ -125,12 +125,12 @@ public class RedisService {
 	@SuppressWarnings("unchecked")
 	public void redisNewMoteTask(){
 		try{
-			Integer moteTaskTotalNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_TOTAL_NUM_KEY);
+			Integer moteTaskTotalNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_TOTAL_NUM_KEY);
 			//总任务量
 			if(moteTaskTotalNum==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_TOTAL_NUM_KEY, 1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_TOTAL_NUM_KEY, 1);
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_TOTAL_NUM_KEY, moteTaskTotalNum+1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_TOTAL_NUM_KEY, moteTaskTotalNum+1);
 			}
 		}catch (Exception e) {
 			logger.error("redisNewMoteTask error!",e);
@@ -144,12 +144,12 @@ public class RedisService {
 	@SuppressWarnings("unchecked")
 	public void redisPerformTask(){
 		try{
-			Integer moteTaskPerformNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_PERFORM_NUM_KEY);
+			Integer moteTaskPerformNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_PERFORM_NUM_KEY);
 			//总任务量
 			if(moteTaskPerformNum==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_PERFORM_NUM_KEY, 1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_PERFORM_NUM_KEY, 1);
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_PERFORM_NUM_KEY, moteTaskPerformNum+1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_PERFORM_NUM_KEY, moteTaskPerformNum+1);
 			}
 		}catch (Exception e) {
 			logger.error("redisPerformTask error!",e);
@@ -163,20 +163,20 @@ public class RedisService {
 	@SuppressWarnings("unchecked")
 	public void redisFinishTask(){
 		try{
-			Integer moteTaskPerformNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_PERFORM_NUM_KEY);
-			Integer moteTaskFinishNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_FINISH_NUM_KEY);
+			Integer moteTaskPerformNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_PERFORM_NUM_KEY);
+			Integer moteTaskFinishNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTETASK_FINISH_NUM_KEY);
 			
 			//已经完成的任务量+1
 			if(moteTaskFinishNum==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, 1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, 1);
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, moteTaskFinishNum+1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, moteTaskFinishNum+1);
 			}
 			//正在执行的任务量-1
 			if(moteTaskPerformNum==null||moteTaskPerformNum<=0){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, 0);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, 0);
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, moteTaskPerformNum-1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTETASK_FINISH_NUM_KEY, moteTaskPerformNum-1);
 			}
 		}catch (Exception e) {
 			logger.error("redisFinishTask error!",e);
@@ -190,12 +190,12 @@ public class RedisService {
 	@SuppressWarnings("unchecked")
 	public void redisSelfBuyTask(){
 		try{
-			Integer moteSelfBuyNum=(Integer)redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTE_ITEM_NUM_KEY);
+			Integer moteSelfBuyNum=(Integer)stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).get(RedisContstant.MOTE_ITEM_NUM_KEY);
 			//已经完成的任务量+1
 			if(moteSelfBuyNum==null){
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTE_ITEM_NUM_KEY, 1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTE_ITEM_NUM_KEY, 1);
 			}else{
-				redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTE_ITEM_NUM_KEY, moteSelfBuyNum+1);
+				stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.MOTE_ITEM_NUM_KEY, moteSelfBuyNum+1);
 			}
 		}catch (Exception e) {
 			logger.error("redisFinishTask error!",e);
@@ -209,12 +209,48 @@ public class RedisService {
 	@SuppressWarnings("unchecked")
 	public void redisTop1Mote(String nickname,Integer totalFee){
 		try{
-			redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TOP1_MOTE_NAME_KEY, nickname);
-			redisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TOP1_MOTE_FEE_KEY, totalFee);
+			stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TOP1_MOTE_NAME_KEY, nickname);
+			stringRedisTemplate.boundHashOps(RedisContstant.TASK_HKEY).put(RedisContstant.TOP1_MOTE_FEE_KEY, totalFee);
 		}catch (Exception e) {
 			logger.error("redisFinishTask error!",e);
 		}
 	}
+	
+	
+	/**
+	 * 保存redis值
+	 * @param hkey
+	 * @param key
+	 * @param value
+	 */
+	@SuppressWarnings("unchecked")
+	public void put(String hkey,String key,Object value){
+		stringRedisTemplate.boundHashOps(hkey).put(key,String.valueOf(value));
+	}
+	
+	/**
+	 * 获取redis值
+	 * @param hkey
+	 * @param key
+	 * @param value
+	 */
+	@SuppressWarnings("unchecked")
+	public Integer getInt(String hkey,String key,Integer type){
+		return (Integer)stringRedisTemplate.boundHashOps(hkey).get(key);
+	}
+	
+	/**
+	 * 获取redis值
+	 * @param hkey
+	 * @param key
+	 * @param value
+	 */
+	@SuppressWarnings("unchecked")
+	public String getInt(String hkey,String key,String type){
+		return (String)stringRedisTemplate.boundHashOps(hkey).get(key);
+	}
+	
+	
 	
 	
 	/**
@@ -223,7 +259,7 @@ public class RedisService {
 	 * @return
 	 */
 	public boolean isRedisLogin(Integer userId){
-		String value=(String)redisTemplate.opsForValue().get(RedisContstant.USER_LOGIN_IN_KEY+userId);
+		String value=(String)stringRedisTemplate.opsForValue().get(RedisContstant.USER_LOGIN_IN_KEY+userId);
 		if(StringUtils.equals(value, "true")){
 			return true;
 		}
@@ -236,7 +272,7 @@ public class RedisService {
 	 */
 	@SuppressWarnings("unchecked")
 	public void redisSetLoginStatus(Integer userId){
-		redisTemplate.opsForValue().set(RedisContstant.USER_LOGIN_IN_KEY+userId, "true");
+		stringRedisTemplate.opsForValue().set(RedisContstant.USER_LOGIN_IN_KEY+userId, "true");
 	}
 	
 	/**
@@ -245,7 +281,7 @@ public class RedisService {
 	 */
 	@SuppressWarnings("unchecked")
 	public void redisClearLoginStatus(Integer userId){
-		redisTemplate.delete(RedisContstant.USER_LOGIN_IN_KEY+userId);
+		stringRedisTemplate.delete(RedisContstant.USER_LOGIN_IN_KEY+userId);
 	}
 
 }

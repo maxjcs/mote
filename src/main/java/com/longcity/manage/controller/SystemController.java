@@ -28,7 +28,7 @@ import com.longcity.modeler.util.DateUtils;
 public class SystemController extends BaseController{
 	
    @Resource
-   private RedisTemplate redisTemplate;
+   private RedisTemplate stringRedisTemplate;
    
    @Resource
    MessageDao messageDao;
@@ -37,44 +37,44 @@ public class SystemController extends BaseController{
 	@RequestMapping(value = "index")
     protected String index( ModelMap resultMap) {
     	//模特相关
-    	resultMap.addAttribute("moteTotalNum", redisTemplate.opsForHash().get(RedisContstant.MOTE_HKEY, RedisContstant.MOTE_TOTAL_NUM_KEY));
-    	resultMap.addAttribute("moteToDayNum", redisTemplate.opsForHash().get(RedisContstant.MOTE_HKEY, RedisContstant.MOTE_TOTAL_NUM_KEY+DateUtils.getDateString()));
-    	resultMap.addAttribute("moteYesterDayNum", redisTemplate.opsForHash().get(RedisContstant.MOTE_HKEY, RedisContstant.MOTE_TOTAL_NUM_KEY+DateUtils.getYesterdayDateString()));
+    	resultMap.addAttribute("moteTotalNum", stringRedisTemplate.opsForHash().get(RedisContstant.MOTE_HKEY, RedisContstant.MOTE_TOTAL_NUM_KEY));
+    	resultMap.addAttribute("moteToDayNum", stringRedisTemplate.opsForHash().get(RedisContstant.MOTE_HKEY, RedisContstant.MOTE_TOTAL_NUM_KEY+DateUtils.getDateString()));
+    	resultMap.addAttribute("moteYesterDayNum", stringRedisTemplate.opsForHash().get(RedisContstant.MOTE_HKEY, RedisContstant.MOTE_TOTAL_NUM_KEY+DateUtils.getYesterdayDateString()));
         //商家相关
-    	resultMap.addAttribute("sellerTotalNum", redisTemplate.opsForHash().get(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_TOTAL_NUM_KEY));
-    	resultMap.addAttribute("sellerToDayNum", redisTemplate.opsForHash().get(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_TOTAL_NUM_KEY+DateUtils.getDateString()));
-    	resultMap.addAttribute("sellerYesterDayNum", redisTemplate.opsForHash().get(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_TOTAL_NUM_KEY+DateUtils.getYesterdayDateString()));
+    	resultMap.addAttribute("sellerTotalNum", stringRedisTemplate.opsForHash().get(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_TOTAL_NUM_KEY));
+    	resultMap.addAttribute("sellerToDayNum", stringRedisTemplate.opsForHash().get(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_TOTAL_NUM_KEY+DateUtils.getDateString()));
+    	resultMap.addAttribute("sellerYesterDayNum", stringRedisTemplate.opsForHash().get(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_TOTAL_NUM_KEY+DateUtils.getYesterdayDateString()));
     	//项目相关
-    	resultMap.addAttribute("taskTotalNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_NUM_KEY));
-    	resultMap.addAttribute("taskTotalMoney", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_MONEY_KEY));
-    	resultMap.addAttribute("taskTotalShotFee", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_SHOT_FEE_KEY));
+    	resultMap.addAttribute("taskTotalNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_NUM_KEY));
+    	resultMap.addAttribute("taskTotalMoney", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_MONEY_KEY));
+    	resultMap.addAttribute("taskTotalShotFee", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_SHOT_FEE_KEY));
     	//任务相关
-    	resultMap.addAttribute("moteTaskTotalNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_TOTAL_NUM_KEY));
-    	resultMap.addAttribute("moteTaskFinishNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_FINISH_NUM_KEY));
-    	resultMap.addAttribute("moteTaskPerformNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_PERFORM_NUM_KEY));
-    	resultMap.addAttribute("moteItemNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTE_ITEM_NUM_KEY));
+    	resultMap.addAttribute("moteTaskTotalNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_TOTAL_NUM_KEY));
+    	resultMap.addAttribute("moteTaskFinishNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_FINISH_NUM_KEY));
+    	resultMap.addAttribute("moteTaskPerformNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_PERFORM_NUM_KEY));
+    	resultMap.addAttribute("moteItemNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTE_ITEM_NUM_KEY));
     	//昨日发布并审核的项目数
-    	resultMap.addAttribute("taskTodayNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_DAY_NUM_KEY+DateUtils.getDateString()));
-    	resultMap.addAttribute("moteTaskTodayNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getDateString()));
-    	resultMap.addAttribute("taskYesterdayNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_DAY_NUM_KEY+DateUtils.getYesterdayDateString()));
-    	resultMap.addAttribute("moteTaskYesterdayNum", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getYesterdayDateString()));
+    	resultMap.addAttribute("taskTodayNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_DAY_NUM_KEY+DateUtils.getDateString()));
+    	resultMap.addAttribute("moteTaskTodayNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getDateString()));
+    	resultMap.addAttribute("taskYesterdayNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TASK_DAY_NUM_KEY+DateUtils.getYesterdayDateString()));
+    	resultMap.addAttribute("moteTaskYesterdayNum", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getYesterdayDateString()));
     	//top1 mote
-    	resultMap.addAttribute("top1_nickname", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_NAME_KEY));
-    	resultMap.addAttribute("top1_total_fee", redisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_FEE_KEY));
+    	resultMap.addAttribute("top1_nickname", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_NAME_KEY));
+    	resultMap.addAttribute("top1_total_fee", stringRedisTemplate.opsForHash().get(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_FEE_KEY));
     	
     	return "system/index";
     }
     
 	@RequestMapping(value = "systemControl")
     protected String systemControl( ModelMap resultMap) {
-    	Integer moteAcceptNum=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_NUM_KEY);
-    	Integer acceptTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
-    	Integer verifyReturnItemTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
+    	String moteAcceptNum=(String)stringRedisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_NUM_KEY);
+    	String acceptTimeOut=(String)stringRedisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
+    	String verifyReturnItemTimeOut=(String)stringRedisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
     	
     	SystemConfig systemConfig = new SystemConfig();
-    	systemConfig.setAcceptTimeOut(acceptTimeOut);
-    	systemConfig.setMoteAcceptNum(moteAcceptNum);
-    	systemConfig.setVerifyReturnItemTimeOut(verifyReturnItemTimeOut);
+    	systemConfig.setAcceptTimeOut(Integer.parseInt(acceptTimeOut));
+    	systemConfig.setMoteAcceptNum(Integer.parseInt(moteAcceptNum));
+    	systemConfig.setVerifyReturnItemTimeOut(Integer.parseInt(verifyReturnItemTimeOut));
     	resultMap.addAttribute("config", systemConfig);
     	return "system/systemControl";
     }
@@ -85,13 +85,13 @@ public class SystemController extends BaseController{
     protected void save(SystemConfig systemConfig,HttpServletResponse response) {
 		if(systemConfig!=null){
 			if(systemConfig.getMoteAcceptNum()!=null){
-				redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_NUM_KEY,systemConfig.getMoteAcceptNum());
+				stringRedisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_NUM_KEY,String.valueOf(systemConfig.getMoteAcceptNum()));
 			}
 			if(systemConfig.getAcceptTimeOut()!=null){
-				redisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY,systemConfig.getAcceptTimeOut());
+				stringRedisTemplate.opsForValue().set(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY,String.valueOf(systemConfig.getAcceptTimeOut()));
 			}
 			if(systemConfig.getVerifyReturnItemTimeOut()!=null){
-				redisTemplate.opsForValue().set(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY,systemConfig.getVerifyReturnItemTimeOut());
+				stringRedisTemplate.opsForValue().set(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY,String.valueOf(systemConfig.getVerifyReturnItemTimeOut()));
 			}
 			try {
 				response.sendRedirect("./systemControl");
