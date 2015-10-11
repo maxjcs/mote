@@ -282,7 +282,7 @@
     from mote_task mt,task t
     where mt.task_id=t.id and mt.user_id=#{userId} 
     <if test="type!=null and type==1">
-            AND mt.status in (1,2,3,4)
+            AND mt.status in (1,2,3,4,5,6)
     </if>
     <if test="type!=null and type==2">
             AND mt.finish_status = 1
@@ -297,7 +297,7 @@
     from mote_task mt,task t
     where mt.task_id=t.id and mt.user_id=#{userId} 
     <if test="type!=null and type==1">
-            AND mt.status in (1,2,3,4)
+            AND mt.status in (1,2,3,4,5,6)
     </if>
     <if test="type!=null and type==2">
             AND mt.finish_status = 1
