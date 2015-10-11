@@ -163,7 +163,7 @@
     <select id="countByMoteId" resultType="int" >
 	    select ifnull(count(1),0)
         from mote_task mt,task t
-        where t.id=mt.task_id and mt.user_id=#{param1}
+        where t.id=mt.task_id and mt.user_id=#{param1} and mt.status = 0
     </select>
     
     <select id="queryListByMoteId" resultType="MoteDetailVO" parameterType="map">
@@ -256,7 +256,7 @@
   <select id="get15DaysList" resultType="int" >
     select distinct mt.task_id
     from mote_task mt
-    where mt.user_id=#{param1} and TO_DAYS(NOW()) - TO_DAYS(create_time) &lt;= 3 
+    where mt.user_id=#{param1} and TO_DAYS(NOW()) - TO_DAYS(create_time) &lt;= 15 
   </select>
   
   <select id="getAcceptedTaskIdList" resultType="int" >
@@ -281,6 +281,9 @@
     select ifnull(count(1),0)
     from mote_task mt,task t
     where mt.task_id=t.id and mt.user_id=#{userId} 
+    <if test="type!=null and type==0">
+            AND mt.status = 0
+    </if>
     <if test="type!=null and type==1">
             AND mt.status in (1,2,3,4,5,6)
     </if>
@@ -295,7 +298,10 @@
   <select id="getAcceptedTaskList" resultType="Task" parameterType="map">
     select mt.id,t.user_id,t.title,t.url,t.price,t.shot_fee,t.img_url,t.self_buy_off
     from mote_task mt,task t
-    where mt.task_id=t.id and mt.user_id=#{userId} 
+    where mt.task_id=t.id and mt.user_id=#{userId}
+    <if test="type!=null and type==0">
+            AND mt.status = 0
+    </if> 
     <if test="type!=null and type==1">
             AND mt.status in (1,2,3,4,5,6)
     </if>
