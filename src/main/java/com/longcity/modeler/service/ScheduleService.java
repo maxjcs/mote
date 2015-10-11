@@ -160,7 +160,7 @@ public class ScheduleService {
 						Long timeOut=calendar.getTimeInMillis()-accCalendar.getTimeInMillis();
 						//判断是否超时
 						if(acceptedTime==null||timeOut>acceptedTimeOut*60*1000){
-							moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.TimeOut.getValue());//状态改为超时
+							moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.follow.getValue());//状态改为关注
 						}
 					}
 					maxId=moteTask.getId();
