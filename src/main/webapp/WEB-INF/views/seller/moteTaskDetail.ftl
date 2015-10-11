@@ -29,7 +29,7 @@
 					<div class=" contentWrap" data-reactid=".0.1">
 					<div class="user-data" data-reactid=".0.1.1">
 					<div class="detail" data-reactid=".0.1.1.0">
-					<img width="100" height="100" data-reactid=".0.1.1.0.0" src="${user.avartUrl?default('')}">
+					<img width="100" height="100" data-reactid=".0.1.1.0.0" src="${task.imgUrl?default('')}">
 					<div data-reactid=".0.1.1.0.1">
 						<span data-reactid=".0.1.1.0.1.0">模特:</span>
 						<span data-reactid=".0.1.1.0.1.1">${user.nickname?default('')}</span>
@@ -68,14 +68,25 @@
 					<div class="line-process" data-reactid=".0.1.2.1">
 					</div>
 					<ul class="milestone" data-reactid=".0.1.2.2">
-					<li data-reactid=".0.1.2.2.0">
+					   <li data-reactid=".0.1.2.2.0">
+						    <div class="time" data-reactid=".0.1.2.2.0.0">
+								<span data-reactid=".0.1.2.2.0.0.0">${moteTask.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+								<i class="point" data-reactid=".0.1.2.2.0.0.1"></i>
+							</div>
+							<div class="con" data-reactid=".0.1.2.2.0.1">
+							<span data-reactid=".0.1.2.2.0.1.0">我已开始接下该任务</span>
+						</li>
+						<#if moteTask.acceptedTime?exists >
+						<li  data-reactid=".0.1.2.2.1">
 						<div class="time" data-reactid=".0.1.2.2.0.0">
-							<span data-reactid=".0.1.2.2.0.0.0">${moteTask.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+							<span data-reactid=".0.1.2.2.0.0.0">${moteTask.acceptedTime?string("yyyy-MM-dd HH:mm:ss")}</span>
 							<i class="point" data-reactid=".0.1.2.2.0.0.1"></i>
 						</div>
 						<div class="con" data-reactid=".0.1.2.2.0.1">
 						<span data-reactid=".0.1.2.2.0.1.0">模特确定要接下本次任务,&nbsp;</span>
-						<a href="${user.imgUrl?default('')}" data-reactid=".0.1.2.2.0.1.1">商品链接点这里</a></div></li>
+						<a href="${task.url?default('')}" data-reactid=".0.1.2.2.0.1.1">商品链接点这里</a></div>
+						</li>
+						</#if>
 						<#if moteTask.orderNoTime?exists >
 							<li  data-reactid=".0.1.2.2.1">
 							<div class="time" data-reactid=".0.1.2.2.1.0">

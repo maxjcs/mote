@@ -12,6 +12,8 @@ public class MoteTaskVO {
 	
 	Integer id;
 	
+	String phoneNumber;
+	
 	String nickname;
 	
 	String orderNo;
@@ -22,6 +24,14 @@ public class MoteTaskVO {
 	
 	Integer totalTaskFee;
 	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public Integer getTotalTaskFee() {
 		return totalTaskFee;
 	}

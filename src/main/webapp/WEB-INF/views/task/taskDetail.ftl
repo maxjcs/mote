@@ -229,7 +229,7 @@
 			                <label>付款信息</label>
 			                <dl>
 			                    <dd>任务数：${task.number?default(0)}</dd>
-			                    <dd>应冻结费用：${task.number*task.price+task.shotFee}元</dd>
+			                    <dd>应冻结费用：${task.number*task.price+task.shotFee*task.number}元</dd>
 			                    <dd>已经冻结：
 			                    <#if task.status==2 || task.status==4>
 			                      ${task.number*task.price+task.shotFee}
@@ -240,7 +240,7 @@
 			                    <dd>已消耗：0元</dd>
 			                    <dd>剩余：
 			                      <#if task.status==2 || task.status==4>
-			                      ${task.number*task.price+task.shotFee}
+			                      ${task.number*task.price+task.shotFee*task.number}
 			                      <#else>
 			                      0
                                   </#if>
@@ -274,6 +274,7 @@
                                 <thead>
                                 <tr>
                                     <th>模特昵称</th>
+                                    <th>模特手机号</th>
                                     <th>订单号</th>
                                     <th>已接单</th>
                                     <th>已好评</th>
@@ -286,7 +287,8 @@
                                 <tbody>
                                 <#list resultVO.rows as moteTaskVO>
                                 <tr>
-                                    <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.nickname?default('')}</a></td>
+                                    <td>${moteTaskVO.nickname?default('')}</td>
+                                    <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.phoneNumber?default('')}</a></td>
                                     <td>${moteTaskVO.orderNo?default('')}</td>
                                     <td>是</td>
                                     <td>
