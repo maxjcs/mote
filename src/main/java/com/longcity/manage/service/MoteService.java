@@ -19,6 +19,7 @@ import com.longcity.manage.model.param.QueryMoteParamVO;
 import com.longcity.manage.model.vo.MoteDetailVO;
 import com.longcity.manage.model.vo.MoteVO;
 import com.longcity.modeler.dao.MoteTaskDao;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -56,6 +57,10 @@ public class MoteService {
         	paramMap.put("start",paramVO.getStart());
         	paramMap.put("pageSize",paramVO.getPageSize());
             List<MoteDetailVO> rows = moteTaskDao.queryListByMoteId(paramMap);
+            for(MoteDetailVO vo:rows){
+            	vo.setPrice(MoneyUtil.fen2Yuan(vo.getPrice()));
+            	vo.setShotFee(MoneyUtil.fen2Yuan(vo.getShotFee()));
+            }
             paramVO.setTotal(total);
             paramVO.setRows(rows);
         }else{

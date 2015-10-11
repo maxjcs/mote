@@ -15,9 +15,9 @@ public class MoteDetailVO {
 	
 	String title;
 	
-    private Integer price;
+    private Double price;
 
-    private Integer shotFee;
+    private Double shotFee;
     
     private Integer selfBuyOff;
     
@@ -41,19 +41,19 @@ public class MoteDetailVO {
 		this.title = title;
 	}
 
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	public Integer getShotFee() {
+	public Double getShotFee() {
 		return shotFee;
 	}
 
-	public void setShotFee(Integer shotFee) {
+	public void setShotFee(Double shotFee) {
 		this.shotFee = shotFee;
 	}
 

@@ -213,11 +213,12 @@ public class UserController extends AbstractController{
 		try{
 			Integer userId=AppContext.getUserId();
 			Validator.validateImageFile(image);
+			String url="";
 			if (!FileUtil.isEmpty(image)) {
-				String url = UpYunUtil.upload(image);
+				url = UpYunUtil.upload(image);
 				userService.updateMoteAvart(userId,url);
 			}
-		    return dataJson(true);
+		    return dataJson(url);
 		}catch (Exception e) {
 			logger.error("更新个人信息失败",e);
 		}
