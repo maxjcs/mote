@@ -40,7 +40,7 @@
   
   <delete id="cancelFollowTask" >
     delete from mote_task
-    where user_id = #{parma1} and task_id = #{param2}
+    where user_id = #{param1} and task_id = #{param2}
   </delete>
   
   
