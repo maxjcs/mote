@@ -36,7 +36,7 @@ public class Validator {
 	}
 	
 	public static void validateMinLength(String str,int length,String msg) {
-		if (StringUtils.isBlank(str)&&str.length()<length) {
+		if (StringUtils.isNotBlank(str)&&str.length()<length) {
 			throw new ValidateException(msg);
 		}
 	}
