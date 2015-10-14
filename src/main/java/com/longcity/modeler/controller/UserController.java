@@ -63,6 +63,7 @@ public class UserController extends AbstractController{
     @RequestMapping(value = "register")
     public Object register(HttpServletRequest request,String phoneNumber,String smsCode,String password) throws Exception{
 		Validator.validateMobile(phoneNumber,"手机号不正确");
+		Validator.validateMinLength(password,6,"密码长度不够6位");
 		try{
         	//验证码是否有效
         	verifyCodeService.validateVerifyCode(phoneNumber, smsCode);
@@ -84,6 +85,7 @@ public class UserController extends AbstractController{
 	@ResponseBody
     @RequestMapping(value = "register4Seller")
     public Object register4Seller(HttpServletRequest request,User user) throws Exception{
+		Validator.validateMinLength(user.getPassword(),6,"密码长度不够6位");
         try{
         	//验证码是否有效
         	verifyCodeService.validateVerifyCode(user.getPhoneNumber(), user.getSmsCode());
@@ -124,6 +126,7 @@ public class UserController extends AbstractController{
 		Validator.validateBlank(userparam.getPassword(), "密码不能为空.");
 		Validator.validateMobile(userparam.getPhoneNumber(), "手机号非法.");
 		Validator.validateBlank(userparam.getLoginType(), "登陆类型非法.");
+
 
 //		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
 		User user = userService.login(userparam);
@@ -291,6 +294,8 @@ public class UserController extends AbstractController{
 	@RequestMapping(value = "changePasswordByVerifyCode")
 	public Object changePasswordByVerifyCode(User user,String smsCode) {
 //		TeacherValidator.validateRegister(teacher);
+		
+		Validator.validateMinLength(user.getPassword(),6,"密码长度不够6位");
 
 		userService.changePasswordByVerifyCode(user.getPhoneNumber(), user.getPassword(),
 				smsCode);

@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.longcity.modeler.constant.BusinessConstant;
 import com.longcity.modeler.dao.MessageDao;
 import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.MoteTaskDao;

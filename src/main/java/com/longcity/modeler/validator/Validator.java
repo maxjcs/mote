@@ -34,6 +34,12 @@ public class Validator {
 			throw new ValidateException(msg);
 		}
 	}
+	
+	public static void validateMinLength(String str,int length,String msg) {
+		if (StringUtils.isBlank(str)&&str.length()<length) {
+			throw new ValidateException(msg);
+		}
+	}
 
 	public static void validateBlank(Long value, String msg) {
 		if (value == null) {

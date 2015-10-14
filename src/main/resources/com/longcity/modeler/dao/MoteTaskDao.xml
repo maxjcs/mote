@@ -140,12 +140,13 @@
 		sum(case when mt.status =6 then 1 else 0 end) as return_num,
 		sum(case when mt.status =7 then 1 else 0 end) as kefu_num,
 		sum(case when mt.finish_status =1 then 1 else 0 end) as finished_num
-    from mote_task mt,task t
-	where mt.task_id=t.id and t.status=#{status}
-	   and mt.task_id in 
+    from task t left join mote_task mt on (mt.task_id=t.id)
+	where  t.status=#{status}
+	   and t.id in 
 	    <foreach item="item" index="index" collection="taskIds" open="(" separator="," close=")">  
 	  			#{item}  
 	    </foreach>
+	group by t.id,t.create_time,t.title,total_num    
   </select>
   
     <select id="getMoteListByTaskId" resultType="MoteTaskVO" parameterType="map" >
