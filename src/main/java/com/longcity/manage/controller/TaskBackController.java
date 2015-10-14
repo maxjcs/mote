@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.dao.TaskDao;
+import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.service.TaskService;
+import com.longcity.modeler.service.UserService;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -29,6 +32,9 @@ public class TaskBackController extends BaseController{
 	   
 	   @Resource
 	   TaskDao taskDao;
+	   
+	   @Resource
+	   UserService userService;
 	   
 	   
 	    @RequestMapping(value = "manage")
@@ -61,6 +67,13 @@ public class TaskBackController extends BaseController{
 	    @RequestMapping(value = "approve")
 	    protected void approve(Integer id, Integer status,HttpServletResponse response) {
 	    	taskDao.updateStatus(id, status);
+	    	//返回冻结的金额
+	    	if(status==TaskStatus.not_passed.getValue()){
+	    		Task task=taskDao.selectByPrimaryKey(id);
+	    		Double fee=(task.getPrice()+task.getShotFee())*task.getNumber();
+	        	userService.freezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
+	    	}
+	    	
 	    	try{
 	    		response.sendRedirect("./detail?taskId="+id);
 	    	}catch (Exception e) {
