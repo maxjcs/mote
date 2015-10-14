@@ -337,7 +337,7 @@ public class TaskController extends AbstractController {
         	
             User user= userService.getUserById(userId);
             Double totalFee=(task.getPrice()+task.getShotFee())*task.getNumber();
-            if(user.getRemindFee()<totalFee){
+            if(user.getRemindFee()-totalFee*100<0){
             	 return errorJson("预存款不足，请充值！", request);
             }
             if(user.getType()==UserType.mote.getValue()){
