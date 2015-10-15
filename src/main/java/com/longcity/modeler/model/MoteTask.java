@@ -15,7 +15,7 @@ public class MoteTask {
 
     private String orderNo;
 
-    private Integer expressCompanyId;
+    private String expressCompanyId;
 
     private String expressNo;
 
@@ -141,15 +141,15 @@ public class MoteTask {
         this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 
-    public Integer getExpressCompanyId() {
-        return expressCompanyId;
-    }
+    public String getExpressCompanyId() {
+		return expressCompanyId;
+	}
 
-    public void setExpressCompanyId(Integer expressCompanyId) {
-        this.expressCompanyId = expressCompanyId;
-    }
+	public void setExpressCompanyId(String expressCompanyId) {
+		this.expressCompanyId = expressCompanyId;
+	}
 
-    public String getExpressNo() {
+	public String getExpressNo() {
         return expressNo;
     }
 

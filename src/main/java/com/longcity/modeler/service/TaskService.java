@@ -215,6 +215,26 @@ public class TaskService {
 		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
 		moteTaskDao.verifyReturnItem(paramMap);
 		
+	}
+	
+	/**
+	 * 确认退还商品收货
+	 * @param moteId
+	 * @param taskId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Transactional
+	public void  finishVerifyReturnItem(Integer moteTaskId){
+		//获取对象
+		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		//更新快递信息
+		Map paramMap=new HashMap();
+		paramMap.put("moteTaskId", moteTaskId);
+		Double fee= task.getPrice()+task.getShotFee();
+		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
+		moteTaskDao.verifyReturnItem(paramMap);
+		
 		//mote记录流水
 		TradeFlow tradeFlow=new TradeFlow();
 		tradeFlow.setMoneyFen(MoneyUtil.double2Int(fee));
@@ -244,6 +264,25 @@ public class TaskService {
 		
 	}
 	
+	/**
+	 * 自购商品
+	 * @param moteId
+	 * @param taskId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Transactional
+	public void  selfBuy(Integer moteTaskId){
+		//获取对象
+		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		//更新快递信息
+		Map paramMap=new HashMap();
+		paramMap.put("moteTaskId", moteTaskId);
+		Double fee= task.getPrice()*(100-task.getSelfBuyOff())/100+task.getShotFee();
+		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
+		moteTaskDao.selfBuy(paramMap);
+	}
+	
 	
 	
 	/**
@@ -253,7 +292,7 @@ public class TaskService {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional
-	public void  selfBuy(Integer moteTaskId){
+	public void  finishSelfBuy(Integer moteTaskId){
 		//获取对象
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
@@ -291,6 +330,22 @@ public class TaskService {
 		
 		//商家预存款减少记录
 		cashApplyService.addCashRecord(task.getUserId(), fee*100, "模特自购商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
+	}
+	
+	
+	/**
+	 * 
+	 * @param moteTaskId
+	 */
+	public void finishMoteTask(Integer moteTaskId){
+		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+		//自购商品
+		if(moteTask.getStatus()==MoteTaskStatus.selfBuy.getValue()){
+			finishSelfBuy(moteTaskId);
+		}else if(moteTask.getStatus()==MoteTaskStatus.verifyReturnItem.getValue()){//退还商品
+			finishVerifyReturnItem(moteTaskId);
+		}
+		moteTaskDao.finishMoteTask(moteTaskId);
 	}
 	
 	

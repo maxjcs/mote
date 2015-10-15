@@ -91,7 +91,6 @@
     set  
      self_buy_fee = #{fee},
      status = 5,
-     finish_status =1,
      self_buy_time =now(),
      update_time = now()
     where id = #{moteTaskId}
@@ -113,7 +112,6 @@
     set
      self_buy_fee = #{fee},  
      status = 8,
-     finish_status =1,
      update_time = now()
     where id = #{moteTaskId}
   </update>
@@ -317,9 +315,13 @@
     limit #{start},#{pageSize}
   </select>
   
-  
-  
-  
-  
+  <update id="finishMoteTask" >
+    update mote_task
+    set
+     finish_status = 1,
+     update_time = now(),
+     finish_status_time = now()
+    where id = #{param1}
+  </update>
   
 </mapper>

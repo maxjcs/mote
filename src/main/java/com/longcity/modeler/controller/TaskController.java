@@ -327,6 +327,24 @@ public class TaskController extends AbstractController {
     }
 	
     /**
+     * 任务完成确认
+     */
+	@ResponseBody
+    @RequestMapping(value = "finishMoteTask")
+    public Object finishMoteTask(HttpServletRequest request,Integer moteTaskId) throws Exception{
+		try{
+        	taskService.finishMoteTask(moteTaskId);
+            return dataJson(true, request);
+        }catch(Exception e){
+            logger.error("任务完成确认失败.", e);
+            return errorJson("服务器异常，请重试.", request);
+        }
+    }
+	
+	
+	
+	
+    /**
      * 发布任务
      */
 	@ResponseBody

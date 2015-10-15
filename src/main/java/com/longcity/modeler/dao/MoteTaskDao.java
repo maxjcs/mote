@@ -95,4 +95,6 @@ public interface MoteTaskDao {
 	
 	void cancelFollowTask(Integer moteId,Integer taskId);
 	
+	void finishMoteTask(Integer moteTaskId);
+	
 }
