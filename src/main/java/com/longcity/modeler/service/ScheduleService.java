@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -144,8 +145,8 @@ public class ScheduleService {
 				if(moteTaskList.size()==0){
 					break;
 				}
-				Integer redisTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
-				if(redisTimeOut!=null){
+				String redisTimeOut=(String)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
+				if(StringUtils.isNotBlank(redisTimeOut)){
 					acceptedTimeOut=new Long(redisTimeOut);
 				}
 				
