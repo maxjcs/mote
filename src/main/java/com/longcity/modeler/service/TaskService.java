@@ -679,10 +679,13 @@ public class TaskService {
 		if(mote.getBirdthday()!=null){
 			Calendar calendar=Calendar.getInstance();
 			calendar.setTime(mote.getBirdthday());
-			resutlMap.put("age", calendar.get(Calendar.YEAR)+1);
+			//计算年龄
+			Calendar calendar2=Calendar.getInstance();
+			calendar2.setTime(new Date());
+			resutlMap.put("age", (calendar2.get(Calendar.YEAR)-calendar.get(Calendar.YEAR))+1);
 		}
 		
-		 //商家收货地址
+		//商家收货地址
 		User seller=userDao.selectByPrimaryKey(task.getUserId());
 		if(seller!=null){
 			resutlMap.put("address", seller.getAddress());

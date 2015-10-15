@@ -247,7 +247,7 @@
   <select id="getPerformMoteTaskNum" resultType="int" >
     select ifnull(count(1),0)
     from mote_task mt
-    where mt.user_id=#{param1}  and mt.finish_status =0 and mt.status in (2,3,4,5,6)
+    where mt.user_id=#{param1}  and mt.finish_status =0 and mt.status in (1,2,3,4,5,6,7,8)
   </select>
   
     <select id="getKefuMoteTaskNum" resultType="int" >
