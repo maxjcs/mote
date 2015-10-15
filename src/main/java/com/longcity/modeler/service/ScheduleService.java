@@ -59,9 +59,10 @@ public class ScheduleService {
 	
 	@Resource
 	TaskDao taskDao;
+
 	
    @Resource
-   private RedisTemplate redisTemplate;
+   private RedisTemplate stringRedisTemplate;
 	
 	private static Long acceptedTimeOut=30L;//分钟
 	
@@ -95,7 +96,7 @@ public class ScheduleService {
 				if(moteTaskList.size()==0){
 					break;
 				}
-				String redisTimeOut=(String)redisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
+				String redisTimeOut=(String)stringRedisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
 				if(StringUtils.isNotBlank(redisTimeOut)){
 					returnItemTimeOut=new Long(redisTimeOut);
 				}
@@ -145,7 +146,7 @@ public class ScheduleService {
 				if(moteTaskList.size()==0){
 					break;
 				}
-				String redisTimeOut=(String)redisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
+				String redisTimeOut=(String)stringRedisTemplate.opsForValue().get(RedisContstant.MOTE_ACCEPT_TIMEOUT_KEY);
 				if(StringUtils.isNotBlank(redisTimeOut)){
 					acceptedTimeOut=new Long(redisTimeOut);
 				}
