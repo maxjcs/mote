@@ -166,7 +166,7 @@
   <select id="searchTask" parameterType="map" resultType="Task"  >
     select *
      from task
-    where 1=1 and status=2
+    where 1=1 and status=2 and accept_number &lt; number
     <include refid="queryTaskWhere"/>
     order by id desc
     limit #{start},#{pageSize}
@@ -175,7 +175,7 @@
   <select id="countTask" parameterType="map" resultType="int"  >
     select ifnull(count(1),0)
      from task
-    where 1=1 and status=2
+    where 1=1 and status=2 and accept_number &lt; number
     <include refid="queryTaskWhere"/>
   </select>
    
@@ -204,7 +204,16 @@
 		      #{item}  
 		    </foreach>
        </if>
-  </sql>  
+  </sql> 
+  
+  <update id="updateAcceptNumber" >
+    update task
+    set  accept_number = accept_number + #{param2}
+    where id = #{param1}
+  </update> 
+  
+  
+  
   
   
   

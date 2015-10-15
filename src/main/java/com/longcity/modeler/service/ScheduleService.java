@@ -161,6 +161,8 @@ public class ScheduleService {
 						//判断是否超时
 						if(acceptedTime==null||timeOut>acceptedTimeOut*60*1000){
 							moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.follow.getValue());//状态改为关注
+							//任务接单数减1
+							taskDao.updateAcceptNumber(moteTask.getTaskId(),-1);
 						}
 					}
 					maxId=moteTask.getId();

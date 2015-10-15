@@ -63,9 +63,28 @@ public class Task {
     
     private Boolean isAccepted;
     
+    private Date selfBuyTime;
+    
+    private Integer acceptNumber;
     
     
-    public Double getPrice() {
+    public Date getSelfBuyTime() {
+		return selfBuyTime;
+	}
+
+	public void setSelfBuyTime(Date selfBuyTime) {
+		this.selfBuyTime = selfBuyTime;
+	}
+
+	public Integer getAcceptNumber() {
+		return acceptNumber;
+	}
+
+	public void setAcceptNumber(Integer acceptNumber) {
+		this.acceptNumber = acceptNumber;
+	}
+
+	public Double getPrice() {
 		return price;
 	}
 

@@ -50,7 +50,7 @@ public class RedisService {
 				if(dayNum==null){
 					putString(RedisContstant.MOTE_HKEY,dayNumKey, 1);
 				}else{
-					putString(RedisContstant.MOTE_HKEY,dayNumKey, dayNum+1);
+					putString(RedisContstant.MOTE_HKEY,dayNumKey, Integer.parseInt(dayNum)+1);
 				}
 			}else if(UserType.seller.getValue()==newUser.getType()){
 				String totalNum=getString(RedisContstant.SELLER_HKEY,RedisContstant.SELLER_TOTAL_NUM_KEY);
@@ -221,7 +221,7 @@ public class RedisService {
 	 * @param value
 	 */
 	@SuppressWarnings("unchecked")
-	public void putString(String hkey,String key,Object value){
+	public void putString(String hkey,String key,String value){
 		stringRedisTemplate.boundHashOps(hkey).put(key,String.valueOf(value));
 	}
 	

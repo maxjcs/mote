@@ -146,7 +146,8 @@
 	    <foreach item="item" index="index" collection="taskIds" open="(" separator="," close=")">  
 	  			#{item}  
 	    </foreach>
-	group by t.id,t.create_time,t.title,total_num    
+	group by t.id,t.create_time,t.title,total_num  
+	order by t.id desc  
   </select>
   
     <select id="getMoteListByTaskId" resultType="MoteTaskVO" parameterType="map" >

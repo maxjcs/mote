@@ -381,6 +381,10 @@ public class TaskService {
 		moteTask.setStatus(MoteTaskStatus.newAccept.getValue());
 		moteTask.setAcceptedTime(new Date());
 		moteTaskDao.acceptTask(moteTask);
+		
+		//任务接单数加1
+		taskDao.updateAcceptNumber(moteTask.getTaskId(),1);
+		
 		//增加缓存中总的任务量
 		redisService.redisNewMoteTask();
 		

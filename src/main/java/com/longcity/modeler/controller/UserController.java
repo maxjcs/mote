@@ -131,7 +131,7 @@ public class UserController extends AbstractController{
 //		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
 		User user = userService.login(userparam);
 		if(user.getType()==UserType.seller.getValue()){
-			return errorJson("账号类型不正确,请确认模特身份", request);
+			return errorJson("您已是商家账户，不能登录模特端", request);
 		}
 		
 		String token=Token.gen(user);
@@ -159,10 +159,9 @@ public class UserController extends AbstractController{
 		Validator.validateMobile(userparam.getPhoneNumber(), "手机号非法.");
 		Validator.validateBlank(userparam.getLoginType(), "登陆类型非法.");
 
-//		String lastDeviceId = DeviceUtil.decodeDeviceId(deviceId);
 		User user = userService.login(userparam);
 		if(user.getType()==UserType.mote.getValue()){
-			return errorJson("模特不能登录商家后台", request);
+			return errorJson("您已是模特账户，不能登录商家后台", request);
 		}
 		
 		String token=Token.gen(user);

@@ -55,4 +55,6 @@ public interface TaskDao {
     
     void updateTaskUrl(Integer id,String url);
     
+    void updateAcceptNumber(Integer id,Integer num);
+    
 }
