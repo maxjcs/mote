@@ -306,7 +306,7 @@
             AND mt.status = 0
     </if> 
     <if test="type!=null and type==1">
-            AND mt.status in (1,2,3,4,5,6,7,8)
+            AND mt.status in (1,2,3,4,5,6,7,8) and mt.finish_status = 0
     </if>
     <if test="type!=null and type==2">
             AND mt.finish_status = 1
