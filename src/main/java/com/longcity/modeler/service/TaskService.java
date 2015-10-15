@@ -337,15 +337,15 @@ public class TaskService {
 	 * 
 	 * @param moteTaskId
 	 */
-	public void finishMoteTask(Integer moteTaskId){
-		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+	public void finishMoteTask(MoteTask moteTask){
 		//自购商品
 		if(moteTask.getStatus()==MoteTaskStatus.selfBuy.getValue()){
-			finishSelfBuy(moteTaskId);
+			finishSelfBuy(moteTask.getId());
+			moteTaskDao.finishMoteTask(moteTask.getId());
 		}else if(moteTask.getStatus()==MoteTaskStatus.verifyReturnItem.getValue()){//退还商品
-			finishVerifyReturnItem(moteTaskId);
+			finishVerifyReturnItem(moteTask.getId());
+			moteTaskDao.finishMoteTask(moteTask.getId());
 		}
-		moteTaskDao.finishMoteTask(moteTaskId);
 	}
 	
 	

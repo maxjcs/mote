@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.zxing.common.detector.MathUtils;
 import com.longcity.modeler.core.AppContext;
+import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
+import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.UserType;
+import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.TaskService;
@@ -43,6 +46,9 @@ public class TaskController extends AbstractController {
 	
 	@Resource
 	TaskDao taskDao;
+	
+	@Resource
+	private MoteTaskDao moteTaskDao;
 	
 	
 	/**
@@ -333,8 +339,14 @@ public class TaskController extends AbstractController {
     @RequestMapping(value = "finishMoteTask")
     public Object finishMoteTask(HttpServletRequest request,Integer moteTaskId) throws Exception{
 		try{
-        	taskService.finishMoteTask(moteTaskId);
-            return dataJson(true, request);
+			MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+			//自购商品
+			if(moteTask.getStatus()==MoteTaskStatus.selfBuy.getValue()||moteTask.getStatus()==MoteTaskStatus.verifyReturnItem.getValue()){
+				taskService.finishMoteTask(moteTask);
+				return dataJson(true, request);
+			}else{
+				return dataJson("状态不正确！", request);
+			}
         }catch(Exception e){
             logger.error("任务完成确认失败.", e);
             return errorJson("服务器异常，请重试.", request);
