@@ -4,6 +4,7 @@
 package com.longcity.modeler.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -675,6 +676,11 @@ public class TaskService {
 		resutlMap.put("picNum", taskPicList.size());//上传的图片数
 		resutlMap.put("picList", taskPicList);//上传的图片数
 		resutlMap.put("cardList", cardList);//模卡图片数
+		if(mote.getBirdthday()!=null){
+			Calendar calendar=Calendar.getInstance();
+			calendar.setTime(mote.getBirdthday());
+			resutlMap.put("age", calendar.get(Calendar.YEAR)+1);
+		}
 		
 		 //商家收货地址
 		User seller=userDao.selectByPrimaryKey(task.getUserId());
