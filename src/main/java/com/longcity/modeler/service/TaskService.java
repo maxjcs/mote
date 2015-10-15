@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.constant.PageConstant;
+import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.MoteFollowDao;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
@@ -28,7 +29,7 @@ import com.longcity.modeler.enums.CashRecordType;
 import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.enums.TradeFlowType;
-import com.longcity.modeler.model.MoteFollow;
+import com.longcity.modeler.model.MoteCard;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.TaskPic;
@@ -75,6 +76,9 @@ public class TaskService {
 	
 	@Resource
 	MoteFollowDao moteFollowDao;
+	
+	@Resource
+	MoteCardDao moteCardDao;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Map searchTask(Integer moteId,String keywords,Integer fee,Integer pageNo,Integer pageSize){
@@ -608,18 +612,20 @@ public class TaskService {
 		//获取模卡对象
 		List<TaskPic> taskPicList=taskPicService.showImage(moteTaskId, moteTask.getUserId());
 		
+		List<MoteCard> cardList=moteCardDao.queryByUserId(moteTask.getUserId());
+		
 		resutlMap.put("user", mote);
 		resutlMap.put("task", task);
 		resutlMap.put("moteTask", moteTask);
 		resutlMap.put("picNum", taskPicList.size());//上传的图片数
 		resutlMap.put("picList", taskPicList);//上传的图片数
+		resutlMap.put("cardList", cardList);//模卡图片数
 		
 		 //商家收货地址
 		User seller=userDao.selectByPrimaryKey(task.getUserId());
 		if(seller!=null){
 			resutlMap.put("address", seller.getAddress());
 		}
-		
 		return resutlMap;
 	}
 	

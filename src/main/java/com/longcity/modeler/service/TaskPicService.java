@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.longcity.modeler.dao.MoteCardDao;
 import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskPicDao;
 import com.longcity.modeler.model.MoteTask;
@@ -32,7 +33,6 @@ public class TaskPicService {
 
 	@Resource
 	private TaskService taskService;
-	
 	
 	/**
 	 * 展示图片

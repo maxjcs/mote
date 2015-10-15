@@ -147,10 +147,13 @@ public class CashApplyController extends AbstractController{
         	userParam.setPassword(password);
         	userService.login(userParam);
         	
-        	
-        	//提交申请
-        	cashApplyService.reduceCashApply(userId, money);
-            return dataJson(true, request);
+    		if(user.getRemindFee()>money*100){
+    			//提交申请
+            	cashApplyService.reduceCashApply(userId, money);
+                return dataJson(true, request);
+    		}else{
+    			return errorJson("余额不足，不能体现.", request);
+    		}
         }catch(Exception e){
             logger.error("提现申请失败.", e);
             return errorJson("提现申请失败.", request);
