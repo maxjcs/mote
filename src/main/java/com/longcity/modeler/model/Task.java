@@ -62,19 +62,8 @@ public class Task {
     private String oldUrl;
     
     private Boolean isAccepted;
-    
-    private Date selfBuyTime;
-    
-    private Integer acceptNumber;
-    
-    
-    public Date getSelfBuyTime() {
-		return selfBuyTime;
-	}
 
-	public void setSelfBuyTime(Date selfBuyTime) {
-		this.selfBuyTime = selfBuyTime;
-	}
+    private Integer acceptNumber;
 
 	public Integer getAcceptNumber() {
 		return acceptNumber;

@@ -37,7 +37,17 @@ public class MoteTask {
     
     private Date finishStatusTime;
     
-    public Date getAcceptedTime() {
+    private Date selfBuyTime;
+    
+    public Date getSelfBuyTime() {
+		return selfBuyTime;
+	}
+
+	public void setSelfBuyTime(Date selfBuyTime) {
+		this.selfBuyTime = selfBuyTime;
+	}
+
+	public Date getAcceptedTime() {
 		return acceptedTime;
 	}
 
