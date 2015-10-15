@@ -232,7 +232,7 @@
 			                    <dd>应冻结费用：${task.number*task.price+task.shotFee*task.number}元</dd>
 			                    <dd>已经冻结：
 			                    <#if task.status==2 || task.status==4>
-			                      ${task.number*task.price+task.shotFee}
+			                      ${task.number*task.price+task.number*task.shotFee}
 			                    <#else>
 			                      0
                                 </#if>
@@ -277,6 +277,7 @@
                                     <th>模特手机号</th>
                                     <th>订单号</th>
                                     <th>已接单</th>
+                                    <th>已拍下</th>
                                     <th>已好评</th>
                                     <th>已上传</th>
                                     <th>自购</th>
@@ -292,32 +293,39 @@
                                     <td>${moteTaskVO.orderNo?default('')}</td>
                                     <td>是</td>
                                     <td>
-                                       <#if moteTaskVO.status gte 2 && moteTaskVO.status!=9>
+                                       <#if moteTaskVO.status gte 1 && moteTaskVO.status!=9>
                                            是
                                        <#else>   
                                            -
                                        </#if>
                                     </td>
                                     <td>
-										<#if moteTaskVO.status gte 3 && moteTaskVO.status!=9>
+										<#if moteTaskVO.status gte 2 && moteTaskVO.status!=9>
                                            是
                                         <#else>   
                                            -
                                        </#if>
                                     </td>
                                     <td> 
-                                      <#if moteTaskVO.status gte 4 && moteTaskVO.status!=9>
+                                      <#if moteTaskVO.status gte 3 && moteTaskVO.status!=9>
                                            是
                                        <#else>   
                                            -    
                                        </#if>
              						</td>
                                     <td>
-                                       <#if moteTaskVO.status==5 && moteTaskVO.status!=9>
+                                       <#if moteTaskVO.status==4 && moteTaskVO.status!=9>
                                            是
                                        <#else>   
                                            -    
                                        </#if>    
+                                    </td>
+                                    <td>
+                                       <#if moteTaskVO.status==5>
+                                           是
+                                       <#else>   
+                                           -    
+                                       </#if>
                                     </td>
                                     <td>
                                        <#if moteTaskVO.status==6>

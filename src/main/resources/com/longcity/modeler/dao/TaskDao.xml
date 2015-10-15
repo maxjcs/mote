@@ -154,13 +154,13 @@
   <select id="countMoteTaskByTaskId" parameterType="QueryTaskDetailParamVO" resultType="int"  >
     select ifnull(count(1),0)
      from mote_task mt,user u
-    where mt.user_id = u.id and mt.task_id=#{taskId}
+    where mt.user_id = u.id and mt.task_id=#{taskId} and mt.status in (1,2,3,4,5,6,7,8)
   </select>
   
   <select id="queryMoteTaskByTaskId" parameterType="QueryTaskDetailParamVO" resultType="MoteTaskVO"  >
     select mt.id,u.nickname,u.phone_number,mt.order_no,mt.status,mt.finish_status
      from mote_task mt,user u
-    where mt.user_id = u.id and mt.task_id=#{taskId}
+    where mt.user_id = u.id and mt.task_id=#{taskId} and mt.status in (1,2,3,4,5,6,7,8)
   </select>
   
   <select id="searchTask" parameterType="map" resultType="Task"  >
