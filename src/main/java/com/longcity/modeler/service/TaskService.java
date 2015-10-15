@@ -183,7 +183,7 @@ public class TaskService {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional
-	public void  returnItem(Integer moteTaskId,Integer expressCompanyId,String expressNo){
+	public void  returnItem(Integer moteTaskId,String expressCompanyId,String expressNo){
 		//获取对象
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());

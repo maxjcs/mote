@@ -123,7 +123,7 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "returnItem")
-    public Object returnItem(HttpServletRequest request,Integer moteTaskId,Integer expressCompanyId,String expressNo) throws Exception{
+    public Object returnItem(HttpServletRequest request,Integer moteTaskId,String expressCompanyId,String expressNo) throws Exception{
         try{
         	taskService.returnItem(moteTaskId,expressCompanyId,expressNo);
             return dataJson(true, request);
