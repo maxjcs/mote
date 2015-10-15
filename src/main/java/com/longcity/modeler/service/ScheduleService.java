@@ -95,8 +95,8 @@ public class ScheduleService {
 				if(moteTaskList.size()==0){
 					break;
 				}
-				Integer redisTimeOut=(Integer)redisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
-				if(redisTimeOut!=null){
+				String redisTimeOut=(String)redisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
+				if(StringUtils.isNotBlank(redisTimeOut)){
 					returnItemTimeOut=new Long(redisTimeOut);
 				}
 				
