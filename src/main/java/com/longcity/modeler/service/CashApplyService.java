@@ -156,11 +156,15 @@ public class CashApplyService {
 	 * @param money
 	 */
 	public void  reduceCashApply(Integer userId,Double money){
-		ReduceCashApply cashApply= new ReduceCashApply();
-		cashApply.setMoneyFen(MoneyUtil.yuan2Fen(money));
-		cashApply.setUserId(userId);
-		cashApply.setStatus(CashApplyStatus.newadd.getValue());
-		reduceCashApplyDao.insert(cashApply);
+		
+		User user=userService.getUserById(userId);
+		if(user.getRemindFee()>money*100){
+			ReduceCashApply cashApply= new ReduceCashApply();
+			cashApply.setMoneyFen(MoneyUtil.yuan2Fen(money));
+			cashApply.setUserId(userId);
+			cashApply.setStatus(CashApplyStatus.newadd.getValue());
+			reduceCashApplyDao.insert(cashApply);
+		}
 	}
 	
 	/**

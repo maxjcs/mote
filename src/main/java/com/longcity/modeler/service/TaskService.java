@@ -612,6 +612,7 @@ public class TaskService {
 		resutlMap.put("task", task);
 		resutlMap.put("moteTask", moteTask);
 		resutlMap.put("picNum", taskPicList.size());//上传的图片数
+		resutlMap.put("picList", taskPicList);//上传的图片数
 		
 		 //商家收货地址
 		User seller=userDao.selectByPrimaryKey(task.getUserId());
