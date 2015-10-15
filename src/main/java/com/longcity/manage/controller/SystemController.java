@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.functors.IfClosure;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -76,9 +78,15 @@ public class SystemController extends BaseController{
     	String verifyReturnItemTimeOut=(String)stringRedisTemplate.opsForValue().get(RedisContstant.MOTE_VERIFY_RETURNITEM_TIMEOUT_KEY);
     	
     	SystemConfig systemConfig = new SystemConfig();
-    	systemConfig.setAcceptTimeOut(Integer.parseInt(acceptTimeOut));
-    	systemConfig.setMoteAcceptNum(Integer.parseInt(moteAcceptNum));
-    	systemConfig.setVerifyReturnItemTimeOut(Integer.parseInt(verifyReturnItemTimeOut));
+    	if(StringUtils.isNotBlank(acceptTimeOut)){
+    		systemConfig.setAcceptTimeOut(Integer.parseInt(acceptTimeOut));
+    	}
+    	if(StringUtils.isNotBlank(moteAcceptNum)){
+    		systemConfig.setMoteAcceptNum(Integer.parseInt(moteAcceptNum));
+    	}
+	    if(StringUtils.isNotBlank(verifyReturnItemTimeOut)){
+	    	systemConfig.setVerifyReturnItemTimeOut(Integer.parseInt(verifyReturnItemTimeOut));
+	    }
     	resultMap.addAttribute("config", systemConfig);
     	return "system/systemControl";
     }
