@@ -18,7 +18,7 @@ import com.longcity.modeler.util.ValidateUtil;
  */
 public class Validator {
 	// 允许图片类型
-	private static String[] fileType = new String[] { "png", "jpg", "jpeg" };
+	private static String[] fileType = new String[] { "png", "jpg", "jpeg","bmp","" };
 
 	// 文件大小
 	private static long maxSize = 50 * 1024 * 1024;
@@ -75,7 +75,7 @@ public class Validator {
 
 	public static void validateImageFile(MultipartFile file) {
 		if (file == null || file.isEmpty()) {
-			return;
+			throw new ValidateException("文件为空");
 		}
 		if (file.getSize() > maxSize) {
 			throw new ValidateException("文件太大，不能超过2M");
