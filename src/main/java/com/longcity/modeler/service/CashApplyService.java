@@ -19,6 +19,7 @@ import com.longcity.modeler.constant.PageConstant;
 import com.longcity.modeler.dao.AddCashApplyDao;
 import com.longcity.modeler.dao.CashRecordDao;
 import com.longcity.modeler.dao.ReduceCashApplyDao;
+import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.CashApplyStatus;
 import com.longcity.modeler.enums.CashRecordType;
 import com.longcity.modeler.model.AddCashApply;
@@ -133,10 +134,14 @@ public class CashApplyService {
 		Integer totalSize=reduceCashApplyDao.countApplyList(paramMap);
 		List<ReduceCashApply> list=null;
 		
+		User user=userService.getUserById(userId);
+		
 		if(totalSize>0){
 		     list=reduceCashApplyDao.queryApplyList(paramMap);
 		     for(ReduceCashApply apply:list){
 		    	 apply.setMoney(MoneyUtil.fen2Yuan(apply.getMoney()));
+		    	 apply.setAlipayId(user.getAlipayId());
+		    	 apply.setAlipayName(user.getAlipayName());
 		     }
 		}else{
 			list =new ArrayList<ReduceCashApply>();

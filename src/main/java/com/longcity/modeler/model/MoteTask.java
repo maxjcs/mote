@@ -39,6 +39,8 @@ public class MoteTask {
     
     private Date selfBuyTime;
     
+    
+    
     public Date getSelfBuyTime() {
 		return selfBuyTime;
 	}
