@@ -40,9 +40,9 @@ public class VerifyCodeService {
 	 * 校验验证码
 	 */
 	public void validateVerifyCode(String phoneNumber, String verifyCode) {
-		if(StringUtils.equals(verifyCode, "000000")){
-			return;
-		}
+//		if(StringUtils.equals(verifyCode, "000000")){
+//			return;
+//		}
 		boolean isValid = verifyCodeDao.validateVerifyCode1(phoneNumber, verifyCode);
 
 		if (!isValid) {
