@@ -69,39 +69,12 @@ public class TaskPicController extends AbstractController{
 	 */
 	@ResponseBody
     @RequestMapping(value = "uploadImage")
-	public Object uploadImage(HttpServletRequest request,Integer moteTaskId,MultipartFile image1, MultipartFile image2, MultipartFile image3,
-			MultipartFile image4,MultipartFile image5,MultipartFile image6)throws Exception {
+	public Object uploadImage(HttpServletRequest request,Integer moteTaskId,MultipartFile image1)throws Exception {
 		Validator.validateImageFile(image1);
-		Validator.validateImageFile(image2);
-		Validator.validateImageFile(image3);
-		Validator.validateImageFile(image4);
-		Validator.validateImageFile(image5);
-		Validator.validateImageFile(image6);
 		
 		try{
-
 			if (!FileUtil.isEmpty(image1)) {
 				String url = UpYunUtil.upload(image1);
-				taskPicService.addImageUrl(moteTaskId,url);
-			}
-			if (!FileUtil.isEmpty(image2)) {
-				String url = UpYunUtil.upload(image2);
-				taskPicService.addImageUrl(moteTaskId,url);
-			}
-			if (!FileUtil.isEmpty(image3)) {
-				String url = UpYunUtil.upload(image3);
-				taskPicService.addImageUrl(moteTaskId,url);
-			}
-			if (!FileUtil.isEmpty(image4)) {
-				String url = UpYunUtil.upload(image4);
-				taskPicService.addImageUrl(moteTaskId,url);
-			}
-			if (!FileUtil.isEmpty(image5)) {
-				String url = UpYunUtil.upload(image5);
-				taskPicService.addImageUrl(moteTaskId,url);
-			}
-			if (!FileUtil.isEmpty(image6)) {
-				String url = UpYunUtil.upload(image6);
 				taskPicService.addImageUrl(moteTaskId,url);
 			}
 			 return dataJson(true,request);
