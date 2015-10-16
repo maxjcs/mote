@@ -239,7 +239,7 @@ public class UserService {
 	 * @param userParam
 	 */
 	public void updateMote(User userParam) {
-		//计算体型  体型(BMI算法)
+		//计算体型  体型(BMI算法) BMI = 體重(公斤) / 身高2(公尺2)
 		if(userParam.getHeight()!=null&&userParam.getHeight()!=0&&userParam.getWeight()!=null&&userParam.getWeight()!=0){
 			double value=userParam.getWeight()*1.0/userParam.getHeight()*userParam.getHeight();
 			if(value<18.5){
