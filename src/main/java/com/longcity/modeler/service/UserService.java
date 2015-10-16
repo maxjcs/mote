@@ -239,6 +239,17 @@ public class UserService {
 	 * @param userParam
 	 */
 	public void updateMote(User userParam) {
+		//计算体型  体型(BMI算法)
+		if(userParam.getHeight()!=null&&userParam.getHeight()!=0&&userParam.getWeight()!=null&&userParam.getWeight()!=0){
+			double value=userParam.getWeight()*1.0/userParam.getHeight()*userParam.getHeight();
+			if(value<18.5){
+				userParam.setShape(1);//偏瘦
+			}else if(value>=18.5&&value<24){
+				userParam.setShape(2);//中等
+			}else{
+				userParam.setShape(3);//偏胖
+			}
+		}
 		//更新个人资料
 		userDao.updateMote(userParam);
 	}
