@@ -9,7 +9,7 @@ package com.longcity.modeler.enums;
  */
 public enum TradeFlowType {
 	
-    itemReturn(1), itemAccept(2), cashFetch(3),cashAdd(4),taskDeduct(5);
+	shotFee(0),itemReturn(1), itemAccept(2), cashFetch(3),cashAdd(4),taskDeduct(5);
     
     private int type;
     

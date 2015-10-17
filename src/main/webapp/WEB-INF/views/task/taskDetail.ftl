@@ -276,8 +276,8 @@
                                     <th>模特昵称</th>
                                     <th>模特手机号</th>
                                     <th>已关注</th>
-                                    <th>已接单(订单号)</th>
-                                    <th>已拍下</th>
+                                    <th>已接单</th>
+                                    <th>已拍下(订单号)</th>
                                     <th>已好评</th>
                                     <th>已上传</th>
                                     <th>自购</th>
@@ -291,18 +291,17 @@
                                     <td>${moteTaskVO.nickname?default('')}</td>
                                     <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.phoneNumber?default('')}</a></td>
                                     <td>是</td>
-                                    <td></td>
                                     <td>
                                        <#if moteTaskVO.status gte 1 && moteTaskVO.status!=9>
-                                           ${moteTaskVO.orderNo?default('')}
+                                           是
                                        <#else>   
                                            -
                                        </#if>
                                     </td>
                                     <td>
-										<#if moteTaskVO.status gte 2 && moteTaskVO.status!=9>
-                                           是
-                                        <#else>   
+                                       <#if moteTaskVO.status gte 2 && moteTaskVO.status!=9>
+                                           ${moteTaskVO.orderNo?default('')}
+                                       <#else>   
                                            -
                                        </#if>
                                     </td>

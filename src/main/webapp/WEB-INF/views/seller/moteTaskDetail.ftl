@@ -136,9 +136,7 @@
 						<div class="time" data-reactid=".0.1.2.2.5.0">
 						<i class="point" data-reactid=".0.1.2.2.5.0.0"></i>
 						</div>
-						<div  data-reactid=".0.1.2.2.5.1">
-						<a href="#" class="mui-small-btn" data-reactid=".0.1.2.2.5.1.0">已经收到退件</a>
-						</div><div class="hide" data-reactid=".0.1.2.2.5.2">商品退还已确认</div>
+						<div class="hide" data-reactid=".0.1.2.2.5.2">任务已经完结</div>
 					</li>
 					</#if>
 					</ul>

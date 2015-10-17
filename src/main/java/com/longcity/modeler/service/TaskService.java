@@ -236,21 +236,29 @@ public class TaskService {
 		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
 		moteTaskDao.verifyReturnItem(paramMap);
 		
-		//mote记录流水
+		//mote记录流水,商品退还
 		TradeFlow tradeFlow=new TradeFlow();
-		tradeFlow.setMoneyFen(MoneyUtil.double2Int(fee));
+		tradeFlow.setMoneyFen(MoneyUtil.double2Int(task.getPrice()));
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
 		tradeFlow.setType(TradeFlowType.itemReturn.getValue()); //退还商品
 		tradeFlowDao.insert(tradeFlow);
 		
-		//商家记录流水
+		//mote记录流水,拍摄费用
 		TradeFlow tradeFlow2=new TradeFlow();
-		tradeFlow2.setMoneyFen(MoneyUtil.double2Int(fee));
+		tradeFlow2.setMoneyFen(MoneyUtil.double2Int(task.getShotFee()));
 		tradeFlow2.setReferId(moteTaskId);
-		tradeFlow2.setUserId(task.getUserId());
-		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
+		tradeFlow2.setUserId(moteTask.getUserId());
+		tradeFlow2.setType(TradeFlowType.shotFee.getValue()); //拍摄费用
 		tradeFlowDao.insert(tradeFlow2);
+		
+		//商家记录流水
+//		TradeFlow tradeFlow3=new TradeFlow();
+//		tradeFlow3.setMoneyFen(MoneyUtil.double2Int(fee));
+//		tradeFlow3.setReferId(moteTaskId);
+//		tradeFlow3.setUserId(task.getUserId());
+//		tradeFlow3.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
+//		tradeFlowDao.insert(tradeFlow3);
 		
 		//商家减余额
 		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
@@ -304,21 +312,30 @@ public class TaskService {
 		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
 		moteTaskDao.selfBuy(paramMap);
 		
-		//mote记录流水
+		//mote记录流水,商品退款
+		Double selfBuyFee= task.getPrice()*(100-task.getSelfBuyOff())/100;
 		TradeFlow tradeFlow=new TradeFlow();
-		tradeFlow.setMoneyFen(MoneyUtil.double2Int(fee));
+		tradeFlow.setMoneyFen(MoneyUtil.double2Int(selfBuyFee));
 		tradeFlow.setReferId(moteTaskId);
 		tradeFlow.setUserId(moteTask.getUserId());
 		tradeFlow.setType(TradeFlowType.itemAccept.getValue()); //自购商品
 		tradeFlowDao.insert(tradeFlow);
 		
-		//商家记录流水
+		//mote记录流水,商品退款
 		TradeFlow tradeFlow2=new TradeFlow();
-		tradeFlow2.setMoneyFen(MoneyUtil.double2Int(fee));
+		tradeFlow2.setMoneyFen(MoneyUtil.double2Int(task.getShotFee()));
 		tradeFlow2.setReferId(moteTaskId);
-		tradeFlow2.setUserId(task.getUserId());
-		tradeFlow2.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
+		tradeFlow2.setUserId(moteTask.getUserId());
+		tradeFlow2.setType(TradeFlowType.shotFee.getValue()); //拍摄费用
 		tradeFlowDao.insert(tradeFlow2);
+		
+		//商家记录流水
+//		TradeFlow tradeFlow3=new TradeFlow();
+//		tradeFlow3.setMoneyFen(MoneyUtil.double2Int(fee));
+//		tradeFlow3.setReferId(moteTaskId);
+//		tradeFlow3.setUserId(task.getUserId());
+//		tradeFlow3.setType(TradeFlowType.taskDeduct.getValue()); //任务完成后，余额减少。
+//		tradeFlowDao.insert(tradeFlow3);
 		
 		//商家减冻结金额
 		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
