@@ -136,7 +136,7 @@
 						<div class="time" data-reactid=".0.1.2.2.5.0">
 						<i class="point" data-reactid=".0.1.2.2.5.0.0"></i>
 						</div>
-						<div class="hide" data-reactid=".0.1.2.2.5.2">任务已经完结</div>
+						<div data-reactid=".0.1.2.2.5.2">任务已经完结</div>
 					</li>
 					</#if>
 					</ul>
