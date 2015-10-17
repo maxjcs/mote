@@ -241,7 +241,7 @@ public class UserService {
 	public void updateMote(User userParam) {
 		//计算体型  体型(BMI算法) BMI = 體重(公斤) / 身高2(公尺2)
 		if(userParam.getHeight()!=null&&userParam.getHeight()!=0&&userParam.getWeight()!=null&&userParam.getWeight()!=0){
-			double value=userParam.getWeight()*1.0/userParam.getHeight()*userParam.getHeight();
+			double value=userParam.getWeight()*1.0*100*100/userParam.getHeight()*userParam.getHeight();
 			if(value<18.5){
 				userParam.setShape(1);//偏瘦
 			}else if(value>=18.5&&value<24){
