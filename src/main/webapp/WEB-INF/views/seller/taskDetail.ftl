@@ -162,7 +162,7 @@
                                     <td>${detailVO.title?default('')}</td>
                                     <td>${detailVO.price?default(0)}</td>
                                     <td>${detailVO.shotFee?default(0)}</td>
-                                    <td>${detailVO.selfBuyOff?default(0)}%</td>
+                                    <td>${detailVO.selfBuyOff?string("0.##")}%</td>
                                     <td>
                                         <#if detailVO.status==1><span class="text-success">已接单</span></#if>
                                         <#if detailVO.status==2><span class="text-danger">已拍下</span></#if>

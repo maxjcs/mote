@@ -313,7 +313,7 @@ public class TaskService {
 		moteTaskDao.selfBuy(paramMap);
 		
 		//mote记录流水,商品退款
-		Double selfBuyFee= task.getPrice()*(100-task.getSelfBuyOff())/100;
+		Double selfBuyFee= task.getPrice()*(100.0-task.getSelfBuyOff())/100;
 		TradeFlow tradeFlow=new TradeFlow();
 		tradeFlow.setMoneyFen(MoneyUtil.double2Int(selfBuyFee));
 		tradeFlow.setReferId(moteTaskId);

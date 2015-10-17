@@ -19,7 +19,7 @@ public class MoteDetailVO {
 
     private Double shotFee;
     
-    private Integer selfBuyOff;
+    private Double selfBuyOff;
     
     Integer status;
     
@@ -57,11 +57,11 @@ public class MoteDetailVO {
 		this.shotFee = shotFee;
 	}
 
-	public Integer getSelfBuyOff() {
+	public Double getSelfBuyOff() {
 		return selfBuyOff;
 	}
 
-	public void setSelfBuyOff(Integer selfBuyOff) {
+	public void setSelfBuyOff(Double selfBuyOff) {
 		this.selfBuyOff = selfBuyOff;
 	}
 

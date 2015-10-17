@@ -184,7 +184,7 @@
 			                      <img width="150" height="150" src="${task.imgUrl?default('')}" />
 			                      <ul>
 			                        <li><i>&#xe609;</i>商品售价：¥${task.price?default('')}</li>
-			                        <li><i>&#xe608;</i>模特折扣：${task.selfBuyOff?default('')}%</li>
+			                        <li><i>&#xe608;</i>模特折扣：${task.selfBuyOff?string("0.##")}%</li>
 			                        <li><i>&#xe607;</i>任务酬金：¥${task.shotFee?default('')}</li>
 			                        <li><i>&#xe603;</i>商品所在地：浙江 杭州</li>
 			                      </ul>

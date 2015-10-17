@@ -21,7 +21,7 @@ public class Task {
 
     private String imgUrl;
 
-    private Integer selfBuyOff;
+    private Double selfBuyOff;
 
     private String shotDesc;
 
@@ -217,15 +217,15 @@ public class Task {
         this.imgUrl = imgUrl == null ? null : imgUrl.trim();
     }
 
-    public Integer getSelfBuyOff() {
-        return selfBuyOff;
-    }
+    public Double getSelfBuyOff() {
+		return selfBuyOff;
+	}
 
-    public void setSelfBuyOff(Integer selfBuyOff) {
-        this.selfBuyOff = selfBuyOff;
-    }
+	public void setSelfBuyOff(Double selfBuyOff) {
+		this.selfBuyOff = selfBuyOff;
+	}
 
-    public String getShotDesc() {
+	public String getShotDesc() {
         return shotDesc;
     }
 
