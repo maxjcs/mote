@@ -78,6 +78,7 @@ public class SellerController extends BaseController{
     	resultMap.addAttribute("task", (Task)map.get("task"));
     	resultMap.addAttribute("moteTask", (MoteTask)map.get("moteTask"));
     	resultMap.addAttribute("cardList", (List<MoteCard>)map.get("cardList"));
+    	resultMap.addAttribute("picList", (List<MoteCard>)map.get("picList"));
         return "seller/moteTaskDetail";
     }
 

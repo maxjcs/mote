@@ -296,7 +296,7 @@
                                 <tbody>
                                 <#list resultVO.rows as moteTaskVO>
                                 <tr>
-                                    <td>${moteTaskVO.nickname?default('')}</td>
+                                    <td>${moteTaskVO.nickname?default('-')}</td>
                                     <td><a class="text-blue" href="../seller/moteTaskDetail?moteTaskId=${moteTaskVO.id}">${moteTaskVO.phoneNumber?default('')}</a></td>
                                     <td>是</td>
                                     <td>
@@ -321,7 +321,7 @@
                                        </#if>
              						</td>
                                     <td>
-                                       <#if moteTaskVO.status==4 && moteTaskVO.status!=9>
+                                       <#if moteTaskVO.status gte 4 && moteTaskVO.status!=9>
                                            是
                                        <#else>   
                                            -    
@@ -335,7 +335,7 @@
                                        </#if>
                                     </td>
                                     <td>
-                                       <#if moteTaskVO.status==6>
+                                       <#if moteTaskVO.status==6 || moteTaskVO.status==8>
                                            是
                                        <#else>   
                                            -    

@@ -116,7 +116,7 @@
 								</div>
 								<div class="con" data-reactid=".0.1.2.2.3.1">
 									<span data-reactid=".0.1.2.2.3.1.0">模特已经上传了</span>
-									<span data-reactid=".0.1.2.2.3.1.1">6</span>
+									<span data-reactid=".0.1.2.2.3.1.1">${picList?size}</span>
 									<span data-reactid=".0.1.2.2.3.1.2">张照片</span>
 								</div>
 							</li>
@@ -131,7 +131,7 @@
 							</div>
 						</li>
 					</#if>
-					<#if moteTask.finishStatusTime?exists >	
+					<#if moteTask.finishStatus gte 1 >	 
 					<li data-reactid=".0.1.2.2.5">
 						<div class="time" data-reactid=".0.1.2.2.5.0">
 						<i class="point" data-reactid=".0.1.2.2.5.0.0"></i>
