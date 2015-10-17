@@ -15,6 +15,7 @@ import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
+import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.util.MoneyUtil;
@@ -48,9 +49,11 @@ public class TaskBackController extends BaseController{
 	    protected String detail(QueryTaskDetailParamVO paramVO, ModelMap resultMap) {
 	    	taskService.queryTaskDetail(paramVO);
 	    	Task task=taskService.getDetailByTaskId(paramVO.getTaskId());
+	    	User seller=userService.getUserById(task.getUserId());
 	    	
 	    	resultMap.addAttribute("resultVO", paramVO);
 	    	resultMap.addAttribute("task", task);
+	    	resultMap.addAttribute("seller", seller);
 	        return "task/taskDetail";
 	    }
 	    

@@ -196,7 +196,7 @@
 			                      </p>
 			                  </div>
 			                  <div class="product-link">
-			                    <label>商品链接</label>
+			                    <label>商品链接&nbsp;&nbsp;</label>
 			                    <form action="./updateTaskUrl" method="post">
 			                    <input type="hidden" name="taskId" value="${task.id?default(0)}"/>
 			                    <input type="text" name="url" value="${task.url?default('')}"/>
@@ -206,7 +206,7 @@
 			                  <div class="link-text">商家提交的原始链接：${task.oldUrl?default('')}</div>
 			            </div>
 			            <div class="child-block">
-			                <label>模特筛选信息</label>
+			                <label>模特筛选信息&nbsp;&nbsp;</label>
 			                <dl>
 			                    <dd>姓别：<#if task.gender?exists>
                                          <#if task.gender==1>男</#if>
@@ -224,9 +224,17 @@
 			                    <dd>身高：${task.heightMin?default(0)}-${task.heightMax?default(0)}</dd>
 			                </dl>
 			            </div>
+			            <div class="child-block">
+			                <label>商户信息&nbsp;&nbsp;</label>
+			                <dl>
+			                    <dd>昵称：${seller.nickname?default('-')}
+                                </dd>
+			                    <dd>手机号：<a class="text-blue" href="../seller/sellerDetail?sellerId=${seller.id}">${seller.phoneNumber?default('-')}</a></dd>
+			                </dl>
+			            </div>
 			
 			            <div class="child-block">
-			                <label>付款信息</label>
+			                <label>付款信息&nbsp;&nbsp;</label>
 			                <dl>
 			                    <dd>任务数：${task.number?default(0)}</dd>
 			                    <dd>应冻结费用：${task.number*task.price+task.shotFee*task.number}元</dd>
