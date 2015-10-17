@@ -95,29 +95,31 @@
     </sql>
     
    <sql id="orderBy">
+        order by 
         <if test="sort!=null and sort==1">
-            order by u.create_time asc
+            u.create_time asc,
         </if>
         <if test="sort!=null and sort==2">
-            order by u.create_time desc
+            u.create_time desc,
         </if>
         <if test="sort!=null and sort==3">
-            order by ss.task_fee asc
+            ss.task_fee asc,
         </if>
         <if test="sort!=null and sort==4">
-             order by ss.task_fee desc
+             ss.task_fee desc,
         </if>
         <if test="sort!=null and sort==5">
-            order by ss.remind_fee asc
+            ss.remind_fee asc,
         </if>
         <if test="sort!=null and sort==6">
-             order by ss.remind_fee desc
+             ss.remind_fee desc,
         </if>
         <if test="sort!=null and sort==7">
-             order by ss.task_num asc
+             ss.task_num asc,
         </if>
         <if test="sort!=null and sort==8">
-             order by ss.task_num desc
+             ss.task_num desc,
         </if>
+        u.id desc
     </sql>
 </mapper>
