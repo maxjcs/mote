@@ -42,6 +42,9 @@
     </if>
     <if test="height!=null and height!=''">
            height = #{height},
+    </if>
+    <if test="shape!=null and shape!=''">
+           shape = #{shape},
     </if> 
     <if test="weight!=null and weight!=''">
            weight = #{weight},

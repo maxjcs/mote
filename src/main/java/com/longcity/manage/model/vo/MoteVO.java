@@ -27,9 +27,20 @@ public class MoteVO {
 	Integer taskFee;
 	
 	Integer taskNum;
+	
+	Date birdthday;
 
 	Date createTime;
 	
+	
+	public Date getBirdthday() {
+		return birdthday;
+	}
+
+	public void setBirdthday(Date birdthday) {
+		this.birdthday = birdthday;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

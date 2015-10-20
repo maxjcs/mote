@@ -4,6 +4,8 @@
 package com.longcity.manage.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,16 @@ public class MoteService {
             List<MoteVO> rows = moteDao.queryMoteList(paramVO);
             paramVO.setTotal(total);
             paramVO.setRows(rows);
+            for(MoteVO vo:rows){
+            	if(vo.getBirdthday()!=null){
+        			Calendar calendar=Calendar.getInstance();
+        			calendar.setTime(vo.getBirdthday());
+        			//计算年龄
+        			Calendar calendar2=Calendar.getInstance();
+        			calendar2.setTime(new Date());
+        			vo.setAge((calendar2.get(Calendar.YEAR)-calendar.get(Calendar.YEAR))+1);
+        		}
+            }
         }else{
             paramVO.setTotal(0);
             paramVO.setRows(new ArrayList<MoteVO>());
