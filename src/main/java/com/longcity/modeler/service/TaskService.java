@@ -705,8 +705,10 @@ public class TaskService {
 		//商家收货地址
 		User seller=userDao.selectByPrimaryKey(task.getUserId());
 		if(seller!=null){
+			resutlMap.put("seller", seller);//商家信息
 			resutlMap.put("address", seller.getAddress());
 		}
+		
 		return resutlMap;
 	}
 	
