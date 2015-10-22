@@ -119,6 +119,11 @@
 									<span data-reactid=".0.1.2.2.3.1.1">${picList?size}</span>
 									<span data-reactid=".0.1.2.2.3.1.2">张照片</span>
 								</div>
+								<div class="con" data-reactid=".0.1.2.2.3.1">
+									<#list picList as pic>
+									  <div><a href="${pic.imgUrl}" target="_blank"><img src="${pic.imgUrl}!v1"/></a></div>
+									</#list>
+								</div>
 							</li>
 						</#if>
 					<#if moteTask.returnItemTime?exists >		
