@@ -52,6 +52,8 @@ public class MoteService {
         			calendar2.setTime(new Date());
         			vo.setAge((calendar2.get(Calendar.YEAR)-calendar.get(Calendar.YEAR))+1);
         		}
+            	vo.setRemindFee(MoneyUtil.fen2Yuan(vo.getRemindFee()));
+            	vo.setTaskFee(MoneyUtil.fen2Yuan(vo.getTaskFee()));
             }
         }else{
             paramVO.setTotal(0);

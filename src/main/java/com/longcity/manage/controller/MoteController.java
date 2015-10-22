@@ -14,6 +14,7 @@ import com.longcity.manage.model.param.QueryMoteParamVO;
 import com.longcity.manage.service.MoteService;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.UserService;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -40,6 +41,7 @@ public class MoteController extends BaseController{
     	moteService.queryMoteDetail(paramVO);
     	//获取用户
     	User user=userService.getUserById(paramVO.getMoteId());
+    	user.setRemindFee(MoneyUtil.fen2Yuan(user.getRemindFee()));
     	resultMap.addAttribute("resultVO", paramVO);
     	resultMap.addAttribute("mote", user);
         return "mote/moteDetail";

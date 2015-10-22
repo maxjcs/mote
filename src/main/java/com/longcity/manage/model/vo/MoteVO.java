@@ -22,9 +22,9 @@ public class MoteVO {
 	
 	Integer areaId;
 	
-	Integer remindFee;
+	Double remindFee;
 	
-	Integer taskFee;
+	Double taskFee;
 	
 	Integer taskNum;
 	
@@ -121,19 +121,19 @@ public class MoteVO {
 		this.areaId = areaId;
 	}
 
-	public Integer getRemindFee() {
+	public Double getRemindFee() {
 		return remindFee;
 	}
 
-	public void setRemindFee(Integer remindFee) {
+	public void setRemindFee(Double remindFee) {
 		this.remindFee = remindFee;
 	}
 
-	public Integer getTaskFee() {
+	public Double getTaskFee() {
 		return taskFee;
 	}
 
-	public void setTaskFee(Integer taskFee) {
+	public void setTaskFee(Double taskFee) {
 		this.taskFee = taskFee;
 	}
 
