@@ -147,7 +147,7 @@ public class CashApplyController extends AbstractController{
         	userParam.setPassword(password);
         	userService.login(userParam);
         	
-    		if(user.getRemindFee()>money*100){
+    		if(MoneyUtil.double2Int(user.getRemindFee())-money*100>=0){
     			//提交申请
             	cashApplyService.reduceCashApply(userId, money);
                 return dataJson(true, request);

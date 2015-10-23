@@ -300,7 +300,7 @@ public class TaskController extends AbstractController {
             if(user.getRemindFee()<task.getTotalFee()){
             	 return errorJson("预存款不足，请充值！", request);
             }
-            if(userId!=task.getUserId()){
+            if(userId.intValue()!=task.getUserId().intValue()){
         		return errorJson("只有给自己的项目付费", request);
         	}
         	task.setPriceFen(MoneyUtil.double2Int(task.getPrice()));//转换成分
