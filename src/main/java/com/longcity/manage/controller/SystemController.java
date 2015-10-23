@@ -21,6 +21,7 @@ import com.longcity.modeler.dao.MessageDao;
 import com.longcity.modeler.model.Message;
 import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.util.DateUtils;
+import com.longcity.modeler.util.MoneyUtil;
 
 /**
  * @author maxjcs
@@ -52,8 +53,14 @@ public class SystemController extends BaseController{
     	resultMap.addAttribute("sellerYesterDayNum", redisService.getString(RedisContstant.SELLER_HKEY, RedisContstant.SELLER_DAY_NUM_KEY+DateUtils.getYesterdayDateString()));
     	//项目相关
     	resultMap.addAttribute("taskTotalNum", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_NUM_KEY));
-    	resultMap.addAttribute("taskTotalMoney", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_MONEY_KEY));
-    	resultMap.addAttribute("taskTotalShotFee", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_SHOT_FEE_KEY));
+    	String taskTotalMoney=redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_MONEY_KEY);
+    	if(StringUtils.isNotBlank(taskTotalMoney)){
+    		resultMap.addAttribute("taskTotalMoney", MoneyUtil.fen2Yuan(Integer.parseInt(taskTotalMoney)));
+    	}
+    	String taskTotalShotFee=redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TASK_TOTAL_SHOT_FEE_KEY);
+    	if(StringUtils.isNotBlank(taskTotalShotFee)){
+    		resultMap.addAttribute("taskTotalShotFee", MoneyUtil.fen2Yuan(Integer.parseInt(taskTotalShotFee)));
+    	}
     	//任务相关
     	resultMap.addAttribute("moteTaskTotalNum", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_TOTAL_NUM_KEY));
     	resultMap.addAttribute("moteTaskFinishNum", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_FINISH_NUM_KEY));
@@ -66,7 +73,10 @@ public class SystemController extends BaseController{
     	resultMap.addAttribute("moteTaskYesterdayNum", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.MOTETASK_DAY_NUM_KEY+DateUtils.getYesterdayDateString()));
     	//top1 mote
     	resultMap.addAttribute("top1_nickname", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_NAME_KEY));
-    	resultMap.addAttribute("top1_total_fee", redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_FEE_KEY));
+    	String top1TotalFee=redisService.getString(RedisContstant.TASK_HKEY, RedisContstant.TOP1_MOTE_FEE_KEY);
+    	if(StringUtils.isNotBlank(top1TotalFee)){
+    		resultMap.addAttribute("top1_total_fee", MoneyUtil.fen2Yuan(Integer.parseInt( top1TotalFee)));
+    	}
     	
     	return "system/index";
     }

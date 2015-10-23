@@ -403,6 +403,8 @@ public class TaskService {
 		paramMap.put("moteTaskId", moteTaskId);
 		paramMap.put("orderNo", orderNo);
 		moteTaskDao.addOrderNo(paramMap);
+		//增加缓存中总的任务量
+		redisService.redisNewMoteTask();
 		//增加缓存中正执行的任务量
 		redisService.redisPerformTask();
 	}
@@ -461,9 +463,6 @@ public class TaskService {
 		
 		//任务接单数加1
 		taskDao.updateAcceptNumber(moteTask.getTaskId(),1);
-		
-		//增加缓存中总的任务量
-		redisService.redisNewMoteTask();
 		
 		return 2; //接单成功
 	}

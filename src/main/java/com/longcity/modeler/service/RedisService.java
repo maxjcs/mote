@@ -109,9 +109,9 @@ public class RedisService {
 			}
 			//总拍摄费用
 			if(totalShotFee==null){
-				putString(RedisContstant.TASK_HKEY,RedisContstant.TASK_TOTAL_MONEY_KEY, MoneyUtil.double2Int(task.getNumber()*task.getShotFee()));
+				putString(RedisContstant.TASK_HKEY,RedisContstant.TASK_TOTAL_SHOT_FEE_KEY, MoneyUtil.double2Int(task.getNumber()*task.getShotFee()));
 			}else{
-				putString(RedisContstant.TASK_HKEY,RedisContstant.TASK_TOTAL_MONEY_KEY, Integer.parseInt(totalShotFee)+MoneyUtil.double2Int(task.getNumber()*task.getShotFee()));
+				putString(RedisContstant.TASK_HKEY,RedisContstant.TASK_TOTAL_SHOT_FEE_KEY, Integer.parseInt(totalShotFee)+MoneyUtil.double2Int(task.getNumber()*task.getShotFee()));
 			}
 		}catch (Exception e) {
 			logger.error("redisApplyOk error!",e);
@@ -172,9 +172,9 @@ public class RedisService {
 			}
 			//正在执行的任务量-1
 			if(moteTaskPerformNum==null||Integer.parseInt(moteTaskPerformNum)<=0){
-				putString(RedisContstant.TASK_HKEY,RedisContstant.MOTETASK_FINISH_NUM_KEY, 0);
+				putString(RedisContstant.TASK_HKEY,RedisContstant.MOTETASK_PERFORM_NUM_KEY, 0);
 			}else{
-				putString(RedisContstant.TASK_HKEY,RedisContstant.MOTETASK_FINISH_NUM_KEY, Integer.parseInt(moteTaskPerformNum)-1);
+				putString(RedisContstant.TASK_HKEY,RedisContstant.MOTETASK_PERFORM_NUM_KEY, Integer.parseInt(moteTaskPerformNum)-1);
 			}
 		}catch (Exception e) {
 			logger.error("redisFinishTask error!",e);

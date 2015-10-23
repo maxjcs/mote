@@ -24,6 +24,7 @@ import com.longcity.modeler.enums.UserType;
 import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
+import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.util.MoneyUtil;
@@ -49,7 +50,6 @@ public class TaskController extends AbstractController {
 	
 	@Resource
 	private MoteTaskDao moteTaskDao;
-	
 	
 	/**
      * 获取模特接单的未完成的数量
@@ -381,6 +381,7 @@ public class TaskController extends AbstractController {
         	taskService.publish(task);
         	//冻结金额
         	userService.freezeFee(userId, MoneyUtil.double2Int(totalFee*100));
+        	
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);

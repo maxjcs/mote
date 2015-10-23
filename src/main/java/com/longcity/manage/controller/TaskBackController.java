@@ -16,6 +16,7 @@ import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
+import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.util.MoneyUtil;
@@ -36,6 +37,9 @@ public class TaskBackController extends BaseController{
 	   
 	   @Resource
 	   UserService userService;
+	   
+		@Resource
+		private RedisService redisService;
 	   
 	   
 	    @RequestMapping(value = "manage")
@@ -76,6 +80,10 @@ public class TaskBackController extends BaseController{
 	    		Double fee=(task.getPrice()+task.getShotFee())*task.getNumber();
 	        	userService.freezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
 	    	}
+	    	//更新缓存中的数量
+	    	if(TaskStatus.passed.getValue()==status){
+				redisService.redisApplyOk(id); 
+			}
 	    	
 	    	try{
 	    		response.sendRedirect("./detail?taskId="+id);
