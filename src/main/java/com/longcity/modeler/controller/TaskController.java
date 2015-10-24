@@ -28,6 +28,7 @@ import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
 import com.longcity.modeler.util.MoneyUtil;
+import com.longcity.modeler.validator.Validator;
 
 /**
  * @author maxjcs
@@ -124,7 +125,9 @@ public class TaskController extends AbstractController {
 	@ResponseBody
     @RequestMapping(value = "returnItem")
     public Object returnItem(HttpServletRequest request,Integer moteTaskId,String expressCompanyId,String expressNo) throws Exception{
-        try{
+		Validator.validateBlank(expressCompanyId, "快递公司不能为空.");
+		Validator.validateBlank(expressNo, "快递单号不能为空.");
+		try{
         	taskService.returnItem(moteTaskId,expressCompanyId,expressNo);
             return dataJson(true, request);
         }catch(Exception e){

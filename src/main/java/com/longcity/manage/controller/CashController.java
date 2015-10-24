@@ -152,6 +152,7 @@ public class CashController extends BaseController{
     	ReduceCashApply apply=cashApplyService.reduceApplyDetail(applyId);
     	//获取用户相关信息
     	User user=userService.getUserById(apply.getUserId());
+    	apply.setUserId(user.getId());
     	apply.setNickname(user.getNickname());
     	apply.setPhoneNumber(user.getPhoneNumber());
     	apply.setAlipayId(user.getAlipayId());

@@ -37,15 +37,15 @@ public class Task {
     
     private Integer ageMax;
 
-    private Integer areaid;
+    private Integer areaid=0;
 
-    private Integer modelerLevel;
+    private Integer modelerLevel=0;
 
-    private Integer selfBuyRate;
+    private Integer selfBuyRate=0;
 
     private Integer number;
 
-    private Integer shotAreaId;
+    private Integer shotAreaId=0;
 
     private Integer status;
     
@@ -61,9 +61,9 @@ public class Task {
     
     private String oldUrl;
     
-    private Boolean isAccepted;
+    private Boolean isAccepted=false;
 
-    private Integer acceptNumber;
+    private Integer acceptNumber=0;
 
 	public Integer getAcceptNumber() {
 		return acceptNumber;

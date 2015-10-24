@@ -65,7 +65,6 @@
     from reduce_cash_apply rc,user u 
     where rc.user_id = u.id 
     order by rc.id desc
-    limit #{start},#{pageSize}
    </select>
   
   <update id="finishPay">

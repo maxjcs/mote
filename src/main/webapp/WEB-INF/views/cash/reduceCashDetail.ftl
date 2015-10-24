@@ -38,7 +38,7 @@
                          </tr>
                          <tr class="tr-height">
                            <td>手机号:</td>
-                           <td>${resultVO.phoneNumber?default('')}</td>
+                           <td><a class="text-blue" href="${webServer}api/back/mote/moteDetail?moteId=${resultVO.userId?default('')}">${resultVO.phoneNumber?default('')}</a></td>
                          </tr>
                          <tr>
                            <td>支付宝账号:</td>
