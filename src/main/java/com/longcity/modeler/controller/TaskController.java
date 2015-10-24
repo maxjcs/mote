@@ -27,6 +27,7 @@ import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.RedisService;
 import com.longcity.modeler.service.TaskService;
 import com.longcity.modeler.service.UserService;
+import com.longcity.modeler.util.JsonUtil;
 import com.longcity.modeler.util.MoneyUtil;
 import com.longcity.modeler.validator.Validator;
 
@@ -288,6 +289,8 @@ public class TaskController extends AbstractController {
         	task.setAgeMin(ageMin);
         	task.setAgeMax(ageMax);
         	task.setNumber(number);
+        	
+        	System.out.println(JsonUtil.obj2Json(task));
         	
         	//
         	task.setUserId(userId);

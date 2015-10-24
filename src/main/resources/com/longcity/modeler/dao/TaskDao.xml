@@ -39,6 +39,11 @@
       age_min = #{ageMin},
       age_max = #{ageMax},
       number = #{number},
+      price = #{priceFen},
+      shot_fee = #{shotFeeFen},
+      total_fee = #{totalFeeFen},
+      status = #{status},
+      old_url =#{oldUrl}
     where id = #{id}
   </update>
   
