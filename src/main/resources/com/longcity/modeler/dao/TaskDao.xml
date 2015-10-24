@@ -24,7 +24,7 @@
   
   <update id="updateByPrimaryKey" parameterType="Task" >
     update task
-    set user_id = #{userId},
+    set 
       title = #{title},
       url = #{url},
       price = #{priceFen},
@@ -38,13 +38,7 @@
       height_max = #{heightMax},
       age_min = #{ageMin},
       age_max = #{ageMax},
-      areaId = #{areaid},
-      modeler_level = #{modelerLevel},
-      self_buy_rate = #{selfBuyRate},
       number = #{number},
-      shot_area_id = #{shotAreaId},
-      status = #{status},
-      total_fee = #{totalFeeFen}
     where id = #{id}
   </update>
   

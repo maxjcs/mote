@@ -267,9 +267,29 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "save")
-    public Object save(HttpServletRequest request,Task task) throws Exception{
+    public Object save(HttpServletRequest request,Integer id,String title,String url,Double price,Double shotFee,
+    		String imgUrl,Double selfBuyOff,String shotDesc,Integer gender,Integer shape,
+    		Integer heightMin,Integer heightMax,Integer ageMin,Integer ageMax,Integer number) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
+        	Task task=new Task();
+        	task.setId(id);
+        	task.setTitle(title);
+        	task.setUrl(url);
+        	task.setPrice(price);
+        	task.setShotFee(shotFee);
+        	task.setImgUrl(imgUrl);
+        	task.setSelfBuyOff(selfBuyOff);
+        	task.setShotDesc(shotDesc);
+        	task.setGender(gender);
+        	task.setShape(shape);
+        	task.setHeightMin(heightMin);
+        	task.setHeightMax(heightMax);
+        	task.setAgeMin(ageMin);
+        	task.setAgeMax(ageMax);
+        	task.setNumber(number);
+        	
+        	//
         	task.setUserId(userId);
         	User user=userService.getUserById(userId);
         	if(user.getType()==UserType.mote.getValue()){
