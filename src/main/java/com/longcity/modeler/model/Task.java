@@ -13,11 +13,11 @@ public class Task {
 
     private Double price;
     
-    private Integer priceFen;
+    private Integer priceFen=0;
 
     private Double shotFee;
     
-    private Integer shotFeeFen;
+    private Integer shotFeeFen=0;
 
     private String imgUrl;
 
@@ -47,19 +47,19 @@ public class Task {
 
     private Integer shotAreaId=0;
 
-    private Integer status;
+    private Integer status=0;
     
     private Date createTime;
     
     private Date updateTime;
     
-    private Double totalFee;
+    private Double totalFee=0.0;
     
-    private Integer totalFeeFen;
+    private Integer totalFeeFen=0;
     
-    private String nickname;
+    private String nickname="";
     
-    private String oldUrl;
+    private String oldUrl="";
     
     private Boolean isAccepted=false;
 
