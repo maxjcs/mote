@@ -24,7 +24,7 @@
   </update>
   
   <select id="addCashList" resultType="CashApplyVO" parameterType="QueryCashParamVO" >
-    select ac.id as applyId, ac.user_id, ac.alipay_name,ac.alipay_id,ac.money, ac.last_six_order_no as order_no,ac.status, ac.create_time,ac.finish_time,u.nickname,u.phone_number
+    select ac.id as applyId, ac.user_id, ac.alipay_name,ac.alipay_id,ac.money, ac.last_six_order_no as order_no,ac.status, ac.create_time,ac.finish_time,u.shop_name,u.nickname,u.phone_number
     from add_cash_apply ac,user u
     where 1=1 and ac.user_id = u.id
     order by ac.id desc
