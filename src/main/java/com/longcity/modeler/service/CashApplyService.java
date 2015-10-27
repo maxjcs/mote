@@ -98,10 +98,10 @@ public class CashApplyService {
 			cashRecords = cashRecordDao.getRecordList(paramMap);
 			for(CashRecord record:cashRecords){
 				if(record.getMoney()!=null){
-					record.setMoney(record.getMoney()/100);
+					record.setMoney(MoneyUtil.fen2Yuan(record.getMoney()));
 				}
 				if(record.getRemindMoney()!=null){
-				   record.setRemindMoney(record.getRemindMoney()/100);
+				   record.setRemindMoney(MoneyUtil.fen2Yuan(record.getRemindMoney()));
 				}
 			}
 		}else{

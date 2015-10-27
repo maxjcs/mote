@@ -363,15 +363,18 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "finishMoteTask")
-    public Object finishMoteTask(HttpServletRequest request,Integer moteTaskId) throws Exception{
+    public synchronized Object finishMoteTask(HttpServletRequest request,Integer moteTaskId) throws Exception{
 		try{
 			MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
+			if(moteTask.getFinishStatus()!=null&&moteTask.getFinishStatus().intValue()==1){
+				return errorJson("已经完成.", request);
+			}
 			//自购商品
 			if(moteTask.getStatus()==MoteTaskStatus.selfBuy.getValue()||moteTask.getStatus()==MoteTaskStatus.verifyReturnItem.getValue()){
 				taskService.finishMoteTask(moteTask);
 				return dataJson(true, request);
 			}else{
-				return dataJson("状态不正确！", request);
+				return errorJson("状态不正确！", request);
 			}
         }catch(Exception e){
             logger.error("任务完成确认失败.", e);

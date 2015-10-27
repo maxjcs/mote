@@ -269,7 +269,7 @@ public class TaskService {
 		redisService.redisFinishTask();
 		
 		//商家预存款减少记录
-		cashApplyService.addCashRecord(task.getUserId(), fee*100, "模特退还商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
+		cashApplyService.addCashRecord(task.getUserId(), fee, "模特退还商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
 		
 	}
 	
@@ -347,7 +347,7 @@ public class TaskService {
 		redisService.redisSelfBuyTask();//自购的商品数
 		
 		//商家预存款减少记录
-		cashApplyService.addCashRecord(task.getUserId(), fee*100, "模特自购商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
+		cashApplyService.addCashRecord(task.getUserId(), fee, "模特自购商品["+task.getTitle()+"]", CashRecordType.reduce.getValue());
 	}
 	
 	
