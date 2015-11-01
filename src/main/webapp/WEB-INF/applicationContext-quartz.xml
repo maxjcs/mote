@@ -10,7 +10,7 @@
             <ref bean="targetTop1MoteScheduleService"/>  
         </property>  
         <property name="cronExpression">  
-            <value>0 0/5 * * * ?</value>  
+            <value>0 0/30 * * * ?</value>  
         </property>  
    </bean> 
   
@@ -28,7 +28,7 @@
             <ref bean="targetCountSellerScheduleService"/>  
         </property>  
         <property name="cronExpression">  
-            <value>0 0/5 * * * ?</value>  
+            <value>0 0/30 * * * ?</value>  
         </property>  
    </bean> 
   
@@ -46,7 +46,7 @@
             <ref bean="targetCountMoteScheduleService"/>  
         </property>  
         <property name="cronExpression">  
-            <value>0 0/5 * * * ?</value>  
+            <value>0 0/30 * * * ?</value>  
         </property>  
    </bean> 
   
