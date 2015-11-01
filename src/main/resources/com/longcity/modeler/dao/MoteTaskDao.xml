@@ -166,7 +166,7 @@
     <select id="countByMoteId" resultType="int" >
 	    select ifnull(count(1),0)
         from mote_task mt,task t
-        where t.id=mt.task_id and mt.user_id=#{param1}
+        where t.id=mt.task_id and mt.user_id=#{param1} and mt.status=0
     </select>
     
     <select id="queryListByMoteId" resultType="MoteDetailVO" parameterType="map">
