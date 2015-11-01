@@ -29,7 +29,7 @@
                         <div class="form clearfix">
                             <div class="col-md-4">
                               <form method="post" role="form" id="searchForm"
-                                  action="${webServer}api/back/seller/manage">
+                                  action="${webServer}api/back/seller/sellerDetail">
                                   <input type="hidden" name="sellerId" value="${seller.id}">
                                   <input type="hidden" id="index" name="index" value="${resultVO.index}">
                               </form>    

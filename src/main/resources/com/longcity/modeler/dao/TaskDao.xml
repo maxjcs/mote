@@ -160,6 +160,7 @@
     select mt.id,u.nickname,u.phone_number,mt.order_no,mt.status,mt.finish_status
      from mote_task mt,user u
     where mt.user_id = u.id and mt.task_id=#{taskId} and mt.status in (1,2,3,4,5,6,7,8)
+    limit #{start},#{pageSize}
   </select>
   
   <select id="searchTask" parameterType="map" resultType="Task"  >
