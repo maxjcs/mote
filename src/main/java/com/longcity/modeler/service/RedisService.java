@@ -99,7 +99,8 @@ public class RedisService {
 				putString(RedisContstant.TASK_HKEY,dayNumKey, 1);
 				putString(RedisContstant.TASK_HKEY,moteDayNumKey, task.getNumber());
 			}else{
-				putString(RedisContstant.TASK_HKEY,dayNumKey, Integer.parseInt(moteDayNum)+task.getNumber());
+				putString(RedisContstant.TASK_HKEY,dayNumKey, Integer.parseInt(dayNum)+1);
+				putString(RedisContstant.TASK_HKEY,moteDayNumKey, Integer.parseInt(moteDayNum)+task.getNumber());
 			}
 			//商品总金额
 			if(totalMoney==null){
