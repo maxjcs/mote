@@ -64,7 +64,7 @@ public class MoteService {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public QueryMoteDetailParamVO queryMoteDetail(QueryMoteDetailParamVO paramVO){
-		Integer total = moteTaskDao.countByMoteId(paramVO.getMoteId());
+		Integer total = moteTaskDao.getAcceptNumByMoteId(paramVO.getMoteId());
         if (total > 0) {
         	Map paramMap=new HashMap();
         	paramMap.put("moteId",paramVO.getMoteId());

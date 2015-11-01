@@ -169,6 +169,12 @@
         where t.id=mt.task_id and mt.user_id=#{param1} and mt.status=0
     </select>
     
+   <select id="getAcceptNumByMoteId" resultType="int" >
+	    select ifnull(count(1),0)
+        from mote_task mt,task t
+        where t.id=mt.task_id and mt.user_id=#{param1}
+    </select>
+    
     <select id="queryListByMoteId" resultType="MoteDetailVO" parameterType="map">
 	    select mt.id,t.title,t.price,t.shot_fee,t.self_buy_off,mt.status,mt.create_time
         from mote_task mt,task t
