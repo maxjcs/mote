@@ -204,10 +204,15 @@ public class TaskController extends AbstractController {
     @RequestMapping(value = "newMoteTask")
     public Object newMoteTask(HttpServletRequest request,Integer id) throws Exception{
         try{
-        	Integer moteId=AppContext.getUserId();
         	int code=taskService.newMoteTask(id);
         	if(code==-1){
         		return errorJson("项目不存在！", request);
+        	}
+        	if(code==-2){
+        		return errorJson("你已经接过单！", request);
+        	}
+        	if(code==-3){
+        		return errorJson("15天内不能对同一商家接单！", request);
         	}
         	if(code==0){
         		return errorJson("该项目接单已满，不能接单！", request);

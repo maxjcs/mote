@@ -129,6 +129,24 @@
     where id = #{id}
   </select>
   
+   <select id="findLastBySellerId" resultType="MoteTask"  >
+    select mt.*
+    from mote_task mt,task t 
+    where mt.task_id=t.id and mt.user_id=#{param1} and t.user_id = #{param2} and mt.status!=0
+    order by mt.id desc
+    limit 1
+  </select>
+  
+  
+  
+  <select id="selectByMoteIdAndTaskId" resultType="MoteTask" >
+    select *
+    from mote_task
+    where  user_id=#{param1} and task_id = #{param2} and status!=0
+  </select>
+  
+  
+  
 
   <select id="stasticByTaskIds" resultType="TaskVO" parameterType="map" >
     select t.id,t.create_time,t.title,

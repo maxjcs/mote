@@ -439,15 +439,34 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
-	public int  newMoteTask(Integer id){
+	public synchronized int  newMoteTask(Integer id){
 		
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(id);
-		
-		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(moteTask.getTaskId());
+		//判断是否已经下过单
+		MoteTask moteTask2 =moteTaskDao.selectByMoteIdAndTaskId(moteTask.getUserId(), moteTask.getTaskId());
+		if(moteTask2!=null){
+			return -2;
+		}
+		//判断任务存不存在
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
 		if(task==null){
 			return -1;
 		}
+		//判断同一个模特在15天内不能接同一商家任务
+		MoteTask moteTask3=moteTaskDao.findLastBySellerId(moteTask.getUserId(),task.getUserId());
+		if(moteTask3!=null&&moteTask3.getAcceptedTime()!=null){
+			Calendar calendar=Calendar.getInstance();
+			calendar.setTime(moteTask3.getAcceptedTime());
+			
+			Calendar calendar2=Calendar.getInstance();
+			calendar2.setTime(new Date());
+			if(calendar2.getTimeInMillis()-calendar.getTimeInMillis()<15*24*60*60*1000){
+				return -3;
+			}
+		}
+		
+		Integer acceptedNum=moteTaskDao.getTotalAcceptedNum(moteTask.getTaskId());
+		
 		if(acceptedNum>=task.getNumber()){
 			return 0;//已经达到当量
 		}
@@ -472,7 +491,7 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
-	public int  followTask(Integer moteId,Integer taskId){
+	public synchronized int  followTask(Integer moteId,Integer taskId){
 		
 		MoteTask existMoteTask=moteTaskDao.queryByMoteIdAndTaskId(moteId,taskId);
 		if(existMoteTask!=null){

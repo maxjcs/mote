@@ -21,6 +21,10 @@ public interface MoteTaskDao {
     int insert(MoteTask record);
 
     MoteTask selectByPrimaryKey(Integer id);
+    //根据模特和任务id查询
+    MoteTask selectByMoteIdAndTaskId(Integer moteId,Integer taskId);
+    //
+    MoteTask findLastBySellerId(Integer moteId,Integer sellerId);
 
     int updateByPrimaryKey(MoteTask record);
     
