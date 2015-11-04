@@ -160,12 +160,14 @@ public class CashApplyService {
 	 * @param userId
 	 * @param money
 	 */
-	public void  reduceCashApply(Integer userId,Double money){
+	public  void  reduceCashApply(Integer userId,Double money){
 		ReduceCashApply cashApply= new ReduceCashApply();
 		cashApply.setMoneyFen(MoneyUtil.yuan2Fen(money));
 		cashApply.setUserId(userId);
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
 		reduceCashApplyDao.insert(cashApply);
+		//更新余额，申请直接减余额
+		userService.updateRemindFee(userId, MoneyUtil.yuan2Fen(money)*-1);
 	}
 	
 	/**
@@ -187,13 +189,13 @@ public class CashApplyService {
 	 */
 	@Transactional
 	public Boolean  finishReducePay(Integer cashApplyId,String alipayNo){
-		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
-		User user=userService.getUserById(reduceCashApply.getUserId());
-		if(reduceCashApply.getMoney()>user.getRemindFee()){
-			return false;
-		}else{
-			userService.updateRemindFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
-		}
+//		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
+//		User user=userService.getUserById(reduceCashApply.getUserId());
+//		if(reduceCashApply.getMoney()>user.getRemindFee()){
+//			return false;
+//		}else{
+//			userService.updateRemindFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
+//		}
 		reduceCashApplyDao.finishPay(cashApplyId,alipayNo);
 		//
 		

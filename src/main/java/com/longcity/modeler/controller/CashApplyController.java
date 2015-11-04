@@ -133,7 +133,7 @@ public class CashApplyController extends AbstractController{
      */
 	@ResponseBody
     @RequestMapping(value = "reduceCashApply")
-    public Object reduceCashApply(HttpServletRequest request,Double money,String password,String smsCode) throws Exception{
+    public synchronized Object reduceCashApply(HttpServletRequest request,Double money,String password,String smsCode) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
         	
