@@ -43,7 +43,7 @@ public class MoteController extends BaseController{
     	User user=userService.getUserById(paramVO.getMoteId());
     	user.setRemindFee(MoneyUtil.fen2Yuan(user.getRemindFee()));
     	resultMap.addAttribute("resultVO", paramVO);
-    	user.setRemindFee(user.getRemindFee()+user.getFreezeFee());
+    	user.setRemindFee((user.getRemindFee()==null?0.0:user.getRemindFee())+(user.getFreezeFee()==null?0.0:user.getFreezeFee()));
     	resultMap.addAttribute("mote", user);
         return "mote/moteDetail";
     }
