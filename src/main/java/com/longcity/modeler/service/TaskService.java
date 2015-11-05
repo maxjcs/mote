@@ -308,7 +308,13 @@ public class TaskService {
 		//更新快递信息
 		Map paramMap=new HashMap();
 		paramMap.put("moteTaskId", moteTaskId);
+		//商品总费用
+		Double totalFee=task.getPrice()+task.getShotFee();
+		//模特得的费用
 		Double fee= task.getPrice()*(100-task.getSelfBuyOff())/100+task.getShotFee();
+		//商家退回费用
+		Double sellerFee=totalFee-fee;
+		
 		paramMap.put("fee",MoneyUtil.double2Int(fee) );//单位为分
 		moteTaskDao.selfBuy(paramMap);
 		
@@ -338,9 +344,11 @@ public class TaskService {
 //		tradeFlowDao.insert(tradeFlow3);
 		
 		//商家减冻结金额
-		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
+		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(totalFee));
 		//mote增加余额
 		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
+		//商家退回金额
+		userDao.updateRemindFee(task.getUserId(), MoneyUtil.double2Int(sellerFee));
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
