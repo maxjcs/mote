@@ -447,9 +447,13 @@ public class TaskService {
 	 * @param moteId
 	 * @param taskId
 	 */
+	@Transactional
 	public synchronized int  newMoteTask(Integer id){
 		
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(id);
+		if(moteTask.getStatus().intValue()!=MoteTaskStatus.newAccept.getValue()){
+			return -2;
+		}
 		//判断是否已经下过单
 		MoteTask moteTask2 =moteTaskDao.selectByMoteIdAndTaskId(moteTask.getUserId(), moteTask.getTaskId());
 		if(moteTask2!=null){
