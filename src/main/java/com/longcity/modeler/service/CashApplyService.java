@@ -192,13 +192,13 @@ public class CashApplyService {
 	 */
 	@Transactional
 	public Boolean  finishReducePay(Integer cashApplyId,String alipayNo){
-//		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
-//		User user=userService.getUserById(reduceCashApply.getUserId());
-//		if(reduceCashApply.getMoney()>user.getFreezeFee()){
-//			return false;
-//		}else{
-//			userDao.updateFreezeFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
-//		}
+		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
+		User user=userService.getUserById(reduceCashApply.getUserId());
+		if(reduceCashApply.getMoney()>user.getFreezeFee()){
+			return false;
+		}else{
+			userDao.updateFreezeFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
+		}
 		reduceCashApplyDao.finishPay(cashApplyId,alipayNo);
 		
 		return true;
