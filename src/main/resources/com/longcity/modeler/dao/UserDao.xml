@@ -124,7 +124,7 @@
   <select id="selectByPrimaryKey" resultType="User" parameterType="java.lang.Integer" >
     select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
     weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
-    weixin, address, referee, remind_fee
+    weixin, address, referee, remind_fee,freeze_fee
     from user
     where id = #{id}
   </select>
@@ -132,7 +132,7 @@
   <select id="selectByPhoneNumber" resultType="User" parameterType="string" >
     select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
     weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
-    weixin, address, referee, remind_fee
+    weixin, address, referee, remind_fee,freeze_fee
     from user
     where phone_number = #{phoneNumber}
   </select>
@@ -140,7 +140,7 @@
   <select id="querySellerList" resultType="User" parameterType="int" >
     select id, phone_number, password, avart_url, nickname, gender, birdthday, height, 
     weight, area_id, wangwang, alipay_id, alipay_name, status, type, shop_name, email, 
-    weixin, address, referee, remind_fee
+    weixin, address, referee, remind_fee,freeze_fee
     from user
     where id &gt; #{param1} and type=2
     order by id asc

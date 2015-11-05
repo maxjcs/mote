@@ -46,9 +46,9 @@ public class User {
 
     private String referee;
 
-    private Double remindFee;//余额
+    private Double remindFee=0.0;//余额
     
-    private Double freezeFee;//冻结金额
+    private Double freezeFee=0.0;//冻结金额
     
     private Double remindFeeFen;//余额
     
