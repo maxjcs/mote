@@ -47,6 +47,9 @@ public class CashApplyService {
 	CashRecordDao cashRecordDao;
 	
 	@Resource
+	UserDao userDao;
+	
+	@Resource
 	UserService userService;
 	
 	/**
@@ -166,8 +169,8 @@ public class CashApplyService {
 		cashApply.setUserId(userId);
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
 		reduceCashApplyDao.insert(cashApply);
-		//更新余额，申请直接减余额
-		userService.updateRemindFee(userId, MoneyUtil.yuan2Fen(money)*-1);
+		//冻结金额
+		userService.freezeFee(userId, MoneyUtil.yuan2Fen(money)*-1);
 	}
 	
 	/**
@@ -189,15 +192,14 @@ public class CashApplyService {
 	 */
 	@Transactional
 	public Boolean  finishReducePay(Integer cashApplyId,String alipayNo){
-//		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
-//		User user=userService.getUserById(reduceCashApply.getUserId());
-//		if(reduceCashApply.getMoney()>user.getRemindFee()){
-//			return false;
-//		}else{
-//			userService.updateRemindFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
-//		}
+		ReduceCashApply reduceCashApply =reduceCashApplyDao.selectByPrimaryKey(cashApplyId);
+		User user=userService.getUserById(reduceCashApply.getUserId());
+		if(reduceCashApply.getMoney()>user.getFreezeFee()){
+			return false;
+		}else{
+			userDao.updateFreezeFee(reduceCashApply.getUserId(), MoneyUtil.double2Int(reduceCashApply.getMoney())*-1);
+		}
 		reduceCashApplyDao.finishPay(cashApplyId,alipayNo);
-		//
 		
 		return true;
 	}
