@@ -170,7 +170,7 @@ public class CashApplyService {
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
 		reduceCashApplyDao.insert(cashApply);
 		//冻结金额
-		userService.freezeFee(userId, MoneyUtil.yuan2Fen(money)*-1);
+		userService.freezeFee(userId, MoneyUtil.yuan2Fen(money));
 	}
 	
 	/**
