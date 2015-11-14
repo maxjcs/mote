@@ -169,8 +169,12 @@ public class CashApplyService {
 		cashApply.setUserId(userId);
 		cashApply.setStatus(CashApplyStatus.newadd.getValue());
 		reduceCashApplyDao.insert(cashApply);
+		//打印用户余额
+        userService.printlogUser(userId);
 		//冻结金额
 		userService.freezeFee(userId, MoneyUtil.yuan2Fen(money));
+		//打印用户余额
+        userService.printlogUser(userId);
 	}
 	
 	/**
@@ -210,8 +214,14 @@ public class CashApplyService {
 	 */
 	@Transactional
 	public Boolean  finishAddCashPay(Integer cashApplyId){
+		
 		AddCashApply addCashApply=addCashApplyDao.selectByPrimaryKey(cashApplyId);
+		//打印用户余额
+        userService.printlogUser(addCashApply.getUserId());
 		userService.updateRemindFee(addCashApply.getUserId(),  MoneyUtil.double2Int(addCashApply.getMoney()));
+		//打印用户余额
+        userService.printlogUser(addCashApply.getUserId());
+        
 		addCashApplyDao.finish(cashApplyId);
 		//充值记录
 		addCashRecord(addCashApply.getUserId(),addCashApply.getMoney(),"充值",CashRecordType.add.getValue());

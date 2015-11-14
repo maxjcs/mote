@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -326,6 +327,9 @@ public class TaskController extends AbstractController {
         	
             User user= userService.getUserById(userId);
             
+            //打印用户余额
+            userService.printlogUser(userId);
+            
             Task task=taskDao.selectByPrimaryKey(taskId);
             
             if(user.getRemindFee()<task.getTotalFee()){
@@ -340,6 +344,9 @@ public class TaskController extends AbstractController {
         	taskService.publish(task);
         	//冻结金额
         	userService.freezeFee(userId, MoneyUtil.double2Int(task.getTotalFee()));
+        	
+        	//打印用户余额
+            userService.printlogUser(userId);
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);
@@ -368,6 +375,7 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "finishMoteTask")
+	@Transactional
     public synchronized Object finishMoteTask(HttpServletRequest request,Integer moteTaskId) throws Exception{
 		try{
 			MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
@@ -395,6 +403,7 @@ public class TaskController extends AbstractController {
      */
 	@ResponseBody
     @RequestMapping(value = "publish")
+	@Transactional
     public Object publish(HttpServletRequest request,Task task) throws Exception{
         try{
         	Integer userId=AppContext.getUserId();
@@ -407,7 +416,9 @@ public class TaskController extends AbstractController {
             if(user.getType()==UserType.mote.getValue()){
         		return errorJson("只有商家才能发布项目", request);
         	}
-        	//新建任务
+            //打印用户余额
+            userService.printlogUser(task.getUserId());
+        	//新建任务]
         	task.setUserId(userId);
         	task.setPriceFen(MoneyUtil.yuan2Fen(task.getPrice()));//转换成分
         	task.setShotFeeFen(MoneyUtil.yuan2Fen(task.getShotFee()));//转换成分
@@ -415,7 +426,8 @@ public class TaskController extends AbstractController {
         	taskService.publish(task);
         	//冻结金额
         	userService.freezeFee(userId, MoneyUtil.double2Int(totalFee*100));
-        	
+        	//打印用户余额
+            userService.printlogUser(task.getUserId());
             return dataJson(true, request);
         }catch(Exception e){
             logger.error("发布项目需求失败.", e);

@@ -7,12 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.model.param.QueryTaskParamVO;
 import com.longcity.modeler.dao.TaskDao;
+import com.longcity.modeler.dao.UserDao;
 import com.longcity.modeler.enums.TaskStatus;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
@@ -34,6 +36,9 @@ public class TaskBackController extends BaseController{
 	   
 	   @Resource
 	   TaskDao taskDao;
+	   
+	   @Resource
+	   UserDao userDao;
 	   
 	   @Resource
 	   UserService userService;
@@ -72,17 +77,22 @@ public class TaskBackController extends BaseController{
 	    }
 	    
 	    @RequestMapping(value = "approve")
+	    @Transactional
 	    protected void approve(Integer id, Integer status,HttpServletResponse response) {
 	    	taskDao.updateStatus(id, status);
 	    	//返回冻结的金额
 	    	if(status==TaskStatus.not_passed.getValue()){
 	    		Task task=taskDao.selectByPrimaryKey(id);
+	    		//打印用户余额
+	    		userService.printlogUser(task.getUserId());
 	    		Double fee=(task.getPrice()+task.getShotFee())*task.getNumber();
 	        	userService.freezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
+	        	//打印用户余额
+	        	userService.printlogUser(task.getUserId());
 	    	}
 	    	//更新缓存中的数量
 	    	if(TaskStatus.passed.getValue()==status){
-				redisService.redisApplyOk(id); 
+				redisService.redisApplyOk(id);
 			}
 	    	
 	    	try{

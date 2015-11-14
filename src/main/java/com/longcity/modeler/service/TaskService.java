@@ -229,6 +229,10 @@ public class TaskService {
 		//获取对象
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		//打印用户余额
+        userService.printlogUser(task.getUserId());
+        //打印用户余额
+        userService.printlogUser(moteTask.getUserId());
 		//更新快递信息
 		Map paramMap=new HashMap();
 		paramMap.put("moteTaskId", moteTaskId);
@@ -264,6 +268,11 @@ public class TaskService {
 		userDao.updateFreezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
 		//mote增加余额
 		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
+		
+		//打印用户余额
+        userService.printlogUser(task.getUserId());
+        //打印用户余额
+        userService.printlogUser(moteTask.getUserId());
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
@@ -305,6 +314,10 @@ public class TaskService {
 		//获取对象
 		MoteTask moteTask=moteTaskDao.selectByPrimaryKey(moteTaskId);
 		Task task=taskDao.selectByPrimaryKey(moteTask.getTaskId());
+		 //打印用户余额
+        userService.printlogUser(task.getUserId());
+        //打印用户余额
+        userService.printlogUser(moteTask.getUserId());
 		//更新快递信息
 		Map paramMap=new HashMap();
 		paramMap.put("moteTaskId", moteTaskId);
@@ -349,6 +362,11 @@ public class TaskService {
 		userDao.updateRemindFee(moteTask.getUserId(), MoneyUtil.double2Int(fee));
 		//商家退回金额
 		userDao.updateRemindFee(task.getUserId(), MoneyUtil.double2Int(sellerFee));
+		
+		 //打印用户余额
+        userService.printlogUser(task.getUserId());
+        //打印用户余额
+        userService.printlogUser(moteTask.getUserId());
 		
 		//增加缓存中已经完成的任务量
 		redisService.redisFinishTask();
