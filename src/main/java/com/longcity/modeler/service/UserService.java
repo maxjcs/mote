@@ -355,8 +355,12 @@ public class UserService {
 	}
 	
 	public void  printlogUser(Integer userId) {
-		User user=userDao.selectByPrimaryKey(userId);
-		System.out.println("user id:["+user.getId()+"],remindFee:["+user.getRemindFee()+"],freezeFee:["+user.getFreezeFee()+"]");
+		try{
+			User user=userDao.selectByPrimaryKey(userId);
+			System.out.println("user id:["+user.getId()+"],remindFee:["+user.getRemindFee()+"],freezeFee:["+user.getFreezeFee()+"]");
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	

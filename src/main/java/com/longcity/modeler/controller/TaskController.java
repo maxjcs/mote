@@ -417,7 +417,7 @@ public class TaskController extends AbstractController {
         		return errorJson("只有商家才能发布项目", request);
         	}
             //打印用户余额
-            userService.printlogUser(task.getUserId());
+            userService.printlogUser(userId);
         	//新建任务]
         	task.setUserId(userId);
         	task.setPriceFen(MoneyUtil.yuan2Fen(task.getPrice()));//转换成分
