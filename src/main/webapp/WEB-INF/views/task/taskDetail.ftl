@@ -291,6 +291,7 @@
                                     <th>自购</th>
                                     <th>退还</th>
                                     <th>完结</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -349,6 +350,11 @@
                                            已完成
                                        </#if>
                                     </td>
+                                    <td>
+                                       <#if moteTaskVO.finishStatus==0>
+                                          <a class="text-blue" href="javascript:deleteMoteTask(${moteTaskVO.id})">手工删除</a>
+                                       </#if>
+                                    </td>
                                 </tr>
                                 </#list>
                                 </tbody>
@@ -363,5 +369,12 @@
     <#include "../inc/footer.ftl">
     </div>
 </div>
+<script type="text/javascript">
+	function deleteMoteTask(id){
+	    if(confirm("删除后不可恢复，确认要删除？")){
+	        window.location.href="./deleteMoteTaskById?id="+id;
+	    }
+	}
+</script>
 </body>
 </html>

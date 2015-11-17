@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.longcity.manage.model.param.QueryTaskDetailParamVO;
 import com.longcity.manage.model.param.QueryTaskParamVO;
+import com.longcity.modeler.dao.MoteTaskDao;
 import com.longcity.modeler.dao.TaskDao;
 import com.longcity.modeler.dao.UserDao;
+import com.longcity.modeler.enums.MoteTaskStatus;
 import com.longcity.modeler.enums.TaskStatus;
+import com.longcity.modeler.model.MoteTask;
 import com.longcity.modeler.model.Task;
 import com.longcity.modeler.model.User;
 import com.longcity.modeler.service.RedisService;
@@ -39,6 +42,9 @@ public class TaskBackController extends BaseController{
 	   
 	   @Resource
 	   UserDao userDao;
+	   
+	   @Resource
+	   MoteTaskDao moteTaskDao;
 	   
 	   @Resource
 	   UserService userService;
@@ -97,6 +103,27 @@ public class TaskBackController extends BaseController{
 	    	
 	    	try{
 	    		response.sendRedirect("./detail?taskId="+id);
+	    	}catch (Exception e) {
+	    		//
+			}
+	    }
+	    
+	    /**
+	     * 运营后台删除模特的接单
+	     * @param id
+	     */
+	    @RequestMapping(value = "deleteMoteTaskById")
+	    @Transactional
+	    protected void deleteMoteTaskById(Integer id,HttpServletResponse response) {
+	    	
+	    	MoteTask moteTask=moteTaskDao.selectByPrimaryKey(id);
+	    	
+	    	moteTaskDao.updateStatus(moteTask.getId(), MoteTaskStatus.follow.getValue());//状态改为关注
+			//任务接单数减1
+			taskDao.updateAcceptNumber(moteTask.getTaskId(),-1);
+	    	
+	    	try{
+	    		response.sendRedirect("./detail?taskId="+moteTask.getTaskId());
 	    	}catch (Exception e) {
 	    		//
 			}

@@ -187,13 +187,13 @@
            AND shot_fee&gt;=#{fee}
        </if>
        <if test="gender!=null and gender!=-1">
-          AND ( gender=#{gender} or gender is null)
+          AND ( gender=#{gender})
        </if>
        <if test="age!=null and age!=-1">
-           AND ( (age_min &lt;=#{age} or age_min is null ) and ( age_max &gt;=#{age} or age_max is null) )
+           AND ( (age_min &lt;=#{age}) and ( age_max &gt;=#{age}) )
        </if>
        <if test="heigth!=null and heigth!=-1">
-           AND ( (height_min &lt;=#{heigth} or height_min is null) and (height_max &gt;=#{heigth} or height_max is null))
+           AND ( (height_min &lt;=#{heigth}) and (height_max &gt;=#{heigth}))
        </if>
        <if test="shape!=null and shape!=-1">
            AND (shape = #{shape} or shape is null)

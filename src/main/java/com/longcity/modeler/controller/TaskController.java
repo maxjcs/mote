@@ -402,7 +402,7 @@ public class TaskController extends AbstractController {
      * 发布任务
      */
 	@ResponseBody
-    @RequestMapping(value = "publish")
+	@RequestMapping(value = "publish")
 	@Transactional
     public Object publish(HttpServletRequest request,Task task) throws Exception{
         try{
