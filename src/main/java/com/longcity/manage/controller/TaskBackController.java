@@ -84,21 +84,25 @@ public class TaskBackController extends BaseController{
 	    
 	    @RequestMapping(value = "approve")
 	    @Transactional
-	    protected void approve(Integer id, Integer status,HttpServletResponse response) {
-	    	taskDao.updateStatus(id, status);
-	    	//返回冻结的金额
-	    	if(status==TaskStatus.not_passed.getValue()){
-	    		Task task=taskDao.selectByPrimaryKey(id);
-	    		//打印用户余额
-	    		userService.printlogUser(task.getUserId());
-	    		Double fee=(task.getPrice()+task.getShotFee())*task.getNumber();
-	        	userService.freezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
-	        	//打印用户余额
-	        	userService.printlogUser(task.getUserId());
-	    	}
-	    	//更新缓存中的数量
-	    	if(TaskStatus.passed.getValue()==status){
-				redisService.redisApplyOk(id);
+	    protected synchronized void approve(Integer id, Integer status,HttpServletResponse response) {
+	    	Task task=taskDao.selectByPrimaryKey(id);
+	    	if(task.getStatus().intValue()!=status.intValue()){
+	    		taskDao.updateStatus(id, status);
+		    	//返回冻结的金额
+		    	if(status==TaskStatus.not_passed.getValue()){
+		    		//打印用户余额
+		    		userService.printlogUser(task.getUserId());
+		    		Double fee=(task.getPrice()+task.getShotFee())*task.getNumber();
+		        	userService.freezeFee(task.getUserId(), -1*MoneyUtil.double2Int(fee));
+		        	//打印用户余额
+		        	userService.printlogUser(task.getUserId());
+		    	}
+		    	//更新缓存中的数量
+		    	if(TaskStatus.passed.getValue()==status){
+					redisService.redisApplyOk(id);
+				}
+	    	}else {
+				
 			}
 	    	
 	    	try{
